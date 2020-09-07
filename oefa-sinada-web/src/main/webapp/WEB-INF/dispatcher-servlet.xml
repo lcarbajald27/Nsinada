@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation=
+		"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+
+  	<context:component-scan base-package="pe.gob.oefa.apps" />
+  	<context:property-placeholder location="classpath:config.properties" />
+	<mvc:annotation-driven />
+	
+		<!-- rutas windows : comentar si se trabaja con linux -->
+<!--  	 	<MVC:RESOURCES MAPPING="/DENUNCIAIMAGEN/**" LOCATION="FILE:///C:/OEFA/SINADA/DENUNCIA/IMAGENES/" /> -->
+<!--  	 	<MVC:RESOURCES MAPPING="/DENUNCIAVIDEOS/**" LOCATION="FILE:///C:/OEFA/SINADA/DENUNCIA/VIDEOS/" /> -->
+<!--  	 	<MVC:RESOURCES MAPPING="/DENUNCIAAUDIOS/**" LOCATION="FILE:///C:/OEFA/SINADA/DENUNCIA/AUDIOS/" /> -->
+<!--  	 	<MVC:RESOURCES MAPPING="/DENUNCIADOCUMENTOS/**" LOCATION="FILE:///C:/OEFA/SINADA/DENUNCIA/DOCUMENTOS/" /> -->
+<!--  	 	<MVC:RESOURCES MAPPING="/DENUNCIAOTROS/**" LOCATION="FILE:///C:/OEFA/SINADA/DENUNCIA/OTROS/" /> -->
+<!--  	 	<MVC:RESOURCES MAPPING="/TEMPORALES/**" LOCATION="FILE:///C:/OEFA/SINADA/DENUNCIA/TEMPORALES/MEDIOS/" />  -->
+<!--  	 	<MVC:RESOURCES MAPPING="/FICHADENUNCIA/**" LOCATION="FILE:///C:/OEFA/SINADA/FICHAS-DENUNCIA/" /> -->
+ 	 	
+ 	 	<!-- rutas linux : comentar si se trabaja con windows -->
+ 	 	
+	 	<mvc:resources mapping="/denunciaImagen/**" location="file:///opt/oefa/sinada/denuncia/imagenes/" />
+	 	<mvc:resources mapping="/denunciaVideos/**" location="file:///opt/oefa/sinada/denuncia/videos/" />
+	 	<mvc:resources mapping="/denunciaAudios/**" location="file:///opt/oefa/sinada/denuncia/audios/" />
+	 	<mvc:resources mapping="/denunciaDocumentos/**" location="file:///opt/oefa/sinada/denuncia/documentos/" />
+	 	<mvc:resources mapping="/denunciaOtros/**" location="file:///opt/oefa/sinada/denuncia/otros/" />
+	 	<mvc:resources mapping="/temporales/**" location="file:///opt/oefa/sinada/denuncia/temporales/medios/" />
+	 	<mvc:resources mapping="/fichaDenuncia/**" location="file:///opt/oefa/sinada/fichas-denuncia/" />
+	
+	
+	<mvc:default-servlet-handler/>
+	
+  	<!-- 11.2.0.3 driver : oracle.jdbc.driver.OracleDriver -->
+	<!-- 11.2.0 driver   : oracle.jdbc.OracleDriver -->
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="419430400" /> 
+		<!-- p:maxUploadSize="1048576" -->
+	</bean>
+	
+	 	<bean id="sinadaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		    <property name="jndiName" value="java:jboss/nsinada-ds"/>
+		</bean> 
+
+<!-- 		<bean id="sinadaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"  -->
+<!-- 			p:driverClassName="oracle.jdbc.OracleDriver" -->
+<!-- 			p:url="jdbc:oracle:thin:@199.89.53.22:1521:xe" -->
+<!-- 			p:username="SINADAAPP" -->
+<!-- 			p:password="123456"> -->
+<!-- 		 </bean> -->
+
+<!--          <bean id="sinadaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"  -->
+<!-- 			p:driverClassName="oracle.jdbc.OracleDriver" -->
+<!-- 			p:url="jdbc:oracle:thin:@190.40.142.13:1521:xe" -->
+<!-- 			p:username="SINADA" -->
+<!-- 			p:password="123456"> -->
+<!-- 		 </bean> -->
+	
+	<bean id="sinadaSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="sinadaDataSource" />
+	  <property name="typeAliasesPackage" value="pe.gob.oefa.apps.sinada.bean"/>
+	  <property name="mapperLocations" value="classpath*:pe/gob/oefa/apps/sinada/persistencia/mappers/*.xml" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sinadaSqlSessionFactory" />
+		<property name="basePackage" value="pe.gob.oefa.apps.sinada.persistencia.mappers" />
+	</bean>
+	
+	<bean id="sinadaTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sinadaDataSource"></property>
+		<qualifier value="sinadaTM" />
+	</bean>
+  
+  	<tx:annotation-driven transaction-manager="sinadaTransactionManager" ></tx:annotation-driven>
+</beans>

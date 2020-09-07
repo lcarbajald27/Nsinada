@@ -1,0 +1,17 @@
+<!doctype html><html ng-app=spapp><head><meta charset=utf-8><title>spapp</title><meta name=description content=""><meta name=viewport content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel=stylesheet><!--<link rel="stylesheet" type="text/css" href="./assets/css/icons-fonts.css">--><link rel=stylesheet type=text/css href=./assets/css/icons_sinada_style.css><link rel=stylesheet type=text/css href=./assets/css/style.min.css><!--  Script angular save pdf--><!--  Script angular save pdf--><!--    <script>
+            var ws = new WebSocket("ws://localhost:8052/oefa-sinada-web/wschat");
+            ws.onopen = function(){
+            };
+            ws.onmessage = function(message){
+                document.getElementById("chatlog").textContent += message.data + "\n";
+            };
+            function postToServer(){
+                ws.send(document.getElementById("msg").value);
+                document.getElementById("msg").value = "";
+            }
+            function closeConnect(){
+                ws.close();
+            }
+        </script>--><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel=stylesheet href=styles/vendor-b3b2dce194.css><link rel=stylesheet href=styles/app-8119c182bb.css></head><!--<body class="bg-fondo">--><body><!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--><div ui-view=root style="display: table;width: 100%"></div><script src=scripts/vendor-6a6a61a232.js></script><script src=scripts/app-cf6a5f8ffa.js></script></body></html>

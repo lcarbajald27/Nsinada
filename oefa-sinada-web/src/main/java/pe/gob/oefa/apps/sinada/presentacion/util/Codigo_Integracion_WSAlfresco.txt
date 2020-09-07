@@ -1,0 +1,52 @@
+Codigo que esta implementado en el proyecto
+
+"oefa-siso-web"
+
+Controlador llamado "pe.gob.oefa.apps.siso.presentacion.rest.api.proceso.SolicitudRest"
+
+Metodos
+
+@ResponseBody
+@RequestMapping(value = "/registrar-solicitud-archivo",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public RespuestaHttp registrarSolicitudArchivo(@RequestParam("file")MultipartFile[] archivo,@RequestParam("strContenido")String contenido,HttpServletRequest request)throws Exception
+{
+	
+   	/** AKI HAY CODIDO QUE NO ESTOY COLOCANDO **/
+
+   	/** EL SIGUIENTE CODIGO ES LA INTEGRACION CON WSALFRESCO **/
+	String uiid = AlfrescoUtil.grabarArchivoAlfresco(archivo[r], folder);
+							
+	if (VO.isNullOrEmpty(uiid)) {
+		respuesta.setMensaje("No se pudo archivar el documento en Alfresco.");
+		return respuesta;
+	}
+
+
+   	/** AKI HAY CODIDO QUE NO ESTOY COLOCANDO **/
+
+}
+
+
+@RequestMapping(value="/descargar-ficha-registro/{id}", method = RequestMethod.GET)
+public void descargar(@PathVariable("id") int id, HttpServletResponse response) {
+	
+   	/** AKI HAY CODIDO QUE NO ESTOY COLOCANDO **/
+
+   	/** EL SIGUIENTE CODIGO ES LA INTEGRACION CON WSALFRESCO **/
+	if (	prmDataInstalacion != null 
+		&& 	prmDataInstalacion.getUiid() != null
+		&& !prmDataInstalacion.getUiid().equals("")) {
+	
+		byte[] fileDescargado = AlfrescoUtil.getArchivo(prmDataInstalacion.getUiid());
+		
+		response.getOutputStream().write(fileDescargado);
+		response.flushBuffer();
+		response.setContentType("application/pdf");
+	}
+
+
+   	/** AKI HAY CODIDO QUE NO ESTOY COLOCANDO **/
+
+}
+
+

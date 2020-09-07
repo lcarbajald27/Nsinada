@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'sinada';
+  src:  url('../font/sinada.eot?h7j1l1');
+  src:  url('../font/sinada.eot?h7j1l1#iefix') format('embedded-opentype'),
+    url('../font/sinada.ttf?h7j1l1') format('truetype'),
+    url('../font/sinada.woff?h7j1l1') format('woff'),
+    url('../font/sinada.svg?h7j1l1#sinada') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'sinada' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-buscar-a:before {
+  content: "\e900";
+}
+.icon-buscar-o:before {
+  content: "\e901";
+}
+.icon-user-e:before {
+  content: "\e902";
+}
+.icon-user-o:before {
+  content: "\e903";
+}
