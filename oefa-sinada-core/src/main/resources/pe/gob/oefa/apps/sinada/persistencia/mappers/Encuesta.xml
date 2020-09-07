@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_OEFA -->
+<mapper namespace="encuesta">
+	<resultMap id="resultMapEncuesta" 	type="Encuesta">
+		<id 	column="ID_ENCUESTA" 			property="idEncuesta" />
+		<result column="CODIGO_DENUNCIA" 			property="codigoDenuncia" />
+		<result column="ID_DENUNCIA" 			property="idDenuncia" />
+		<result column="PREGUNTA_1"				property="pregunta1.codigoRegistro" />
+		<result column="NOMBRE_PREGUNTA1"		property="pregunta1.descripcion" />
+		<result column="PREGUNTA_2"				property="pregunta2.codigoRegistro" />
+		<result column="NOMBRE_PREGUNTA2"		property="pregunta2.descripcion" />
+		<result column="PREGUNTA_3"				property="pregunta3.codigoRegistro" />
+		<result column="NOMBRE_PREGUNTA3"		property="pregunta3.descripcion" />
+		<result column="ESTADO"					property="estado" />
+		<result column="TIPO_ENCUESTA"			property="tipoEncuesta.codigoRegistro" />
+		<result column="NOMBRE_TIPO_ENCUESTA"	property="tipoEncuesta.descripcion" />
+		<result column="ID_BANDEJA_DETALLE"		property="bandejaDetalle.idBandejaDetalle" />
+		<result column="FECHA_REGISTRO"			property="fechaRegistro" />
+		
+
+		
+		
+	</resultMap>
+
+<select id="listar" resultMap="resultMapEncuesta" parameterType="Encuesta">
+
+SELECT 
+		ID_ENCUESTA,
+		ID_DENUNCIA,
+		NOMBRE_TIPO_ENCUESTA,
+		PREGUNTA_1,
+		NOMBRE_PREGUNTA1,
+		PREGUNTA_2,
+		NOMBRE_PREGUNTA2,
+		PREGUNTA_3,
+		NOMBRE_PREGUNTA3,
+		ESTADO,
+		TIPO_ENCUESTA,
+		ID_BANDEJA_DETALLE,
+		CODIGO_DENUNCIA,
+		TO_CHAR(FECHA_REGISTRO, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO
+
+FROM 	
+		SINADA.V_ENCUESTA
+WHERE 
+   		FECHA_REGISTRO BETWEEN TO_DATE(#{fechaInicio,jdbcType=VARCHAR},'DD/MM/YYYY') AND TO_DATE(#{fechaFin,jdbcType=VARCHAR},'DD/MM/YYYY')
+      
+	</select>
+	
+
+	
+<select id="buscarPorId" resultMap="resultMapEncuesta" parameterType="long">
+		SELECT 
+
+		    ID_ENCUESTA,
+		    ID_DENUNCIA,
+		    PREGUNTA_1,
+		    PREGUNTA_2,
+		    PREGUNTA_3,
+		    ESTADO,
+			FECHA_REGISTRO
+		FROM 
+		    SINADA.T_GENM_ENCUESTA
+		AND
+		    ID_ENCUESTA = #{idEncuesta}
+	</select>
+
+	<insert id="agregar" parameterType="Encuesta" useGeneratedKeys="true">
+		<selectKey keyProperty="idEncuesta" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_ENCUESTA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_ENCUESTA(
+		
+		        ID_ENCUESTA,
+			    ID_DENUNCIA,
+			    PREGUNTA_1,
+			    PREGUNTA_2,
+			    PREGUNTA_3,
+			    ESTADO,
+			    TIPO_ENCUESTA,
+	        	ID_BANDEJA_DETALLE,
+	        	FECHA_REGISTRO
+		)VALUES(
+		      #{idEncuesta},
+		      #{idDenuncia},
+		      #{pregunta1.codigoRegistro},
+		      #{pregunta2.codigoRegistro},
+		      #{pregunta3.codigoRegistro},
+		      '1',
+		      #{tipoEncuesta.codigoRegistro},
+		      #{bandejaDetalle.idBandejaDetalle},
+		      (SELECT SYSDATE FROM DUAL)
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="Encuesta"> -->
+<!-- 			UPDATE SINADA.T_GENM_ENCUESTA -->
+<!-- 		SET -->
+<!-- 			ESTADO = 2 -->
+<!-- 		WHERE -->
+<!-- 			FLAG_ACTIVO = 1 -->
+<!-- 		AND  -->
+<!-- 			ID_NOTIFICACION = #{idNotificacion} -->
+<!-- 	</update> -->
+<!-- 	<update id="eliminar" parameterType="long"> -->
+<!-- 		UPDATE SINADA.T_GENM_NOTIFICACIONES -->
+<!-- 		SET -->
+<!-- 			FLAG_ACTIVO = 0 -->
+<!-- 		WHERE -->
+<!-- 			FLAG_ACTIVO = 1 -->
+<!-- 		AND  -->
+<!-- 			ID_NOTIFICACION = #{idNotificacion} -->
+<!-- 	</update> -->
+
+</mapper>

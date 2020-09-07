@@ -1,0 +1,146 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Problem&aacute;tica ambiental no encontrada </h4>
+	</div>
+	<div class="modal-body" ng-form name="notificacionDialogForm">
+
+	<div class="row">
+			<div class="form-group col-md-9">
+					<label style="height: 10px;display: block;" class="important-box">Archivos:</label>
+
+					 <input type="file" id="fileArchivoMedio" class="btn btn-flat file-input-oefa btn-primary btn-sm" multiple="true"   file-change="vm.validaArchivos">
+					<div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+				<!--	<button class="btn btn-default btn-sm" type="button" ng-click="vm.adjuntarArchivo()"><span class="fa fa-upload spac-btn-r"></span>  Adjuntar Archivo</button>-->
+				</div>
+		</div>
+
+		<span class="content-box" id="mensajeHtml">
+			<div class="row">
+				<div class="form-group col-md-9">
+					<label class="important-box">Descr&iacute;benos tu caso</label>
+				</div>
+				<div class="form-group col-md-12">
+					<textarea ng-model="vm.dataDescripcionCaso.descripcionCaso" maxlength="2000"  style="resize: none;" rows="2" class="form-control"></textarea>
+				</div>
+
+			</div>
+      <div class="row">
+        <div class="form-group col-md-9">
+          <h4>Datos de contacto</h4>
+        </div>
+      </div>
+
+			<div class="row">
+
+				<div class="form-group col-md-5">
+				<label for="numeroDocumento" class="important-box">Nro de documento(DNI):</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.documento" ng-disabled="vm.dataPersona.idPersona!=0 || vm.agregarManualPersona==1"  type="text" class="form-control input-sm" input-restrict="numero" maxlength="8"  name="numeroDocumento" placeholder="Ingrese nro de DNI" >
+				</div>
+			</div>
+
+			  <div class="input-group col-md-3" ng-if="vm.agregarManualPersona==0 && vm.dataPersona.idPersona==0">
+                        <label>
+                        </label>
+                        <div class="form-group">
+                            <button class="btn btn-flat btn-primary btn-sm brx-18" ng-click="vm.buscarPersona()"  type="button" ng-disabled="vm.dataPersona.documento.length!=8">
+                                <span class="icon-buscar">
+                                </span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group col-md-3" ng-if="vm.agregarManualPersona==1">
+                        <label>
+                        </label>
+                        <div class="form-group">
+                            <a class="btn btn-flat btn-primary btn-sm brx-18" ng-click="vm.limpiarData()" >
+                                <span class="glyphicon glyphicon-remove">
+                                </span>
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="input-group col-md-3" ng-if="vm.dataPersona.idPersona!=0">
+                        <label>
+                        </label>
+                        <div class="form-group">
+                            <a class="btn btn-flat btn-primary btn-sm brx-18" ng-click="vm.limpiarData()" >
+                                <span class="glyphicon glyphicon-remove">
+                                </span>
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+
+
+
+			</div>
+
+
+
+			<div class="row">
+				<div class="form-group col-md-10" >
+					<label for="nombres" class="important-box">Nombres:</label>
+					<div class="form-group">
+						<input  type="text" ng-disabled="vm.agregarManualPersona==0 || vm.dataPersona.idPersona!=0" maxlength="100" ng-model="vm.dataPersona.nombreCompleto" class="form-control input-sm" name="nombres" >
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-10" >
+					<label for="nombres" class="important-box">Direcci&oacute;n:</label>
+					<div class="form-group">
+						<input  type="text" ng-model="vm.dataDescripcionCaso.direccion" maxlength="200" class="form-control input-sm" name="nombres" >
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-5" >
+					<label for="nombres" class="important-box">Tel&eacute;fono:</label>
+					<div class="form-group">
+						<input  type="text"  ng-model="vm.dataDescripcionCaso.telefono" class="form-control input-sm" input-restrict="numero" maxlength="15" name="nombres" >
+					</div>
+				</div>
+
+						<div class="form-group col-md-5" >
+					<label for="nombres" class="important-box">Correo:</label>
+					<div class="form-group">
+						<input  type="text"  ng-model="vm.dataDescripcionCaso.correo" maxlength="50" class="form-control input-sm" name="nombres" >
+					</div>
+				</div>
+
+			</div>
+
+
+
+
+		</span>
+	</div>
+	<div class="modal-footer">
+    <div class="row">
+      <div id="campoObligatorio" class="col-md-6 text-left" ng-if="true">
+          <p class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</p>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-flat btn-default btn-primary btn-sm brx-18" ng-click="vm.enviarCorreo()"
+        ng-disabled="vm.dataPersona.nombreCompleto==null || vm.dataPersona.nombreCompleto.length==5 || vm.dataPersona.documento==''|| vm.dataPersona.documento.length!=8 || vm.dataDescripcionCaso.correo=='' || vm.dataDescripcionCaso.telefono=='' || vm.dataDescripcionCaso.direccion=='' || vm.validaCorreo()!=1 || vm.dataDescripcionCaso.descripcionCaso==''" style="    border-radius: 18px!important;padding: 5px 10px;"><i class="fa fa-check" aria-hidden="true"></i> Enviar</button>
+      </div>
+    </div>
+
+	</div>
+
+
+</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

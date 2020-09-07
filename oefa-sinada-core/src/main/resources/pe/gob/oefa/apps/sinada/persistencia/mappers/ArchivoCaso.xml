@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_CONTACTO -->
+<mapper namespace="archivoCaso">
+	<resultMap id="resultMapArchivoCaso" type="ArchivoCaso">
+	
+		<id 	column="ID_ARCHIVO_CASO" 		property="idArchivoCaso" />
+		<result column="ID_DESCRIPCION_CASO" 	property="idDescripcionCaso" />
+		<result column="TIPO_ARCHIVO_CASO" 		property="tipoArchivoCaso" />
+		<result column="NOMBRE_ARCHIVO_CASO"	property="nombreArchivoCaso" />
+		<result column="RUTA_ARCHIVO_CASO" 		property="rutaArchivoCaso" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+		<result column="MIME_TYPE_ARCHIVO" 		property="mimeTypeArchivo" />
+		<result column="UIID" 					property="uiid" />
+		
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapArchivoCaso" parameterType="ArchivoCaso">
+			SELECT 
+		      ARC.ID_ARCHIVO_CASO,
+		      ARC.ID_DESCRIPCION_CASO,
+		      ARC.TIPO_ARCHIVO_CASO,
+		      ARC.NOMBRE_ARCHIVO_CASO,
+		      ARC.RUTA_ARCHIVO_CASO,
+		      ARC.FLAG_ACTIVO,
+          	  ARC.MIME_TYPE_ARCHIVO,
+          	  ARC.UIID
+		FROM 
+		      SINADA.T_GEND_ARCHIVO_CASO ARC 
+		WHERE 
+		      ARC.FLAG_ACTIVO = '1'
+		AND
+			  ARC.ID_DESCRIPCION_CASO = #{idDescripcionCaso}
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapArchivoCaso"
+		parameterType="long">
+		SELECT 
+		      ID_ARCHIVO_CASO,
+		      ID_DESCRIPCION_CASO,
+		      TIPO_ARCHIVO_CASO,
+		      NOMBRE_ARCHIVO_CASO,
+		      RUTA_ARCHIVO_CASO,
+		      FLAG_ACTIVO,
+		      MIME_TYPE_ARCHIVO,
+		      UIID
+		FROM 
+		      SINADA.T_GEND_ARCHIVO_CASO
+		WHERE 
+		      FLAG_ACTIVO = '1'
+		AND
+			  ID_ARCHIVO_CASO = #{idArchivoCaso}
+				    
+		    
+	</select>
+	<insert id="agregar" parameterType="ArchivoCaso" useGeneratedKeys="true">
+		<selectKey keyProperty="idArchivoCaso" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_ID_ARCHIVO_CASO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_ARCHIVO_CASO
+		(
+			  ID_ARCHIVO_CASO,
+		      ID_DESCRIPCION_CASO,
+		      TIPO_ARCHIVO_CASO,
+		      NOMBRE_ARCHIVO_CASO,
+		      RUTA_ARCHIVO_CASO,
+		      FLAG_ACTIVO,
+		      MIME_TYPE_ARCHIVO,
+		      UIID
+		)
+		VALUES
+		(
+				#{idArchivoCaso},
+				#{idDescripcionCaso},
+				#{tipoArchivoCaso},
+				#{nombreArchivoCaso},
+				#{rutaArchivoCaso},
+				'1',
+				#{mimeTypeArchivo},
+				#{uiid,jdbcType=VARCHAR}
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="ArchivoDenuncia"> -->
+<!-- 		UPDATE T_GENM_ARTICULO -->
+<!-- 		SET -->
+
+
+<!-- 		DESCRIPCION = #{descripcion}, -->
+<!-- 		DETALLE = #{detalle}, -->
+<!-- 		FECHA_VIGENCIA = #{fechaVigencia}, -->
+<!-- 		FECHA_MODIFICACION = #{fechaModificacion}, -->
+<!-- 		FECHA_DEROGACION = #{fechaDerogacion}, -->
+<!-- 		TM1_ESTADO = #{estado} -->
+
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_ARTICULO = #{idArticulo} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_ARCHIVO_CASO
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_ARCHIVO_CASO = #{idArchivoCaso}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

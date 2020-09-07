@@ -1,0 +1,300 @@
+		<div class="row">
+			<div class="col-md-3">
+				<label> <input type="radio"
+					ng-model="vm.dataCaso.tipoEntidad" name="tipoEntidad" ng-value="2" />
+					OEFA
+				</label>
+			</div>
+			<div class="col-md-3">
+				<label> <input type="radio"
+					ng-model="vm.dataCaso.tipoEntidad" name="tipoEntidad" ng-value="1" />
+					EFA
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" ng-show="vm.dataCaso.tipoEntidad == 2">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="direcciones">Direcci&oacute;n:</label>
+						<select
+							id="direcciones" name="direcciones" ng-change="vm.listaMaestrosHijo();vm.flagActivaPersonaOefa =0;vm.dataCasoOefa.direccionEvaluacion.codigoRegistro=0"
+							ng-model="vm.dataCasoOefa.direccionSupervision.codigoRegistro"  class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option ng-repeat="itemCombo in vm.listaDireccion"
+								ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}
+							</option>
+						</select>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="direccionEvaluacion">Sub direcci&oacute;n / Oficina:</label>
+						<select
+							id="direccionEvaluacion" name="direccionEvaluacion"
+							ng-model="vm.dataCasoOefa.direccionEvaluacion.codigoRegistro" ng-change="vm.flagActivaPersonaOefa =0" class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option ng-repeat="itemCombo in vm.listaDireccionEvaluacion"
+								ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}
+							</option>
+						</select>
+
+					</div>
+
+					<div class="col-md-6 col-sm-6 form-group" >
+            <span style="display: inline-block;"  ng-show="vm.dataCasoOefa.direccionSupervision.codigoRegistro!=0 && vm.dataCasoOefa.direccionEvaluacion.codigoRegistro!=0">
+  						<label style="height: 15px;display: inline;"><br></label>
+  						<span  ng-show="vm.flagActivaPersonaOefa == 0">
+  							<button class="btn btn-flat btn-primary btn-sm btn-br-in" uib-tooltip="{{btnVerUsuario.tooltip}}"
+  								ng-click="vm.listarUsuariosOefa()"> <span class="{{btnVerUsuario.icon}}"></span> {{btnVerUsuario.valor}}
+  							</button>
+  						</span>
+
+  						<span  ng-show="vm.flagActivaPersonaOefa == 1">
+  							<a class="btn btn-flat btn-primary btn-sm btn-br-in" uib-tooltip="{{btnOcultarUsuario.tooltip}}"
+  								ng-click="vm.flagActivaPersonaOefa =0"> <span class="{{btnOcultarUsuario.icon}}"></span> {{btnOcultarUsuario.valor}}
+  							</a>
+  						</span>
+
+  					</span>
+				 
+  					<span style="display: inline-block;" ng-show="vm.dataCasoOefa.direccionSupervision.codigoRegistro!=0 && vm.dataCasoOefa.direccionEvaluacion.codigoRegistro!=0 && vm.flagActivaPersonaOefa == 1">
+  						<label style="height: 15px;display: inline;"><br></label>
+  						<span style="display: inline-block;">
+  							<button class="btn btn-flat btn-primary-inv btn-sm btn-br-in"
+  								ng-click="vm.mostrarListaUsuariosSinada()"> <span class="glyphicon glyphicon-plus"></span> Agregar Usuario
+  							</button>
+  						</span>
+  					</span>
+          </div>
+				</div>
+
+
+				<div class="row"  ng-show="vm.dataCasoOefa.direccionSupervision.codigoRegistro!=0 && vm.dataCasoOefa.direccionEvaluacion.codigoRegistro!=0 && vm.flagActivaPersonaOefa == 1">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="table-rpv">
+								<table class="table table-hover table-bordered tableSiafx table-app"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>&Iacute;tem</th>
+											<th>Nombre usuario</th>
+											<th>Acci&oacute;n</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr
+											ng-show="vm.listaPersonasOefa == null || vm.listaPersonasOefa.length==0">
+											<td colspan="4">No se encontraron resultados</td>
+										</tr>
+										<tr dir-paginate="item in vm.listaPersonasOefa | itemsPerPage: config.itemsPerPage" pagination-id="coutListaPersonaOefa">
+											<td>{{$index+1}}</td>
+											<td>{{item.persona.nombreCompleto}}</td>
+											<td>
+
+												<button type="button" class="btn btn-default btn-sm"
+													 uib-tooltip="Eliminar"
+													ng-click="vm.confirmarEliminarPersonaOefa(item)">
+													<span class="glyphicon glyphicon-trash"></span>
+												</button>
+
+
+											</td>
+
+										</tr>
+
+									</tbody>
+								</table>
+								<dir-pagination-controls pagination-id="coutListaPersonaOefa" ></dir-pagination-controls>
+							</div>
+
+							</div>
+						</div>
+				</div>
+
+
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="">Tipo de asignaci&oacute;n:</label>
+						<select name="tipoAsignacion"
+							ng-model="vm.dataCasoOefa.tipoAsignacion.codigoRegistro" class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option ng-repeat="itemCombo in vm.listaTipoAsignacion"
+								ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+					<div class="form-group col-md-8">
+						<label></label>
+						<div class="form-group">
+							<button class="btn btn-flat btn-primary btn-sm btn-br-in"
+								ng-click="vm.registrarOEfaCaso()" ng-disabled="vm.dataCasoOefa.tipoAsignacion.codigoRegistro==0"> <span class=""></span> Asignar
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="table-rpv">
+				<table class="table table-hover table-bordered tableSiafx table-app"
+					cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Direcci&oacute;n</th>
+							<th>Sub direcci&oacute;n / Oficina</th>
+							<th>Asignaci&oacute;n</th>
+							<th>Acci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							ng-show="vm.listaOefaCaso == null || vm.listaOefaCaso.length==0">
+							<td colspan="4">No se encontraron resultados</td>
+						</tr>
+						<tr dir-paginate="itemEfa in vm.listaOefaCaso | itemsPerPage: config.itemsPerPage" pagination-id="coutListaOefaCaso2">
+							<td>{{itemEfa.direccionSupervision.descripcion}}</td>
+							<td>{{itemEfa.direccionEvaluacion.descripcion}}</td>
+
+							<td><select name="tipoAsignacion{{itemEFA.idCasoOefa}}"
+								ng-model="itemEfa.tipoAsignacion.codigoRegistro" class="form-control input-sm" ng-disabled="itemEfa.swEditable == 0">
+									<option ng-value="0">Seleccione</option>
+									<option ng-repeat="itemCombo in vm.listaTipoAsignacion"
+										ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+							</select></td>
+							<td>
+
+
+								<!-- *********************OK********************** -->
+								<button type="button" class="btn btn-default btn-sm"
+									ng-show="itemEfa.swEditable == 1" ng-disabled="itemEfa.tipoAsignacion.codigoRegistro==0" uib-tooltip="Guardar"
+									ng-click="itemEfa.swEditable = 0 ; vm.editarCasoOefa(itemEfa)">
+									<span class="glyphicon glyphicon-ok"></span>
+								</button>
+								<!-- ********************************************* -->
+								<!-- *******************EDITAR******************** -->
+								<button type="button" class="btn btn-default btn-sm"
+									ng-show="itemEfa.swEditable == 0" uib-tooltip="Editar"
+									ng-click="itemEfa.swEditable = 1">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</button>
+								<!-- ********************************************* -->
+								<!-- ******************ELIMINAR******************* -->
+								<button type="button" class="btn btn-default btn-sm"
+									ng-show="itemEfa.swEditable == 0" uib-tooltip="Eliminar"
+									ng-click="vm.confirmarEliminarCasoOefa(itemEfa)">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button>
+								<!-- ********************************************* -->
+								<!-- *******************CANCELAR****************** -->
+								<button type="button" class="btn btn-default btn-sm"
+									ng-show="itemEfa.swEditable == 1" uib-tooltip="Cancelar"
+									ng-click="itemEfa.swEditable = 0">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
+								<!-- ********************************************* -->
+									<button type="button" class="btn btn-default btn-sm"
+											uib-tooltip="Agregar norma" ng-model="itemEFA.seleccionado"
+											ng-disabled="itemEfa.swEditable == 1"
+											ng-click="vm.listarNormaCasoOefa(itemEfa)">
+											<span class="glyphicon glyphicon-plus"></span>
+										</button>
+									<!-- ********************************************* -->
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<dir-pagination-controls pagination-id="coutListaOefaCaso2" ></dir-pagination-controls>
+			</div>
+			</div>
+		</div>
+
+		<fieldset class="well unp-fieldset"
+			ng-show="vm.dataCaso.tipoEntidad == 1">
+			<div class="row" ng-show="true">
+				<div class="col-md-12" style="text-align: left;">
+					<div>
+						<label>EFAs seleccionadas.</label> <a class="spapp-link"
+							ng-click="vm.mostrarAgregarEfaDialog()">Agregar EFA</a>
+					</div>
+					<div class="table-rpv">
+					<table
+						class="table table-hover table-bordered tableSiafx table-app"
+						cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>&Aacute;mbito</th>
+								<th>Asignaci&oacute;n</th>
+								<th>Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								ng-show="vm.listaEfas == null || vm.listaEfas.length==0">
+								<td colspan="4">No se encontraron resultados</td>
+							</tr>
+							<tr dir-paginate="itemEfa in vm.listaEfas | itemsPerPage: config.itemsPerPage" pagination-id="cout3ListaEfas">
+								<td>{{itemEfa.efa.nombre}}</td>
+								<td class="text-center">{{itemEfa.efa.nombreTipoNivel}}</td>
+								<td><select name="tipoAsignacion{{itemEFA.idEFA}}"
+									ng-model="itemEfa.tipoAsignacion.codigoRegistro" class="form-control input-sm"
+									ng-disabled="itemEfa.swEditable == 0">
+										<option ng-value="0">Seleccione</option>
+										<option ng-repeat="itemCombo in vm.listaTipoAsignacion"
+											ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+								</select></td>
+								<td>
+									<!-- *********************OK********************** -->
+									<button type="button" class="btn btn-default btn-sm"
+										ng-show="itemEfa.swEditable == 1" uib-tooltip="Guardar"
+										ng-click="itemEfa.swEditable = 0 ; vm.editarCasoEfa(itemEfa)">
+										<span class="glyphicon glyphicon-ok"></span>
+									</button> <!-- ********************************************* --> <!-- *******************EDITAR******************** -->
+									<button type="button" class="btn btn-default btn-sm"
+										ng-show="itemEfa.swEditable == 0" uib-tooltip="Editar"
+										ng-click="itemEfa.swEditable = 1">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button> <!-- ********************************************* --> <!-- ******************ELIMINAR******************* -->
+									<button type="button" class="btn btn-default btn-sm"
+										ng-show="itemEfa.swEditable == 0" uib-tooltip="Eliminar"
+										ng-click="vm.confirmarEliminarCasoEfa(itemEfa)">
+										<span class="glyphicon glyphicon-trash"></span>
+									</button> <!-- ********************************************* --> <!-- *******************CANCELAR****************** -->
+									<button type="button" class="btn btn-default btn-sm"
+										ng-show="itemEfa.swEditable == 1" uib-tooltip="Cancelar"
+										ng-click="itemEfa.swEditable = 0">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button> <!-- ********************************************* --> <!-- ***************AGREGAR-NORMA***************** -->
+									<button type="button" class="btn btn-default btn-sm"
+										uib-tooltip="Agregar norma" ng-model="itemEFA.seleccionado"
+										ng-disabled="itemEfa.swEditable == 1"
+										ng-click="vm.agregarNormativa(itemEfa)">
+										<span class="glyphicon glyphicon-plus"></span>
+									</button> <!-- ********************************************* -->
+								</td>
+
+							</tr>
+
+
+						</tbody>
+					</table>
+					<dir-pagination-controls pagination-id="cout3ListaEfas" ></dir-pagination-controls>
+				</div>
+				</div>
+
+			</div>
+
+
+
+		</fieldset>
+
+<br>
+<div class="row">
+      <div class="col-lg-12 text-right">
+        <button type="button" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm btn-br-in" uib-tooltip="{{btnRegresar.tooltip}}" >
+                  <span class="{{btnRegresar.icon}}"></span> {{btnRegresar.valor}}
+              </button>
+
+      </div>
+</div>

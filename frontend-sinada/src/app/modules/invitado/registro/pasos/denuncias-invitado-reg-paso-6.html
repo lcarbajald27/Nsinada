@@ -1,0 +1,82 @@
+<div class="col-lg-12 sin_padding">
+	<span class="" ng-form="vm.formDenuncia" name="denunciaRegistroForm" novalidate><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+        <h3 class="size-title-pasos-inv"><span>Medios probatorios</span></h3>
+        <br/>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 form-group"><b>&#34;Registre los medios probatorios que sustentan su denuncia&#34;</b></div>
+		</div>
+		<div class="row">
+      <div class="form-group col-sm-12 col-md-6 col-lg-4">
+				<label for="descripcion">Tipo archivo:</label>
+				<select id="descripcion" name="descripcion" ng-model="vm.denuncia.tipoMedio" ng-change="vm.cambiarTipoArchivo();vm.denuncia.descripcionArchivo=''" class="form-control input-sm">
+					<option ng-value="0">Ninguno</option>
+					<option ng-repeat="itemCombo in vm.listaTipoDescripcion" ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+				</select>
+			</div>
+			<div class="col-sm-6 col-md-6 col-lg-5">
+					<div class="form-group">
+            <label></label>
+					  <input type="file" id="fileArchivoMedio" ng-disabled="vm.denuncia.tipoMedio==0" class="btn btn-flat btn-primary btn-sm" file-change="vm.validaDocumento" style="width: 100%;">
+					  <div ng-show="vm.denuncia.tipoMedio != 0" class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+				<!--  <input class="btn btn-flat btn-primary btn-sm" type="file" file-model="vm.fileModelDocumento" ng-click="vm.validaDocumento()"> -->
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-12 col-lg-3">
+        <div class="form-group">
+            <label style="height: 17px;display: block;"></label>
+            <button class="btn btn-primary btn-sm brx-18" ng-disabled="vm.denuncia.tipoMedio==5 && !vm.denuncia.descripcionArchivo" ng-click="vm.agregarMedio()">
+              <span class="fa fa-plus"></span> A&ntilde;adir
+            </button>
+        </div>
+			</div>
+		</div>
+		<div class="row" ng-if="vm.denuncia.tipoMedio == 5">
+			<div class="form-group col-md-10">
+				<label for="idProducto" >Especifique</label>
+				<div class="form-group" >
+					<input type="text" class="form-control input-sm" maxlength="150" ng-model="vm.denuncia.descripcionArchivo" />
+				</div>
+				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			 <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Tipo de archivo</th>
+			        <th>Nombre archivo</th>
+			        <th>Acci&oacute;n</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr dir-paginate="item in vm.denuncia.lstArchivoMedio | itemsPerPage: config.itemsPerPage" pagination-id="count">
+			      	<td>{{item.tipoArchivo.descripcion}}  <span ng-if="item.tipoArchivo.codigoRegistro==5"> - {{item.descripcionArchivo}}</span></td>
+         			<td>{{item.nombreArchivo}}</td>
+			        <td class="text-center">
+								<button type="button" class="btn btn-default btn-sm" uib-tooltip="eliminar" ng-click="vm.eliminarArchivo($index)">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button>
+              </td>
+			      </tr>
+			    </tbody>
+			  </table>
+				<dir-pagination-controls pagination-id="count" ></dir-pagination-controls>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-lg-12 text-right">
+					<button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.regresar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18">
+						<span class="icon-regresar spac-btn-r"></span> Regresar
+					</button>
+					<button type="button" ng-click="vm.siguiente()"  ng-disabled="vm.denuncia.tipoMedio!=0"  class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18">
+						<span class="icon-siguiente spac-btn-r"></span> Siguiente
+					</button>
+			</div>
+		</div>
+	</span>
+</div>

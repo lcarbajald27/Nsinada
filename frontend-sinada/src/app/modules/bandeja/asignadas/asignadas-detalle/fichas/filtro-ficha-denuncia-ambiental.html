@@ -1,0 +1,194 @@
+<div class="row">
+
+	<div class="form-group col-lg-12 ">
+		<fieldset class="well unp-fieldset">
+		<div ng-bind-html="renderHtml(urlPDFFichaDenuncia)"></div>
+		</fieldset>
+		 <!--<table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+           
+            <tbody>
+
+
+              <tr>
+                <td colspan="8" class="text-center"><strong>Ficha de Registro de Denuncia Ambiental</strong></td>
+                                         
+              </tr>
+
+
+            	<tr>
+		                <td colspan="2" ><strong>Codigo de Denuncia:</strong></td>
+		                <td colspan="2" class="text-center" >{{vm.dataDenunciaRevision.codigoDenuncia}}</td>
+		                <td colspan="2" ><strong>Codigo de Acceso:</strong></td>
+		                <td colspan="2" class="text-center">{{vm.dataDenunciaRevision.codigoAcceso}}</td>
+		         
+              	</tr>
+
+              	<tr>
+		                <td colspan="4" ><strong>Tipo de Denuncia:</strong></td>
+		                <td colspan="4" class="text-center" >{{vm.dataDenunciaRevision.nombreTipoDenuncia}}</td>
+              	</tr>
+
+             	
+				
+            </tbody>
+			
+
+
+
+            <tbody ng-repeat="item in vm.listaDenunciantes" >
+
+              
+					<tr>
+		                <td colspan="8" class="text-center"><strong>Datos de Denunciante</strong></td>
+              	</tr>
+            	<tr>
+		                <td colspan="2" ><strong>Tipo de Denunciante:</strong></td>
+		                <td colspan="2" class="text-center" >{{item.nombreTipoPersona}}</td>
+		                <td colspan="2" ><strong>Numero Documento:</strong></td>
+		                <td colspan="2" class="text-center">{{item.numeroDocumento}}</td>
+
+
+		                
+		         
+              	</tr>
+				
+				<tr>
+		                <td colspan="2" ><strong>Nombre / Razon Social:</strong></td>
+		                <td colspan="6" class="text-center" >{{item.nombreCompleto}}</td>
+		       
+
+              	</tr>
+
+              	<tr>
+		                <td colspan="2" ><strong>Direcci&oacute;n / Direcci&oacute;n:</strong></td>
+		                <td colspan="6" class="text-center" >{{item.direccion}}</td>
+		       
+              	</tr>
+
+              	<tr>
+		                <td colspan="2" ><strong>Referencia:</strong></td>
+		                <td colspan="6" class="text-center" >{{item.referencia}}</td>
+		       
+              	</tr>
+
+              	<tr ng-show="item.tipoPersona==2">
+		                <td colspan="2" ><strong>Representante Legal:</strong></td>
+		                <td colspan="6" class="text-center" >{{item.nombreRepresentante}}</td>
+		       
+              	</tr>
+
+
+
+              		<tr ng-show="item.tipoPersona==2">
+		                <td colspan="2" ><strong>Cargo:</strong></td>
+		                <td colspan="6" class="text-center" >{{item.nombreCargo}}</td>
+		       
+              	</tr>
+
+
+            
+            </tbody>
+
+             <tbody>
+
+
+              <tr>
+                <td colspan="8" class="text-center"><strong>Datos de la Denuncia</strong></td>
+                                         
+              </tr>
+
+
+            	<tr>
+		                <td colspan="2" ><strong>Problematica:</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.problematica.descripcion}}</td>
+		           
+		         
+              	</tr>
+
+              	<tr ng-show="vm.prmDataCaso.debidoA1.idDetalleCaso!=0">
+		                <td colspan="2" ><strong>Debibo A(nivel 1):</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.debidoA1.descripcion}}</td>
+		           
+		         
+              	</tr>
+
+              	<tr ng-show="vm.prmDataCaso.debidoA2.idDetalleCaso!=0">
+		                <td colspan="2" ><strong>Debibo A(nivel 2):</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.debidoA2.descripcion}}</td>
+		           
+		         
+              	</tr>
+
+              	<tr ng-show="vm.prmDataCaso.debidoA3.idDetalleCaso!=0">
+		                <td colspan="2" ><strong>Debibo A(nivel 3):</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.debidoA3.descripcion}}</td>
+		           
+		         
+              	</tr>
+
+              		<tr ng-show="vm.prmDataCaso.zonasuceso1.idDetalleCaso!=0"> 
+		                <td colspan="2" ><strong>Zona Suceso(nivel 1):</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.zonasuceso1.descripcion}}</td>
+		           
+		         
+              	</tr>
+
+              	<tr ng-show="vm.prmDataCaso.zonasuceso2.idDetalleCaso!=0">
+		                <td colspan="2" ><strong>Zona Suceso(nivel 2):</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.zonasuceso2.descripcion}}</td>
+		           
+		         
+              	</tr>
+
+              	<tr ng-show="vm.prmDataCaso.zonasuceso3.idDetalleCaso!=0">
+		                <td colspan="2" ><strong>Zona Suceso(nivel 3):</strong></td>
+		                <td colspan="6" class="text-center" >{{vm.prmDataCaso.zonasuceso3.descripcion}}</td>
+              	</tr>
+
+					
+
+              	<tr >
+		                <td  ><strong>Departamento:</strong></td>
+		                <td  >{{vm.dataDenunciaRevision.nombreDepartamento}}</td>
+
+		                   <td  ><strong>Provincia:</strong></td>
+		                <td colspan="2" >{{vm.dataDenunciaRevision.nombreProvincia}}</td>
+
+		                   <td  ><strong>Distrito:</strong></td>
+		                <td colspan="2" >{{vm.dataDenunciaRevision.nombreDistrito}}</td>
+              	</tr>
+              	
+				
+              	<tr >
+		                <td colspan="2"  ><strong>Direccion:</strong></td>
+		                <td colspan="6" >{{vm.dataDenunciaRevision.direccion}}</td>
+
+		                  
+              	</tr>
+
+              	  	<tr >
+		                <td colspan="2"  ><strong>Referencia:</strong></td>
+		                <td colspan="6" >{{vm.dataDenunciaRevision.referencia}}</td>
+
+		                  
+              	</tr>
+
+             	
+				
+            </tbody>
+
+
+          </table>
+		  -->
+
+	</div>
+
+
+
+
+	<div class="form-group col-lg-12 text-right" ng-show="false">
+	   	<button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-sm btn-pd-5" uib-tooltip="Imprimir" >
+	        <span class="glyphicon glyphicon-print spac-btn-r"></span> Imprimir
+	    </button>
+</div>
+</div>

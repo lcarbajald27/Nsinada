@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="form-group col-md-3 col-sm-3">
+    <label for="idProducto">A&ntilde;o</label>
+    <div class="form-group">
+      <!--  <input ng-model="vm.dataDenunciante.year" type="text" maxlength="10" class="form-control input-sm" name="idProducto" placeholder="Ingresar A&ntilde;o" >-->
+      <select ng-model="vm.dataDenunciante.year" id="periodo" name="periodo" class="form-control input-sm">
+        <option value="0" ng-value="0"> Seleccionar </option>
+        <option ng-repeat="itemCombo in vm.listaAnios" ng-value="itemCombo">{{itemCombo}}</option>
+
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group col-md-3 col-sm-3">
+    <label for="idProducto"> Mes </label>
+    <div class="form-group">
+      <!-- <input ng-model="vm.dataDenunciante.month" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar Mes">-->
+      <select ng-model="vm.dataDenunciante.month" id="Mes" name="Mes" class="form-control input-sm">
+        <option value="0" ng-value="0"> Seleccionar </option>
+        <option value="1"> Enero </option>
+        <option value="2"> Febrero </option>
+        <option value="3"> Marzo </option>
+        <option value="4"> Abril </option>
+        <option value="5"> Mayo </option>
+        <option value="6"> Junio </option>
+        <option value="7"> Julio </option>
+        <option value="8"> Agosto </option>
+        <option value="9"> Septiembre </option>
+        <option value="10"> Octubre </option>
+        <option value="11"> Noviembre </option>
+        <option value="12"> Diciembre </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group col-md-3 col-sm-3">
+    <label for="idProducto">Rango inicial</label>
+    <div class="form-group">
+      <div class="input-group">
+        <label for="txtFechaInicio" class="input-group-addon input-sm">
+          <i class="icon-fecha"></i>
+        </label>
+        <input type="text" class="input-sm form-control" uib-datepicker-popup="dd/MM/yyyy" is-open="vm.showDpFechaInicio" show-button-bar="false"
+          datepicker-options="vm.options" ng-click="vm.openDatepicker('dpFechaInicio')" ng-model="vm.fechaRegistroDenunciaInicio"
+        />
+      </div>
+      <!--  <input ng-model="vm.dataDenunciante.fechaRegistroDenunciaInicio" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar Rango Inicial">-->
+    </div>
+  </div>
+
+  <div class="form-group col-md-3 col-sm-3">
+    <label for="idProducto">Rango final</label>
+    <div class="form-group">
+      <div class="input-group">
+        <label for="txtFechaInicio" class="input-group-addon input-sm">
+          <i class="icon-fecha"></i>
+        </label>
+        <input type="text" class="input-sm form-control" uib-datepicker-popup="dd/MM/yyyy" is-open="vm.showDpFechaFin" show-button-bar="false"
+          datepicker-options="vm.optionsRangoFinal" ng-click="vm.openDatepicker('dpFechaFin')" ng-model="vm.fechaRegistroDenunciaFin"
+        />
+      </div>
+      <!-- <input ng-model="vm.dataDenunciante.fechaRegistroDenunciaFin" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar Rango Final">-->
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="form-group col-md-3 col-sm-3">
+    <label for="idProducto">Tiempo transcurrido desde el registro</label>
+    <div class="form-group">
+      <div class="input-group">
+        <label for="txtFechaInicio" class="input-group-addon input-sm">
+          <i class="icon-fecha"></i>
+        </label>
+        <input type="text" class="input-sm form-control" uib-datepicker-popup="dd/MM/yyyy" is-open="vm.showDpFechaTiempoTranscurrido"
+          show-button-bar="false" datepicker-options="vm.options" ng-click="vm.openDatepicker('dpFechaTiempoTranscurrido')"
+          ng-model="vm.fechaTiempoTranscurrido" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-3 col-sm-3">
+    <label for="idProducto">Tiempo transcurrido desde la &uacute;ltima acci&oacute;n</label>
+    <div class="form-group">
+      <div class="input-group">
+        <label for="txtFechaInicio" class="input-group-addon input-sm">
+          <i class="icon-fecha"></i>
+        </label>
+        <input type="text" class="input-sm form-control" uib-datepicker-popup="dd/MM/yyyy" is-open="vm.showDpFechaTiempoTranscurridoActualizacion"
+          show-button-bar="false" datepicker-options="vm.options" ng-click="vm.openDatepicker('dpFechaTiempoTranscurridoActualizacion')"
+          ng-model="vm.fechaTiempoTranscurridoUltimaAccion" />
+      </div>
+    </div>
+  </div>
+</div> -->

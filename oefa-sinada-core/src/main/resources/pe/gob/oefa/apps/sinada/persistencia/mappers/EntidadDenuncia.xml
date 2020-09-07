@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_CONTACTO -->
+<mapper namespace="entidadDenuncia">
+	<resultMap id="resultMapEntidadDenuncia" type="EntidadDenuncia">
+	
+		<id 	column="ID_BANDEJA_DETALLE" 		property="idBandejaDetalle" />
+		<result column="TIPO_ENTIDAD_COMPETENTE" 	property="tipoEntidadComponente" />
+		<result column="NOMBRE_TIPO_ENTIDAD" 		property="nombreTipoEntidad" />
+		<result column="ID_EFA"						property="idEfa" />
+		<result column="DIRECCION_SUPERVICION" 		property="direccionSupervicion" />
+		<result column="SUB_DIRECCION" 				property="subDireccion" />
+		<result column="COORDINACION" 				property="coordinacion" />
+		<result column="NOMBRE_ENTIDAD" 			property="nombreEntidad" />
+		<result column="TIPO_ASIGNACION" 			property="tipoAsignacion" />
+		<result column="NOMBRE_TIPO_ASIGNACION" 	property="nombreTipoAsignacion" />
+		<result column="ID_DENUNCIA" 				property="idDenuncia" />
+		<result column="CODIGO_DENUNCIA" 			property="codigoDenuncia" />
+		<result column="FECHA_ULTIMA_ACCION" 		property="fechaUltimaAccion" />
+		<result column="TIEMPO_TRANSCURRIDO" 		property="tiempoTranscurrido" />
+		<result column="ESTADO_DENUNCIA" 			property="estadoEntidadDenuncia" />
+		<result column="NOMBRE_ESTADO_DENUNCIA" 	property="nombreEstadoEntidadDenuncia" />
+		<result column="FECHA_PLAZO_ATENCION" 		property="fechaPlazoAtencion" />
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapEntidadDenuncia" parameterType="EntidadDenuncia">
+		SELECT 
+		        ID_BANDEJA_DETALLE,
+		        TIPO_ENTIDAD_COMPETENTE,
+		        NOMBRE_TIPO_ENTIDAD,
+		        ID_EFA,
+		        DIRECCION_SUPERVICION,
+		        SUB_DIRECCION,
+		        COORDINACION,
+		        NOMBRE_ENTIDAD,
+		        TIPO_ASIGNACION,
+		        NOMBRE_TIPO_ASIGNACION,
+		        ID_DENUNCIA,
+		        CODIGO_DENUNCIA,
+		        FECHA_ULTIMA_ACCION,
+		        TIEMPO_TRANSCURRIDO,
+		        ESTADO_DENUNCIA,
+		        NOMBRE_ESTADO_DENUNCIA,
+		        FECHA_PLAZO_ATENCION
+		
+		FROM 
+		        SINADA.V_ENTIDAD_DENUNCIA
+		WHERE 
+		 		ID_DENUNCIA =#{idDenuncia}
+
+
+	</select>
+	
+	
+	<select id="buscarPorIdBandejaDetalle" resultMap="resultMapEntidadDenuncia" parameterType="EntidadDenuncia">
+		SELECT 
+		        ID_BANDEJA_DETALLE,
+		        TIPO_ENTIDAD_COMPETENTE,
+		        NOMBRE_TIPO_ENTIDAD,
+		        ID_EFA,
+		        DIRECCION_SUPERVICION,
+		        SUB_DIRECCION,
+		        COORDINACION,
+		        NOMBRE_ENTIDAD,
+		        TIPO_ASIGNACION,
+		        NOMBRE_TIPO_ASIGNACION,
+		        ID_DENUNCIA,
+		        CODIGO_DENUNCIA,
+		        FECHA_ULTIMA_ACCION,
+		        TIEMPO_TRANSCURRIDO,
+		        ESTADO_DENUNCIA,
+		        NOMBRE_ESTADO_DENUNCIA,
+		        FECHA_PLAZO_ATENCION
+		
+		FROM 
+		        SINADA.V_ENTIDAD_DENUNCIA
+		WHERE 
+		 		ID_BANDEJA_DETALLE =#{idBandejaDetalle}
+
+
+	</select>
+	
+
+	
+</mapper>

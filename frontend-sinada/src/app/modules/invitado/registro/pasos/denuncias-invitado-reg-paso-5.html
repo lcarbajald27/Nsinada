@@ -1,0 +1,740 @@
+<div class="col-lg-12 sin_padding">
+<!-- 	<span class="" ng-form="vm.formDenuncia" name="denunciaRegistroForm" novalidate >box-bg-lef-15 -->
+<!-- 		<div class="row"> -->
+<!-- 			<div class="col-md-12"> -->
+<!-- 				<h3 class="size-title-pasos-inv"><span>&iquest;Qu&eacute;?</span></h3> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<br/> -->
+
+  <fieldset class="well unp-fieldset" ng-if="vm.objPreguntaRes.validaPregunta==0">
+        <div class="row">
+            <div class="col-md-12">
+              A)  &iquest;Se identific&oacute; qui&eacute;n causa el problema?
+            </div>
+        </div>
+        <div class="row desing_input">
+            <div class="col-md-4 wp-polls-ul">
+                <input id="afirmacion" ng-click="vm.limpiar();vm.procesoPregunta(1); vm.dataDenuncia.tipoPersona = 0;" ng-model="vm.responsableProblema" ng-value="1" type="radio"/>
+                <label for="afirmacion">
+                    S&iacute;
+                </label>
+            </div>
+           <div class="col-md-4 wp-polls-ul">
+                <input id="negacion" ng-click="vm.limpiar();vm.dataDenuncia.tipoPersona = 0;vm.denuncia.responsableProblema=0;" ng-model="vm.responsableProblema" ng-value="0" type="radio"/>
+                <label for="negacion">
+                    No
+                </label>
+            </div>
+            
+            <div class="col-md-4 wp-polls-ul" ng-if="false">
+                <input id="negacion" ng-click="vm.limpiar();vm.dataDenuncia.tipoPersona = 0;vm.denuncia.responsableProblema=0;" ng-model="vm.responsableProblema" ng-value="2" type="radio"/>
+                <label for="negacion">
+                    nada
+                </label>
+            </div>
+            
+            
+        </div>
+
+
+  </fieldset >
+
+   <fieldset class="well unp-fieldset" ng-if="vm.objPreguntaRes.validaPregunta==1" >
+
+        <div class="row">
+            <div class="col-md-12">
+                {{vm.textoPreguntaVerificarDenunciado.pregunta1}} 
+            </div>
+        </div>
+        <div class="row desing_input">
+            <div class="col-md-4 wp-polls-ul">
+                <input id="afirmacion" ng-click="vm.limpiar()" ng-model="vm.objPreguntaRes.respuestaPregunta1" ng-value="1" type="radio"/>
+                <label for="afirmacion">
+                    S&iacute;
+                </label>
+            </div>
+            <div class="col-md-4 wp-polls-ul">
+                <input id="negacion" ng-click="vm.limpiar();vm.procesoPregunta(2)" ng-model="vm.objPreguntaRes.respuestaPregunta1" ng-value="0" type="radio"/>
+                <label for="negacion">
+                    No
+                </label>
+            </div>
+            
+            
+            <div class="col-md-4 wp-polls-ul" ng-if="false">
+                <input id="negacion" ng-click="vm.limpiar();vm.procesoPregunta(2)" ng-model="vm.objPreguntaRes.respuestaPregunta1" ng-value="2" type="radio"/>
+                <label for="negacion">
+                    NADA
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="form-group col-lg-12 text-right">
+
+                    <button class="btn btn-flat btn-default btn-primary btn-sm brx-18" ng-click="vm.procesoPregunta(0);" ng-disabled="vm.formUsuario.$invalid" type="button">
+                        <span class="icon-regresar spac-btn-r">
+                        </span>
+                        Atras
+                    </button>
+            
+                </div>
+            </div>
+
+
+  </fieldset >
+
+  <fieldset class="well unp-fieldset" ng-if="vm.objPreguntaRes.validaPregunta==2">
+
+     <div class="row">
+            <div class="col-md-12">
+                {{vm.textoPreguntaVerificarDenunciado.pregunta2}} 
+            </div>
+        </div>
+        <div class="row desing_input">
+            <div class="col-md-4 wp-polls-ul">
+                <input id="afirmacion" ng-click="vm.limpiar();vm.dialogBusquedaPersona();vm.limpiarTextoVerificarDenunciado();" ng-model="vm.objPreguntaRes.respuestaPregunta2" ng-value="1" type="radio"/>
+                <label for="afirmacion">
+                    S&iacute;
+                </label>
+            </div>
+            <div class="col-md-4 wp-polls-ul">
+                <input id="negacion" ng-click="vm.limpiar();" ng-model="vm.objPreguntaRes.respuestaPregunta2" ng-value="0" type="radio"/>
+                <label for="negacion">
+                    No
+                </label>
+            </div>
+            
+             <div class="col-md-4 wp-polls-ul" ng-if="false">
+                <input id="negacion" ng-click="vm.limpiar();" ng-model="vm.objPreguntaRes.respuestaPregunta2" ng-value="2" type="radio"/>
+                <label for="negacion">
+                    NADA
+                </label>
+            </div>
+            
+        </div>
+
+          <div class="row">
+                <div class="form-group col-lg-12 text-right">
+
+                    <button class="btn btn-flat btn-default btn-primary btn-sm brx-18" ng-click="vm.procesoPregunta(1);" ng-disabled="vm.formUsuario.$invalid" type="button">
+                        <span class="icon-regresar spac-btn-r">
+                        </span>
+                        Atras
+                    </button>
+            
+                </div>
+            </div>
+
+ </fieldset >
+
+
+
+ <fieldset class="well unp-fieldset" ng-if="vm.objPreguntaRes.respuestaPregunta2==0 && vm.objPreguntaRes.validaPregunta==2">
+
+     
+            <div class="row"  >
+                    <div class="form-group col-md-12"   >
+                        <label for="cargo" class="important-box">
+                           Nombre denunciado:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="100"  ng-model="vm.denuncia.nombreDenunciado" type="text"/>
+                      
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12"   >
+                        <label for="cargo" class="important-box">
+                            Direcci&oacute;n denunciado:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="100"  ng-model="vm.denuncia.direccionDenunciado" type="text"/>
+                    
+                        </div>
+                    </div>
+                </div>
+
+
+ </fieldset >
+
+
+        <br>
+            <div id="metodoBusquedaUsuario">
+            </div>
+            <div ng-show="vm.responsableProblema==1 && vm.objPreguntaRes.respuestaPregunta1==1">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="important-box" for="tipoPersona">
+                            Tipo de persona:
+                        </label>
+                        <select class="form-control input-sm" id="tipoPersona" name="tipoPersona" ng-change="vm.limpiar();vm.dataDenuncia.tipoDocumento=vm.cambiarTipoDocumento(vm.dataDenuncia.tipoPersona)" ng-disabled="vm.flagRegistrarDenunciado == 1" ng-model="vm.dataDenuncia.tipoPersona">
+                            <option ng-value="0">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaTipoPersona" ng-value="itemCombo.codigoRegistro*1 ">
+                                {{itemCombo.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6" ng-show="vm.dataDenuncia.tipoPersona!=0">
+                        <label class="important-box" for="tipoDocumento">
+                            Tipo de documento:
+                        </label>
+                        <select class="form-control input-sm" id="tipoDocumento" name="tipoDocumento" ng-disabled="true" ng-model="vm.dataDenuncia.tipoDocumento">
+                            <option ng-value="0">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaTipoDocumento" ng-value="itemCombo.codigoRegistro*1">
+                                {{itemCombo.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3" ng-show="vm.dataDenuncia.tipoPersona==1">
+                        <label class="important-box" for="numeroDocumento">
+                            Nro de documento:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" input-restrict="numero" maxlength="8" name="numeroDocumento" ng-maxlength="8" ng-minlength="8" ng-disabled="vm.flagRegistrarDenunciado == 1" ng-model="vm.dataPersona.documento" ng-required="true" placeholder="Ingrese nro de documento" type="text">
+                            </input>
+                        </div>
+                        <!--<div class="field-message"
+                        ng-messages="denunciaRegistroForm.numeroDocumento.$error"
+                        ng-if='denunciaRegistroForm.numeroDocumento.$invalid && denunciaRegistroForm.numeroDocumento.$touched' ng-cloak>
+                        <div ng-message="required" class="help-block">Campo obligatorio</div>
+                        <div ng-message="minlength"  class="help-block">Ingrese número de 8 d&iacute;gitos
+                        </div>
+                </div>-->
+                    </div>
+                    <div class="form-group col-md-3" ng-show="vm.dataDenuncia.tipoPersona==2">
+                        <label class="important-box" for="numeroDocumento">
+                            Nro de documento:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" input-restrict="numero" maxlength="11" name="numeroDocumento" ng-maxlength="11" ng-minlength="11" ng-disabled="vm.flagRegistrarDenunciado == 1" ng-model="vm.dataEntidad.ruc" ng-required="true" placeholder="Ingrese nro de documento" type="text">
+                            </input>
+                        </div>
+<!--                         <div class="field-message" ng-cloak="" ng-if="denunciaRegistroForm.numeroDocumento.$invalid && denunciaRegistroForm.numeroDocumento.$touched" ng-messages="denunciaRegistroForm.numeroDocumento.$error"> -->
+<!--                             <div class="help-block" ng-message="required"> -->
+<!--                                 Campo obligatorio -->
+<!--                             </div> -->
+<!--                             <div class="help-block" ng-message="minlength"> -->
+<!--                                 Ingrese n&uacute;mero de 11 d&iacute;gitos -->
+<!--                             </div> -->
+<!--                         </div> -->
+                    </div>
+                    <div class="input-group col-md-3" ng-if="vm.flagRegistrarDenunciado == 1">
+                        <label>
+                        </label>
+                        <div class="form-group">
+                            <a class="btn btn-flat btn-primary btn-sm brx-18" ng-click="vm.flagRegistrarDenunciado = 0;vm.flagUbigeoDenunciante = 0;vm.limpiar()">
+                                <span class="glyphicon glyphicon-remove">
+                                </span>
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="input-group col-md-3" ng-if="vm.flagRegistrarDenunciado == 0">
+                        <label>
+                        </label>
+                        <div class="form-group" ng-show="vm.dataDenuncia.tipoPersona==1">
+                            <button class="btn btn-flat btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.buscarPersona()" ng-disabled="!(vm.dataPersona.documento.length == 8)">
+                                <span class="icon-buscar spac-btn-r">
+                                </span>
+                                Buscar
+                            </button>
+                        </div>
+                        <div class="form-group" ng-show="vm.dataDenuncia.tipoPersona==2">
+                            <button class="btn btn-flat btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.buscarEntidad()" ng-disabled="!denunciaRegistroForm.numeroDocumento.$valid">
+                                <span class="icon-buscar spac-btn-r">
+                                </span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6" ng-class="{'has-error':denunciaRegistroForm.razonSocial.$invalid && denunciaRegistroForm.razonSocial.$touched}" ng-show="vm.dataDenuncia.tipoPersona==2">
+                        <label class="important-box" for="razonSocial">
+                            Raz&oacute;n social:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="razonSocial" ng-disabled="vm.flagRegistrarDenunciado==0" ng-model="vm.dataEntidad.razonSocial" ng-required="true" type="text"/>
+                           
+                        </div>
+                        <div class="field-message" ng-cloak="" ng-if="denunciaRegistroForm.razonSocial.$invalid && denunciaRegistroForm.razonSocial.$touched" ng-messages="denunciaRegistroForm.razonSocial.$error">
+                            <div class="help-block" ng-message="required">
+                                Campo obligatorio
+                            </div>
+                        </div>
+                    </div>
+
+            <div class="form-group col-md-6" ng-if="vm.dataDenuncia.tipoDocumento ==2 && vm.flagRegistrarDenunciado==1">
+                    <label  for="razonSocial">
+                           
+                    </label>
+
+                    <div class="form-group">
+                    
+                    <button ng-if="vm.flagAgregarRepresentanteLegal==0" class="btn btn-flat btn-primary btn-sm" ng-click="vm.limpiarRepresentanteLegal();vm.flagAgregarRepresentanteLegal=1" >
+                    	<span >Agregar representante legal</span>
+                 
+                    </button>
+                    
+                     <button ng-if="vm.flagAgregarRepresentanteLegal==1" class="btn btn-flat btn-primary btn-sm" ng-click="vm.limpiarRepresentanteLegal();vm.flagAgregarRepresentanteLegal=0" >
+                    
+                        <span >Cancelar registro representante legal</span>
+                    </button>
+                    
+<!--                         <input  name="activaRepre"  ng-true-value="1" ng-change="vm.limpiarRepresentanteLegal()" ng-false-value="0" ng-model="vm.flagAgregarRepresentanteLegal" type="checkbox"/> -->
+<!--                         <span ng-if="vm.flagAgregarRepresentanteLegal==0">Agregar representante legal</span> -->
+<!--                         <span ng-if="vm.flagAgregarRepresentanteLegal==1">Sin representante legal</span> -->
+                    </div>
+                </div>
+
+
+                </div>
+
+                   <fieldset  class="well unp-fieldset"  ng-if="vm.dataDenuncia.tipoPersona==2 && vm.flagAgregarRepresentanteLegal==1">
+
+                <legend class="unp-legend">
+                        Datos representante legal
+                </legend>
+            <div class="row" >
+                    <div class="form-group col-md-6"   >
+                        <label for="cargo" class="important-box">
+                            Documento:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="8" input-restrict="numero" ng-disabled="(vm.dataEntidad.representanteLegal.idPersona !=null  && vm.dataEntidad.representanteLegal.idPersona!=0) || vm.flagAgregarManualmenteRepresentanteLegal==1" ng-model="vm.dataEntidad.representanteLegal.documento" type="text"/>
+                      
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6" ng-if="(vm.dataEntidad.representanteLegal.idPersona ==null || vm.dataEntidad.representanteLegal.idPersona==0) && vm.flagAgregarManualmenteRepresentanteLegal==0" >
+                    <br/>
+                        <button class="btn btn-flat btn-primary btn-sm" ng-class="vm.dataEntidad.representanteLegal.documento == null || vm.dataEntidad.representanteLegal.documento.length    <8 ? 'bloquear' : ''" ng-click="vm.buscarRepresentanteLegal()" ng-disabled="vm.dataEntidad.representanteLegal.documento == null || vm.dataEntidad.representanteLegal.documento.length <8 ">
+                            <span class="icon-buscar">
+                            </span>
+                            Buscar representante
+                        </button>
+                    </div>
+
+                    <div class="form-group col-md-6" ng-if="(vm.dataEntidad.representanteLegal.idPersona !=null  && vm.dataEntidad.representanteLegal.idPersona!=0) && vm.flagAgregarManualmenteRepresentanteLegal==0">
+                    <br/>
+                        <a class="btn btn-flat btn-primary btn-sm"  ng-click="vm.limpiarRepresentanteLegal()" >
+                            <span class="icon-buscar">
+                            </span>
+                            Nueva Busqueda representante
+                        </a>
+                    </div>
+
+
+                
+                </div>
+                 
+                <div class="row"  >
+                    <div class="form-group col-md-6"   >
+                        <label for="cargo" class="important-box">
+                            Nombres representante:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="25" ng-disabled="vm.flagAgregarManualmenteRepresentanteLegal==0" ng-model="vm.dataEntidad.representanteLegal.nombres" type="text"/>
+                      
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6"   >
+                        <label for="cargo" class="important-box">
+                            Apellido paterno representante:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="25" ng-disabled="vm.flagAgregarManualmenteRepresentanteLegal==0" ng-model="vm.dataEntidad.representanteLegal.apellidoPaterno" type="text"/>
+                    
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  >
+                    <div class="form-group col-md-6"   >
+                        <label for="cargo" class="important-box">
+                            Apellido materno representante:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="25" ng-disabled="vm.flagAgregarManualmenteRepresentanteLegal==0" ng-model="vm.dataEntidad.representanteLegal.apellidoMaterno" type="text"/>
+               
+                        </div>
+                    </div>
+                </div>
+
+
+
+                 <div class="row" ng-if="vm.flagAgregarManualmenteRepresentanteLegal==1">
+                        <div class="form-group col-md-4 col-sm-4">
+                            <label class="important-box" for="departamento">
+                                Departamento:
+                            </label>
+                            <div class="form-group">
+                               
+                                <select class="form-control input-sm" id="departamento" name="departamento"
+                                ng-if="vm.flagAgregarManualmenteRepresentanteLegal==1"  ng-change="vm.listarProvinciaRepresentanteLegal();vm.dataEntidad.representanteLegal.provincia = '';vm.dataEntidad.representanteLegal.distrito = '';vm.listaProvinciaRepresente = [];vm.listaDistritoRepresente=[]" 
+                                ng-model="vm.dataEntidad.representanteLegal.departamento">
+                                    <option value="">
+                                        Seleccione
+                                    </option>
+                                    <option ng-repeat="itemCombo in vm.listaDepartamento" ng-value="itemCombo.codigoDepartamento">
+                                        {{itemCombo.descripcionDepartamento}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4" >
+                            <label class="important-box" for="provincia">
+                                Provincia:
+                            </label>
+                            <div class="form-group">
+                            
+                                <select class="form-control input-sm" id="provincia" name="provincia" 
+                                
+                                ng-change="vm.listarDistritoRepresentanteLegal();vm.dataEntidad.representanteLegal.distrito = '';vm.listaDistritoRepresente=[]" 
+                                 ng-model="vm.dataEntidad.representanteLegal.provincia">
+                                    <option value="">
+                                        Seleccione
+                                    </option>
+                                    <option ng-repeat="itemCombo in vm.listaProvinciaRepresente" ng-value="itemCombo.codigoProvincia">
+                                        {{itemCombo.descripcion}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-4" >
+                            <label class="important-box" for="distrito">
+                                Distrito:
+                            </label>
+                            <div class="form-group">
+                                <select class="form-control input-sm" id="distrito" name="distrito"  
+                                
+                                  ng-model="vm.dataEntidad.representanteLegal.distrito">
+                                    <option value="">
+                                        Seleccione
+                                    </option>
+                                    <option ng-repeat="itemCombo in vm.listaDistritoRepresente" ng-value="itemCombo.codigoDistrito">
+                                        {{itemCombo.descripcionDistrito}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                   <div class="row" ng-if="vm.flagAgregarManualmenteRepresentanteLegal==1">
+                        <div class="form-group col-md-12 col-sm-12" >
+                            <label class="important-box" for="direccion">
+                                Direcci&oacute;n:
+                            </label>
+                            <div class="form-group">
+                                <input class="form-control input-sm" name="direccion"
+                                
+                                 maxlength="250" ng-model="vm.dataEntidad.representanteLegal.direccion" type="text"/>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row"  ng-if="vm.flagAgregarManualmenteRepresentanteLegal==0">
+                    <div class="form-group col-md-6"   >
+                        <label for="cargo" class="important-box">
+                            Cargo:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" maxlength="100"  ng-model="vm.dataEntidad.nomCargo" type="text"/>
+                     
+                        </div>
+                    </div>
+                </div>
+
+                   <div class="row" ng-if="vm.flagAgregarManualmenteRepresentanteLegal==1">
+                        <div class="form-group col-lg-12 text-right">
+                            <a class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.cancelarRegistroRepresentanteLegal()">
+                                <span class="glyphicon glyphicon-remove-sign">
+                                </span>
+                                Cancelar
+                            </a>
+                        
+
+                            <button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.registrarPersonaRepresentante()" 
+                            ng-disabled="!vm.dataEntidad.representanteLegal.apellidoPaterno || !vm.dataEntidad.representanteLegal.nombres ||
+                            !vm.dataEntidad.representanteLegal.apellidoMaterno || !vm.dataEntidad.representanteLegal.direccion ||
+                            !vm.dataEntidad.representanteLegal.departamento ||
+                            !vm.dataEntidad.representanteLegal.provincia || 
+                            !vm.dataEntidad.representanteLegal.distrito" 
+                            type="button">
+                                <span class="glyphicon glyphicon-floppy-disk">
+                                </span>
+                                Registrar Representante legal
+                            </button>
+
+                          
+                        </div>
+                    </div>
+
+
+
+                </fieldset>
+
+
+                <div class="row" ng-if="vm.flagRegistrarDenunciado==0">
+                    <div class="form-group col-md-6" ng-class="{'has-error':denunciaRegistroForm.representanteLegal.$invalid && denunciaRegistroForm.representanteLegal.$touched}" ng-show="vm.dataDenuncia.tipoPersona==2">
+                        <label class="important-box" for="representanteLegal">
+                            Representante legal:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="representanteLegal" ng-disabled="true" ng-model="vm.dataEntidad.nomRepresentante" ng-required="true" type="text"/>
+                          
+                        </div>
+                        <div class="field-message" ng-cloak="" ng-if="denunciaRegistroForm.representanteLegal.$invalid && denunciaRegistroForm.representanteLegal.$touched" ng-messages="denunciaRegistroForm.representanteLegal.$error">
+                            <div class="help-block" ng-message="required">
+                                Campo obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="vm.dataDenuncia.tipoPersona==2">
+                        <label class="important-box" for="cargo">
+                            Cargo:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="cargo" ng-disabled="true" ng-model="vm.dataEntidad.nomCargo" type="text"/>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.dataDenuncia.tipoPersona==2">
+                    <div class="form-group col-md-4">
+                        <label class="important-box" for="departamento">
+                            Departamento
+                        </label>
+                        <select class="form-control input-sm" id="departamento" name="departamento" ng-change="vm.listarProvincia();vm.dataEntidad.distrito='';vm.dataEntidad.provincia='';" ng-disabled="vm.flagRegistrarDenunciado==0 && vm.flagUbigeoDenunciante==0"  ng-model="vm.dataEntidad.departamento">
+                            <option value="">
+                                Seleccione
+                            </option>
+                             <option ng-repeat="itemCombo in vm.listaDepartamento" ng-value="itemCombo.codigoDepartamento">
+                                {{itemCombo.descripcionDepartamento}}
+                            </option>
+                           
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="important-box" for="provincia">
+                            Provincia
+                        </label>
+                        <select class="form-control input-sm" id="provincia" name="provincia" ng-change="vm.listarDistrito();vm.dataEntidad.distrito='';" ng-disabled="vm.flagRegistrarDenunciado==0 && vm.flagUbigeoDenunciante==0" ng-model="vm.dataEntidad.provincia">
+                            <option value="">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaProvincia2" ng-value="itemCombo.codigoProvincia">
+                                {{itemCombo.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="important-box" for="distrito">
+                            Distrito
+                        </label>
+                        <select class="form-control input-sm" id="distrito" name="distrito" ng-disabled="vm.flagRegistrarDenunciado==0 && vm.flagUbigeoDenunciante==0" ng-model="vm.dataEntidad.distrito">
+                            <option value="">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaDistrito2" ng-value="itemCombo.codigoDistrito">
+                                {{itemCombo.descripcionDistrito}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12" ng-class="{'has-error':denunciaRegistroForm.domicilio.$invalid && denunciaRegistroForm.domicilio.$touched}" ng-show="vm.dataDenuncia.tipoPersona==2">
+                        <label class="important-box" for="domicilio">
+                            Domicilio:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="domicilio" ng-disabled="vm.flagRegistrarDenunciado==0  && vm.flagUbigeoDenunciante==0" maxlength="250" ng-model="vm.dataEntidad.direccion" ng-required="true" type="text">
+                            </input>
+                        </div>
+                        <div class="field-message" ng-cloak="" ng-if="denunciaRegistroForm.domicilio.$invalid && denunciaRegistroForm.domicilio.$touched" ng-messages="denunciaRegistroForm.domicilio.$error">
+                            <div class="help-block" ng-message="required">
+                                Campo obligatorio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            
+              
+                <div class="row">
+                    <div class="form-group col-md-6" ng-show="vm.dataDenuncia.tipoPersona==1">
+                        <label class="important-box" for="nombres">
+                            Nombres:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="nombres" ng-disabled="vm.flagRegistrarDenunciado==0" ng-model="vm.dataPersona.nombres" type="text">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="vm.dataDenuncia.tipoPersona==1">
+                        <label class="important-box" for="apellidoPaterno">
+                            Apellido paterno:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="apellidoPaterno" ng-disabled="vm.flagRegistrarDenunciado==0" ng-model="vm.dataPersona.apellidoPaterno" type="text">
+                            </input>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6" ng-show="vm.dataDenuncia.tipoPersona==1">
+                        <label class="important-box" for="apellidoMaterno">
+                            Apellido materno:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="apellidoMaterno" ng-disabled="vm.flagRegistrarDenunciado==0" ng-model="vm.dataPersona.apellidoMaterno" type="text">
+                            </input>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row" ng-show="vm.dataDenuncia.tipoPersona==1">
+                    <div class="form-group col-md-4">
+                        <label class="important-box" for="departamento">
+                            Departamento
+                        </label>
+                        <select class="form-control input-sm" id="departamento" name="departamento" ng-change="vm.listarProvincia();vm.dataPersona.distrito='';vm.dataPersona.provincia=''" ng-disabled="vm.flagUbigeoDenunciante==0" ng-model="vm.dataPersona.departamento">
+                            <option value="">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaDepartamento" ng-value="itemCombo.codigoDepartamento">
+                                {{itemCombo.descripcionDepartamento}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="important-box" for="provincia">
+                            Provincia
+                        </label>
+                        <select class="form-control input-sm" id="provincia" name="provincia" ng-change="vm.listarDistrito();vm.dataPersona.distrito='';" ng-disabled="vm.flagUbigeoDenunciante==0" ng-model="vm.dataPersona.provincia">
+                            <option value="">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaProvincia" ng-value="itemCombo.codigoProvincia">
+                                {{itemCombo.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="important-box" for="distrito">
+                            Distrito
+                        </label>
+                        <select class="form-control input-sm" id="distrito" name="distrito" ng-disabled="vm.flagUbigeoDenunciante==0" ng-model="vm.dataPersona.distrito">
+                            <option value="">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaDistrito" ng-value="itemCombo.codigoDistrito">
+                                {{itemCombo.descripcionDistrito}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6" ng-show="vm.dataDenuncia.tipoPersona==1">
+                        <label class="important-box" for="direccion">
+                            Direcci&oacute;n:
+                        </label>
+                        <div class="form-group">
+                            <input class="form-control input-sm" name="direccion" ng-disabled="vm.flagUbigeoDenunciante==0" maxlength="250" ng-model="vm.dataPersona.direccion" type="text">
+                            </input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-12 text-right">
+
+
+
+                    <button class="btn btn-flat btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.actualizarEntidadYPersonaGenerico()" ng-disabled=" 
+                    (vm.dataDenuncia.tipoPersona == 1 &&  (
+                        !vm.dataPersona.direccion || !vm.dataPersona.departamento || !vm.dataPersona.provincia || !vm.dataPersona.distrito 
+
+                        )
+                     ) 
+                     || (vm.dataDenuncia.tipoPersona == 2 && ( !vm.dataEntidad.direccion ||  !vm.dataEntidad.departamento || !vm.dataEntidad.provincia || !vm.dataEntidad.distrito ))" ng-if="vm.flagUbigeoDenunciante == 1 && vm.flagRegistrarDenunciado==0" type="button">
+                                <span class="icon-editar">
+                                </span>
+                                Actualizar
+                            </button>
+
+                     <button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.registrarDatosPersonaOefa()" 
+                            ng-disabled="
+                            !(vm.dataEntidad.ruc.length==11) || 
+                            !(vm.dataEntidad.razonSocial.length>0) || 
+                            
+                            (vm.dataEntidad.departamento == '' || vm.dataEntidad.departamento == null) ||
+                            (vm.dataEntidad.provincia == '' || vm.dataEntidad.provincia == null) ||
+                            (vm.dataEntidad.distrito == '' || vm.dataEntidad.distrito == null) ||
+                            !(vm.dataEntidad.direccion.length>0)
+                                
+                                ||
+    
+                            (vm.flagAgregarRepresentanteLegal == 1 && ( vm.dataEntidad.representanteLegal==null || 
+                             vm.dataEntidad.representanteLegal.idPersona==null ||
+                              vm.dataEntidad.representanteLegal.idPersona==0 || 
+                              !(vm.dataEntidad.nomCargo.length>0) ))
+                              "
+                             ng-if="vm.flagRegistrarDenunciado==1 && vm.dataDenuncia.tipoPersona==2" type="button">
+                                <span class="glyphicon glyphicon-floppy-disk">
+                                </span>
+                                Registrar Entidad
+                            </button>
+
+                            <button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.registrarDatosPersonaOefa()" ng-disabled="
+
+                            !(vm.dataPersona.documento.length==8) || 
+                            !(vm.dataPersona.nombres.length>0) || 
+                            !(vm.dataPersona.apellidoPaterno.length>0) || !(vm.dataPersona.apellidoMaterno.length>0) || 
+                            (vm.dataPersona.departamento == '' || vm.dataPersona.departamento == null) ||
+                             (vm.dataPersona.provincia == '' || vm.dataPersona.provincia == null) ||
+                              (vm.dataPersona.distrito == '' || vm.dataPersona.distrito == null) || 
+                              !(vm.dataPersona.direccion.length>0)" ng-if="vm.flagRegistrarDenunciado==1 && vm.dataDenuncia.tipoPersona==1" type="button">
+                                <span class="glyphicon glyphicon-floppy-disk">
+                                </span>
+                                Registrar Persona
+                            </button>
+
+
+
+
+
+                    <button class="btn btn-flat btn-default btn-primary btn-sm brx-18" ng-click="vm.regresar()" ng-disabled="vm.formUsuario.$invalid" type="button">
+                        <span class="icon-regresar spac-btn-r">
+                        </span>
+                        Regresar
+                    </button>
+                    <button class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18" ng-click="vm.siguiente()" ng-disabled=" (vm.responsableProblema!=0 &&  vm.objPreguntaRes.respuestaPregunta1 == 1 && (vm.dataPersona.idPersona==0 && vm.dataEntidad.idEntidad==0) || (vm.dataPersona.idPersona!=0 && ( vm.flagUbigeoDenunciante!=0 || vm.flagRegistrarDenunciado!=0 )) || (vm.dataEntidad.idEntidad!=0 && (vm.flagUbigeoDenunciante!=0 || vm.flagRegistrarDenunciado!=0 ) )) ||
+                    (vm.responsableProblema!=0 && vm.objPreguntaRes.respuestaPregunta1==0 && vm.objPreguntaRes.respuestaPregunta2 == 0 && (!vm.denuncia.nombreDenunciado || !vm.denuncia.direccionDenunciado)) ||  (vm.objPreguntaRes.validaPregunta==0 && vm.responsableProblema==2) ||  (vm.objPreguntaRes.validaPregunta==1 &&vm.objPreguntaRes.respuestaPregunta1==2) || (vm.objPreguntaRes.validaPregunta==2 &&vm.objPreguntaRes.respuestaPregunta2==2)
+
+                    " type="button">
+                        <span class="icon-siguiente spac-btn-r">
+                        </span>
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-left" id="campoObligatorio" ng-if="true">
+                    <p class="font-text text-justify">
+                        <span class="important-box">
+                        </span>
+                        Campo obligatorio.
+                    </p>
+                </div>
+            </div>
+        </br>
+    </span>
+</div>

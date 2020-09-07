@@ -1,0 +1,541 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title title-msg-conf">
+            Evaluar Denuncia Rechazada
+        </h4>
+    </div>
+    <div class="modal-body" name="notificacionDialogForm" ng-form="">
+        <div id="ModuloDataDenuncia Rechazada">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div class="table-rpv">
+                        <table bgcolor="#d0c9c9" cellspacing="0" class="table table-hover table-bordered table-striped table-app" id="listaBandeja" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        &Iacute;tem
+                                    </th>
+                                    <th class="text-center">
+                                        Motivo
+                                    </th>
+                                    <th class="text-center">
+                                        Archivos
+                                    </th>
+                                    <th class="text-center">
+                                        Estado
+                                    </th>
+                                    <th class="text-center">
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="itemRechazo in vm.listaDataRechazoDenuncia | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+                                    <td class="text-center">
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        {{itemRechazo.motivo.descripcion}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span ng-repeat="itemArchivo in itemRechazo.lstArchivoAtencion">
+                                            <a download="{{itemArchivo.nombreArchivo}}" href="{{vm.rutaBase}}archivo-adjunto/descargar-archivo-atencion/{{itemArchivo.idArchivoAtencion}}" target="_blank" uib-tooltip="Descargar Archivo   {{itemArchivo.nombreArchivo}}">
+                                                <span class="icon-descargar">
+                                                </span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{itemRechazo.estado.descripcion}}
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-default btn-sm" ng-click="vm.dataEvaluarDenuncia(itemRechazo)" ng-if="itemRechazo.estado.codigoRegistro==1" type="button" uib-tooltip="Evaluar">
+                                            <span class=" glyphicon glyphicon-record">
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-show="vm.listaDataRechazoDenuncia == null || vm.listaDataRechazoDenuncia.length==0">
+                                    <td colspan="6">
+                                        No se encontraron resultados
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ModuloBuscarEfa" ng-if="vm.flagModuloBuscarEfa==1 && vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro==2">
+            <span class="content-box">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>
+                            Nombre de la entidad
+                        </label>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input autocomplete="off" class="form-control input-sm" lowercase="" maxlength="100" name="nombreEntidad" ng-model="vm.prmFiltroEfa.nombre" placeholder="Ingrese el nombre de la entidad" type="text"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                      <label>
+                            &Aacute;mbito:
+                        </label>
+                        <select class="form-control input-sm" name="tipoAsignacion{{itemEFA.idEfa}}" ng-change="vm.prmFiltroEfa.tipoGobierno=0" ng-model="vm.prmFiltroEfa.tipoNivel">
+                            <option ng-value="0">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="item in vm.listaTipoNivel" ng-value="{{item.codigoRegistro}} | number">
+                                {{item.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Tipo de Gobierno:</label>
+                        <select class="form-control input-sm" name="tipoAsignacion{{itemEFA.idEfa}}" ng-disabled="vm.prmFiltroEfa.tipoNivel!=3" ng-model="vm.prmFiltroEfa.tipoGobierno">
+                            <option ng-value="0">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="item in vm.listaTipoGobierno" ng-value="{{item.codigoRegistro}}">
+                                {{item.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 text-right">
+                        <button class="btn btn-flat btn-primary btn-sm" ng-click="vm.buscarEfa()" type="button">
+                            <span class="icon-buscar">
+                            </span>
+                            Buscar
+                        </button>
+                        <button class="btn btn-flat btn-primary btn-sm" ng-click="vm.terminarBusquedaEfa()" type="button" uib-tooltip="{{btnRegresar.tooltip}}">
+                            <span class="{{btnRegresar.icon}}">
+                            </span>
+                            {{btnRegresar.valor}}
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-rpv">
+                            <table bgcolor="#d0c9c9" cellspacing="0" class="table table-hover table-bordered table-striped table-app" id="listaProductos" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            RUC
+                                        </th>
+                                        <th class="text-center">
+                                            Entidad
+                                        </th>
+                                        <th class="text-center">
+                                            Nivel
+                                        </th>
+                                        <th class="text-center" width="90">
+                                            Acción
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="vm.listaEfaFiltro == null || vm.listaEfaFiltro.length==0">
+                                        <td colspan="5">
+                                            No se encontraron resultados
+                                        </td>
+                                    </tr>
+                                    <tr dir-paginate="itemEfa in vm.listaEfaFiltro | itemsPerPage: config.itemsPerPage" pagination-id="coutListaEfaFiltro7ss">
+                                        <td>
+                                            {{itemEfa.ruc}}
+                                        </td>
+                                        <td>
+                                            {{itemEfa.nombre}}
+                                        </td>
+                                        <td>
+                                            {{itemEfa.nivel}}
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-default btn-sm" ng-click="vm.agregarEfaComodestinatario(itemEfa)" type="button" uib-tooltip="Asignar">
+                                                <span class="icon-agregar">
+                                                </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls pagination-id="coutListaEfaFiltro7ss">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <span class="content-box" ng-if="vm.flagEvaluarRechazoDenuncia==1">
+            <fieldset class="well unp-fieldset">
+                <legend class="unp-legend">
+                </legend>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            <input name="tipoEvaluacionRechazo" ng-change="vm.limpiarDatos()" ng-model="vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro" ng-value="1" type="radio"/>
+                            Reiterar
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>
+                            <input name="tipoEvaluacionRechazo" ng-change="vm.limpiarDatos()" ng-model="vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro" ng-value="2" type="radio"/>
+                            Derivar
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>
+                            <input name="tipoEvaluacionRechazo" ng-change="vm.limpiarDatos()" ng-model="vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro" ng-value="3" type="radio"/>
+                            Archivar
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="well unp-fieldset" ng-show="vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro == 1">
+                <legend class="unp-legend">
+                    Reiterar
+                </legend>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="listaTiposMotivo">
+                            Motivo:
+                        </label>
+                        <label for="listaTiposMotivo">
+                            Debe ingresar como mínimo  15 caracteres.
+                        </label>
+                        <div class="form-group">
+                            <textarea maxlength="250" ng-model="vm.dataEvaluarRechazoDenuncia.motivoDescripcion" rows="5">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="listaTiposArchivo">
+                            Tipos de Archivo:
+                        </label>
+                        <select class="form-control input-sm" id="listaTiposArchivo" name="listaTiposArchivo" ng-model="vm.dataArchivoEvaluacionRechazo.tipoArchivo.codigoRegistro">
+                            <option ng-value="0">
+                                Seleccione
+                            </option>
+                            <option ng-repeat="itemCombo in vm.listaTiposArchivo" ng-value="itemCombo.codigoRegistro*1">
+                                {{itemCombo.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <br/>
+                        <button class="btn btn-flat btn-primary-inv btn-sm" ng-click="vm.agregarArchivoEvaluacion()" ng-disabled="vm.dataArchivoEvaluacionRechazo.tipoArchivo.codigoRegistro==0 || (vm.dataArchivoEvaluacionRechazo.tipoArchivo.codigoRegistro==4 && vm.dataArchivoEvaluacionRechazo.descripcionArchivo.length<15)" type="button">
+                            <span class="icon-agregar">
+                            </span>
+                            Agregar Archivo
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.dataArchivoEvaluacionRechazo.tipoArchivo.codigoRegistro==4">
+                    <div class="form-group col-md-9">
+                        <label for="listaTiposArchivo">
+                            Descripción archivo:
+                        </label>
+                        <label for="listaTiposMotivo">
+                            Debe ingresar como mínimo  15 caracteres.
+                        </label>
+                        <textarea maxlength="250" ng-model="vm.dataArchivoEvaluacionRechazo.descripcionArchivo" rows="5">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12 text-left">
+                        <input class="btn btn-flat btn-primary btn-sm" file-change="vm.validaDocumento" id="fileArchivoMedio" ng-click="vm.validaArchivos()" type="file"/>
+                    	<div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <div class="table-rpv">
+                            <table bgcolor="#d0c9c9" cellspacing="0" class="table table-hover table-bordered table-striped table-app" id="listaBandeja2" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            &Iacute;tem
+                                        </th>
+                                        <th class="text-center">
+                                            Tipo / Descripción
+                                        </th>
+                                        <th class="text-center">
+                                            Nombre
+                                        </th>
+                                        <th class="text-center">
+                                            Acción
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="itemArchivo in vm.dataEvaluarRechazoDenuncia.lstArchivoAtencion | itemsPerPage: opcionesPaginacion.itemsPerPage" pagination-id="coutListaArchivoReiterado">
+                                        <td class="text-center">
+                                            {{ $index + serial}}
+                                        </td>
+                                        <td>
+                                            {{itemArchivo.tipoArchivo.descripcion}}
+                                            <span ng-if="itemArchivo.tipoArchivo.codigoRegistro==4">
+                                                -
+                                            </span>
+                                            {{itemArchivo.descripcionArchivo}}
+                                        </td>
+                                        <td>
+                                            {{itemArchivo.nombreArchivo}}
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-default btn-sm" ng-click="vm.confirmarEliminarArchivo(obtenerValorIndex($index,serial),itemArchivo)" type="button" uib-tooltip="Eliminar">
+                                                <span class="glyphicon glyphicon-trash">
+                                                </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="vm.dataEvaluarRechazoDenuncia.lstArchivoAtencion == null || vm.dataEvaluarRechazoDenuncia.lstArchivoAtencion.length==0">
+                                        <td colspan="6">
+                                            No se encontraron resultados
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls boundary-links="true" direction-links="true" max-size="8" on-page-change="indexCount(newPageNumber)" pagination-id="coutListaArchivoReiterado">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12 text-left">
+                        <button class="btn btn-flat btn-default btn-primary btn-sm" ng-click="vm.registrarEvaluacionRechazoDenuncia()" ng-disabled="vm.dataEvaluarRechazoDenuncia.motivoDescripcion.length<10 || (vm.dataArchivoEvaluacionRechazo.tipoArchivo.codigoRegistro!=0 && vm.dataArchivoEvaluacionRechazo.descripcionArchivo.length<15)" type="button" uib-tooltip="Reiterar">
+                            <span class="">
+                            </span>
+                            Reiterar
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- Comienza Derivar  -->
+            <fieldset class="well unp-fieldset" ng-show="vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro == 2">
+                <legend class="unp-legend">
+                    Derivar
+                </legend>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="listaTiposMotivo">
+                            Motivo:
+                        </label>
+                        <label for="listaTiposMotivo">
+                            Debe ingresar como mínimo  10 caracteres.
+                        </label>
+                        <div class="form-group">
+                            <textarea maxlength="250" ng-model="vm.dataEvaluarRechazoDenuncia.motivoDescripcion" rows="5">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5>
+                        <b>
+                            Tipo de Destinatario
+                        </b>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>
+                            <input name="tipoDestinatario" ng-model="vm.data.tipoEntidad" ng-value="1" type="radio"/>
+                            EFA
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>
+                            <input name="tipoDestinatario" ng-change="vm.dataDerivarDenunciaOefa.direccionSupervicion.codigoRegistro=0;vm.dataDerivarDenunciaOefa.subDireccion.codigoRegistro=0" ng-model="vm.data.tipoEntidad" ng-value="2" type="radio"/>
+                            OEFA
+                      	</label>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.data.tipoEntidad == 1">
+                    <br/>
+                    <div class="form-group col-md-3 text-left">
+                        <button class="btn btn-flat btn-primary-inv btn-sm" ng-click="vm.habilitarBusquedaEfa()" type="button">
+                            <span class="icon-agregar">
+                            </span>
+                            Agregar EFA
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.data.tipoEntidad == 2">
+                    <h5>
+                        <b>
+                            Órgano de Línea:
+                        </b>
+                    </h5>
+                </div>
+                <div class="row" ng-show="vm.data.tipoEntidad == 2">
+                    <div class="form-group col-md-6">
+                        <label for="direcciones">
+                            Dirección:
+                        </label>
+                        <select class="form-control input-sm" ng-change=" vm.listarSubDireccion()" ng-model="vm.dataDerivarDenunciaOefa.direccionSupervicion" ng-options="item as item.descripcion for item in vm.listaDireccion track by item.codigoRegistro">
+                        </select>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.data.tipoEntidad == 2">
+                    <div class="form-group col-md-6">
+                        <label for="direccionEvaluacion">
+                            Sub Dirección / Oficina:
+                        </label>
+                        <select class="form-control input-sm" ng-model="vm.dataDerivarDenunciaOefa.subDireccion" ng-options="item as item.descripcion for item in vm.listaSubDireccion track by item.codigoRegistro">
+                        </select>
+                    </div>
+                </div>
+                <div class="row" ng-show="vm.data.tipoEntidad == 2">
+                    <div class="form-group col-md-3 text-left">
+                        <button class="btn btn-flat btn-primary-inv btn-sm" ng-click="vm.validarOefaRegistradaAlaDenuncia()" ng-disabled="vm.dataDerivarDenunciaOefa.direccionSupervicion.codigoRegistro==0 || vm.dataDerivarDenunciaOefa.subDireccion.codigoRegistro==0" type="button">
+                            <span class="icon-agregar">
+                            </span>
+                            Agregar OEFA
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-rpv">
+                            <table bgcolor="#d0c9c9" cellspacing="0" class="table table-hover table-bordered table-striped table-app" id="listaProductos" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            &Iacute;tem
+                                        </th>
+                                        <th class="text-center">
+                                            Tipo Entidad
+                                        </th>
+                                        <th class="text-center">
+                                            Nombre Entidad
+                                        </th>
+                                        <th class="text-center" width="90">
+                                            Acción
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="vm.dataEvaluarRechazoDenuncia.lstDerivacionDenuncia == null || vm.dataEvaluarRechazoDenuncia.lstDerivacionDenuncia.length==0">
+                                        <td colspan="5">
+                                            No se encontraron resultados
+                                        </td>
+                                    </tr>
+                                    <tr dir-paginate="itemDestinatario in vm.dataEvaluarRechazoDenuncia.lstDerivacionDenuncia | itemsPerPage: opcionPaginacionEntidad.itemsPerPage" pagination-id="coutListaEntidadesParaDerivar">
+                                        <td>
+                                            {{$index+serial1}}
+                                        </td>
+                                        <td ng-show="itemDestinatario.tipoDestinatario.codigoRegistro==2">
+                                            EFA
+                                        </td>
+                                        <td ng-show="itemDestinatario.tipoDestinatario.codigoRegistro==2">
+                                            {{itemDestinatario.efa.nombre}}
+                                        </td>
+                                        <td ng-show="itemDestinatario.tipoDestinatario.codigoRegistro==1">
+                                            OEFA
+                                        </td>
+                                        <td ng-show="itemDestinatario.tipoDestinatario.codigoRegistro==1">
+                                            {{itemDestinatario.direccionSupervicion.descripcion}} - {{itemDestinatario.subDireccion.descripcion}}
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-default btn-sm" ng-click="vm.confirmarEliminarEntidadAsignada(obtenerValorIndex($index,serial1),itemDestinatario)" type="button" uib-tooltip="Eliminar">
+                                                <span class="glyphicon glyphicon-trash">
+                                                </span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls boundary-links="true" direction-links="true" max-size="8" on-page-change="indexCount2(newPageNumber)" pagination-id="coutListaEntidadesParaDerivar">
+                            </dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12 text-left">
+                        <button class="btn btn-flat btn-default btn-sm" ng-click="vm.registrarDerivacionDenuncia()" ng-disabled="vm.dataEvaluarRechazoDenuncia.motivoDescripcion.length<10  || vm.dataEvaluarRechazoDenuncia.lstDerivacionDenuncia.length==0" type="button" uib-tooltip="Derivar">
+                            <span class="">
+                            </span>
+                            Derivar
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="well unp-fieldset" ng-show="vm.dataEvaluarRechazoDenuncia.tipoEvaluacionRechazo.codigoRegistro == 3">
+                <legend class="unp-legend">
+                    Archivar
+                </legend>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="listaTiposMotivo">
+                            Motivo:
+                        </label>
+                        <div class="form-group">
+                            <select class="form-control input-sm" id="listaTiposDestinatario" name="listaTiposDestinatario" ng-model="vm.dataEvaluarRechazoDenuncia.motivo.codigoRegistro">
+                                <option ng-value="0">
+                                    Seleccione
+                                </option>
+                                <option ng-repeat="itemCombo in vm.listadoMotivo" ng-value="itemCombo.codigoRegistro*1">
+                                    {{itemCombo.descripcion}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>
+                            Carta de Rechazo :
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-6 text-left">
+                        <input class="btn btn-flat btn-primary btn-sm" file-change="vm.validaDocumento" id="fileArchivoMedio" type="file"/>
+                    	<div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12 text-left">
+                        <button class="btn btn-flat btn-default btn-primary btn-sm" ng-click="vm.registrarAachivarDenuncia()" ng-disabled="vm.dataEvaluarRechazoDenuncia.motivo.codigoRegistro==0" type="button" uib-tooltip="Archivar">
+                            <span class="">
+                            </span>
+                            Archivar
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </span>
+    </div>
+    <div class="modal-footer" ng-if="vm.flagModuloBuscarEfa==0">
+        <button aria-label="Dismiss" class="ngdialog-close btn btn-flat btn-default btn-primary btn-sm btn-pd-5" type="button" uib-tooltip="{{btnCerrar.tooltip}}">
+            <span class="{{btnCerrar.icon}}">
+            </span>
+            {{btnCerrar.valor}}
+        </button>
+    </div>
+</div>
+<!-- Fin Derivar  -->
+<!-- Comienza Archivar  -->
+<!-- Fin Archivar  -->
+<!-- -->
+<!--
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="closeThisDialog(1)" class="btn btn-flat btn-success btn-sm">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Enviar
+	            </button>
+	        </div>
+  	    </div>
+-->
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+    });
+</script>

@@ -1,0 +1,67 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Sistema de denuncias ambientales </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">		
+	    <!-- click en Rechazado -->
+	    <div class="row">
+	      <div class="form-group col-md-6">
+	        <h5><b>Motivo</b></h5>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	      <div class="form-group col-md-6">
+	        <label for="idUsuario" class="important-box">Fuera del &Aacute;mbito de jurisdicci&oacute;n</label>
+	        <div class="form-group">
+	          <input ng-model="vm.dataUsuario.idUsuario" type="text" class="form-control input-sm" name="idUsuario" >
+	        </div>
+	      </div>
+
+	      <div class="form-group col-md-6">
+	        <label for="idUsuario" class="important-box">No es materia ambiental</label>
+	        <div class="form-group">
+	          <input ng-model="vm.dataUsuario.idUsuario" type="text" class="form-control input-sm" name="idUsuario" >
+	        </div>
+	      </div>
+	    </div>
+
+
+	    <div class="row">
+	      <div class="form-group col-md-6">
+	        <label for="idUsuario" class="important-box">Datos inexactos y/o insuficientes</label>
+	        <div class="form-group">
+	          <input ng-model="vm.dataUsuario.idUsuario" type="text" class="form-control input-sm" name="idUsuario" >
+	        </div>
+	      </div>
+
+	      <div class="form-group col-md-6">
+	        <label for="idUsuario" class="important-box ">Archivo adjunto (100mb)</label>
+	        <div class="form-group">
+	          <input ng-model="vm.dataUsuario.idUsuario" type="file"  name="idUsuario" >
+	        </div>
+	      </div>
+	    </div>
+
+
+	    <div class="row">
+          <div class="form-group col-lg-12 text-right">
+              <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.guardar()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5">
+                  <span class="glyphicon glyphicon-ok spac-btn-r"></span> Aceptar
+              </button>
+              <button type="button" ng-click="vm.cancelar()" uib-tooltip="{{btnCerrar.tooltip}}" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+                  <span class="{{btnRegresar.icon}}"></span> {{btnCerrar.btnCerrar}}
+              </button>  
+          </div>
+        </div> 
+
+    <div class="row">
+		<div id="campoObligatorio" class="col-lg-12 text-left" ng-if="true">
+  	    	<p class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</p>
+  	    </div>
+	</div>   
+		
+		</span>
+	</div>
+</div>

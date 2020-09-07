@@ -1,0 +1,97 @@
+<div id="bg">
+  <img src="assets/images/fondo/imagen-portal.jpg" alt="">
+</div>
+
+<nav id="nav-top-web" class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="https://www.oefa.gob.pe/" target="_blank">
+            <img srcset="assets/images/oefa-logo-header.svg" src="assets/images/oefa-logo-header.svg" alt="logo-oefa" class="img-responsive logo-oefa-inicio">
+          </a>
+          <a class="navbar-brand" href="#" >
+            <img src="assets/images/logo_sinada.svg" srcset="assets/images/logo_sinada.svg" alt="logo-sinada" class="img-responsive logo-sinada-inicio">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse">
+            <ul class="nav navbar-nav pull-right" style="margin:0px">
+                <li id="login-link" class="">
+                  <!--<a href="javascript:void(0)" ng-click="vm.iraLogin()">Iniciar Sessión</a>-->
+                  <!--
+                  <a href="javascript:void(0)" class="spapp-link" ui-sref="invitado.nuevo-usuario">Deseo registrarme</a>
+              	 -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- <section class="barra-img">
+</section> -->
+
+<section class="d-flex align-items-center justify-content-center h-100-nav">
+  <div class="container">
+    <div class="row movil-view">
+      <div class="col-md-8 col-sm-10 col-sm-offset-1 col-md-offset-2 text-center col-lg-8" style="color:white">
+        <h3 class="size-title-inicio">Registro y consulta de denuncia</h3>
+        <p class="font-text">Ingresar en la primera opci&oacute;n para registrar una denuncia, se puede elegir una de las siguientes opciones: invitado, con reserva de entidad y sin reserva de entidad.
+En la segunda opci&oacute;n para consultar el estado de su denuncia, ingresar c&oacute;digo de la denuncia y c&oacute;digo de acceso.
+Si desea ser un usuario registrado ingresar al enlace ubicado en la parte superior de la pantalla.
+</p>
+      </div>
+
+        <div class="col-md-8 col-sm-10 col-sm-offset-1 col-md-offset-2 col-lg-8">
+          <div id="contenedor-table">
+<!--           <div class="modal-header">
+            <div class="form-group col-md-12" >
+                  <img src="assets/images/oefa-logo-header.png" alt=""  style="margin-bottom: 0px;margin-top: 10px;" height="55">
+                  <img src="assets/images/sinada.png" alt=""  style="margin-bottom: 0px;margin-top: 10px;float: right;">
+            </div>
+          </div> -->
+			<div class="row" style="margin-bottom: 15px">
+                <div class="form-group col-md-12">
+                    <h5 style="color:white;text-align: center;font-size: 16px;font-weight: bold;">Seleccione como desea Ingresar:</h5>
+                </div>
+			</div>
+            <div class="row" style="margin-bottom: 15px">
+                <div class="form-group col-md-6 col-sm-6 col-sx-6 text-center item-icon-link">
+                  <div class="center-block animated fadeInDown blue-color-new" ng-click="vm.irARegistroDenuncia()">
+                    <span class="icon-registrar-denuncia"></span>
+                        <!-- <img src="assets/images/user-01.png"   ng-click="vm.iraconsultas()"  alt="" class="img-responsive center-block icono-user-x user-01" style="margin-bottom: 20px;margin-top: 10px;border-width:3px;"> -->
+                        <b>Registrar denuncia</b>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-sx-6 text-center item-icon-link">
+                  <div class="center-block animated fadeInDown blue-color-new" ng-click="vm.mostrarModalContenido()">
+                    <span class="icon-buscar-denuncia"></span>
+                        <!-- <img src="assets/images/user-02.png" alt="" ng-click="vm.iraLogin()"
+                          class="img-responsive center-block icono-user-x user-02"
+                          style="margin-bottom: 20px; margin-top: 10px;border-width:3px;"> -->
+                    <b>Buscar denuncia</b>
+                  </div>
+                </div>
+            </div>
+			<div class="row">
+                <div class="form-group col-md-12">
+                    <h5 style="color:white;text-align: center;">Para regresar a la opci&oacute;n anterior, <a  ui-sref="ingreso" class="link-pulse-aqui">pulse aqu&iacute;</a> </h5>
+                </div>
+             </div>
+             <!--<div class="row">
+               <div class="col-md-12">
+                   <div class="form-group">
+                      <span style="opacity: .6">Si deseas registrarte, haz</span>  <span><a class="spapp-link" href="#/invitado/nuevo-usuario">click aqui</a></span>
+                   </div>
+               </div>
+             </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<span ng-if="$parent.cargandoInformacion>0" class="overlay-block">
+  <div class="contenedor_load">
+    <img ng-src="assets/images/gif/gears-red.gif" alt="">
+    <p>Procesando...</p>
+  </div>
+</span>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_DATOS_CONTACTO -->
+<mapper namespace="datosContacto">
+	<resultMap id="resultMapDatosContacto" type="DatosContacto">
+		<id column="ID_DATOS_CONTACTO" property="idDatosContacto" />
+		<result column="ID_CONTACTO" property="idContacto" />
+		<result column="TM1_TIPO_DATO_CONTACTO" property="tipoDatoContacto" />
+		<result column="VALOR" property="valor" />
+		<result column="FLAG_PRINCIPAL" property="flagPrincipal" />
+		<result column="FLAG_ACTIVO" property="flagActivo" />
+	</resultMap>
+	<select id="listar" resultMap="resultMapDatosContacto">
+		SELECT
+		ID_DATOS_CONTACTO,
+		ID_CONTACTO,
+		TM1_TIPO_DATO_CONTACTO,
+		VALOR,
+		FLAG_PRINCIPAL,
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENM_DATOS_CONTACTO
+		WHERE
+		FLAG_ACTIVO = 1
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapDatosContacto"
+		parameterType="Long">
+		SELECT
+		ID_DATOS_CONTACTO,
+		ID_CONTACTO,
+		TM1_TIPO_DATO_CONTACTO,
+		VALOR,
+		FLAG_PRINCIPAL,
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENM_DATOS_CONTACTO
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DATOS_CONTACTO = #{idDatosContacto}
+	</select>
+	<insert id="agregar" parameterType="DatosContacto"
+		useGeneratedKeys="true">
+		<selectKey keyProperty="idDatosContacto" resultType="long"
+			order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_DATOS_CONTACTO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO SINADA.T_GENM_DATOS_CONTACTO
+		(
+		ID_DATOS_CONTACTO,
+		ID_CONTACTO,
+		TM1_TIPO_DATO_CONTACTO,
+		VALOR,
+		FLAG_PRINCIPAL
+		)
+		VALUES
+		(
+		#{idDatosContacto},
+		#{idContacto},
+		#{tipoDatoContacto},
+		#{valor},
+		#{flagPrincipal}
+		)
+	</insert>
+	<update id="modificar" parameterType="DatosContacto">
+		UPDATE
+		SINADA.T_GENM_DATOS_CONTACTO
+		SET
+		TM1_TIPO_DATO_CONTACTO = #{tipoDatoContacto},
+		VALOR = #{valor},
+		FLAG_PRINCIPAL = #{flagPrincipal}
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DATOS_CONTACTO = #{idDatosContacto}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_DATOS_CONTACTO
+		SET
+		FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DATOS_CONTACTO = #{idDatosContacto}
+	</update>
+
+</mapper>

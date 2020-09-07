@@ -1,0 +1,95 @@
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Casos')">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col-lg-12 col-md-12 col-sm-12 sin_padding"  ng-if="$parent.validarOpcion('Casos')" style="margin-top:20px">
+	<!-- box-bg-lef-15 -->
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="title-slider-nt">
+				<span>Registro de Casos </span>
+			</h3>
+			<span class="nav_bread">
+				<ol class="breadcrumb">
+					<li class="active">Casos </li>
+					<li>Listado de Entidades</li>
+				</ol>
+			</span>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-tabs">
+				<li ng-class="{ 'active' : vm.casoTabActivo == 1 }"
+					><a
+					class="spapp-link">Datos del Caso</a></li>
+			<!--	<li
+					ng-class="{ 'active' : vm.casoTabActivo == 2, 'disabled' : vm.prmDataCasoAsignar.idCaso==0}"
+					ng-click="(vm.prmDataCasoAsignar.idCaso!=0) ? vm.casoTabActivo = 2 : true; vm.cancelarAgregarNorma()" ><a
+					class="spapp-link">Asignaci&oacute;n del Caso</a></li>-->
+
+						<li
+					ng-class="{ 'active' : vm.casoTabActivo == 2, 'disabled' : vm.prmDataCasoAsignar.idCaso==0}"
+					 ><a
+					class="spapp-link">Asignaci&oacute;n del Caso</a></li>
+
+					<li
+					ng-if="vm.casoTabActivo == 3"
+					ng-class="{ 'active' : vm.casoTabActivo == 3, 'disabled' : vm.prmDataCasoAsignar.idCaso==0}"
+					ng-click="(vm.prmDataCasoAsignar.idCaso!=0) ? vm.casoTabActivo = 3 : true" ><a
+					class="spapp-link">Normas del Caso</a></li>
+
+			</ul>
+
+		<div class="panel panel-tab-app with-nav-tabs panel-default">
+			<div class="panel-body">
+				<div class="row" ng-show="vm.casoTabActivo == 1"
+					ng-include="'app/modules/denuncias/casos/filtros/filtro-datos-caso.html'">
+				</div>
+
+				<div class="row"
+					ng-show="vm.casoTabActivo == 2"
+					ng-include="'app/modules/denuncias/casos/filtros/filtro-asignacion-caso.html'">
+				</div>
+
+				<div class="row"
+					ng-show="vm.casoTabActivo == 3"
+					ng-include="'app/modules/denuncias/casos/filtros/filtro-asignacion-norma.html'">
+				</div>
+
+
+				<!-- <div class="row" ng-show="vm.casoTabActivo == 3" ng-include="'app/modules/fiscalizacion/listado/filtros/filtro-titular-entidad.html'">
+            </div> -->
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<div class="row">
+	<div class="text-center col-md-12">
+		<dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+	</div>
+</div>
+
+<script>
+  function justNumbers(e) {
+    var keynum = window.event ? window.event.keyCode : e.which;
+    if ((keynum == 8) || (keynum == 46) || (keynum == 44))
+      return true;
+    return /\d/.test(String.fromCharCode(keynum));
+  }
+</script>
+
+

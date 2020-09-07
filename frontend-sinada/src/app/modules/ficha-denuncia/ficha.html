@@ -1,0 +1,54 @@
+
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf"><span>Denuncia  {{vm.dataDenunciaRevision.codigoDenuncia}}</span></h4>
+
+			
+
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">		
+
+
+
+	    <div class="row">
+	  				
+	          <div class="col-md-12">
+	              <div>
+	                <div class="panel panel-tab-app with-nav-tabs panel-default">
+	                    <ul class="nav nav-tabs" >
+	                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 1 }"  ng-click="vm.asignadasTabActivo = 1">
+	                          <a class="spapp-link">Ficha de denuncia ambiental </a>
+	                      </li>
+	                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 2 }"  ng-click="vm.asignadasTabActivo = 2">
+	                          <a class="spapp-link">Informaci&oacute;n adjunta</a>
+	                      </li>
+	                    </ul>
+	                <div class="panel-body">
+	                    <div class="row" ng-show="vm.asignadasTabActivo == 1" ng-include="'app/modules/ficha-denuncia/fichas/ficha-general.html'">      
+	                  </div>
+	                  <div class="row" ng-show="vm.asignadasTabActivo == 2" ng-include="'app/modules/ficha-denuncia/fichas/informacion-adjunta-denuncia.html'">     
+	                  </div>
+	                   </div>
+	                </div>
+	              </div>
+	          </div>
+	    		
+	    </div>
+
+	  
+		
+		</span>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>
+
+
+

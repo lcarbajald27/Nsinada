@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="caso">
+	<resultMap id="resultMapCaso" type="Caso">
+		<id 	column="ID_CASO" 				property="idCaso" />
+		<result column="NUMERO_CASO" 			property="numeroCaso" />
+		<result column="ID_PROBLEMATICA" 		property="problematica.idDetalleCaso" />
+		<result column="NOMBRE_PROBLEMATICA" 	property="problematica.descripcion" />
+		
+		<result column="ID_DEBIDOA_1" 			property="debidoA1.idDetalleCaso" />
+		<result column="NOMBRE_DEBIDOA_NIVEL1" 	property="debidoA1.descripcion" />
+		
+		<result column="ID_DEBIDOA_2" 			property="debidoA2.idDetalleCaso" />
+		<result column="NOMBRE_DEBIDOA_NIVEL2" 	property="debidoA2.descripcion" />
+		
+		<result column="ID_DEBIDOA_3" 			property="debidoA3.idDetalleCaso" />
+		<result column="NOMBRE_DEBIDOA_NIVEL3" 	property="debidoA3.descripcion" />
+		
+		<result column="ID_ZONA_SUCESO_1" 		property="zonasuceso1.idDetalleCaso" />
+		<result column="NOMBRE_ZONA_SUCESO_1" 	property="zonasuceso1.descripcion" />
+		
+		<result column="ID_ZONA_SUCESO_2" 		property="zonasuceso2.idDetalleCaso" />
+		<result column="NOMBRE_ZONA_SUCESO_2" 	property="zonasuceso2.descripcion" />
+		
+		<result column="ID_ZONA_SUCESO_3" 		property="zonasuceso3.idDetalleCaso" />
+		<result column="NOMBRE_ZONA_SUCESO_3" 	property="zonasuceso3.descripcion" />
+		
+		<result column="ESTADO" 				property="estado" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+	
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapCaso" parameterType="Caso">
+		SELECT 
+		      ID_CASO,
+		      NUMERO_CASO,
+		      ID_PROBLEMATICA,
+          NOMBRE_PROBLEMATICA,
+		      ID_DEBIDOA_1,
+          NOMBRE_DEBIDOA_NIVEL1,
+		      ID_DEBIDOA_2,
+          NOMBRE_DEBIDOA_NIVEL2,
+		      ID_DEBIDOA_3,
+          NOMBRE_DEBIDOA_NIVEL3,
+		      ID_ZONA_SUCESO_1,
+          NOMBRE_ZONA_SUCESO_1,
+		      ID_ZONA_SUCESO_2,
+          NOMBRE_ZONA_SUCESO_2,
+		      ID_ZONA_SUCESO_3,
+          NOMBRE_ZONA_SUCESO_3,
+		      ESTADO
+		FROM 
+		    SINADA.V_CASO
+    WHERE 
+    
+         (
+               #{problematica.idDetalleCaso} = 0 
+           OR
+              ID_PROBLEMATICA = #{problematica.idDetalleCaso}
+         
+         ) 
+         
+         AND
+         (
+              #{debidoA1.idDetalleCaso} = 0 
+           OR
+              ID_DEBIDOA_1 = #{debidoA1.idDetalleCaso}
+         
+         ) 
+         
+          AND
+         (
+              #{debidoA2.idDetalleCaso} = 0 
+           OR
+              ID_DEBIDOA_2 = #{debidoA2.idDetalleCaso}
+         
+         ) 
+          AND
+         (
+              #{debidoA3.idDetalleCaso} = 0 
+           OR
+              ID_DEBIDOA_3 = #{debidoA3.idDetalleCaso}
+         
+         ) 
+          AND
+         (
+              #{zonasuceso1.idDetalleCaso} = 0 
+           OR
+              ID_ZONA_SUCESO_1 = #{zonasuceso1.idDetalleCaso}
+         
+         ) 
+         
+            AND
+         (
+              #{zonasuceso2.idDetalleCaso} = 0 
+           OR
+              ID_ZONA_SUCESO_2 = #{zonasuceso2.idDetalleCaso}
+         
+         ) 
+         
+            AND
+         (
+              #{zonasuceso3.idDetalleCaso} = 0 
+           OR
+              ID_ZONA_SUCESO_3 = #{zonasuceso3.idDetalleCaso}
+         
+         ) 
+         
+         ORDER BY ID_CASO ASC
+	</select>
+	<select id="validaCasoRegistrado" resultMap="resultMapCaso"
+		parameterType="Caso">
+		SELECT 
+		      	ID_CASO,
+		      	NUMERO_CASO,
+		      	ID_PROBLEMATICA,
+          		NOMBRE_PROBLEMATICA,
+		      	ID_DEBIDOA_1,
+          		NOMBRE_DEBIDOA_NIVEL1,
+		      	ID_DEBIDOA_2,
+          		NOMBRE_DEBIDOA_NIVEL2,
+		      	ID_DEBIDOA_3,
+          		NOMBRE_DEBIDOA_NIVEL3,
+		      	ID_ZONA_SUCESO_1,
+          		NOMBRE_ZONA_SUCESO_1,
+		      	ID_ZONA_SUCESO_2,
+          		NOMBRE_ZONA_SUCESO_2,
+		     	ID_ZONA_SUCESO_3,
+          		NOMBRE_ZONA_SUCESO_3,
+		      	ESTADO
+		FROM 
+		    	SINADA.V_CASO
+			WHERE 
+			     
+			      ID_PROBLEMATICA  = #{problematica.idDetalleCaso} AND
+		          ID_DEBIDOA_1 = #{debidoA1.idDetalleCaso} AND
+		          ID_DEBIDOA_2 = #{debidoA2.idDetalleCaso} AND
+		          ID_DEBIDOA_3 = #{debidoA3.idDetalleCaso} AND 
+		          ID_ZONA_SUCESO_1 = #{zonasuceso1.idDetalleCaso} AND 
+		          ID_ZONA_SUCESO_2 = #{zonasuceso2.idDetalleCaso} AND
+		          ID_ZONA_SUCESO_3 = #{zonasuceso3.idDetalleCaso} 
+		          
+		           ORDER BY ID_CASO ASC
+	</select>
+	<select id="buscarPorId" resultMap="resultMapCaso"
+		parameterType="long">
+		SELECT 
+		      	ID_CASO,
+		      	NUMERO_CASO,
+		      	ID_PROBLEMATICA,
+          		NOMBRE_PROBLEMATICA,
+		      	ID_DEBIDOA_1,
+          		NOMBRE_DEBIDOA_NIVEL1,
+		      	ID_DEBIDOA_2,
+          		NOMBRE_DEBIDOA_NIVEL2,
+		      	ID_DEBIDOA_3,
+          		NOMBRE_DEBIDOA_NIVEL3,
+		      	ID_ZONA_SUCESO_1,
+          		NOMBRE_ZONA_SUCESO_1,
+		      	ID_ZONA_SUCESO_2,
+          		NOMBRE_ZONA_SUCESO_2,
+		     	ID_ZONA_SUCESO_3,
+          		NOMBRE_ZONA_SUCESO_3,
+		      	ESTADO
+		FROM 
+		    	SINADA.V_CASO
+			WHERE 
+			  
+			    ID_CASO  = #{idCaso}
+	</select>
+	
+<!-- 	<select id="generarCodigoCaso" resultMap="resultMapCaso"> -->
+<!-- 			SELECT  -->
+<!-- 				SINADA.SEC_GENM_ID_CASO.NEXTVAL  AS ID_CASO -->
+<!-- 			FROM  -->
+<!-- 				DUAL         -->
+<!-- 	</select> -->
+	
+	<insert id="agregar" parameterType="Caso" >
+		
+		<selectKey order="BEFORE" keyProperty="idCaso" resultType="long">
+		 SELECT SINADA.SEC_GENM_ID_CASO.nextVal from dual	
+		</selectKey>
+		
+	
+			
+		
+		INSERT INTO SINADA.T_GENM_CASO
+		(
+			  ID_CASO,
+		      NUMERO_CASO,
+		      ID_PROBLEMATICA,
+		      ID_DEBIDOA_1,
+		      ID_DEBIDOA_2,
+		      ID_DEBIDOA_3,
+		      ID_ZONA_SUCESO_1,
+		      ID_ZONA_SUCESO_2,
+		      ID_ZONA_SUCESO_3,
+		      ESTADO,
+		      FLAG_ACTIVO
+		)
+		VALUES
+		(
+		#{idCaso},
+		'CAS'|| LPAD(#{idCaso},7,'0'),
+		#{problematica.idDetalleCaso},
+		#{debidoA1.idDetalleCaso},
+		#{debidoA2.idDetalleCaso},
+		#{debidoA3.idDetalleCaso},
+		#{zonasuceso1.idDetalleCaso},
+		#{zonasuceso2.idDetalleCaso},
+		#{zonasuceso3.idDetalleCaso},
+		1,
+		'1'
+	
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="Caso"> -->
+<!-- 		UPDATE SINADA.T_GENM_CASO -->
+<!-- 		SET -->
+
+<!-- 		      DESCRIPCION	 =#{descripcion} -->
+		     
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_DETALLE_CASO = #{idDetalleCaso} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_CASO
+		SET
+		FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CASO = #{idCaso}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

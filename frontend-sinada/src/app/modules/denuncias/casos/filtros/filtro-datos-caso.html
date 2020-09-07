@@ -1,0 +1,474 @@
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-9 col-xs-10">
+						<div class="form-group">
+							<label for="problematica" class="important-box">Problem&aacute;tica:</label>
+
+					   <select2 id="problematica" name="problematica"
+							ng-model="vm.prmDataCaso.problematica.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.problematica.idDetalleCaso,1)"
+							ng-required="true"
+							class="selectCaso"
+							 s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaProblematica">
+
+						</select2>
+
+
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.problematica.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosProblematicaDialog()">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.problematica.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosProblematicaDialog()">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="debidoA" class="important-box">&iquest;Debido a? (Nivel 1): </label>
+
+
+					<select2 id="debidoA" name="debidoA"
+						ng-model="vm.prmDataCaso.debidoA1.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA1.idDetalleCaso,2)"
+						ng-required="true"
+						 class="selectCaso"
+						 s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaDebidoANivel1">
+
+
+					</select2>
+
+
+					</div>
+
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA1.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.problematica.idDetalleCaso == 0"
+								ng-click="vm.mostrarCasosDebidoA(1,vm.prmDataCaso.problematica.idDetalleCaso,vm.prmDataCaso.debidoA1.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA1.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDebidoA(1,vm.prmDataCaso.problematica.idDetalleCaso,vm.prmDataCaso.debidoA1.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="col-md-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="debidoA">Nivel 2: </label>
+
+						<select2 id="debidoA" name="debidoA"
+								ng-model="vm.prmDataCaso.debidoA2.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA2.idDetalleCaso,3)"
+							class="selectCaso"
+							s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaDebidoANivel2">
+
+
+						</select2>
+
+					</div>
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA2.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.debidoA1.idDetalleCaso == 0 || vm.listaZonaSucesonivel1.length>1"
+								ng-click="vm.mostrarCasosDebidoA(2,vm.prmDataCaso.debidoA1.idDetalleCaso,vm.prmDataCaso.debidoA2.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA2.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDebidoA(2,vm.prmDataCaso.debidoA1.idDetalleCaso,vm.prmDataCaso.debidoA2.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				</div>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-md-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="debidoA">Nivel 3: </label>
+
+						 <select2 id="debidoA"
+							name="debidoA" ng-model="vm.prmDataCaso.debidoA3.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.debidoA3.idDetalleCaso,1)"
+							class="selectCaso"
+							s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaDebidoANivel3">
+
+						</select2>
+
+					</div>
+
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA3.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.debidoA2.idDetalleCaso == 0 || vm.listaZonaSucesonivel1.length>1"
+								ng-click="vm.mostrarCasosDebidoA(3,vm.prmDataCaso.debidoA2.idDetalleCaso,vm.prmDataCaso.debidoA3.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA3.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDebidoA(3,vm.prmDataCaso.debidoA2.idDetalleCaso,vm.prmDataCaso.debidoA3.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				</div>
+
+
+		</div>
+
+
+
+		<div class="row">
+
+			<div class="col-md-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="sucede" class="important-box">&iquest;D&oacute;nde Sucede? (Nivel 1): </label>
+
+
+					<select2
+						id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso1.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso1.idDetalleCaso,2)"
+						 s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel1"
+						class="selectCaso">
+
+					</select2>
+
+					</div>
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso1.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="(vm.prmDataCaso.problematica.idDetalleCaso==0) ||(vm.prmDataCaso.problematica.idDetalleCaso!=0 && vm.prmDataCaso.debidoA1.idDetalleCaso==0) || (vm.prmDataCaso.debidoA1.idDetalleCaso != 0 && vm.listaDebidoANivel2.length>1 && vm.prmDataCaso.debidoA2.idDetalleCaso==0 && vm.prmDataCaso.debidoA3.idDetalleCaso==0) ||  (vm.prmDataCaso.debidoA2.idDetalleCaso != 0 && vm.listaDebidoANivel3.length>1 && vm.prmDataCaso.debidoA3.idDetalleCaso==0) "
+								ng-click="vm.mostrarCasosDondeSucede(1,vm.padreDondeSucede.idDetalleCaso,vm.prmDataCaso.zonasuceso1.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso1.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDondeSucede(1,vm.padreDondeSucede.idDetalleCaso,vm.prmDataCaso.zonasuceso1.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="sucede">Nivel 2:</label>
+
+
+					<select2
+						id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso2.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso2.idDetalleCaso,3)"
+						s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel2"
+						class="selectCaso">
+					</select2>
+					</div>
+
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso2.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.zonasuceso1.idDetalleCaso==0"
+								ng-click="vm.mostrarCasosDondeSucede(2,vm.prmDataCaso.zonasuceso1.idDetalleCaso,vm.prmDataCaso.zonasuceso2.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso2.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDondeSucede(2,vm.prmDataCaso.zonasuceso1.idDetalleCaso,vm.prmDataCaso.zonasuceso2.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="sucede">Nivel 3:</label>
+
+
+					<select2 id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso3.idDetalleCaso"
+						s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel3"
+						class="selectCaso">
+
+					</select2>
+
+
+					</div>
+
+					<div class="col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso3.idDetalleCaso == 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+									ng-disabled="vm.prmDataCaso.zonasuceso2.idDetalleCaso==0"
+								ng-click="vm.mostrarCasosDondeSucede(3,vm.prmDataCaso.zonasuceso2.idDetalleCaso,vm.prmDataCaso.zonasuceso3.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button>
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso3.idDetalleCaso != 0">
+							<button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDondeSucede(3,vm.prmDataCaso.zonasuceso2.idDetalleCaso,vm.prmDataCaso.zonasuceso3.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+
+<!--
+				<div class="input-group col-md-3">
+					<label></label>
+					<div class="form-group" ng-show="vm.dataCaso.sucede == 0">
+						<button class="btn btn-flat btn-primary btn-sm"
+							ng-disabled="vm.dataCaso.debidoA == 0"
+							ng-click="vm.mostrarCasosDondeSucede()">
+							<span class="icon-agregar"></span>
+						</button>
+					</div>
+					<div class="form-group" ng-show="vm.dataCaso.sucede != 0">
+						<button class="btn btn-flat btn-primary btn-sm"
+							ng-click="vm.mostrarCasosDondeSucede()">
+							<span class="icon-editar"></span>
+						</button>
+					</div>
+				</div>
+-->
+
+
+			</div>
+		</div>
+
+		<div class="row">
+				<div class="col-md-12">
+          <div class="alert alert-info" role="alert">
+            <strong>Nota:</strong> Debe tener en cuenta que al modificar y/o eliminar algun dato de la (Problem&aacute;tica,¿Debido a?,¿D&oacute;nde Sucede?) afectar&aacute; a los casos registrados.
+          </div>
+				</div>
+		</div>
+
+	<div class="row">
+		<div id="campoObligatorio" class="col-lg-12 text-left" ng-if="true">
+  	    	<p class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</p>
+  	    </div>
+	</div>
+
+
+	  <div class="row">
+	      <div class="col-lg-12 text-right">
+	        <button ng-if="$parent.validarOperacion('LIMPIAR')"  type="button" ng-click="vm.limpiarGenerico(0,0)" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" uib-tooltip="Limpiar filtros" >
+	                  <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	              </button>
+	              <button ng-if="$parent.validarOperacion('BUSCAR')"  type="button" id="btnRef_recurso" ng-click="vm.listarCasoRegistrados()"   uib-tooltip="Buscar"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+	                  <span class="icon-buscar spac-btn-r"></span> Buscar
+	              </button>
+	               <button ng-if="$parent.validarOperacion('REGISTRAR')" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in" ng-click="vm.registrarCaso()" ng-disabled="vm.listaZonaSucesonivel1.length==0 || vm.prmDataCaso.zonasuceso1.idDetalleCaso==0" uib-tooltip="Registrar caso">
+	                  <span class="glyphicon glyphicon-floppy-disk"></span> Registrar caso
+	              </button>
+	<!--
+	              <button class="btn btn-flat btn-primary btn-sm" ng-click="vm.irARegistroDenuncia()" uib-tooltip="Nuevo Producto">
+	                  <span class="glyphicon glyphicon-plus-sign spac-btn-r"></span> Nuevo
+	              </button>
+	      -->
+
+	      </div>
+    	</div>
+
+		<div class="row">
+			<div class="col-ms-2 col-md-2 col-xs-4">
+				<div class="form-group">
+		          <label for="cantidadPaginas">P&aacute;ginas</label>
+		          <select id="cantidadPaginas" ng-model="config.itemsPerPage" name="cantidadPaginas" class="form-control input-sm">
+		            <option ng-value="item.numero" ng-repeat="item in lstNumeroPagina">{{item.numero}}</option>
+		          </select>
+				</div>
+	        </div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="form-group">
+					<div id="table-reduce" class="table-rpv table-reduce">
+						<table
+							class="table table-hover table-bordered table-striped table-app tabla-config"
+							bgcolor="#d0c9c9">
+							<thead>
+								<tr>
+									<th scope="col" class="text-center" width="80">Caso</th>
+									<th scope="col" class="text-center" width="130">&iquest;Qu&eacute;?</th>
+									<th scope="col" class="text-center td-tabla-00" width="30%">&iquest;Debido a?</th>
+<!-- 									<th scope="col" class="text-center td-tabla-00" width="280">&iquest;Debido a? (Nivel II)</th>
+									<th scope="col" class="text-center td-tabla-00" width="280">&iquest;Debido a? (Nivel III)</th> -->
+									<th scope="col" class="text-center td-tabla-01" width="30%">&iquest;D&oacute;nde sucede?</th>
+<!-- 									<th scope="col" class="text-center td-tabla-01" width="280">&iquest;Dónde sucede? (Nivel II)</th>
+									<th scope="col" class="text-center td-tabla-01" width="180">&iquest;Dónde sucede? (Nivel III)</th> -->
+
+									<th scope="col" class="text-center td-tabla-01" width="100">Acci&oacute;n</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr dir-paginate="itemCaso in vm.listaCaso | itemsPerPage: config.itemsPerPage" pagination-id="coutListaCaso">
+
+									<td data-label="Caso">{{itemCaso.numeroCaso}}</td>
+									<td data-label="¿Que?">{{itemCaso.problematica.descripcion}}</td>
+									<td style="vertical-align: middle">
+										<table>
+											<tbody>
+												<tr style="border-bottom: 1px solid #ddd">
+													<th scope="col" width="60">Nivel I</th>
+													<td data-label="¿Debido a? (Nivel I)">{{itemCaso.debidoA1.descripcion}}</td>
+												</tr>
+												<tr style="border-bottom: 1px solid #ddd">
+													<th scope="col" width="60">Nivel II</th>
+													<td data-label="¿Debido a? (Nivel II)">{{itemCaso.debidoA2.descripcion}}</td>
+												</tr>
+												<tr style="border-bottom: 1px solid #ddd">
+													<th scope="col" width="60">Nivel III</th>
+													<td data-label="¿Debido a? (Nivel I)II">{{itemCaso.debidoA3.descripcion}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+
+									<td style="vertical-align: middle">
+										<table>
+											<tbody>
+												<tr style="border-bottom: 1px solid #ddd">
+													<th scope="col" width="60">Nivel I</th>
+													<td data-label="¿D&oacute;nde sucede? (Nivel I)">{{itemCaso.zonasuceso1.descripcion}}</td>
+												</tr>
+												<tr style="border-bottom: 1px solid #ddd">
+													<th scope="col" width="60">Nivel II</th>
+													<td data-label="¿D&oacute;nde sucede? (Nivel II)">{{itemCaso.zonasuceso2.descripcion}}</td>
+												</tr>
+												<tr style="border-bottom: 1px solid #ddd">
+													<th scope="col" width="60">Nivel III</th>
+													<td data-label="¿D&oacute;nde sucede? (Nivel III)">{{itemCaso.zonasuceso3.descripcion}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+
+									<td data-label="Acci&oacute;n" class="text-center">
+
+										<button type="button" class="btn btn-default btn-sm"
+											 uib-tooltip="A&ntilde;adir entidades" ng-if="$parent.validarOperacion('ANADIR ENTIDAD')"
+											ng-click="itemEfa.swEditable = 0 ; vm.obtenerDatoCaso(itemCaso)">
+											<span class="icon-agregar"></span>
+										</button>
+
+										<button type="button" class="btn btn-default btn-sm"
+											 uib-tooltip="Eliminar"
+											ng-click="vm.confirmarEliminarCaso(itemCaso)">
+											<span class="glyphicon glyphicon-trash"></span>
+										</button>
+									</td>
+
+								</tr>
+
+								<tr ng-if="vm.listaCaso == null || vm.listaCaso.length==0">
+									<td colspan="9">No se encontraron resultados</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<dir-pagination-controls pagination-id="coutListaCaso" ></dir-pagination-controls>
+			</div>
+		</div>
+
+
+<!--
+	<fieldset class="well unp-fieldset"
+		ng-show="vm.dataCaso.problematica!=0 && vm.dataCaso.debidoA!=0 &&  vm.dataCaso.sucede!=0">
+		<legend class="unp-legend">Listado de Entidades asignadas a
+			este Caso</legend>
+		<div class="row">
+			<div class="form-group col-md-12">
+
+				<table
+					class="table table-hover table-bordered table-striped table-app tabla-config"
+					bgcolor="#d0c9c9">
+					<thead>
+						<tr>
+							<th class="text-center">Tipo</th>
+							<th class="text-center">Responsable / Direcci&oacute;n</th>
+							<th class="text-center td-tabla-00">&Aacute;mbito / Sub
+								Direcci&oacute;n</th>
+							<th class="text-center td-tabla-01">Asignaci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							ng-show="vm.listaEntidadCaso == null || vm.listaEntidadCaso.length==0">
+							<td colspan="5">No se encontraron resultados</td>
+						</tr>
+						<tr ng-repeat="item in vm.listaEntidadCaso">
+							<td class="text-center">{{item.nombreTipoEntidad}}</td>
+							<td>{{item.responsable}}</td>
+							<td class="text-center td-tabla-00">{{item.nombreAmbito}}</td>
+							<td class="text-center td-tabla-01">{{item.nombreAsignacion}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</fieldset>
+-->

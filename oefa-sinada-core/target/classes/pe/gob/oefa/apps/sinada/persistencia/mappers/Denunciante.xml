@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="denunciante">
+	<resultMap id="resultMapDenunciante" type="Denunciante">
+		<id column="ID_DENUNCIANTE" 	 property="idDenunciante" />
+		<result column="ID_DENUNCIA"	 property="idDenuncia" />
+		<result column="TIPO_PERSONA" 	 property="tipoPersona" />
+		<result column="ID_PERSONA" 	 property="idPersona" />
+		<result column="ESTADO" 	     property="estado" />
+		<result column="FLAG_ACTIVO"     property="flagActivo" />
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapDenunciante" parameterType="Denunciante">
+		SELECT
+			  ID_DENUNCIANTE, 
+	          ID_DENUNCIA,
+	          TIPO_PERSONA,
+	          ID_PERSONA, 
+	          ESTADO,
+	          FLAG_ACTIVO
+
+		FROM
+			SINADA.T_GENM_DENUNCIANTE
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_DENUNCIA = #{idDenuncia}
+			
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapDenunciante"
+		parameterType="long">
+		SELECT
+			  ID_DENUNCIANTE, 
+	          ID_DENUNCIA,
+	          TIPO_PERSONA,
+	          ID_PERSONA, 
+	          ESTADO,
+	          FLAG_ACTIVO
+
+		FROM
+			SINADA.T_GENM_DENUNCIANTE
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_DENUNCIANTE = #{idDenunciante}
+	</select>
+	<insert id="agregar" parameterType="Denunciante" useGeneratedKeys="true">
+		<selectKey keyProperty="idDenunciante" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_DENUNCIANTE.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_DENUNCIANTE
+		(
+			  ID_DENUNCIANTE, 
+	          ID_DENUNCIA,
+	          TIPO_PERSONA,
+	          ID_PERSONA, 
+	          ESTADO,
+	          FLAG_ACTIVO
+		)
+		VALUES
+		(
+				#{idDenunciante},
+				#{idDenuncia},
+				#{tipoPersona},
+				#{idPersona},
+				1,
+				'1'
+			
+		)
+	</insert>
+	<update id="modificar" parameterType="Denunciante">
+		UPDATE SINADA.T_GENM_DENUNCIANTE
+		
+		SET
+				
+				TIPO_PERSONA = #{tipoPersona},
+				ID_PERSONA = #{idPersona},
+				ESTADO = #{estado}
+
+		WHERE
+				FLAG_ACTIVO = 1
+		AND 
+				ID_DENUNCIANTE = #{idDenunciante}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_DENUNCIANTE
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_DENUNCIANTE = #{idDenunciante}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

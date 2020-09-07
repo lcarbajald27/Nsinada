@@ -1,0 +1,11 @@
+<span ui-view="header"></span>
+<span ui-view="navbar"></span>
+<span ui-view="main"></span>
+<span ui-view="sidebar" ></span>
+<span ui-view="footer"></span>
+<span ng-if="$parent.cargandoInformacion>0" class="overlay-block">
+  <div class="contenedor_load">
+    <img ng-src="assets/images/gif/gears-red.gif" alt="">
+    <p>Procesando...</p>
+  </div>
+</span>

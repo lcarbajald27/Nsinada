@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="contenidoNorma">
+	<resultMap id="resultMapContenidoNorma" type="ContenidoNorma">
+		<id 	column="ID_CONT_NORMA" 					property="idContenidoNorma"/>
+		<result column="ID_NORMA" 						property="idNorma"/>
+		<result column="NUMERO_NORMA"					property="numeroNorma"/>
+		<result column="NUMERO_CONT_NORMA"				property="numeroContenidoNorma"/>
+		<result column="ID_TITULO"						property="idTitulo"/>
+		<result column="ID_CAPITULO" 					property="idCapitulo"/>
+		<result column="ID_SUBCAPITULO" 				property="idSubcapitulo"/>
+		<result column="ID_SECCION"						property="idSeccion"/>
+        <result column="ID_ARTICULO"					property="idArticulo"/>
+        <result column="FECHA_VIGENCIA"					property="fechaVigencia"/>
+		<result column="TM1_ESTADO" 					property="estado"/>
+		<result column="NOMBRE_ESTADO_CONTENIDO" 		property="nombreEstado"/>
+		<result column="NUMERO_TITULO" 					property="numeroTitulo"/>
+		<result column="DESCRIPCION_TITULO" 			property="descripcionTitulo"/>
+		<result column="NUMERO_CAPITULO" 				property="numeroCapitulo"/>
+		<result column="DESCRIPCION_CAPITULO" 			property="descripcionCapitulo"/>
+		<result column="NUMERO_SUBCAPITULO"				property="numeroSubCapitulo"/>
+		<result column="DESCRIPCION_SUBCAPITULO" 		property="descripcionSubCapitulo"/>
+		<result column="NUMERO_SECCION" 				property="numeroSeccion"/>
+		<result column="DESCRIPCION_SECCION"			property="descripcionSeccion"/>
+		<result column="NUMERO_ARTICULO" 				property="numeroArticulo"/>
+		<result column="DESCRIPCION_ARTICULO" 			property="descripcionArticulo"/>
+		
+
+	</resultMap>
+	
+	<select id="listar" resultMap="resultMapContenidoNorma" parameterType="ContenidoNorma">
+
+		
+		
+		SELECT
+					ID_CONT_NORMA,
+					ID_NORMA,
+					(SELECT NOR.NOMBRETIPODISPOSITTIVO ||' Nº ' || NOR.NUMERO_NORMA  FROM SINADA.V_NORMA NOR WHERE NOR.ID_NORMA = #{idNorma}) AS NUMERO_NORMA,
+					NUMERO_CONT_NORMA,
+					ID_TITULO,
+					ID_CAPITULO,
+					ID_SUBCAPITULO,
+					ID_SECCION,
+					ID_ARTICULO,
+					FECHA_VIGENCIA,
+					TM1_ESTADO,
+					NOMBRE_ESTADO_CONTENIDO,
+					NUMERO_TITULO,
+					DESCRIPCION_TITULO,
+					NUMERO_CAPITULO,
+					DESCRIPCION_CAPITULO,
+					NUMERO_SUBCAPITULO,
+					DESCRIPCION_SUBCAPITULO,
+					NUMERO_SECCION,
+					DESCRIPCION_SECCION,
+					NUMERO_ARTICULO,
+					DESCRIPCION_ARTICULO
+					
+		FROM 
+       		  		SINADA.V_CONTENIDO_NORMA    
+		WHERE
+       				TM1_ESTADO =1
+       AND
+					ID_NORMA=#{idNorma}
+		AND
+      
+       				TM1_ESTADO =1 
+    
+       	<if test="descripcionArticulo!=null and descripcionArticulo!=''">
+       	   	AND
+       	UPPER(DESCRIPCION_ARTICULO) 	LIKE '%'||UPPER(#{descripcionArticulo,jdbcType=VARCHAR})||'%'
+       	</if>
+       			
+       				
+     
+       AND
+       
+       
+       (
+       				(#{tipoNormaCaso} = 0)
+       		
+       		OR
+       		
+       		(
+       			#{tipoNormaCaso} = 1 AND
+       		  
+       		     ID_CONT_NORMA 
+				       NOT IN(
+								  SELECT
+											  ID_CONTENIDO_NORMA
+								
+									FROM
+											  SINADA.T_GENM_NORMA_CASO  
+									WHERE
+											  FLAG_ACTIVO = '1'
+									AND 		
+												TIPO_NORMA_CASO =#{tipoNormaCaso}
+								    AND 
+								    		  ID_CASO_OEFA = #{idCasoOefa}
+								    AND 	
+								    			
+								    		  ID_CONTENIDO_NORMA!=0
+				     		) 
+       			
+       		
+       		)
+       		OR
+       		(
+       				#{tipoNormaCaso} = 2 AND
+       		  
+       		     ID_CONT_NORMA 
+				       NOT IN(
+								  SELECT
+											  ID_CONTENIDO_NORMA
+								
+									FROM
+											  SINADA.T_GENM_NORMA_CASO  
+									WHERE
+											  FLAG_ACTIVO = '1'
+									AND 		
+												TIPO_NORMA_CASO =#{tipoNormaCaso}
+								    AND 
+								    		  ID_CASO_EFA = #{idCasoEfa}
+								    AND 	
+								    			
+								    		  ID_CONTENIDO_NORMA!=0
+				     		) 
+       			
+       		
+       		
+       		)
+       
+       
+       )
+        			
+	</select>
+	
+			
+	<select id="buscarPorId" resultMap="resultMapContenidoNorma" parameterType="long">
+		SELECT
+					ID_CONT_NORMA,
+					ID_NORMA,
+					NUMERO_NORMA,
+					NUMERO_CONT_NORMA,
+					ID_TITULO,
+					ID_CAPITULO,
+					ID_SUBCAPITULO,
+					ID_SECCION,
+					ID_ARTICULO,
+					FECHA_VIGENCIA,
+					TM1_ESTADO,
+					NOMBRE_ESTADO_CONTENIDO,
+					NUMERO_TITULO,
+					DESCRIPCION_TITULO,
+					NUMERO_CAPITULO,
+					DESCRIPCION_CAPITULO,
+					NUMERO_SUBCAPITULO,
+					DESCRIPCION_SUBCAPITULO,
+					NUMERO_SECCION,
+					DESCRIPCION_SECCION,
+					NUMERO_ARTICULO,
+					DESCRIPCION_ARTICULO
+					
+		FROM 
+       		  		SINADA.V_CONTENIDO_NORMA  
+		WHERE
+		
+					ID_CONT_NORMA = #{idContenidoNorma}
+	</select>
+	
+
+	
+	
+	
+</mapper>

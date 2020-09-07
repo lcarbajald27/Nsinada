@@ -1,0 +1,69 @@
+<div>
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Vincular hoja de tr&aacute;mite</h4>
+	</div>
+	<div class="modal-body" ng-form name="hojaTramiteDialog">
+		<span class="content-box">
+			<div class="row">
+				<div class="form-group col-md-3 col-sm-3">
+					<label class="">A&ntilde;o</label>
+					<div class="form-group">
+						<input type="text" maxlength="4" ng-model="vm.STDHojaTramite.anio" class="form-control">
+					</div>
+				</div>
+				<div class="form-group col-md-3 col-sm-3">
+					<label class="">Tipo</label>
+					<div class="form-group">
+						<input type="text" maxlength="8" ng-model="vm.STDHojaTramite.intext" class="form-control">
+					</div>
+				</div>
+				<div class="form-group col-md-3 col-sm-3">
+					<label class="">N&uacute;mero de hoja</label>
+					<div class="form-group">
+						<input type="text" maxlength="10"  ng-model="vm.STDHojaTramite.nrohoja" class="form-control">
+					</div>
+				</div>
+				<div class="form-group col-md-3 col-sm-3">
+					<br/>
+					<button class="btn btn-primary btn-sm btn-pd-5 btn-br-in"  ng-disabled="!vm.STDHojaTramite.anio || !vm.STDHojaTramite.intext || !vm.STDHojaTramite.nrohoja" ng-click="vm.buscarHojaTramite()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12 col-sm-12">
+					<label>Remitente</label>
+					<div class="form-group">
+						<input type="text" ng-disabled="true" ng-model="vm.STDHojaTramite.denuncia.remitente" class="form-control">
+					</div>
+				</div>
+				<div class="form-group col-md-12 col-sm-12">
+					<label class="">Denuncia</label>
+					<div class="form-group">
+						<textarea style="height:200px;" ng-disabled="true" ng-model="vm.STDHojaTramite.denuncia.descripcion" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+		</span>
+		<div class="row">
+			<div class="form-group col-lg-12 text-right">
+			 <button aria-label="Dismiss" class="ngdialog-close btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+	            Cerrar
+	        </button>
+			<button class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in"  ng-disabled="vm.validaVincular==0" ng-click="vm.aceptar()"> 
+			<i aria-hidden="true" class="fa fa-check"></i>
+	            Vincular
+	        </button>
+			</div>
+		</div>
+	</div>
+	   <!-- 
+	    <div class="modal-footer">
+    	</div>
+       -->
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

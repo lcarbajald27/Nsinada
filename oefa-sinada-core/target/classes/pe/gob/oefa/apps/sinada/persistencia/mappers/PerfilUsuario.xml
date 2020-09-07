@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="perfilUsuario">
+	<resultMap id="resultMapPerfilUsuario" type="PerfilUsuario">
+		<id 	column="ID_PERFIL_USUARIO"	property="idPerfilUsuario" />
+		<result column="ID_PERFIL" 	 		property="perfil.idPerfil" />
+		<result column="ID_USUARIO" 		property="usuario.idUsuario" />
+		<result column="ESTADO" 		    property="estado.codigoRegistro" />
+
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapPerfilUsuario" parameterType="PerfilUsuario">
+		SELECT
+			  ID_PERFIL_USUARIO,
+		      ID_PERFIL,
+		      ID_USUARIO,
+		      ESTADO
+
+		FROM
+				SINADA.T_GEND_PERFIL_USUARIO
+		WHERE
+				ESTADO = 1
+		AND
+			 
+			ID_USUARIO = #{usuario.idUsuario}
+		
+
+
+	</select>
+
+
+	<select id="validarUsuarioPorPerfil" resultMap="resultMapPerfilUsuario"
+		parameterType="PerfilUsuario">
+		SELECT
+			  ID_PERFIL_USUARIO,
+		      ID_PERFIL,
+		      ID_USUARIO,
+		      ESTADO
+
+		FROM
+				SINADA.T_GEND_PERFIL_USUARIO
+		WHERE
+				ESTADO = 1
+		AND
+				 ID_PERFIL = #{perfil.idPerfil}
+		AND
+				ID_USUARIO = #{usuario.idUsuario}
+	</select>
+	
+	<select id="buscarPorId" resultMap="resultMapPerfilUsuario"
+		parameterType="long">
+		SELECT
+			  ID_PERFIL_USUARIO,
+		      ID_PERFIL,
+		      ID_USUARIO,
+		      ESTADO
+
+		FROM
+				SINADA.T_GEND_PERFIL_USUARIO
+		WHERE
+				ESTADO = 1
+		AND
+				 ID_PERFIL_USUARIO = #{idPerfilUsuario}
+	</select>
+	<insert id="agregar" parameterType="PerfilUsuario" useGeneratedKeys="true">
+		<selectKey keyProperty="idPerfilUsuario" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_ID_PERFIL_USUARIO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_PERFIL_USUARIO
+		(
+			  ID_PERFIL_USUARIO,
+		      ID_PERFIL,
+		      ID_USUARIO,
+		      ESTADO
+		)
+		VALUES
+		(
+			#{idPerfilUsuario},
+			#{perfil.idPerfil},
+			#{usuario.idUsuario},
+			1
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="PerfilUsuario"> -->
+<!-- 		UPDATE SINADA.T_GEND_PERFIL_USUARIO -->
+<!-- 		SET -->
+
+ 			  
+<!-- 		      ESTADO = #{nombrePerfil} -->
+		    
+
+<!-- 		WHERE -->
+<!-- 				FLAG_ACTIVO = 1 -->
+<!-- 		AND  -->
+<!-- 				ID_PERFIL = #{idPerfil} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_PERFIL_USUARIO
+		SET
+			ESTADO = 0
+		WHERE
+			ESTADO = 1
+		AND ID_PERFIL_USUARIO = #{idPerfilUsuario}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

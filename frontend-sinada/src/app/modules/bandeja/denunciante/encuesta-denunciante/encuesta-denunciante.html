@@ -1,0 +1,70 @@
+
+<div class="modal-header">
+	<h4 class="modal-title title-msg-conf">Encuesta de satisfacci&oacute;n al ciudadano</h4>
+</div>
+<div class="modal-body" ng-form name="maestroDataDialogForm">
+	<span class="content-box">
+				<br>
+				<br/>
+				<fieldset class="well unp-fieldset">
+					<legend class="unp-legend"></legend>
+					<div class="row">
+						<div class="col-md-6"></div>
+						<div class="col-md-3 text-center"><b>Puntaje</b></div>
+					</div>
+					<br>
+					<div class="row sin_padding">
+
+							<div class="form-group col-md-6">
+								<label >1) En general, ¿c&oacute;mo calificar&iacute;a su experiencia con respecto a la atenci&oacute;n de su denuncia ambiental?  </label>
+
+							</div>
+							<div class="form-group col-md-6">
+								<select id="pregunta1" name="pregunta1" ng-model="vm.dataEncuestaRevision.pregunta1.codigoRegistro" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+									<option ng-repeat="itemCombo in vm.listapregunta1"
+									ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+								</select>
+							</div>
+
+					</div>
+					<br>
+					<div class="row sin_padding">
+
+						<div class="form-group col-md-6">
+							<label >2) ¿C&oacute;mo considera el tiempo transcurrido para obtener una respuesta a su denuncia ambiental? </label>
+						</div>
+						<div class="form-group col-md-6">
+							<select id="pregunta2" name="pregunta2" ng-model="vm.dataEncuestaRevision.pregunta2.codigoRegistro" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+									<option ng-repeat="itemCombo in vm.listapregunta2"
+									ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+							</select>
+						</div>
+
+					</div>
+					<br>
+					<div class="row">
+
+							<div class="form-group col-md-6">
+								<label>3) ¿C&oacute;mo calificar&iacute;a la respuesta obtenida con respecto a su denuncia ambiental?  </label>
+							</div>
+							<div class="form-group col-md-6">
+								<select id="pregunta3" name="pregunta3" ng-model="vm.dataEncuestaRevision.pregunta3.codigoRegistro" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+									<option ng-repeat="itemCombo in vm.listapregunta3"
+									ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+								</select>
+							</div>
+
+					</div>
+					<br>
+				</fieldset>
+				<div class="row">
+					<div class="form-group col-lg-12 text-right">
+						<button class="btn btn-primary-inv btn-sm" ng-click="vm.terminarEncuesta()" ng-disabled="vm.dataEncuestaRevision.pregunta1.codigoRegistro==0 || vm.dataEncuestaRevision.pregunta2.codigoRegistro==0 || vm.dataEncuestaRevision.pregunta3.codigoRegistro==0">
+							<i class="fa fa-check" aria-hidden="true"></i> Enviar</button>
+						</div>
+					</div>
+	</span>
+</div>

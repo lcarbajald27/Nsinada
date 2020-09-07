@@ -1,0 +1,23 @@
+
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Maestro')">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 sin_padding" ng-if="$parent.validarOpcion('Maestro')">
+	<div>
+		<div class="panel panel-tab-app with-nav-tabs panel-default">
+			<div class="panel-body app-panel" ui-view></div>
+		</div>
+	</div>
+</div>

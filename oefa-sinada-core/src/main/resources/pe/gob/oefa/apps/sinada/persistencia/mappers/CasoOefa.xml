@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_OEFA -->
+<mapper namespace="casoOefa">
+	<resultMap id="resultMapCasoOefa" type="CasoOefa">
+		<id 	column="ID_CASO_OEFA" 			property="idCasoOefa" />
+		<result column="DIRECCION_SUPERVICION" 	property="direccionSupervision.codigoRegistro" />
+		<result column="DIRECCION_EVALUACION"	property="direccionEvaluacion.codigoRegistro" />
+		<result column="ESTADO" 				property="estado.codigoRegistro" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+		<result column="TIPO_ASIGNACION"		property="tipoAsignacion.codigoRegistro" />
+		<result column="ID_CASO"				property="caso.idCaso" />
+		
+		<result column="NOMBRE_DIRECCION_SUPERVICION" 	property="direccionSupervision.descripcion" />
+		<result column="NOMBRE_DIRECCION_EVALUACION" 	property="direccionEvaluacion.descripcion" />
+		<result column="NOMBRE_TIPO_ASIGNACION" 	property="tipoAsignacion.descripcion" />
+		<result column="SW_EDITAR" 	property="swEditable" />
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapCasoOefa" parameterType="CasoOefa">
+		SELECT 
+		     CAOEFA.ID_CASO_OEFA,
+		    CAOEFA.DIRECCION_SUPERVICION,
+        	DIRECSUPER.DESCRIPCION AS NOMBRE_DIRECCION_SUPERVICION,
+		    CAOEFA.DIRECCION_EVALUACION,
+       		 DIRECEVAL.DESCRIPCION AS NOMBRE_DIRECCION_EVALUACION,
+		    CAOEFA.ESTADO,
+		    CAOEFA.FLAG_ACTIVO,
+		    CAOEFA.TIPO_ASIGNACION,
+        	TIPOASIG.DESCRIPCION AS NOMBRE_TIPO_ASIGNACION,
+		    CAOEFA.ID_CASO
+	FROM
+		    SINADA.T_GENM_CASO_OEFA CAOEFA INNER JOIN
+		    SINADA.T_GENL_MAESTRO DIRECSUPER ON
+		    CAOEFA.DIRECCION_SUPERVICION = DIRECSUPER.CODIGO_REGISTRO AND
+		    DIRECSUPER.CODIGO_MAESTRO='DireccionSupervision' AND
+		    DIRECSUPER.FLAG_ACTIVO='1'
+		    
+		    INNER JOIN SINADA.T_GENL_MAESTRO DIRECEVAL ON
+		    CAOEFA.DIRECCION_EVALUACION = DIRECEVAL.CODIGO_REGISTRO AND
+		    DIRECEVAL.CODIGO_MAESTRO='DireccionEvaluacion' AND
+		    DIRECEVAL.FLAG_ACTIVO='1'
+		    
+		    INNER JOIN SINADA.T_GENL_MAESTRO TIPOASIG ON
+		    CAOEFA.TIPO_ASIGNACION = TIPOASIG.CODIGO_REGISTRO AND
+		    TIPOASIG.CODIGO_MAESTRO='TipoAsignacion' AND
+		    TIPOASIG.FLAG_ACTIVO='1'
+    
+		WHERE
+			CAOEFA.FLAG_ACTIVO = '1'
+	</select>
+	
+	
+	<select id="listarEfasXCaso" resultMap="resultMapCasoOefa" parameterType="CasoOefa">
+	SELECT 
+		     CAOEFA.ID_CASO_OEFA,
+		    CAOEFA.DIRECCION_SUPERVICION,
+        	DIRECSUPER.DESCRIPCION AS NOMBRE_DIRECCION_SUPERVICION,
+		    CAOEFA.DIRECCION_EVALUACION,
+       		 DIRECEVAL.DESCRIPCION AS NOMBRE_DIRECCION_EVALUACION,
+		    CAOEFA.ESTADO,
+		    CAOEFA.FLAG_ACTIVO,
+		    CAOEFA.TIPO_ASIGNACION,
+        	TIPOASIG.DESCRIPCION AS NOMBRE_TIPO_ASIGNACION,
+		    CAOEFA.ID_CASO,
+		    0 AS SW_EDITAR
+	FROM
+		    SINADA.T_GENM_CASO_OEFA CAOEFA INNER JOIN
+		    SINADA.T_GENL_MAESTRO DIRECSUPER ON
+		    CAOEFA.DIRECCION_SUPERVICION = DIRECSUPER.CODIGO_REGISTRO AND
+		    DIRECSUPER.CODIGO_MAESTRO='DireccionSupervision' AND
+		    DIRECSUPER.FLAG_ACTIVO='1'
+		    
+		    INNER JOIN SINADA.T_GENL_MAESTRO DIRECEVAL ON
+		    CAOEFA.DIRECCION_EVALUACION = DIRECEVAL.CODIGO_REGISTRO AND
+		    DIRECEVAL.CODIGO_MAESTRO='DireccionEvaluacion' AND
+		    DIRECEVAL.FLAG_ACTIVO='1'
+		    
+		    INNER JOIN SINADA.T_GENL_MAESTRO TIPOASIG ON
+		    CAOEFA.TIPO_ASIGNACION = TIPOASIG.CODIGO_REGISTRO AND
+		    TIPOASIG.CODIGO_MAESTRO='TipoAsignacion' AND
+		    TIPOASIG.FLAG_ACTIVO='1'
+    
+		WHERE
+			CAOEFA.FLAG_ACTIVO = '1'
+    	AND
+        	CAOEFA.ID_CASO = #{caso.idCaso}
+	</select>
+	
+	
+	<select id="buscarPorIdCasoDireccionAndSubDireccion" resultMap="resultMapCasoOefa" parameterType="CasoOefa">
+		SELECT 
+		     CAOEFA.ID_CASO_OEFA,
+		    CAOEFA.DIRECCION_SUPERVICION,
+        	DIRECSUPER.DESCRIPCION AS NOMBRE_DIRECCION_SUPERVICION,
+		    CAOEFA.DIRECCION_EVALUACION,
+       		 DIRECEVAL.DESCRIPCION AS NOMBRE_DIRECCION_EVALUACION,
+		    CAOEFA.ESTADO,
+		    CAOEFA.FLAG_ACTIVO,
+		    CAOEFA.TIPO_ASIGNACION,
+        	TIPOASIG.DESCRIPCION AS NOMBRE_TIPO_ASIGNACION,
+		    CAOEFA.ID_CASO
+	FROM
+		    SINADA.T_GENM_CASO_OEFA CAOEFA INNER JOIN
+		    SINADA.T_GENL_MAESTRO DIRECSUPER ON
+		    CAOEFA.DIRECCION_SUPERVICION = DIRECSUPER.CODIGO_REGISTRO AND
+		    DIRECSUPER.CODIGO_MAESTRO='DireccionSupervision' AND
+		    DIRECSUPER.FLAG_ACTIVO='1'
+		    
+		    INNER JOIN SINADA.T_GENL_MAESTRO DIRECEVAL ON
+		    CAOEFA.DIRECCION_EVALUACION = DIRECEVAL.CODIGO_REGISTRO AND
+		    DIRECEVAL.CODIGO_MAESTRO='DireccionEvaluacion' AND
+		    DIRECEVAL.FLAG_ACTIVO='1'
+		    
+		    INNER JOIN SINADA.T_GENL_MAESTRO TIPOASIG ON
+		    CAOEFA.TIPO_ASIGNACION = TIPOASIG.CODIGO_REGISTRO AND
+		    TIPOASIG.CODIGO_MAESTRO='TipoAsignacion' AND
+		    TIPOASIG.FLAG_ACTIVO='1'
+    
+		WHERE
+			CAOEFA.FLAG_ACTIVO = '1'
+      AND
+        	CAOEFA.ID_CASO = #{caso.idCaso}
+      AND
+       		DIRECCION_SUPERVICION =#{direccionSupervision.codigoRegistro}
+      AND 
+          	DIRECCION_EVALUACION = #{direccionEvaluacion.codigoRegistro}
+          	
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapCasoOefa"
+		parameterType="long">
+	SELECT 
+      ID_CASO_OEFA,
+      DIRECCION_SUPERVICION,
+      DIRECCION_EVALUACION,
+      ESTADO,
+      FLAG_ACTIVO,
+      TIPO_ASIGNACION,
+      ID_CASO
+FROM 
+      SINADA.T_GENM_CASO_OEFA 
+WHERE
+      FLAG_ACTIVO = '1'
+		AND
+			ID_CASO_OEFA = #{idCasoOefa}
+	</select>
+	<insert id="agregar" parameterType="CasoOefa" useGeneratedKeys="true">
+		<selectKey keyProperty="idCasoOefa" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_CASO_OEFA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_CASO_OEFA
+		(
+			ID_CASO_OEFA,
+			ID_CASO,
+		    DIRECCION_SUPERVICION,
+		    DIRECCION_EVALUACION,
+		    TIPO_ASIGNACION,
+		    ESTADO,
+		    FLAG_ACTIVO
+		)
+		VALUES
+		(
+			#{idCasoOefa},
+			#{caso.idCaso},
+			#{direccionSupervision.codigoRegistro},
+			#{direccionEvaluacion.codigoRegistro},
+			#{tipoAsignacion.codigoRegistro},
+			#{estado.codigoRegistro},
+			'1'
+		)
+	</insert>
+	<update id="modificar" parameterType="CasoOefa">
+		UPDATE SINADA.T_GENM_CASO_OEFA
+		SET
+		    TIPO_ASIGNACION = 	#{tipoAsignacion.codigoRegistro}
+		WHERE
+			FLAG_ACTIVO = 1
+		AND ID_CASO_OEFA = #{idCasoOefa}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_CASO_OEFA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CASO_OEFA = #{idCasoOefa}
+	</update>
+
+</mapper>

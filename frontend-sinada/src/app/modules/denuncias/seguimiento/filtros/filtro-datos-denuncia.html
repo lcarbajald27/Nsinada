@@ -1,0 +1,50 @@
+    <div class="row">
+      <div class="form-group col-md-4 col-sm-4">
+          <label for="idProducto" >C&oacute;digo</label>
+          <div class="form-group">
+            <input ng-model="vm.dataBandejaEntidad.codigoDenuncia" maxlength="13" type="text" maxlength="" class="form-control input-sm" name="codigoDenuncia" placeholder="Ingresar c&oacute;digo" >
+          </div>
+      </div>
+
+      <div class="form-group col-md-4 col-sm-4">
+        <label for="idProducto" >Estado </label>
+        <div class="form-group">
+        <select ng-model="vm.dataBandejaEntidad.estadoBandejaDetalle" id="periodo" name="periodo" class="form-control input-sm">
+          <option value="0" ng-value="0"> Seleccionar </option>
+          <option ng-repeat="itemCombo in vm.listaEstadoDenuncia"
+				  ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+
+        </select>
+        </div>
+      </div>
+
+    </div>
+    <div>
+    <div class="row">
+      <div class="form-group col-md-4 col-sm-6">
+        <label for="idProducto" >Denunciante</label>
+        <div class="form-group">
+          <input ng-model="vm.dataBandejaEntidad.nombreDenunciante" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar denunciante">
+        </div>
+      </div>
+      <div class="form-group col-md-4 col-sm-6">
+        <label for="idProducto" >Denunciado</label>
+        <div class="form-group">
+          <input ng-model="vm.dataBandejaEntidad.nombreDenunciado" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar denunciado">
+        </div>
+      </div>
+    </div>
+  <div class="row">
+    <div class="form-group col-md-4 col-sm-4"  ng-if="$parent.validarOperacion('LISTA ESPECIALISTAS')">
+       <label for="especialistaAsignado" >Especialista asignado</label>
+        <div class="form-group">
+         <select ng-model="vm.dataBandejaEntidad.idResponsableBandeja" id="periodo" name="periodo" class="form-control input-sm">
+          <option value="0"> Seleccionar </option>
+          <option ng-repeat="itemCombo in vm.listaUsuariosEspecialistas"
+				  ng-value="itemCombo.idUsuario | number">{{itemCombo.nombrePersona}}</option>
+
+        </select>
+<!--           <input ng-model="vm.especialistaAsignado" type="text" class="form-control input-sm" name="especialista" placeholder="Ingresar Especialista Asignado"> -->
+         </div>
+     </div>
+  </div>

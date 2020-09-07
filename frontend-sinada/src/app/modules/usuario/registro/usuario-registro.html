@@ -1,0 +1,60 @@
+<div class="col-lg-12  sin_padding"  name="usuarioRegistroForm" novalidate ng-form >
+	<span class="" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Registro de Usuarios</span></h3>
+			</div>
+		</div>
+		<br/>
+		<fieldset class="well unp-fieldset">
+		<legend class="unp-legend"></legend>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="idUsuario" class="important-box">C&oacute;digo de Usuario</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.idUsuario" type="text" ng-disabled="true" class="form-control input-sm" name="idUsuario" placeholder="Código Generado" >
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6" ng-class="{'has-error':formUsuario.nombreUsuario.$invalid && formUsuario.nombreUsuario.$touched}">
+				<label for="nombreUsuario" class="important-box">Usuario</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.nombreUsuario" type="text" autocomplete="off" class="form-control input-sm" name="nombreUsuario" placeholder="Ingresar Usuario" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6" ng-class="{'has-error':formUsuario.clave.$invalid && formUsuario.clave.$touched}">
+				<label for="clave" class="important-box">Clave</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.clave" type="password" autocomplete="off" class="form-control input-sm" name="clave" placeholder="Ingresar clave" required>
+				</div>
+			</div>
+
+		</div>
+	    <div class="row">
+           <div class="form-group col-md-6" ng-class="{'has-error':vm.formUsuario.nombres.$invalid && vm.formUsuario.nombres.$touched}">
+				<div class="form-group">
+				<label for="nombres" class="important-box">Nombre</label>
+					<input ng-model="vm.dataUsuario.persona.nombres" type="text" class="form-control input-sm" name="nombres" placeholder="Ingrese su Nombre" input-restrict="texto-espacio" maxlength="100" required>
+				</div>
+		    </div>
+          </div>
+
+		</fieldset>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.guardar()" class="btn btn-flat btn-success btn-sm btn-pd-5">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Registrar
+	            </button>
+	            <a class="btn btn-flat btn-primary btn-sm btn-pd-5" ng-click="vm.limpiar()">
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </a>
+	            <button type="button" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-sm btn-pd-5">
+	                <span class="glyphicon glyphicon- spac-btn-r"></span> Cancelar
+	            </button>
+	        </div>
+  	    </div>
+	</span>
+</div>

@@ -1,0 +1,102 @@
+<div class="wrapper">
+  <header class="header">
+      <div class="top-bar">
+          <div class="content-box-app">
+
+<!--             <div class="row barra-top-oefa-movil">
+              <span class="pull-left" id="logo-movilx">
+                  <img ng-src="assets/images/logo-sinada_movil.png" alt="" height="30">
+              </span>
+              <span class="pull-right span-movil" style="padding:0;">
+                <ul id="head-top-menu" class="header-menu col-md-12 col-sm-12 col-xs-12 ">
+                <li><a ng-click="vmHeader.cerrarSesion()"><i class="glyphicon glyphicon-off"></i> Cerrar sesi&oacute;nx</a></li>
+                </ul>
+              </span>
+            </div> -->
+
+            <div class="pull-left">
+                <img style="width: 250px;padding: 30px 0;" id="logo-web-oefa" src="assets/images/logo-sinada.png" alt="">
+                <img ng-src="assets/images/logo-sinada_movil.png" id="logo-movilx" alt="" height="30">
+            </div>
+
+
+            <span class="pull-right" id="nav-oefa-sinada">
+              <ul id="head-top-menu" class="header-menu">
+                <li >
+                  <div class="user-header" style="color: white!important;margin-right: 25px;">
+                    <div class="user-box" style="">
+                      <div class="img-user-perfil text-center">
+                        <span ng-if="$parent.usuarioActivo.listaUsuarioPerfil!=null && $parent.usuarioActivo.listaUsuarioPerfil.length==1" class="name-perfil">{{$parent.usuarioActivo.listaUsuarioPerfil[0].nombrePrefil}} {{nombreCompletoUsuario}}</span>
+
+                        <span ng-if="$parent.usuarioActivo.listaUsuarioPerfil!=null && $parent.usuarioActivo.listaUsuarioPerfil.length>1" class="name-perfil">
+                            <select class="form-control input-sm" ng-model="vmHeader.prmComponente.idPerfil" ng-change="vmHeader.obtenerAccesoMenu()">
+                              <option ng-repeat="item in $parent.usuarioActivo.listaUsuarioPerfil"
+                                      ng-value="item.idPerfil*1">{{item.nombrePrefil}} Administrador
+                              </option>
+                            </select>
+                        </span>
+                      </div>
+
+                      <table class="text-left">
+                        <tbody>
+                          <tr>
+                            <td width="30"></td>
+                            <td><small>Bienvenido(a)</small></td>
+                          </tr>
+                          <tr>
+                            <td><img src="assets/images/user_icon.png" class="img-responsive" width="24" height="24" alt=""></td>
+                            <td>
+                              <span class="name-user" style="font-size: 12px;font-weight: 700;">{{nombreCompletoUsuario}}</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </li>
+      			  <li class="li-sesion"><a ng-click="vmHeader.cerrarSesion()"><i class="icon-cerrar-sesion"></i> Cerrar sesi&oacute;n</a></li>
+              </ul>
+            </span>
+
+
+<!--             <div class="user-header-movil text-right" style="color: white!important;padding:10px 0;">
+              <div class="user-box">
+                <div class="img-user-perfil">
+                  <img src="./assets/images/user_icon.png" class="img-responsive" alt="">
+
+                  <span ng-if="$parent.usuarioActivo.listaUsuarioPerfil!=null && $parent.usuarioActivo.listaUsuarioPerfil.length==1" class="name-perfil">{{$parent.usuarioActivo.listaUsuarioPerfil[0].nombrePrefil}} {{nombreCompletoUsuario}}</span>
+
+                  <span ng-if="$parent.usuarioActivo.listaUsuarioPerfil!=null && $parent.usuarioActivo.listaUsuarioPerfil.length>1" class="name-perfil">
+                      <select class="form-control input-sm" ng-model="vmHeader.prmComponente.idPerfil" ng-change="vmHeader.obtenerAccesoMenu()">
+                        <option ng-repeat="item in $parent.usuarioActivo.listaUsuarioPerfil"
+                                ng-value="item.idPerfil*1">{{item.nombrePrefil}} Administrador
+                        </option>
+                      </select>
+                  </span>
+                </div>
+
+                <table class="text-left">
+                  <tbody>
+                    <tr>
+                      <td colspan="2"><small>Bienvenido(a)</small></td>
+                      <td rowspan="2"></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <span class="name-user" style="font-size: 12px;font-weight: 700;">{{nombreCompletoUsuario}}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div> -->
+
+          </div>
+      </div>
+  </header>
+</div>

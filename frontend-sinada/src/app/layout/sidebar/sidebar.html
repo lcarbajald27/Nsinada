@@ -1,0 +1,150 @@
+<div class="content-box-app">
+  <span class="box-sn-pd" style="margin-bottom: 0px;">
+    <div  ng-if="true" id="nav_oefa" class="no-padding" ng-class="{'movil-menu': !windowSistem}">
+      <nav class="nav-sidebar">
+        <span class="bnt-listar-tab">
+          <div class="menu-toggle" ng-click="windowSistem = !windowSistem" ng-class="{'on': windowSistem}">
+            <div class="one"></div>
+            <div class="two"></div>
+            <div class="three"></div>
+          </div>
+          <span id="name-menu-oefa">MENÚ</span>
+        </span>
+        <div class="well" style="border-top:0;padding-top: 25px;">
+          <div>
+            <ul class="nav nav-list">
+              <li class="item-menu-nav" ng-click="vmSidebar.moduloActivo = 0" ng-class="{ 'active' : vmSidebar.moduloActivo == 0 }">
+                <a ui-sref="spapp.home.inicio" style="padding: 6px 30px;"><label class="tree-toggler nav-header" ><span class="flaticon-casa ico-nav"></span> Inicio</label></a>
+              </li>
+                <li ng-if="$parent.validarOpcion('Maestro')" class="item-menu-nav">
+                <span class="navigation-header" ng-click="vmSidebar.activarModulo(2)" ng-class="{'act-m' : vmSidebar.moduloActivo == 2, 'des-m' : vmSidebar.moduloActivo != 2 }">
+                  Maestro
+                  <i class="fa" ng-class="{'fa-angle-down' : vmSidebar.moduloActivo == 2, 'fa-angle-right' : vmSidebar.moduloActivo != 2 }"></i>
+                </span>
+                  <ul class="sub-menu-oefa" ng-show="vmSidebar.moduloActivo == 2">
+                    <li ng-click="vmSidebar.subModuloActivo = 2.1" ng-class="{ 'active' : vmSidebar.subModuloActivo == 2.1 }">
+                      <a ng-if="$parent.validarOpcion('Mantenimiento')"  ui-sref="spapp.home.maestros.listado">
+                        <label class="tree-toggler nav-header" ><i class="flaticon-negocios ico-nav" aria-hidden="true"></i> Mantenimiento</label>
+                      </a>
+                    </li>
+
+
+
+                  </ul>
+              </li>
+<!--               <li class="item-menu-nav">
+                <span class="navigation-header" ng-click="vmSidebar.activarModulo(2)" ng-class="{'act-m' : vmSidebar.moduloActivo == 2, 'des-m' : vmSidebar.moduloActivo != 2 }">
+                  Procesos
+                  <i class="fa" ng-class="{'fa-angle-down' : vmSidebar.moduloActivo == 2, 'fa-angle-right' : vmSidebar.moduloActivo != 2 }"></i>
+                </span>
+                  <ul class="sub-menu-oefa" ng-show="vmSidebar.moduloActivo == 2">
+                    <li ng-click="vmSidebar.subModuloActivo = 2.1" ng-class="{ 'active' : vmSidebar.subModuloActivo == 2.1 }">
+                      <a ui-sref="spapp.home.pedidos.listado"><label class="tree-toggler nav-header" ><span class="flaticon-mercado ico-nav"></span> Pedido</label></a>
+                    </li>
+                  </ul>
+              </li> -->
+<!--               <li class="item-menu-nav">
+                <span class="navigation-header" ng-click="vmSidebar.activarModulo(3)" ng-class="{'act-m' : vmSidebar.moduloActivo == 3, 'des-m' : vmSidebar.moduloActivo != 3 }">
+                  Reportes
+                  <i class="fa" ng-class="{'fa-angle-down' : vmSidebar.moduloActivo == 3, 'fa-angle-right' : vmSidebar.moduloActivo != 3 }"></i>
+                </span>
+                  <ul class="sub-menu-oefa" ng-show="vmSidebar.moduloActivo == 3">
+                    <li ng-click="vmSidebar.subModuloActivo = 3.1" ng-class="{ 'active' : vmSidebar.subModuloActivo == 3.1 }">
+                      <a ui-sref="spapp.home.reportes.anio"><label class="tree-togler nav-header"><span class="flaticon-grafico-de-barras ico-nav"></span> Estadísticas</label></a>
+                    </li>
+                  </ul>
+              </li> -->
+              <li class="item-menu-nav">
+				<!-- ng-if="$parent.validarOpcion('Denuncias')"   -->
+                <span class="navigation-header" ng-click="vmSidebar.activarModulo(4)" ng-class="{'act-m' : vmSidebar.moduloActivo == 4, 'des-m' : vmSidebar.moduloActivo != 4 }">
+                  Denuncias
+                  <i class="fa" ng-class="{'fa-angle-down' : vmSidebar.moduloActivo == 4, 'fa-angle-right' : vmSidebar.moduloActivo != 4 }"></i>
+                </span>
+
+                  <ul class="sub-menu-oefa" ng-show="vmSidebar.moduloActivo == 4">
+                    <!--
+                    <li ng-click="vmSidebar.subModuloActivo = 4.2" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.2 }">
+                      <a ui-sref="spapp.home.denuncias.listado"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Denuncias</label></a>
+                    </li>
+                    -->
+                    <!--MENU-->
+                    <li  ng-if="$parent.validarOpcion('Asignacion')" ng-click="vmSidebar.subModuloActivo = 4.3" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.3 }">
+                      <a ui-sref="spapp.home.bandeja.asignacion"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Asignaci&oacute;n de Denuncias   </label></a>
+                    </li>
+
+                    <li  ng-if="$parent.validarOpcion('Especialista')"  ng-click="vmSidebar.subModuloActivo = 4.4" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.4 }">
+                      <a ui-sref="spapp.home.denuncias.seguimiento"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Seguimiento de Denuncias </label></a>
+                    </li>
+
+                    <li ng-if="$parent.validarOpcion('Entidad')" ng-click="vmSidebar.subModuloActivo = 4.5" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.5 }">
+                      <a ui-sref="spapp.home.bandeja.asignadas"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Denuncias Asignadas </label></a>
+                    </li>
+
+                    <li ng-if="$parent.validarOpcion('Denunciante')" ng-click="vmSidebar.subModuloActivo = 4.6" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.6 }">
+                      <a ui-sref="spapp.home.bandeja.denunciante"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Denuncias Realizadas  </label></a>
+                    </li>
+
+                    <li ng-if="$parent.validarOpcion('Casos')" ng-click="vmSidebar.subModuloActivo = 4.7" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.7 }">
+                      <a ui-sref="spapp.home.denuncias.casos"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Casos de Denuncias</label></a>
+                    </li>
+
+<!--                     <li ng-click="vmSidebar.subModuloActivo = 4.3" ng-class="{ 'active' : vmSidebar.subModuloActivo == 4.3 }">
+                      <a ui-sref="spapp.home.denuncias.estado"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Estado General</label></a>
+                    </li> -->
+
+                  </ul>
+              </li>
+              <!--
+              <li class="item-menu-nav">
+                <span class="navigation-header" ng-click="vmSidebar.activarModulo(6)" ng-class="{'act-m' : vmSidebar.moduloActivo == 6, 'des-m' : vmSidebar.moduloActivo != 6 }">
+                  Bandeja
+                  <i class="fa" ng-class="{'fa-angle-down' : vmSidebar.moduloActivo == 6, 'fa-angle-right' : vmSidebar.moduloActivo != 6 }"></i>
+                </span>
+                  <ul class="sub-menu-oefa" ng-show="vmSidebar.moduloActivo == 6">
+
+
+                  </ul>
+              </li>
+              -->
+              <li  class="item-menu-nav">
+                <span class="navigation-header" ng-click="vmSidebar.activarModulo(5)" ng-class="{'act-m' : vmSidebar.moduloActivo == 5, 'des-m' : vmSidebar.moduloActivo != 5 }">
+                  Seguridad
+                  <i class="fa" ng-class="{'fa-angle-down' : vmSidebar.moduloActivo == 5, 'fa-angle-right' : vmSidebar.moduloActivo != 5 }"></i>
+                </span>
+                  <ul class="sub-menu-oefa" ng-show="vmSidebar.moduloActivo == 5">
+<!--                     <li ng-click="vmSidebar.subModuloActivo = 5.1" ng-class="{ 'active' : vmSidebar.subModuloActivo == 5.1 }"> -->
+<!--                       <a ui-sref="spapp.home.seguridad.usuarios"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Usuarios</label></a> -->
+<!--                     </li> -->
+<!--                     <li ng-click="vmSidebar.subModuloActivo = 5.2" ng-class="{ 'active' : vmSidebar.subModuloActivo == 5.2 }"> -->
+<!--                       <a ui-sref="spapp.home.seguridad.perfiles"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Perfiles</label></a> -->
+<!--                     </li> -->
+
+<!--                     <li ng-click="vmSidebar.subModuloActivo = 5.3" ng-class="{ 'active' : vmSidebar.subModuloActivo == 5.3 }"> -->
+<!--                       <a ui-sref=" spapp.home.seguridad.listado"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Listado Usuarios</label></a> -->
+<!--                     </li> -->
+                      <li ng-if="$parent.validarOpcion('Encuesta')"  ng-click="vmSidebar.subModuloActivo = 5.4" ng-class="{ 'active' : vmSidebar.subModuloActivo == 5.4 }">
+                      <a ui-sref="spapp.home.seguridad.encuesta"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Encuesta</label></a>
+                    </li>
+
+                       <li ng-if="$parent.validarOpcion('Contacto') && vmRoot.sessionUsuario.tipoEntidadCompetente!=4" ng-click="vmSidebar.subModuloActivo = 5.5" ng-class="{ 'active' : vmSidebar.subModuloActivo == 5.5 }">
+                      <a ui-sref="spapp.home.seguridad.contacto"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Contactos</label></a>
+                    </li>
+
+                    <li  ng-click="vmSidebar.subModuloActivo = 5.6" ng-class="{ 'active' : vmSidebar.subModuloActivo == 5.6 }">
+                      <a ui-sref="spapp.home.seguridad.clave"><label class="tree-toggler nav-header" ><span class="flaticon-perfil ico-nav"></span> Cambio de clave</label></a>
+                    </li>
+
+
+
+
+                  </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- tab content -->
+    <div id="content_oefa" ui-view></div>
+  </span>
+</div>

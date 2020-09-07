@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="atencionDenuncia">
+	<resultMap id="resultMapAtencionDenuncia" type="AtencionDenuncia">
+	
+		<id 	column="ID_ATENCION_DENUNCIA" 			property="idAtencionDenuncia" />
+<!-- 		<result column="TIPO_ENTIDAD_COMPETENTE" 		property="tipoEntidadCompetente.codigoRegistro" /> -->
+<!-- 		<result column="ID_EFA" 						property="efa.idEfa" /> -->
+<!-- 		<result column="ID_PERSONA_OEFA" 				property="personaOefa.idPersonaOefa" /> -->
+		<result column="ID_DETALLE_BANDEJA" 			property="detalleBandeja.idBandejaDetalle" />
+		<result column="TIPO_ATENCION" 					property="tipoAtencion.codigoRegistro" />
+		<result column="MOTIVO" 						property="motivo.codigoRegistro" />
+		<result column="NOMBRE_MOTIVO" 					property="motivo.descripcion" />
+		
+		<result column="FECHA_REGISTRO" 				property="fechaRegistro" />
+		<result column="ESTADO" 						property="estado.codigoRegistro" />
+		<result column="NOMBRE_ESTADO" 					property="estado.descripcion" />
+		
+		<result column="FLAG_ACTIVO" 					property="flagActivo" />
+		<result column="ID_DENUNCIA" 					property="denuncia.idDenuncia" />
+		<result column="HOJA_TRAMITE" 					property="hojaTramite" />
+		<result column="DESCRIPCION_MOTIVO" 			property="descripcionMotivo" />
+
+	
+	</resultMap>
+	
+<!-- 	<select id="generarCodigo" resultMap="resultMapAtencionDenuncia"> -->
+<!-- 		SELECT -->
+<!-- 			  MAX(ID_DENUNCIA)+1 as ID_DENUNCIA -->
+<!-- 		FROM -->
+<!-- 			  T_COMM_DENUNCIA -->
+<!-- 	</select> -->
+	
+	<select id="listar" resultMap="resultMapAtencionDenuncia" parameterType="AtencionDenuncia">
+		SELECT
+		        ID_ATENCION_DENUNCIA,
+            	ID_DETALLE_BANDEJA,
+		        TIPO_ATENCION,
+		        MOTIVO,
+		        FECHA_REGISTRO,
+		        ESTADO,
+		        FLAG_ACTIVO,
+		        ID_DENUNCIA,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO
+		FROM
+			  	SINADA.T_GENM_ATENCION_DENUNCIA
+		WHERE
+			  	FLAG_ACTIVO = '1'
+		AND 
+				ID_DENUNCIA = #{denuncia.idDenuncia}
+	
+
+
+	</select>
+	
+	
+		<select id="listarAtencionRechazada" resultMap="resultMapAtencionDenuncia" parameterType="AtencionDenuncia">
+			SELECT
+       			ATEN_DEN.ID_ATENCION_DENUNCIA,
+        		ATEN_DEN.ID_DENUNCIA,
+	            ATEN_DEN.ID_DETALLE_BANDEJA,
+	            ATEN_DEN.TIPO_ATENCION,
+	        	TA.DESCRIPCION AS NOMBRE_TIPO_ATENCION,
+	            ATEN_DEN.MOTIVO,
+	        	MR.DESCRIPCION AS NOMBRE_MOTIVO,
+	            ATEN_DEN.FECHA_REGISTRO,
+	            ATEN_DEN.ESTADO,
+              	ESER.DESCRIPCION AS NOMBRE_ESTADO,
+	            ATEN_DEN.FLAG_ACTIVO
+		FROM
+			  	  SINADA.T_GENM_ATENCION_DENUNCIA ATEN_DEN INNER JOIN 
+		          SINADA.T_GENL_MAESTRO TA ON 
+		          TA.CODIGO_MAESTRO='TipoAtencionDenuncia' AND
+		          TA.CODIGO_REGISTRO = ATEN_DEN.TIPO_ATENCION AND
+		          TA.FLAG_ACTIVO = '1'
+          
+          INNER JOIN
+		          SINADA.T_GENL_MAESTRO MR ON 
+		          MR.CODIGO_MAESTRO='MotivoRechazoDenuncia' AND
+		          MR.CODIGO_REGISTRO = ATEN_DEN.MOTIVO AND
+		          MR.FLAG_ACTIVO = '1'
+            INNER JOIN
+		          SINADA.T_GENL_MAESTRO ESER ON 
+		          ESER.CODIGO_MAESTRO='EstadoEvaluacionRechazoDenuncia' AND
+		          ESER.CODIGO_REGISTRO = ATEN_DEN.ESTADO AND
+		          ESER.FLAG_ACTIVO = '1'
+          
+		WHERE
+			  	ATEN_DEN.FLAG_ACTIVO = '1' 
+    	AND
+          		ATEN_DEN.TIPO_ATENCION = 2
+		AND 
+				ATEN_DEN.ID_DENUNCIA = #{denuncia.idDenuncia}
+		AND 	
+				ATEN_DEN.ID_DETALLE_BANDEJA = #{detalleBandeja.idBandejaDetalle}
+		
+	
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapAtencionDenuncia"
+		parameterType="long">
+			SELECT
+		        ID_ATENCION_DENUNCIA,
+		        ID_DETALLE_BANDEJA,
+		        TIPO_ATENCION,
+		        MOTIVO,
+		        FECHA_REGISTRO,
+		        ESTADO,
+		        FLAG_ACTIVO,
+		        ID_DENUNCIA,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO
+		FROM
+			  	SINADA.T_GENM_ATENCION_DENUNCIA
+		WHERE
+			  	FLAG_ACTIVO = '1'
+		AND
+				ID_ATENCION_DENUNCIA = #{idAtencionDenuncia}
+			
+	</select>
+	
+
+	
+	<insert id="agregar" parameterType="AtencionDenuncia" useGeneratedKeys="true">
+		<selectKey keyProperty="idAtencionDenuncia" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_ATENCION_DENUNCIA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_ATENCION_DENUNCIA
+		(
+			  	ID_ATENCION_DENUNCIA,
+		        ID_DETALLE_BANDEJA,
+		        TIPO_ATENCION,
+		        MOTIVO,
+		        FECHA_REGISTRO,
+		        ESTADO,
+		        FLAG_ACTIVO,
+		        ID_DENUNCIA,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO
+		)
+		VALUES
+		(
+			#{idAtencionDenuncia},
+			#{detalleBandeja.idBandejaDetalle},
+			#{tipoAtencion.codigoRegistro},
+			#{motivo.codigoRegistro},
+			(SELECT SYSDATE FROM DUAL),
+			#{estado.codigoRegistro},
+			'1',
+			#{denuncia.idDenuncia},
+			#{hojaTramite},
+			#{descripcionMotivo,jdbcType=VARCHAR}
+			
+		
+			
+		)
+	</insert>
+
+	<update id="modificar" parameterType="AtencionDenuncia">
+		UPDATE SINADA.T_GENM_ATENCION_DENUNCIA
+		SET
+					ESTADO		 = #{estado.codigoRegistro}
+		WHERE
+					FLAG_ACTIVO = 1
+		AND 
+					ID_ATENCION_DENUNCIA = #{idAtencionDenuncia}
+	</update>
+	
+
+
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_ATENCION_DENUNCIA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_ATENCION_DENUNCIA = #{idAtencionDenuncia}
+	</update>
+
+
+</mapper>

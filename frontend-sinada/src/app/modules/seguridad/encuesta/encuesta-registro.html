@@ -1,0 +1,134 @@
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Encuesta')">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col-lg-12  sin_padding"  name="usuarioRegistroForm" style="margin-top:20px" novalidate ng-form ng-if="$parent.validarOpcion('Encuesta')" >
+
+		<div class="row">
+			<div class="col-md-12"><h3 class="title-slider-nt"><span>Encuesta</span></h3><span class="nav_bread"><ol class="breadcrumb"><li class="active">Perfiles</li><li>Gesti&oacute;n</li></ol></span></div>
+		</div>
+
+		<div class="row">
+			<!-- <div class="form-group col-md-6">
+				<label for="idPedido">Nombres:</label>
+				<div class="form-group">
+					<input type="text" ng-model="vm.prmPedido.idPedido" class="form-control input-sm" name="idPedido" id="numeroDocumento" placeholder="Filtrar por nombre">
+				</div>
+			</div> -->
+		    <div class="form-group col-md-3 col-sm-4" ng-class="{'has-error':vm.formEvento.fechaAtencion.$invalid && vm.formEvento.fechaAtencion.$touched}">
+				<label for="FechaInicio">Fecha de inicio</label>
+				<div class="form-group">
+					<div class="input-group">
+						<label for="" class="input-group-addon input-sm">
+						<i class="icon-fecha"></i>
+						</label>
+		           		<input type="text"
+		                name="fechaAtencion"
+		                class="form-control input-sm"
+		                ng-init="vm.openDatePickerFechaInicio = false"
+		                ng-model="vm.fechaInicio"
+		                uib-datepicker-popup="dd/MM/yyyy"
+		                is-open="vm.openDatePickerFechaInicio"
+		                show-button-bar="false"
+
+		                datepicker-options="vm.dtFechaInicioOptions"
+		                ng-click="vm.openDatePickerFechaInicio = true"
+	                	>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-md-3 col-sm-4" ng-class="{'has-error':vm.formEvento.fechaRegistro.$invalid && vm.formEvento.fechaRegistro.$touched}">
+
+				<label for="FechaTermino">Fecha de t&eacute;rmino</label>
+				<div class="form-group">
+					<div class="input-group">
+						<label for="" class="input-group-addon input-sm">
+							<i class="icon-fecha"></i>
+						</label>
+						<input type="text"
+		                name="fechaRegistro"
+		                class="form-control input-sm"
+		                ng-init="vm.openDatePickerFechaTermino = false"
+		                ng-model="vm.fechaTermino"
+		                uib-datepicker-popup="dd/MM/yyyy"
+		                is-open="vm.openDatePickerFechaTermino"
+		                show-button-bar="false"
+		                  ng-change="vm.validaFechas()"
+		                datepicker-options="vm.dtFechaTerminoOptions"
+		                ng-click="vm.openDatePickerFechaTermino = true"
+		                >
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" >
+			<div class="col-lg-12 text-right">
+				<div class="form-group">
+					<button type="button" id="btnRef_recurso" ng-click="vm.listarEncuesta()"   uib-tooltip="Buscar"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+		                <span class="icon-buscar spac-btn-r"></span> Buscar
+		            </button>
+					<button type="button" id="btnRef_recurso" ng-click="vm.limpiar()"   uib-tooltip="Limpiar"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+		                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+		            </button>
+					<a  uib-tooltip="Exportar a excel" class="btn btn-sm btn-default btn-export-xsl btn-pd-5 btn-br-in" href="{{vm.rutaBase}}encuesta/exportar-excel" ng-if="vm.listaEncuesta.length!=0" download="encuesta.xls" style="font-size: 11px">
+		               <span class="icon-exportar-excel" style="font-size:16px;margin-right: 5px"></span>
+		              Exportar
+		            </a>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-rpv">
+					<table class="table table-hover table-bordered tableSiafx table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<thead>
+							<tr>
+								<th scope="col">&Iacute;tem</th>
+								<th scope="col">Tipo encuesta</th>
+								<th scope="col">C&oacute;digo denuncia</th>
+								<th scope="col">Pregunta 1</th>
+								<th scope="col">Pregunta 2</th>
+								<th scope="col">Pregunta 3</th>
+								<th scope="col">Fecha</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr dir-paginate="item in vm.listaEncuesta | itemsPerPage: config.itemsPerPage" pagination-id="coutOpcionPregunta" class="ng-scope" style="">
+
+								<td scope="row" data-label="&Iacute;tem" class="ng-binding">{{ $index + serialPregunta}}</td>
+								<td data-label="Tipo Encuesta" class="ng-binding">{{item.tipoEncuesta.descripcion}}</td>
+								<td data-label="C&oacute;digo Denuncia" class="ng-binding">{{item.codigoDenuncia}}</td>
+								<td data-label="Pregunta 1" class="ng-binding">{{item.pregunta1.descripcion}}</td>
+								<td data-label="Pregunta 2" class="ng-binding">{{item.pregunta2.descripcion}}</td>
+								<td data-label="Pregunta 3" class="ng-binding">{{item.pregunta3.descripcion}}</td>
+								<td data-label="Pregunta 3" class="ng-binding">{{item.fechaRegistro}}</td>
+							</tr>
+
+						</tbody>
+					</table>
+					<dir-pagination-controls boundary-links="true" direction-links="true" max-size="8" on-page-change="indexCount(newPageNumber)" pagination-id="coutOpcionPregunta">
+                    </dir-pagination-controls>
+				</div>
+				<br>
+				<!--
+				<dir-pagination-controls pagination-id="cout" ></dir-pagination-controls>
+				-->
+			</div>
+
+		</div>
+
+
+</div>

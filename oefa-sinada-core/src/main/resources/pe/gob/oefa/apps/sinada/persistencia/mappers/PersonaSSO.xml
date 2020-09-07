@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_PERSONA_TEMP -->
+<mapper namespace="personaSSO">
+	<resultMap id="resultMapPersonaSSO" type="PersonaSSO">
+	
+		<id column="ID_PERSONA" property="idPersona" />
+		
+		<result column="TIPO_PERSONA" 		property="tipoPersona" />
+		<result column="NOMBRE_COMERCIAL" 	property="nombreComercial" />
+		<result column="NOMBRE_COMPLETO" 	property="nombreCompleto" />
+		<result column="DOCUMENTO" 			property="documento" />
+
+
+	</resultMap>
+
+	
+	<select id="buscarPorNumeroDocumento" resultMap="resultMapPersonaSSO"
+		parameterType="PersonaSSO">
+		SELECT 
+
+		      ID_PERSONA,
+		      TIPO_PERSONA,
+		      NOMBRE_COMERCIAL,
+		      NOMBRE_COMPLETO,
+		      DOCUMENTO
+		
+		FROM
+		      SINADA.V_PERSONA_SSO
+		WHERE 
+			  DOCUMENTO = #{documento,jdbcType=VARCHAR}	
+	</select>
+
+
+	<select id="listar" resultMap="resultMapPersonaSSO"
+		parameterType="PersonaSSO">
+		SELECT 
+
+		      ID_PERSONA,
+		      TIPO_PERSONA,
+		      NOMBRE_COMERCIAL,
+		      NOMBRE_COMPLETO,
+		      DOCUMENTO
+		
+		FROM
+		      SINADA.V_PERSONA_SSO
+		WHERE 
+			 UPPER(NOMBRE_COMERCIAL) LIKE '%'||#{nombreComercial,jdbcType=VARCHAR}||'%'
+	</select>
+
+</mapper>

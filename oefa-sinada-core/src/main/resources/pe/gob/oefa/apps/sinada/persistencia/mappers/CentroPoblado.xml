@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_UBIGEO -->
+<mapper namespace="centroPoblado">
+	<resultMap id="resultMapCentroPoblado" type="CentroPoblado">
+	
+		<id 	column="OBJECTID" 						property="objectid"/>
+		<result column="CODIGO_CENTRO_POBLADO"			property="codigoCentroPoblado"/>
+		<result column="NOMBRE_CENTRO_POBLADO"			property="nombreCentroPoblado"/>
+		<result column="CODIGO_DISTRITO"				property="codigoDistrito"/>
+	
+		
+	</resultMap>
+	
+	<select id="listarCentroPoblado" resultMap="resultMapCentroPoblado" parameterType="CentroPoblado">
+		
+			SELECT 
+			      OBJECTID,
+			      IDCCPP_15 AS CODIGO_CENTRO_POBLADO,
+			      NOMBCCPP AS NOMBRE_CENTRO_POBLADO,
+			       IDDIST AS CODIGO_DISTRITO
+			      
+			   
+			FROM 
+			      SINADA.T_GENM_CENTRO_POBLADO 
+			      
+			  WHERE IDDIST =   #{codigoDistrito,jdbcType=VARCHAR}
+		
+	</select>
+	
+	
+</mapper>

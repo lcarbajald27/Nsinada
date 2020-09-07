@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="personaOefa">
+	<resultMap id="resultMapPersonaOefa" type="PersonaOefa">
+	
+		<id 	column="ID_PERSONA_OEFA" 		property="idPersonaOefa" />
+		<result column="CODIGO_DIRECCION" 	    property="direccion.codigoRegistro" />
+		<result column="NOMBRE_DIRECCION" 	    property="direccion.descripcion" />
+		<result column="CODIGO_SUB_DIRECCION" 	property="subDireccion.codigoRegistro" />
+		<result column="NOMBRE_SUB_DIRECCION" 	property="subDireccion.descripcion" />
+		<result column="ID_PERSONA"				property="persona.idPersona" />
+		<result column="NUMERO_DOCUMENTO"		property="persona.documento" />
+		<result column="NOMBRE_COMPLETO"		property="persona.nombreCompleto" />
+		<result column="ESTADO" 				property="estado.codigoRegistro" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapPersonaOefa" parameterType="PersonaOefa">
+		SELECT 
+      		POEFA.ID_PERSONA_OEFA,
+			POEFA.CODIGO_DIRECCION,
+       		DIRECC.DESCRIPCION AS NOMBRE_DIRECCION,
+			POEFA.CODIGO_SUB_DIRECCION,
+       		SUBDIREC.DESCRIPCION AS NOMBRE_SUB_DIRECCION,
+			POEFA.ID_PERSONA,
+       		PER.DOCUMENTO AS NUMERO_DOCUMENTO,
+       		PER.PRIMER_NOMBRE || ' ' || NVL(PER.SEGUNDO_NOMBRE,' ') ||' ' || PER.APELLIDO_PATERNO || ' ' || PER.APELLIDO_MATERNO AS NOMBRE_COMPLETO,
+       
+       
+			 POEFA.ESTADO,
+			 POEFA.FLAG_ACTIVO
+		FROM 
+		      SINADA.T_GENM_PERSONA_OEFA POEFA INNER JOIN 
+          SINADA.T_GENT_PERSONA PER ON
+          PER.ID_PERSONA= POEFA.ID_PERSONA
+          
+          LEFT JOIN
+          SINADA.T_GENL_MAESTRO DIRECC ON 
+          DIRECC.CODIGO_MAESTRO = 'DireccionSupervision' AND
+          DIRECC.CODIGO_REGISTRO = POEFA.CODIGO_DIRECCION AND
+          DIRECC.FLAG_ACTIVO = '1' AND 
+          DIRECC.CODIGO_REGISTRO!=0
+          
+          LEFT JOIN
+          
+          SINADA.T_GENL_MAESTRO SUBDIREC ON 
+          SUBDIREC.CODIGO_MAESTRO = 'DireccionEvaluacion' AND
+          SUBDIREC.CODIGO_REGISTRO = POEFA.CODIGO_SUB_DIRECCION AND
+          SUBDIREC.FLAG_ACTIVO = '1' AND 
+          SUBDIREC.CODIGO_REGISTRO!=0
+          
+          
+		WHERE 
+		      POEFA.FLAG_ACTIVO = '1'
+		AND
+			  CODIGO_DIRECCION = #{direccion.codigoRegistro}
+		AND
+			  CODIGO_SUB_DIRECCION = #{subDireccion.codigoRegistro}
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapPersonaOefa"
+		parameterType="long">
+		SELECT 
+		     ID_PERSONA_OEFA,
+			 CODIGO_DIRECCION,
+			 CODIGO_SUB_DIRECCION,
+			 ID_PERSONA,
+			 ESTADO,
+			 FLAG_ACTIVO
+		FROM 
+		      SINADA.T_GENM_PERSONA_OEFA
+		WHERE 
+		      FLAG_ACTIVO = '1'
+		AND
+			  ID_PERSONA_OEFA = #{idPersonaOefa}
+				    
+		    
+	</select>
+	
+<!-- 	<select id="buscarPorId" resultMap="resultMapPersonaOefa" -->
+<!-- 		parameterType="long"> -->
+<!-- 		SELECT  -->
+<!-- 		     ID_PERSONA_OEFA, -->
+<!-- 			 CODIGO_DIRECCION, -->
+<!-- 			 CODIGO_SUB_DIRECCION, -->
+<!-- 			 ID_PERSONA, -->
+<!-- 			 ESTADO, -->
+<!-- 			 FLAG_ACTIVO -->
+<!-- 		FROM  -->
+<!-- 		      SINADA.T_GENM_PERSONA_OEFA -->
+<!-- 		WHERE  -->
+<!-- 		      FLAG_ACTIVO = '1' -->
+<!-- 		AND -->
+<!-- 			  ID_PERSONA_OEFA = #{idPersonaOefa} -->
+				    
+		    
+<!-- 	</select> -->
+	
+	<select id="buscarPorIdPersona" resultMap="resultMapPersonaOefa"
+		parameterType="PersonaOefa">
+		SELECT 
+		     ID_PERSONA_OEFA,
+			 CODIGO_DIRECCION,
+			 CODIGO_SUB_DIRECCION,
+			 ID_PERSONA,
+			 ESTADO,
+			 FLAG_ACTIVO
+		FROM 
+		      SINADA.T_GENM_PERSONA_OEFA
+		WHERE 
+		      FLAG_ACTIVO = '1'
+		AND
+			  ID_PERSONA = #{persona.idPersona}
+				    
+		    
+	</select>
+	
+	
+	<insert id="agregar" parameterType="PersonaOefa" useGeneratedKeys="true">
+		<selectKey keyProperty="idPersonaOefa" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_PERSONA_OEFA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_PERSONA_OEFA
+		(
+			 ID_PERSONA_OEFA,
+			 CODIGO_DIRECCION,
+			 CODIGO_SUB_DIRECCION,
+			 ID_PERSONA,
+			 ESTADO,
+			 FLAG_ACTIVO
+		)
+		VALUES
+		(
+				#{idPersonaOefa},
+				#{direccion.codigoRegistro},
+				#{subDireccion.codigoRegistro},
+				#{persona.idPersona},
+				#{estado.codigoRegistro},
+				'1'
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="ArchivoDenuncia"> -->
+<!-- 		UPDATE SINADA.T_GENM_ARTICULO -->
+<!-- 		SET -->
+
+
+<!-- 		DESCRIPCION = #{descripcion}, -->
+<!-- 		DETALLE = #{detalle}, -->
+<!-- 		FECHA_VIGENCIA = #{fechaVigencia}, -->
+<!-- 		FECHA_MODIFICACION = #{fechaModificacion}, -->
+<!-- 		FECHA_DEROGACION = #{fechaDerogacion}, -->
+<!-- 		TM1_ESTADO = #{estado} -->
+
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_ARTICULO = #{idArticulo} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_PERSONA_OEFA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_PERSONA_OEFA = #{idPersonaOefa}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

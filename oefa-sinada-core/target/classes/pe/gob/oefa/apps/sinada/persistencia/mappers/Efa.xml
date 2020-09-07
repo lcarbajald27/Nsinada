@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_EFA -->
+<mapper namespace="efa">
+	<resultMap id="resultMapEfa" type="Efa">
+		<id 	column="ID_EFA" 			property="idEfa" />
+		<result column="ID_UBIGEO" 			property="idUbigeo" />
+		<result column="RUC" 				property="ruc" />
+		<result column="NOMBRE" 			property="nombre" />
+		<result column="TM1_TIPO_NIVEL" 	property="tipoNivel" />
+		<result column="TM1_TIPO_GOBIERNO"	property="tipoGobierno" />
+		<result column="PAGINA_WEB" 		property="paginaWeb" />
+		<result column="CORREO" 			property="correo" />
+		<result column="TELEFONO" 			property="telefono" />
+		<result column="DEPARTAMENTO" 		property="departamento" />
+		<result column="PROVINCIA" 			property="provincia" />
+		<result column="DISTRITO" 			property="distrito" />
+		<result column="DIRECCION" 			property="direccion" />
+		<result column="REFERENCIA" 		property="referencia" />
+		<result column="FLAG_ACTIVO" 		property="flagActivo" />
+		<result column="CARGO"         		property="cargo"/>
+		<result column="TITULAR" 			property="titular"/>
+		<result column="NIVEL" 				property="nivel"/>
+		<result column="DOCUMENTO" 			property="documento"/>
+		<result column="TM1_TIPO_CARGO" 	property="tipoCargo"/>
+	</resultMap>
+
+	<select id="buscarPorFiltros" resultMap="resultMapEfa" parameterType="Efa">
+		SELECT
+			EFA.ID_EFA,
+			EFA.RUC,
+			EFA.NOMBRE,
+			EFA.TM1_TIPO_NIVEL,
+			(SELECT DESCRIPCION FROM SINADA.T_GENL_MAESTRO MAE 
+    		WHERE MAE.CODIGO_MAESTRO = 'TipoNivel' 
+    		AND MAE.CODIGO_REGISTRO = EFA.TM1_TIPO_NIVEL
+    		AND MAE.CODIGO_REGISTRO != 0) AS NIVEL,
+			EFA.TM1_TIPO_GOBIERNO,
+			EFA.PAGINA_WEB,
+			EFA.CORREO,
+	        EFA.TELEFONO,
+	        EFA.DIRECCION,
+	        EFA.REFERENCIA,
+			EFA.FLAG_ACTIVO,
+			CON.DOCUMENTO,
+			CON.TM1_TIPO_CARGO,
+			(SELECT DESCRIPCION FROM SINADA.T_GENL_MAESTRO MAE 
+    		WHERE MAE.CODIGO_MAESTRO = 'TipoCargo' 
+    		AND MAE.CODIGO_REGISTRO = CON.TM1_TIPO_CARGO
+    		AND MAE.CODIGO_REGISTRO != 0) AS CARGO,
+			CON.TITULAR
+		FROM 
+			SINADA.T_GENM_EFA EFA INNER JOIN SINADA.T_GENM_CONTACTO CON ON EFA.ID_EFA = CON.ID_EFA
+		WHERE
+			EFA.FLAG_ACTIVO 	= 1 AND
+      	EFA.ID_EFA NOT IN 
+      (SELECT  ID_EFA FROM SINADA.T_GENM_CASO_EFA WHERE FLAG_ACTIVO ='1' AND ID_CASO = #{idCaso})
+		AND CON.FLAG_ACTIVO 	= 1
+		AND CON.TM1_TIPO_CONTACTO = 1
+		AND CON.TM1_ESTADO 		= 1
+		AND (EFA.RUC LIKE '%'||#{ruc}||'%')
+		AND (#{tipoNivel} = 0 
+			OR #{tipoNivel} = NULL 
+			OR EFA.TM1_TIPO_NIVEL = #{tipoNivel})
+		AND (#{tipoGobierno} = 0 
+			OR #{tipoGobierno} = NULL 
+			OR EFA.TM1_TIPO_GOBIERNO = #{tipoGobierno})
+		AND (UPPER(EFA.NOMBRE) LIKE '%'||#{nombre}||'%')
+		<!-- AND 
+	    	EFA.ID_EFA NOT IN (SELECT
+							      ID_EFA
+							FROM
+								  SINADA.T_GENM_NORMA_CASO  
+							WHERE
+									FLAG_ACTIVO = 1
+					    	AND ID_CASO_EFA = #{idCasoEfa}) -->
+	</select>
+	
+	<select id="listarEfaDerivar" resultMap="resultMapEfa" parameterType="Efa">
+		SELECT 
+		        EFA.ID_EFA,
+		        EFA.ID_ENTIDAD,
+		        EFA.RUC,
+		        EFA.NOMBRE,
+		        EFA.TM1_TIPO_NIVEL,
+		        EFA.NIVEL,
+		        EFA.TM1_TIPO_GOBIERNO,
+		        EFA.PAGINA_WEB,
+		        EFA.CORREO,
+		        EFA.TELEFONO,
+		        EFA.DIRECCION,
+		        EFA.REFERENCIA,
+		        EFA.FLAG_ACTIVO,
+		        EFA.DOCUMENTO,
+		        EFA.TM1_TIPO_CARGO,
+		        EFA.CARGO,
+		        EFA.TITULAR
+		
+		FROM 
+		      SINADA.V_EFA EFA
+		WHERE
+		
+EFA.ID_EFA NOT IN (SELECT BAN_ORG.ID_EFA FROM SINADA.V_BANDEJA_ORGANO_COMPETENTE BAN_ORG WHERE BAN_ORG.ID_DENUNCIA=#{denuncia.idDenuncia} AND BAN_ORG.TIPO_BANDEJA=3 AND BAN_ORG.ID_EFA!=0)
+	
+	AND
+			 (
+			 		#{tipoNivel} = 0 
+				OR 
+					#{tipoNivel} = NULL 
+				OR 
+					EFA.TM1_TIPO_NIVEL = #{tipoNivel}
+			 )
+		AND 
+			(
+					#{tipoGobierno} = 0 
+				OR 
+					#{tipoGobierno} = NULL 
+				OR 
+					EFA.TM1_TIPO_GOBIERNO = #{tipoGobierno}
+			)
+		AND (UPPER(EFA.NOMBRE) LIKE '%'||#{nombre}||'%')
+	
+	</select>
+	
+
+	<select id="listar" resultMap="resultMapEfa"
+		parameterType="Efa">
+	SELECT
+			ID_EFA,
+			ID_UBIGEO,
+			RUC,
+			NOMBRE,
+			TM1_TIPO_NIVEL,
+			TM1_TIPO_GOBIERNO,
+			PAGINA_WEB,
+			CORREO,
+			TELEFONO,
+			DEPARTAMENTO,
+			PROVINCIA,
+			DISTRITO,
+			DIRECCION,
+			REFERENCIA,
+			FLAG_ACTIVO
+			FROM
+		SINADA.T_GENM_EFA
+		WHERE
+			FLAG_ACTIVO = 1
+
+    AND ID_EFA 
+ NOT IN (
+    SELECT 
+          ID_EFA 
+    FROM 
+          SINADA.T_GENM_CASO_EFA 
+    WHERE 
+          ID_PROBLEMATICA = #{idProblematica}
+    AND
+          ID_DEBIDO = #{idDebido}
+    AND 
+          ID_ZONA_SUCESO = #{idZonaSuceso}
+    AND
+          FLAG_ACTIVO='1'
+    )
+    
+    ORDER BY ID_EFA
+
+	</select>
+	<select id="buscarPorId" resultMap="resultMapEfa"
+		parameterType="Long">
+		SELECT
+		ROWNUM AS ID_UBIGEO,
+		ID_EFA,
+		ID_UBIGEO,
+		RUC,
+		NOMBRE,
+		TM1_TIPO_NIVEL,
+		TM1_TIPO_GOBIERNO,
+		PAGINA_WEB,
+		CORREO,
+		TELEFONO,
+		DEPARTAMENTO,
+		PROVINCIA,
+		DISTRITO,
+		DIRECCION,
+		REFERENCIA,
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENM_EFA
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_EFA = #{idEfa}
+	</select>
+	
+	
+	<select id="buscarPorIdEfaPorUbigeo" resultMap="resultMapEfa"
+		parameterType="Long">
+		SELECT
+			ROWNUM AS ID_UBIGEO,
+			ID_EFA,
+			ID_UBIGEO,
+			RUC,
+			NOMBRE,
+			TM1_TIPO_NIVEL,
+			TM1_TIPO_GOBIERNO,
+			PAGINA_WEB,
+			CORREO,
+			TELEFONO,
+			DEPARTAMENTO,
+			PROVINCIA,
+			DISTRITO,
+			DIRECCION,
+			REFERENCIA,
+			FLAG_ACTIVO
+		FROM
+			SINADA.T_GENM_EFA
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_EFA = #{idEfa}
+		AND
+			DEPARTAMENTO = #{departamento}
+		AND 
+			PROVINCIA = #{provincia}
+		AND
+			DISTRITO = #{distrito}
+	</select>
+	
+	<select id="buscarPorIdEntidad" resultMap="resultMapEfa"
+		parameterType="Long">
+		SELECT
+		
+				EFA.ID_EFA,
+				EFA.ID_UBIGEO,
+				EFA.RUC,
+				EFA.NOMBRE,
+				EFA.TM1_TIPO_NIVEL,
+				EFA.TM1_TIPO_GOBIERNO,
+				EFA.PAGINA_WEB,
+				EFA.CORREO,
+				EFA.TELEFONO,
+				EFA.DEPARTAMENTO,
+				EFA.PROVINCIA,
+				EFA.DISTRITO,
+				EFA.DIRECCION,
+				EFA.REFERENCIA,
+				EFA.FLAG_ACTIVO
+		FROM
+				SINADA.T_GENM_EFA EFA INNER JOIN
+		        SINADA.T_GENT_ENTIDAD ENT ON
+		        ENT.NUMERO_DOCUMENTO = EFA.RUC AND 
+		        ENT.FLAG_ACTIVO = '1'
+		WHERE
+				EFA.FLAG_ACTIVO = 1 
+    AND
+        		ENT.ID_ENTIDAD = #{idEntidad} 
+	</select>
+	
+	<select id="contarOD" parameterType="String" resultType="int">
+		SELECT count(*) as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial 
+		INNER JOIN SINADA.T_GENM_UNIDAD_ORGANICA unidad ON espacial.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA AND unidad.FLAG_ACTIVO = 1
+		LEFT JOIN SINADA.T_GENM_UNIDAD_ORGANICA padre ON padre.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA_PADRE AND unidad.ID_EFA = 0
+		INNER JOIN SINADA.T_GENM_EFA efa ON (unidad.ID_EFA = efa.ID_EFA OR (unidad.ID_EFA = 0 AND padre.ID_EFA = efa.ID_EFA )) AND efa.FLAG_ACTIVO = 1
+		where  espacial.TIPO_OBJETO_GIS = 1 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	
+	<select id="contarANP" parameterType="String" resultType="int">
+		SELECT count(*) as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial 
+		INNER JOIN SINADA.T_GENM_UNIDAD_ORGANICA unidad ON espacial.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA AND unidad.FLAG_ACTIVO = 1
+		LEFT JOIN SINADA.T_GENM_UNIDAD_ORGANICA padre ON padre.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA_PADRE AND unidad.ID_EFA = 0
+		INNER JOIN SINADA.T_GENM_EFA efa ON (unidad.ID_EFA = efa.ID_EFA OR (unidad.ID_EFA = 0 AND padre.ID_EFA = efa.ID_EFA )) AND efa.FLAG_ACTIVO = 1
+		where  espacial.TIPO_OBJETO_GIS = 3 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	
+	<select id="contarALA" parameterType="String" resultType="int">
+		SELECT count(*) as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial 
+		INNER JOIN SINADA.T_GENM_UNIDAD_ORGANICA unidad ON espacial.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA AND unidad.FLAG_ACTIVO = 1
+		LEFT JOIN SINADA.T_GENM_UNIDAD_ORGANICA padre ON padre.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA_PADRE AND unidad.ID_EFA = 0
+		INNER JOIN SINADA.T_GENM_EFA efa ON (unidad.ID_EFA = efa.ID_EFA OR (unidad.ID_EFA = 0 AND padre.ID_EFA = efa.ID_EFA )) AND efa.FLAG_ACTIVO = 1
+		where  espacial.TIPO_OBJETO_GIS = 2 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+
+	<select id="contarZA" parameterType="String" resultType="int">
+		SELECT count(*) as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial 
+		INNER JOIN SINADA.T_GENM_UNIDAD_ORGANICA unidad ON espacial.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA AND unidad.FLAG_ACTIVO = 1
+		LEFT JOIN SINADA.T_GENM_UNIDAD_ORGANICA padre ON padre.ID_UNIDAD_ORGANICA = unidad.ID_UNIDAD_ORGANICA_PADRE AND unidad.ID_EFA = 0
+		INNER JOIN SINADA.T_GENM_EFA efa ON (unidad.ID_EFA = efa.ID_EFA OR (unidad.ID_EFA = 0 AND padre.ID_EFA = efa.ID_EFA )) AND efa.FLAG_ACTIVO = 1
+		where  espacial.TIPO_OBJETO_GIS = 4 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	<select id="codigoUnidadPorOD" parameterType="String" resultType="int">
+		SELECT ID_UNIDAD_ORGANICA as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial
+		where  espacial.TIPO_OBJETO_GIS = 1 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	<select id="codigoUnidadPorALA" parameterType="String" resultType="int">
+		SELECT ID_UNIDAD_ORGANICA as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial
+		where  espacial.TIPO_OBJETO_GIS = 2 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	<select id="codigoUnidadPorANP" parameterType="String" resultType="int">
+		SELECT ID_UNIDAD_ORGANICA as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial
+		where  espacial.TIPO_OBJETO_GIS = 3 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	<select id="codigoUnidadPorZA" parameterType="String" resultType="int">
+		SELECT ID_UNIDAD_ORGANICA as value from SINADA.T_GENM_UND_ORGNCA_ESPACIAL espacial
+		where  espacial.TIPO_OBJETO_GIS = 4 AND espacial.CODIGO_OBJETO_GIS = #{value}
+	</select>
+	<insert id="agregar" parameterType="Efa" useGeneratedKeys="true">
+		<selectKey keyProperty="idEfa" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_EFA.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO SINADA.T_GENM_EFA
+		(
+		ID_EFA,
+		ID_UBIGEO,
+		RUC,
+		NOMBRE,
+		TM1_TIPO_NIVEL,
+		TM1_TIPO_GOBIERNO,
+		PAGINA_WEB,
+		CORREO,
+		TELEFONO,
+		DEPARTAMENTO,
+		PROVINCIA,
+		DISTRITO,
+		DIRECCION,
+		REFERENCIA
+		)
+		VALUES
+		(
+		#{idEfa},
+		#{idUbigeo},
+		#{ruc},
+		#{nombre},
+		#{tipoNivel},
+		#{tipoGobierno},
+		#{paginaWeb},
+		#{correo},
+		#{telefono},
+		#{departamento},
+		#{provincia},
+		#{distrito},
+		#{direccion},
+		#{referencia}
+		)
+	</insert>
+	<update id="modificar" parameterType="Efa">
+		UPDATE SINADA.T_GENM_EFA
+		SET
+		ID_UBIGEO = #{idUbigeo},
+		RUC = #{ruc},
+		NOMBRE = #{nombre},
+		TM1_TIPO_NIVEL = #{tipoNivel},
+		TM1_TIPO_GOBIERNO = #{tipoGobierno},
+		PAGINA_WEB = #{paginaWeb}
+		CORREO = #{correo},
+		TELEFONO = #{telefono},
+		DEPARTAMENTO = #{departamento},
+		PROVINCIA = #{provincia},
+		DISTRITO = #{distrito},
+		DIRECCION = #{direccion},
+		REFERENCIA = #{referencia}
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_EFA = #{idEfa}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_EFA
+		SET
+		FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_EFA = #{idEfa}
+	</update>
+
+</mapper>

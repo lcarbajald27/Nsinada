@@ -1,0 +1,83 @@
+<div class="col-lg-12  sin_padding">
+	<span class=""><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Listado de Usuarios</span></h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+					  <li class="active">Data</li>
+					   <li>Listado</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="usuario">Usuario</label>
+				<div class="form-group">
+					<input type="text" ng-model="vm.prmUsuario.usuario" class="form-control input-sm" name="usuario" id="usuario" placeholder="Filtrar por nombre de usuario">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-lg-12 text-right">
+				<button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-sm btn-pd-5">
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </button>
+	            <button type="button" id="btnRef_recurso" ng-click="vm.buscar()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5">
+	                <span class="icon-buscar spac-btn-r"></span> Buscar
+	            </button>
+	            <a class="btn btn-flat btn-primary btn-sm btn-pd-5" ng-click="vm.nuevo()">
+	                <span class="icon-nuevo spac-btn-r"></span> Nuevo
+	            </a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-2">
+				<label for="cantidadPaginas">P&aacute;ginas</label>
+				<select id="cantidadPaginas" name="cantidadPaginas" ng-model="vm.opcionesPaginacion.itemsPorPag" class="form-control input-sm">
+					<option ng-repeat="itemPag in vm.opcionesPaginacion.cantidades"
+							ng-value="itemPag*1">{{itemPag}}</option>
+				</select>
+		   </div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12" style="text-align:right;">
+				<table class="table table-hover table-bordered tableSiafx table-app" cellspacing="0" width="100%">
+					<caption>Resultados de b&uacute;squeda</caption>
+					<thead>
+						<tr>
+							<th class="text-center">&Iacute;tem</th>
+							<th class="text-center">Nombre</th>
+							<th class="text-center">Usuario</th>
+							<th class="text-center">Acci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="itemUsuario in vm.listaUsuario | filter : vm.filtroRapido | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+							<td class="text-center">{{itemUsuario.idUsuario}}</td>
+							<td class="text-center">{{itemUsuario.nombre}}</td>
+							<td class="text-center">{{itemUsuario.usuario}}</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-default btn-sm" uib-tooltip="Editar" ng-click="vm.editar(itemUsuario.idUsuario)">
+                                  	<span class="icon-editar"></span>
+                               	</button>
+	                            <button type="button" class="btn btn-default btn-sm" uib-tooltip="Eliminar" ng-click="vm.confirmarEliminacion(itemUsuario.idUsuario)">
+	                                <span class="glyphicon glyphicon-trash"></span>
+	                            </button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+        <div class="row">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+			</div>
+		</div>
+
+	</span>
+</div>

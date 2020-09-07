@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="informeAccion">
+	<resultMap id="resultMapInformeAccion" type="InformeAccion">
+	
+		<id 	column="ID_INFORME_ACCION" 				property="idInformeAccion" />
+		<result column="ID_DENUNCIA" 					property="denuncia.idDenuncia" />
+		
+		<result column="ID_BANDEJA_DETALLE" 					property="detalleBandeja.idBandejaDetalle" />
+<!-- 		<result column="TIPO_ENTIDAD_COMPETENTE" 		property="tipoEntidadCompetente.codigoRegistro" /> -->
+<!-- 		<result column="ID_EFA" 						property="efa.idEfa" /> -->
+<!-- 		<result column="ID_PERSONA_OEFA" 				property="personaOefa.idPersonaOefa" /> -->
+		
+		
+		<result column="TIPO_ACCION" 					property="tipoAccion.codigoRegistro" />
+		<result column="NOMBRE_TIPO_ACCION" 			property="tipoAccion.descripcion" />
+		
+		<result column="TIPO_SUPERVICION" 				property="tipoSupervicion.codigoRegistro" />
+		<result column="NOMBRE_TIPO_SUPERVICION" 		property="tipoSupervicion.descripcion" />
+		<result column="DESCRIPCION_ACCION" 			property="descripcionAccion" />
+		<result column="NUMERO_ARCHIVOS_ADJUNTOS" 		property="numeroArchivosAdjuntos" />
+	
+		<result column="ESTADO" 						property="estado.codigoRegistro" />
+		<result column="NOMBRE_ESTADO" 					property="estado.descripcion" />
+		<result column="FLAG_ACTIVO" 					property="flagActivo" />
+		<result column="FECHA_REGISTRO" 				property="fechaRegistro" />
+		<result column="TIPO_INFORME" 					property="tipoInforme.codigoRegistro" />
+		<result column="FECHA_INICIO" 					property="fechaInicio" />
+		<result column="FECHA_FIN" 						property="fechaFin" />
+		<result column="ID_INFORME_CORREGIDO" 			property="idInformeCorregido" />
+	
+	</resultMap>
+	
+	
+	<select id="listar" resultMap="resultMapInformeAccion" parameterType="InformeAccion">
+		SELECT 
+		
+        	INACC.ID_INFORME_ACCION,
+        	INACC.TIPO_INFORME,
+		    INACC.ID_DENUNCIA,    
+        	INACC.ID_BANDEJA_DETALLE,
+		    INACC.TIPO_ACCION,
+       		TIPACC.DESCRIPCION AS NOMBRE_TIPO_ACCION, 
+		    INACC.TIPO_SUPERVICION,
+        	TIPSUP.DESCRIPCION AS NOMBRE_TIPO_SUPERVICION, 
+		    INACC.DESCRIPCION_ACCION,
+        	(SELECT COUNT(*) FROM SINADA.T_GEND_ARCHIVO_INFORME WHERE FLAG_ACTIVO='1' AND ID_INFORME_ACCION = INACC.ID_INFORME_ACCION ) AS NUMERO_ARCHIVOS_ADJUNTOS,
+		    INACC.FECHA_REGISTRO,
+		    INACC.ESTADO,
+       		ESTINF.DESCRIPCION AS NOMBRE_ESTADO,
+		    INACC.FECHA_INICIO,
+        	INACC.FECHA_FIN
+		
+		FROM 
+		    	  SINADA.T_GEND_INFORME_ACCION  INACC LEFT JOIN
+		        SINADA.T_GENL_MAESTRO TIPACC ON
+		        TIPACC.CODIGO_MAESTRO='TipoAccionDenuncia' AND
+		        TIPACC.CODIGO_REGISTRO=  INACC.TIPO_ACCION AND
+		        TIPACC.FLAG_ACTIVO='1' AND
+		        TIPACC.CODIGO_REGISTRO!=0
+		        
+		        
+LEFT JOIN
+		        
+		        SINADA.T_GENL_MAESTRO TIPSUP ON
+		        TIPSUP.CODIGO_MAESTRO='TipoSupervicion' AND
+		        TIPSUP.CODIGO_REGISTRO=  INACC.TIPO_SUPERVICION AND
+		        TIPSUP.FLAG_ACTIVO='1' AND
+		        TIPSUP.CODIGO_REGISTRO!=0
+		        
+		        
+LEFT JOIN
+		        
+		        SINADA.T_GENL_MAESTRO ESTINF ON
+		        ESTINF.CODIGO_MAESTRO='EstadoInformeAccion' AND
+		        ESTINF.CODIGO_REGISTRO=  INACC.ESTADO AND
+		        ESTINF.FLAG_ACTIVO='1' AND
+		        ESTINF.CODIGO_REGISTRO!=0
+        
+		WHERE
+            INACC.FLAG_ACTIVO  = '1' 
+		AND 
+				ID_DENUNCIA = #{denuncia.idDenuncia}
+	
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapInformeAccion"
+		parameterType="long">
+		SELECT 
+		
+		    ID_INFORME_ACCION,
+		    ID_DENUNCIA,
+        ID_BANDEJA_DETALLE,
+		    TIPO_INFORME,
+		    TIPO_ACCION,
+		    TIPO_SUPERVICION,
+		    DESCRIPCION_ACCION,
+		    FECHA_REGISTRO,
+		    ESTADO,
+		    FECHA_INICIO,
+		    FECHA_FIN
+		
+		FROM 
+		    SINADA.T_GEND_INFORME_ACCION 
+		WHERE
+		    FLAG_ACTIVO  = '1' 
+		AND
+				ID_INFORME_ACCION = #{idInformeAccion}
+			
+	</select>
+	
+
+	
+	<insert id="agregar" parameterType="InformeAccion" useGeneratedKeys="true">
+		<selectKey keyProperty="idInformeAccion" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_INFORME_ACCION.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_INFORME_ACCION
+		(
+			  	    ID_INFORME_ACCION,
+				    ID_DENUNCIA,
+				    
+				   	ID_BANDEJA_DETALLE,
+				    
+				    TIPO_ACCION,
+				    TIPO_SUPERVICION,
+				    DESCRIPCION_ACCION,
+				    ESTADO,
+					FLAG_ACTIVO,
+					FECHA_REGISTRO,
+					FECHA_INICIO,
+					FECHA_FIN,
+					TIPO_INFORME,
+					ID_INFORME_CORREGIDO
+		)
+		VALUES
+		(
+			#{idInformeAccion},
+			#{denuncia.idDenuncia},
+			
+			#{detalleBandeja.idBandejaDetalle},
+					
+			#{tipoAccion.codigoRegistro},
+			#{tipoSupervicion.codigoRegistro},
+			#{descripcionAccion,jdbcType=VARCHAR},
+			#{estado.codigoRegistro},
+			'1',
+			(SELECT SYSDATE FROM DUAL),
+			TO_DATE(#{fechaInicio,jdbcType=VARCHAR},'DD/MM/YYYY'),
+			TO_DATE(#{fechaFin,jdbcType=VARCHAR},'DD/MM/YYYY'),
+			#{tipoInforme.codigoRegistro},
+			#{idInformeCorregido}
+			
+		)
+	</insert>
+
+	<update id="modificar" parameterType="InformeAccion">
+		UPDATE SINADA.T_GEND_INFORME_ACCION
+		SET
+					ESTADO		 = #{estado.codigoRegistro}
+		WHERE
+					FLAG_ACTIVO = 1
+		AND 
+					ID_INFORME_ACCION = #{idInformeAccion}
+	</update>
+	
+
+
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_INFORME_ACCION
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_INFORME_ACCION = #{idInformeAccion}
+	</update>
+
+
+</mapper>

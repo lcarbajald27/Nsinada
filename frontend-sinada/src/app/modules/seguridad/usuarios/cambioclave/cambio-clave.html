@@ -1,0 +1,70 @@
+<div class="col-lg-12  sin_padding" 	novalidate ng-form >
+	<span class="" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Cambio de Clave Usuario</span></h3>
+				<span class="nav_bread"><ol class="breadcrumb"><li class="active">Perfiles</li><li>Cambio de Clave</li></ol>
+				</span>
+			</div>
+		</div>
+		<br/>
+		<fieldset class="well unp-fieldset">
+
+		<div class="row">
+				<div class="form-group col-md-4">
+					<label for="numeroDocumento" >Contrase&ntilde;a actual:</label>
+						<div class="form-group">
+							<input ng-model="vm.dataClave.claveAntigua" placeholder="Ingresar contraseña actual" type="password" maxlength="15"  class="form-control input-sm" name="numeroDocumento" >
+						</div>
+			</div>
+		</div>
+
+		<div class="row">
+				<div class="form-group col-md-4">
+					<label for="numeroDocumento" >Contrase&ntilde;a nueva:</label>
+						<div class="form-group">
+							<input ng-model="vm.dataClave.claveNueva" placeholder="Ingresar nueva contraseña" type="password" maxlength="15" class="form-control input-sm" name="numeroDocumento" >
+						</div>
+			</div>
+		</div>
+
+		<div class="row">
+				<div class="form-group col-md-4">Confirme contrase&ntilde;a nueva:</label>
+						<div class="form-group">
+							<input ng-model="vm.dataClave.claveConfirmacion" type="password"  placeholder="Ingresar nueva contraseña" maxlength="15"  class="form-control input-sm" name="numeroDocumento" >
+						</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+		  <div class="row">
+
+
+			<div class="col-lg-12 text-right">
+				<button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" uib-tooltip="Limpiar" >
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </button>
+	              <button type="button" ng-disabled="vm.dataClave.claveAntigua.length<6 || vm.dataClave.claveNueva!=vm.dataClave.claveConfirmacion || vm.dataClave.claveNueva.length <8 " ng-click="vm.cambiarClaveUsuario()" uib-tooltip="Cambiar clave"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Cambiar clave
+	            </button>
+	         
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+		</fieldset>
+
+	</span>
+</div>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="departamento">
+	<resultMap id="resultMapDepartamento" type="Departamento">
+		<id column="ID_DEPARTAMENTO"			 property="codigoDepartamento" />
+		<result column="DESCRIPCION" 			 property="descripcionDepartamento" />
+		<result column="CODIGO_DEPARTAMENTO" 	 property="codDep" />
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapDepartamento">
+		SELECT 
+			ID_DEPARTAMENTO, 
+			DESCRIPCION,
+			CODIGO_DEPARTAMENTO 
+		FROM 
+			SINADA.T_GENM_DEPARTAMENTO 
+		WHERE 
+			FLAG_ACTIVO = '1'
+
+
+	</select>
+
+	
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

@@ -1,0 +1,37 @@
+<div class="col-lg-12  sin_padding">
+	<span class="">
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt">
+					<span>Reporte de Pedidos Por A&ntilde;o</span>
+				</h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+						<li class="active">Reporte</li>
+						<li>A&ntilde;o</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<label for="anioReporte">A&ntilde;o</label>
+				<input type="text" class="form-control " ng-model="vm.anioReporte" name="anioReporte" id="anioReporte" input-restrict="numero" maxlength="4">
+			</div>
+			<div class="form-group col-md-4">
+				<label style="height: 18px;display:block;"></label>
+				<button type="button" class="btn btn-primary-inv btn-sm" ng-click="vm.cargarReporte()">
+					<span class="icon-buscar spac-btn-r"></span> Cargar Reporte
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-lg-12">
+			<br>
+			<br>
+			<hc-chart options="vm.chartDataPedidosAnio" style="width: 100%;height: 300px;display: table">Pedidos Por A&ntilde;o</hc-chart>
+			</div>
+		</div>
+	</span>
+</div>

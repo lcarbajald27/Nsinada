@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="form-group col-md-4 col-sm-6">
+      <label for="idProducto" >C&oacute;digo</label>
+      <div class="form-group">
+        <input ng-model="vm.dataDenunciante.codigoDenuncia" type="text" maxlength="13" class="form-control input-sm" name="codigoDenuncia" placeholder="Ingresar c&oacute;digo" >
+      </div>
+  </div>
+  <div class="form-group col-md-4 col-sm-6">
+    <label for="idProducto" >Denunciado</label>
+    <div class="form-group">
+      <input ng-model="vm.dataDenunciante.nombreDenunciado" maxlength="100" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar denunciado">
+    </div>
+  </div>
+</div>
+<div class="row" >
+<!--   <div class="form-group col-md-4 col-sm-6"> -->
+<!--     <label for="idProducto" >Denunciante</label> -->
+<!--     <div class="form-group"> -->
+<!--       <input ng-model="vm.dataDenunciante.nombreDenunciante" type="text" class="form-control input-sm" name="idProducto" placeholder="Ingresar Denunciante"> -->
+<!--     </div> -->
+<!--   </div> -->
+  <div class="form-group col-md-4 col-sm-6">
+    <label for="idProducto" >Estado </label>
+    <div class="form-group">
+    <select ng-model="vm.dataDenunciante.estadoDenuncia" id="periodo" name="periodo" class="form-control input-sm">
+      <option value="0" ng-value="0"> Seleccionar </option>
+      <option ng-repeat="itemCombo in vm.listaEstadoDenuncia" ng-if="itemCombo.valorGeneral01==1"
+      ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+    </select>
+    </div>
+  </div>
+</div>

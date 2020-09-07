@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENL_MAESTRO -->
+<mapper namespace="maestro">
+	<resultMap id="resultMapMaestro" type="Maestro">
+		<id 	column="ID_MAESTRO" 				property="idMaestro"/>
+<!-- 		<result column="NUMERO_ITEM" 				property="numeroItem"/> -->
+		<result column="CODIGO_MAESTRO" 			property="codigoMaestro"/>
+		<result column="CODIGO_REGISTRO"			property="codigoRegistro"/>
+		<result column="DESCRIPCION"				property="descripcion"/>
+		<result column="ABREVIATURA"				property="abreviatura"/>
+        <result column="CODIGO_REGISTRO_PADRE"		property="codigoRegistroPadre"/>
+         <result column="CODIGO_NIVEL"				property="codigoNivel"/>
+         <result column="VALOR_GENERAL01"			property="valorGeneral01"/>
+         <result column="VALOR_GENERAL02"			property="valorGeneral02"/>
+         <result column="VALOR_GENERAL03"			property="valorGeneral03"/>
+         <result column="VALOR_GENERAL04"			property="valorGeneral04"/>
+         <result column="VALOR_GENERAL05"			property="valorGeneral05"/>
+		<result column="FLAG_ACTIVO" 				property="flagActivo"/>
+	</resultMap>
+	
+	<select id="listarHijos" resultMap="resultMapMaestro"
+		parameterType="Maestro">
+		SELECT
+			  ROWNUM AS NUMERO_ITEM,
+		ID_MAESTRO,
+		CODIGO_MAESTRO,
+		CODIGO_REGISTRO,
+		DESCRIPCION,
+		ABREVIATURA,
+		CODIGO_REGISTRO_PADRE,
+		VALOR_GENERAL01,
+		VALOR_GENERAL02,
+		VALOR_GENERAL03,
+		VALOR_GENERAL04,
+		VALOR_GENERAL05,		
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENL_MAESTRO
+		WHERE
+		FLAG_ACTIVO = 1
+		AND CODIGO_REGISTRO != 0
+		AND CODIGO_REGISTRO_PADRE = #{codigoRegistro}
+		AND CODIGO_MAESTRO = #{codigoMaestro}
+		AND CODIGO_NIVEL = 2
+		ORDER BY DESCRIPCION ASC
+	</select>
+
+<select id="listarRegistroHijo" resultMap="resultMapMaestro">
+			SELECT  
+				ROWNUM AS NUMERO_ITEM,
+		        ID_MAESTRO,
+		        CODIGO_MAESTRO,
+		        CODIGO_REGISTRO,
+		        DESCRIPCION,
+		        ABREVIATURA,
+				VALOR_GENERAL01,
+				VALOR_GENERAL02,
+				 VALOR_GENERAL03,
+				 VALOR_GENERAL04,
+				 VALOR_GENERAL05,
+		        FLAG_ACTIVO
+		  FROM 
+				SINADA.T_GENL_MAESTRO
+		WHERE
+		        FLAG_ACTIVO = 1 
+		    AND
+		      CODIGO_REGISTRO != 0
+		    AND
+		      VALOR_GENERAL05= '3'
+		    AND 
+		    	CODIGO_NIVEL =2 
+		    AND 
+		    	CODIGO_REGISTRO_PADRE=#{codigoRegistroPadre}
+		    AND
+      			CODIGO_MAESTRO = #{codigoMaestro}
+      			ORDER BY DESCRIPCION ASC
+	</select>
+	
+	
+	<select id="listar" resultMap="resultMapMaestro">
+		SELECT  
+			ROWNUM AS NUMERO_ITEM,
+		ID_MAESTRO,
+		CODIGO_MAESTRO,
+		CODIGO_REGISTRO,
+		DESCRIPCION,
+		ABREVIATURA,
+		VALOR_GENERAL01,
+		VALOR_GENERAL02,
+		 VALOR_GENERAL03,
+		 VALOR_GENERAL04,
+		 VALOR_GENERAL05,
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENL_MAESTRO
+		WHERE
+		FLAG_ACTIVO = 1
+		ORDER BY DESCRIPCION ASC
+	</select>
+	
+	<select id="listarCodigoMaestro" resultMap="resultMapMaestro">
+			SELECT  
+				ROWNUM AS NUMERO_ITEM,
+		        ID_MAESTRO,
+		        CODIGO_MAESTRO,
+		        CODIGO_REGISTRO,
+		        DESCRIPCION,
+		        ABREVIATURA,
+		        VALOR_GENERAL01,
+		        VALOR_GENERAL02,
+		        VALOR_GENERAL03,
+		        VALOR_GENERAL04,
+		        VALOR_GENERAL05,
+		        FLAG_ACTIVO
+		  FROM 
+				SINADA.T_GENL_MAESTRO
+		WHERE
+		        FLAG_ACTIVO = 1 
+		    AND
+		      CODIGO_REGISTRO = 0
+		    AND
+		      VALOR_GENERAL05= '3'
+		      AND
+		      CODIGO_NIVEL  !=2
+		      ORDER BY DESCRIPCION ASC
+		     
+	</select>
+
+	<select id="buscarPorCodigoMaestro" resultMap="resultMapMaestro" parameterType="String">
+		
+		
+		SELECT  
+			
+	        ID_MAESTRO,
+	        CODIGO_MAESTRO,
+	        CODIGO_REGISTRO,
+	        DESCRIPCION,
+	        ABREVIATURA,
+	        FLAG_ACTIVO,
+	        CODIGO_NIVEL,
+	        VALOR_GENERAL01,
+	        VALOR_GENERAL02,
+	        VALOR_GENERAL03,
+	        VALOR_GENERAL04,
+	        VALOR_GENERAL05
+	FROM 
+			SINADA.T_GENL_MAESTRO
+	WHERE
+        	FLAG_ACTIVO = 1 
+    AND
+      CODIGO_MAESTRO = #{codigoMaestro}
+    AND
+       CODIGO_REGISTRO != 0
+    AND
+      VALOR_GENERAL05= '3'
+      ORDER BY DESCRIPCION ASC
+      
+	</select>
+	<insert id="agregar" parameterType="Maestro" useGeneratedKeys="true"
+		keyProperty="idMaestro">
+		<selectKey keyProperty="idMaestro" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENL_ID_MAESTRO.NEXTVAL FROM DUAL
+		</selectKey>
+
+			
+		INSERT INTO SINADA.T_GENL_MAESTRO
+		(
+			  ID_MAESTRO,
+	        CODIGO_MAESTRO,
+	        CODIGO_REGISTRO,
+	        DESCRIPCION,
+	        CODIGO_REGISTRO_PADRE,
+	        FLAG_ACTIVO,
+	        CODIGO_NIVEL,
+	        VALOR_GENERAL01,
+	        VALOR_GENERAL02,
+	        VALOR_GENERAL03,
+	        VALOR_GENERAL04,
+	        VALOR_GENERAL05
+		)
+		VALUES
+		(
+			#{idMaestro},
+			#{codigoMaestro},
+			(SELECT COUNT(*)+1  FROM SINADA.T_GENL_MAESTRO WHERE   CODIGO_MAESTRO = #{codigoMaestro} AND     CODIGO_REGISTRO != 0),
+			#{descripcion},
+			#{codigoRegistroPadre},
+			'1',
+			#{codigoNivel},
+			#{valorGeneral01},
+			#{valorGeneral02},
+			#{valorGeneral03},
+			#{valorGeneral04},
+			#{valorGeneral05}
+		)
+	</insert>
+	<update id="modificar" parameterType="Maestro">
+			UPDATE SINADA.T_GENL_MAESTRO
+		SET
+			
+			DESCRIPCION 			= #{descripcion}
+			WHERE 
+				FLAG_ACTIVO = 1
+			AND	
+				ID_MAESTRO = #{idMaestro}
+	</update>
+	<update id="eliminar" parameterType="long">
+	UPDATE SINADA.T_GENL_MAESTRO
+		SET
+			FLAG_ACTIVO = 0
+			WHERE 
+				FLAG_ACTIVO = 1
+			AND	ID_MAESTRO = #{idMaestro}
+	</update>
+
+
+</mapper>

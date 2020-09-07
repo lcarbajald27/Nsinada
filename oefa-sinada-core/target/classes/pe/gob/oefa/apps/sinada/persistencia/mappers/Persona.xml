@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_PERSONA_TEMP -->
+<mapper namespace="persona">
+	<resultMap id="resultMapPersona" type="Persona">
+		<id column="ID_PERSONA" property="idPersona" />
+		<result column="DOCUMENTO" property="documento" />
+		<result column="PRIMER_NOMBRE" property="primerNombre" />
+		<result column="SEGUNDO_NOMBRE" property="segundoNombre" />
+		<result column="APELLIDO_PATERNO" property="apellidoPaterno" />
+		<result column="APELLIDO_MATERNO" property="apellidoMaterno" />
+
+		<result column="UBIGEO" property="ubigeo" />
+		<result column="DIRECCION" property="direccion" />
+		<result column="REFERENCIA" property="referencia" />
+		<result column="DEPARTAMENTO" property="departamento" />
+		<result column="PROVINCIA" property="provincia" />
+		<result column="DISTRITO" property="distrito" />
+		<result column="NOMBRE_COMPLETO" property="nombreCompleto" />
+		
+			  <result column="NOMBRE_DEPARTAMENTO" 			property="nombreDepartamento"/>
+     	  <result column="NOMBRE_PROVINCIA" 			property="nombreProvincia"/>
+     	  <result column="NOMBRE_DISTRITO" 			property="nombreDistrito"/>
+		
+
+	</resultMap>
+
+	<!-- <select id="listar" resultMap="resultMapPersona"> SELECT ID_CONTACTO, 
+		ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, TITULAR, TM1_TIPO_CARGO, TM1_TIPO_PERIODO, 
+		FECHA_REGISTRO, FLAG_ACTIVO FROM SINADA.T_GENM_PERSONA_TEMP WHERE FLAG_ACTIVO = 
+		1 </select> <select id="buscarPorId" resultMap="resultMapPersona" parameterType="Long"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, TITULAR, TM1_TIPO_CARGO, 
+		TM1_TIPO_PERIODO, FECHA_REGISTRO, FLAG_ACTIVO FROM SINADA.T_GENM_PERSONA_TEMP WHERE 
+		FLAG_ACTIVO = 1 AND ID_CONTACTO = #{idContacto} </select> <insert id="agregar" 
+		parameterType="Contacto" useGeneratedKeys="true"> <selectKey keyProperty="idContacto" 
+		resultType="long" order="BEFORE"> SELECT SEC_GENM_ID_CONTACTO.NEXTVAL FROM 
+		DUAL </selectKey> INSERT INTO SINADA.T_GENM_PERSONA_TEMP ( ID_CONTACTO, ID_EFA, 
+		TM1_TIPO_CONTACTO, DOCUMENTO, TITULAR, TM1_TIPO_CARGO, TM1_TIPO_PERIODO, 
+		FECHA_REGISTRO ) VALUES ( #{idContacto}, #{idEfa}, #{tipoContacto}, #{documento}, 
+		#{titular}, #{tipoCargo}, #{tipoPeriodo}, (SELECT SYSDATE FROM DUAL) ) </insert> 
+		<update id="modificar" parameterType="Contacto"> UPDATE SINADA.T_GENM_PERSONA_TEMP 
+		SET TM1_TIPO_CONTACTO = #{tipoContacto}, DOCUMENTO = #{tipoContacto}, TITULAR 
+		= #{tipoContacto}, TM1_TIPO_CARGO = #{tipoContacto}, TM1_TIPO_PERIODO = #{tipoContacto} 
+		WHERE FLAG_ACTIVO = 1 AND ID_CONTACTO = #{idContacto} </update> <update id="eliminar" 
+		parameterType="long"> UPDATE SINADA.T_GENM_PERSONA_TEMP SET FLAG_ACTIVO = 0 WHERE 
+		FLAG_ACTIVO = 1 AND ID_CONTACTO = #{idContacto} </update> -->
+
+	<insert id="agregar" parameterType="Persona">
+
+
+
+		INSERT INTO SINADA.T_GENT_PERSONA
+		(
+		ID_PERSONA,
+		DOCUMENTO,
+		PRIMER_NOMBRE,
+		SEGUNDO_NOMBRE,
+		APELLIDO_PATERNO,
+		APELLIDO_MATERNO,
+		DIRECCION,
+		REFERENCIA,
+		DEPARTAMENTO,
+		PROVINCIA,
+		DISTRITO
+		)
+		VALUES
+		(
+		#{idPersona},
+		#{documento,jdbcType=VARCHAR},
+		#{primerNombre,jdbcType=VARCHAR},
+		#{segundoNombre,jdbcType=VARCHAR},
+		#{apellidoPaterno,jdbcType=VARCHAR},
+		#{apellidoMaterno,jdbcType=VARCHAR},
+		#{direccion,jdbcType=VARCHAR},
+		#{referencia,jdbcType=VARCHAR},
+		#{departamento,jdbcType=VARCHAR},
+		#{provincia,jdbcType=VARCHAR},
+		#{distrito,jdbcType=VARCHAR}
+
+		)
+	</insert>
+
+	<update id="modificar" parameterType="Persona">
+		UPDATE SINADA.T_GENT_PERSONA
+		SET
+			
+ 			  <if test="primerNombre != null">
+ 			  		 PRIMER_NOMBRE		= #{primerNombre,jdbcType=VARCHAR},
+ 			  </if>
+ 			 
+ 			  		SEGUNDO_NOMBRE		= #{segundoNombre,jdbcType=VARCHAR},
+ 			 
+			   <if test="apellidoPaterno != null">
+ 			  		APELLIDO_PATERNO	= #{apellidoPaterno,jdbcType=VARCHAR},
+ 			  </if>
+ 			  <if test="apellidoMaterno != null">
+ 			  		APELLIDO_MATERNO 	= #{apellidoMaterno,jdbcType=VARCHAR},
+ 			  </if>
+			  <if test="direccion != null">
+ 			  		DIRECCION 			= #{direccion,jdbcType=VARCHAR},
+ 			  </if> 
+			  <if test="referencia != null">
+ 			  		REFERENCIA 			= #{referencia,jdbcType=VARCHAR},
+ 			  </if> 	
+			  <if test="departamento != null and provincia != null  and distrito != null">
+ 			  		DEPARTAMENTO 		= #{departamento,jdbcType=VARCHAR},
+ 			  		PROVINCIA 			= #{provincia,jdbcType=VARCHAR},
+ 			  		DISTRITO 			= #{distrito,jdbcType=VARCHAR},
+ 			  </if> 	
+			 	FLAG_ACTIVO = '1'
+				
+			
+
+		WHERE
+			
+				ID_PERSONA = #{idPersona}
+	</update>
+	<select id="buscarPorId" resultMap="resultMapPersona"
+		parameterType="Long">
+		SELECT
+		ID_PERSONA,
+		DOCUMENTO,
+		PRIMER_NOMBRE,
+		NVL(SEGUNDO_NOMBRE,' ') AS SEGUNDO_NOMBRE,
+		APELLIDO_PATERNO,
+		APELLIDO_MATERNO,
+		PRIMER_NOMBRE||' '||NVL(SEGUNDO_NOMBRE,' ')||' '||APELLIDO_PATERNO||' '||APELLIDO_MATERNO AS NOMBRE_COMPLETO,
+		DIRECCION,
+		REFERENCIA,
+		DEPARTAMENTO,
+		PROVINCIA,
+		DISTRITO,
+		(SELECT UBDEP.NOMBDEP FROM SINADA.T_GENM_UBIGEO UBDEP WHERE UBDEP.UBIGEO_DIST= DEPARTAMENTO||PROVINCIA||DISTRITO) AS NOMBRE_DEPARTAMENTO,
+    (SELECT UBPROV.NOMBPROV FROM SINADA.T_GENM_UBIGEO UBPROV WHERE UBIGEO_DIST= DEPARTAMENTO||PROVINCIA||DISTRITO) AS NOMBRE_PROVINCIA,
+    (SELECT UBDIST.NOMBDIST FROM SINADA.T_GENM_UBIGEO UBDIST WHERE UBIGEO_DIST= DEPARTAMENTO||PROVINCIA||DISTRITO) AS NOMBRE_DISTRITO
+		FROM
+		SINADA.T_GENT_PERSONA
+		WHERE
+		ID_PERSONA = #{idPersona}
+		<!-- DOCUMENTO = 46935662 -->
+	</select>
+
+
+	<select id="buscarPorDocumento" resultMap="resultMapPersona"
+		parameterType="String">
+	SELECT
+			ID_PERSONA,
+			DOCUMENTO,
+			PRIMER_NOMBRE,
+			NVL(SEGUNDO_NOMBRE,' ') AS SEGUNDO_NOMBRE,
+			APELLIDO_PATERNO,
+			APELLIDO_MATERNO,
+			PRIMER_NOMBRE||' '||NVL(SEGUNDO_NOMBRE,' ')||' '||APELLIDO_PATERNO||' '||APELLIDO_MATERNO AS NOMBRE_COMPLETO,
+			DIRECCION,
+			REFERENCIA,
+			DEPARTAMENTO,
+			PROVINCIA,
+			DISTRITO,
+			(SELECT UBDEP.NOMBDEP FROM SINADA.T_GENM_UBIGEO UBDEP WHERE UBDEP.UBIGEO_DIST= DEPARTAMENTO||PROVINCIA||DISTRITO) AS NOMBRE_DEPARTAMENTO,
+	    (SELECT UBPROV.NOMBPROV FROM SINADA.T_GENM_UBIGEO UBPROV WHERE UBIGEO_DIST= DEPARTAMENTO||PROVINCIA||DISTRITO) AS NOMBRE_PROVINCIA,
+	    (SELECT UBDIST.NOMBDIST FROM SINADA.T_GENM_UBIGEO UBDIST WHERE UBIGEO_DIST= DEPARTAMENTO||PROVINCIA||DISTRITO) AS NOMBRE_DISTRITO
+FROM
+		SINADA.T_GENT_PERSONA
+		WHERE
+		DOCUMENTO = #{documento}
+	
+	</select>
+	
+	<select id="buscarPorNombreCompletoSSO" resultMap="resultMapPersona"
+		parameterType="String">
+		SELECT 
+		    ID_PERSONA,
+		    APELLIDO_PATERNO,
+		    APELLIDO_MATERNO,
+		    NOMBRES AS PRIMER_NOMBRE,
+		    NRO_DOCUMENTO AS DOCUMENTO
+		FROM
+	    	T_GEND_PERSONA_NATURAL
+		WHERE
+		        UPPER(APELLIDO_PATERNO)   LIKE '%'||UPPER( #{nombreCompleto})||'%'
+		    OR  UPPER(APELLIDO_MATERNO)   LIKE '%'|| UPPER(#{nombreCompleto})||'%'
+		    OR  UPPER(NOMBRES)   		  LIKE '%'|| UPPER(#{nombreCompleto})||'%'
+	</select>
+
+</mapper>

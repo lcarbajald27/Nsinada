@@ -1,0 +1,30 @@
+<div>
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Agregar &iacute;tem de maestro</h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+			<div class="row">
+				<div class="form-group">
+					<label class="important-box">Descripci&oacute;n de &iacute;tem</label>
+					<div class="input-group col-lg-6"
+						ng-class="{'has-error':maestroDataDialogForm.NombreCorto.$invalid && maestroDataDialogForm.NombreCorto.$touched}">
+						<input type="text" name="NombreCorto"
+							class="form-control input-sm" id="NombreCorto"> <span
+							class="input-group-btn">
+							<button type="button" class="btn btn-default btn-primary-inv btn-sm"
+								uib-tooltip="Agregar Item" ng-click="vm.agregarItem()"
+								title="Agregar Item">Guardar</button>
+						</span>
+						<div class="field-message"
+							ng-messages="maestroDataDialogForm.NombreCorto.$error"
+							ng-if='maestroDataDialogForm.NombreCorto.$touched' ng-cloak>
+							<div ng-message="required" class="help-block">Ingrese
+								Descripci&oacute;n del &iacute;tem</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</span>
+	</div>
+</div>

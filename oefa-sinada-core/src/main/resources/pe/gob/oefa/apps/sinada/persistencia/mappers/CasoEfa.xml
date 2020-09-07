@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_EFA -->
+<mapper namespace="casoEfa">
+	<resultMap id="resultMapCasoEfa" type="CasoEfa">
+		<id 	column="ID_CASO_EFA" 				property="idCasoEfa" />
+		<result column="ID_EFA" 					property="efa.idEfa" />
+		<result column="ID_ENTIDAD" 					property="efa.idEntidad" />
+		<result column="FLAG_ACTIVO" 				property="flagActivo" />
+		<result column="TIPO_ASIGNACION"			property="tipoAsignacion.codigoRegistro" />
+		<result column="ID_CASO"					property="caso.idCaso" />
+		
+		<result column="NOMBRE_TIPO_ASIGNACION" 	property="tipoAsignacion.descripcion" />
+		<result column="RUC" 						property="efa.ruc" />
+		<result column="NOMBRE" 					property="efa.nombre" />
+		<result column="TM1_TIPO_NIVEL" 			property="efa.tipoNivel" />
+		<result column="NOMBRE_TM1_TIPO_NIVEL" 		property="efa.nombreTipoNivel" />
+		<result column="TM1_TIPO_GOBIERNO" 			property="efa.tipoGobierno" />
+		<result column="NOMBRE_TM1_TIPO_GOBIERNO" 	property="efa.nombreTipoGobierno" />
+		<result column="DIRECCION" 					property="efa.direccion" />
+		<result column="REFERENCIA" 				property="efa.referencia" />
+		<result column="SW_EDITABLE" 				property="swEditable" />
+		
+		<result column="DEPARTAMENTO" 				property="efa.departamento" />
+		<result column="PROVINCIA" 					property="efa.provincia" />
+		<result column="DISTRITO" 					property="efa.distrito" />
+		<result column="CORREO" 					property="efa.correo" />
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapCasoEfa" parameterType="CasoEfa">
+			SELECT 
+			      ID_CASO_EFA,
+			      ID_EFA,
+			      ID_ENTIDAD,
+			      ID_CASO,
+			      TIPO_ASIGNACION,
+			      NOMBRE_TIPO_ASIGNACION,
+			      RUC,
+			      NOMBRE,
+			      TM1_TIPO_NIVEL,
+			      NOMBRE_TM1_TIPO_NIVEL,
+			      TM1_TIPO_GOBIERNO,
+			      NOMBRE_TM1_TIPO_GOBIERNO,
+			      DIRECCION,
+			      REFERENCIA,
+			      0 AS SW_EDITABLE
+			FROM
+			      SINADA.V_CASO_EFA
+			WHERE 
+				  ID_CASO=#{caso.idCaso}
+	</select>
+	
+	
+	<select id="listarEfasXCaso" resultMap="resultMapCasoEfa" parameterType="CasoEfa">
+		SELECT 
+			      ID_CASO_EFA,
+			      ID_EFA,
+			      ID_ENTIDAD,
+			      ID_CASO,
+			      TIPO_ASIGNACION,
+			      NOMBRE_TIPO_ASIGNACION,
+			      RUC,
+			      NOMBRE,
+			      TM1_TIPO_NIVEL,
+			      NOMBRE_TM1_TIPO_NIVEL,
+			      TM1_TIPO_GOBIERNO,
+			      NOMBRE_TM1_TIPO_GOBIERNO,
+			      DIRECCION,
+			      REFERENCIA,
+			      0 AS SW_EDITABLE,
+			      DEPARTAMENTO,
+			      PROVINCIA,
+			      DISTRITO
+			FROM
+			      SINADA.V_CASO_EFA
+			WHERE 
+				  ID_CASO=#{caso.idCaso}
+				  
+	</select>
+	
+	
+	<select id="listarEfasXCasoPorUbigeo" resultMap="resultMapCasoEfa" parameterType="CasoEfa">
+		SELECT 
+			      ID_CASO_EFA,
+			      ID_EFA,
+			      ID_ENTIDAD,
+			      ID_CASO,
+			      TIPO_ASIGNACION,
+			      NOMBRE_TIPO_ASIGNACION,
+			      RUC,
+			      NOMBRE,
+			      TM1_TIPO_NIVEL,
+			      NOMBRE_TM1_TIPO_NIVEL,
+			      TM1_TIPO_GOBIERNO,
+			      NOMBRE_TM1_TIPO_GOBIERNO,
+			      DIRECCION,
+			      REFERENCIA,
+			      0 AS SW_EDITABLE,
+			      DEPARTAMENTO,
+			      PROVINCIA,
+			      DISTRITO,
+			      CORREO
+			FROM
+			      SINADA.V_CASO_EFA
+			WHERE 
+				  ID_CASO=#{caso.idCaso}
+			AND
+					DEPARTAMENTO = #{efa.departamento}
+			AND 
+					PROVINCIA = #{efa.provincia}
+			AND	
+					DISTRITO = #{efa.distrito}
+				  
+	</select>
+	
+
+	<select id="buscarPorId" resultMap="resultMapCasoEfa"
+		parameterType="long">
+			SELECT 
+			      ID_CASO_EFA,
+			      ID_EFA,
+			      ID_ENTIDAD,
+			      ID_CASO,
+			      TIPO_ASIGNACION,
+			      NOMBRE_TIPO_ASIGNACION,
+			      RUC,
+			      NOMBRE,
+			      TM1_TIPO_NIVEL,
+			      NOMBRE_TM1_TIPO_NIVEL,
+			      TM1_TIPO_GOBIERNO,
+			      NOMBRE_TM1_TIPO_GOBIERNO,
+			      DIRECCION,
+			      REFERENCIA
+			FROM
+			      SINADA.V_CASO_EFA
+			WHERE 
+				  ID_CASO_EFA=#{idCasoEfa}
+	</select>
+	<insert id="agregar" parameterType="CasoEfa" useGeneratedKeys="true">
+		<selectKey keyProperty="idCasoEfa" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_CASO_EFA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_CASO_EFA
+		(
+			ID_CASO_EFA,
+		    ID_EFA,
+		    TIPO_ASIGNACION,
+		    ID_CASO,
+		     FLAG_ACTIVO
+		)
+		VALUES
+		(
+			#{idCasoEfa},
+			#{efa.idEfa},
+			#{tipoAsignacion.codigoRegistro},
+			#{caso.idCaso},
+			'1'
+		)
+	</insert>
+	<update id="modificar" parameterType="CasoEfa">
+		UPDATE SINADA.T_GENM_CASO_EFA
+		SET
+		    TIPO_ASIGNACION = 	#{tipoAsignacion.codigoRegistro}
+		WHERE
+			FLAG_ACTIVO = 1
+		AND ID_CASO_EFA = #{idCasoEfa}
+	</update>
+	
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_CASO_EFA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CASO_EFA = #{idCasoEfa}
+	</update>
+
+
+	<select id="listarEfasXCasoXNivelYUbigeo" resultMap="resultMapCasoEfa" parameterType="CasoEfa">
+			SELECT 
+			      ID_CASO_EFA,
+			      ID_EFA,
+			      ID_ENTIDAD,
+			      ID_CASO,
+			      TIPO_ASIGNACION,
+			      NOMBRE_TIPO_ASIGNACION,
+			      RUC,
+			      NOMBRE,
+			      TM1_TIPO_NIVEL,
+			      NOMBRE_TM1_TIPO_NIVEL,
+			      TM1_TIPO_GOBIERNO,
+			      NOMBRE_TM1_TIPO_GOBIERNO,
+			      DIRECCION,
+			      REFERENCIA,
+			      0 AS SW_EDITABLE,
+			      DEPARTAMENTO,
+			      PROVINCIA,
+			      DISTRITO,
+			      CORREO
+			FROM
+			      SINADA.V_CASO_EFA
+     		WHERE 
+            		TM1_TIPO_NIVEL = #{efa.tipoNivel}
+      		
+            AND
+				  ID_CASO=#{caso.idCaso}
+				  
+		<if test="efa.tipoNivel == 2" >
+					AND
+					DEPARTAMENTO = #{efa.departamento}
+		</if>
+				  
+		<if test="efa.tipoNivel == 3 and efa.tipoGobierno == 1" >
+				AND
+					DEPARTAMENTO = #{efa.departamento}
+					
+				AND
+            		PROVINCIA = #{efa.provincia}
+		</if>
+		
+		<if test="efa.tipoNivel == 3 and efa.tipoGobierno == 2" >
+				AND
+					DEPARTAMENTO = #{efa.departamento}
+					
+				AND
+            		PROVINCIA = #{efa.provincia}
+            	AND
+            		DISTRITO  = #{efa.distrito}
+		</if>
+		
+		
+	</select>
+	
+	
+	
+</mapper>

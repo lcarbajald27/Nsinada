@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="archivoInforme">
+	<resultMap id="resultMapArchivoInforme" type="ArchivoInforme">
+	
+		<id 	column="ID_ARCHIVO_INFORME" 	property="idArchivoInforme" />
+		<result column="ID_INFORME_ACCION" 		property="informeAccion.idInformeAccion" />
+		<result column="ARCHIVO_INFORME" 		property="archivoInforme" />
+		<result column="RUTA_ARCHIVO_INFORME"	property="rutaArchivoInforme" />
+		<result column="ESTADO" 				property="estado.codigoRegistro" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapArchivoInforme" parameterType="ArchivoInforme">
+		SELECT 
+		      ID_ARCHIVO_INFORME,
+		      ID_INFORME_ACCION,
+		      ARCHIVO_INFORME,
+		      RUTA_ARCHIVO_INFORME,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM 
+		      SINADA.T_GEND_ARCHIVO_INFORME
+		WHERE 
+		      FLAG_ACTIVO = '1'
+		AND
+			  ID_INFORME_ACCION = #{informeAccion.idInformeAccion}
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapArchivoInforme"
+		parameterType="long">
+		SELECT 
+		      ID_ARCHIVO_INFORME,
+		      ID_INFORME_ACCION,
+		      ARCHIVO_INFORME,
+		      RUTA_ARCHIVO_INFORME,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM 
+		      SINADA.T_GEND_ARCHIVO_INFORME
+		WHERE 
+		      FLAG_ACTIVO = '1'
+		AND
+			  ID_ARCHIVO_INFORME = #{idArchivoInforme}
+				    
+		    
+	</select>
+	<insert id="agregar" parameterType="ArchivoInforme" useGeneratedKeys="true">
+		<selectKey keyProperty="idArchivoInforme" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_ID_ARCHIVO_INFORME.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_ARCHIVO_INFORME
+		(
+			    ID_ARCHIVO_INFORME,
+				ID_INFORME_ACCION,
+				ARCHIVO_INFORME,
+				RUTA_ARCHIVO_INFORME,
+				ESTADO,
+				FLAG_ACTIVO
+		)
+		VALUES
+		(
+				#{idArchivoInforme},
+				#{informeAccion.idInformeAccion},
+				#{archivoInforme},
+				#{rutaArchivoInforme},
+				1,
+				'1'
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="ArchivoDenuncia"> -->
+<!-- 		UPDATE SINADA.T_GENM_ARTICULO -->
+<!-- 		SET -->
+
+
+<!-- 		DESCRIPCION = #{descripcion}, -->
+<!-- 		DETALLE = #{detalle}, -->
+<!-- 		FECHA_VIGENCIA = #{fechaVigencia}, -->
+<!-- 		FECHA_MODIFICACION = #{fechaModificacion}, -->
+<!-- 		FECHA_DEROGACION = #{fechaDerogacion}, -->
+<!-- 		TM1_ESTADO = #{estado} -->
+
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_ARTICULO = #{idArticulo} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_ARCHIVO_INFORME
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_ARCHIVO_INFORME = #{idArchivoInforme}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

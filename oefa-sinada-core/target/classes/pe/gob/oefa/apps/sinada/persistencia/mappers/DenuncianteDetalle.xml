@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="denuncianteDetalle">
+	<resultMap id="resultMapDenuncianteDetalle" type="DenuncianteDetalle">
+		<id 	column="ID_DENUNCIANTE"  			property="idDenunciante" />
+		<result column="ID_DENUNCIA"	 			property="idDenuncia" />
+		<result column="TIPO_PERSONA" 	 			property="tipoPersona" />
+		<result column="NOMBRE_TIPO_PERSONA" 	 	property="nombreTipoPersona" />
+		<result column="ID_PERSONA" 	     		property="idPersona" />
+		<result column="NUMERO_DOCUMENTO" 	     	property="numeroDocumento" />
+		<result column="NOMBRE_COMPLETO" 	     	property="nombreCompleto" />
+		<result column="DIRECCION" 	     			property="direccion" />
+		<result column="REFERENCIA" 	     		property="referencia" />
+		<result column="REPRESENTANTE_LEGAL" 	    property="representanteLegal" />
+		<result column="DOCUMENTO_REPRESENTANTE" 	property="documentoRepresentante" />
+		<result column="NOMBRE_REPRESENTANTE" 	    property="nombreRepresentante" />
+		<result column="CARGO" 	     				property="cargo" />
+		<result column="NOMBRE_CARGO" 	     		property="nombreCargo" />
+		<result column="ESTADO" 	     			property="estado" />
+	
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapDenuncianteDetalle" parameterType="Denunciante">
+		SELECT       
+		      ID_DENUNCIANTE,
+		      ID_DENUNCIA,
+		      TIPO_PERSONA,
+		      NOMBRE_TIPO_PERSONA,
+		      ID_PERSONA,
+		      NUMERO_DOCUMENTO,
+		      NOMBRE_COMPLETO,
+		      DIRECCION,
+		      REFERENCIA,
+		      REPRESENTANTE_LEGAL,
+		      DOCUMENTO_REPRESENTANTE,
+		      NOMBRE_REPRESENTANTE,
+		      CARGO,
+		      NOMBRE_CARGO,
+		      ESTADO
+		FROM 
+		      SINADA.V_DENUNCIANTE_DETALLE
+		WHERE
+				ID_DENUNCIA = #{idDenuncia}
+			
+
+
+	</select>
+
+
+	
+</mapper>

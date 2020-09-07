@@ -1,0 +1,25 @@
+	td {
+		div {
+			/*estilos temporales*/
+			/* width: 50%; */
+			text-align: center;
+			input {
+				max-width : 50px;
+				border: none;
+				outline : none;
+				border-bottom : 1px solid #2e6da4;
+				font-weight : bold;
+				font-size : 15px;
+				text-align : right;
+				width: 60%;
+			}
+			input.has-error{
+				border-bottom : 2px solid #d62e2e;
+				text-decoration-line: line-through;
+		    	text-decoration-color: #d62e2e;
+			}
+			span{
+				/* text-align: center; */
+			}
+		}
+	}

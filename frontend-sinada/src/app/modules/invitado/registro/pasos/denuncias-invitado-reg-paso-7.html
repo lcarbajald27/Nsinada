@@ -1,0 +1,291 @@
+<div class="col-lg-12" style="overflow:auto;">
+	<span class="" ng-form="vm.formDenuncia" name="denunciaRegistroForm" novalidate><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div  class="col-md-12" >
+				<h3 class="size-title-pasos-inv"><span>Vista previa de la denuncia</span></h3>
+			</div>
+		</div>
+		<!-- <br/>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	           <button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-sm" uib-tooltip="Imprimir" >
+	                <span class="glyphicon glyphicon-print spac-btn-r"></span> Imprimir
+	            </button>
+	        </div>
+  	    </div> -->
+  	    <div class="col-lg-12 borde-vistaPrevia">
+	<div class="col-sm-12" id="fichaDenunciaHTML">
+		<div class="row">
+
+	      <div class="col-sm-12 cabecera_vistaPrevia">
+	      	<img src="assets/images/oefa-logo-header.svg" alt="" class="img-responsive" style="width: 200px;padding-right: 10px;display: inline-table;">
+	      <img src="assets/images/logo_sinada.svg" alt="" class="img-responsive" style="width:250px;padding-left:2em;padding-top: 20px;border-left: 2px solid #b6b7b7;display: inline-table;">
+	      </div>
+
+
+		</div>
+		<div class="row sub-cabecera-vistaPrevia">
+			<div class="col-sm-6 col-xs-12">
+				<p><b>C&oacute;digo de denuncia </b>{{prmDataFichaDenuncia.codigoDenuncia}}</p>
+				<p><b>C&oacute;digo de acceso </b>{{prmDataFichaDenuncia.codigoacceso}}</p>
+				<p ng-show="prmDataFichaDenuncia.medioRecepcion == 1">Hoja de Tr&aacute;mite <b>{{prmDataFichaDenuncia.hojaTramite}}</b></p>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p><b>Caracter&iacute;sticas de la denuncia</b></p>
+				<p><b>Tipo de denuncia </b>{{prmDataFichaDenuncia.nombreTipoDenuncia}}</p>
+				<p><b>Medio de recepci&oacute;n </b>{{prmDataFichaDenuncia.nombreMedioRecepcion}}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 pd-vistaPrevia" style="padding-left: 0px;">
+				<div class=""  ng-if="prmDataFichaDenuncia.tipoDenuncia!=3">
+				<p><b>1- Datos del denunciante</b></p>
+				<p  style="padding-left: 20px;">{{prmDataFichaDenuncia.nombreTipoDenuncia}}</p>
+				</div>
+				<p ng-if="prmDataFichaDenuncia.tipoDenuncia==3" ><b>1- Datos del denunciante</b></p>
+				<div class=""  ng-if="prmDataFichaDenuncia.tipoDenuncia==3"  style="padding-left: 20px;" ng-repeat="itemDenunciante in prmDataFichaDenuncia.lstDenunciante">
+							
+								<p><b>Denunciante Nº {{$index+1}}  </b></p>
+					<div ng-if="itemDenunciante.tipoPersona==1">
+							<p>
+								<b>Nombre : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.personaDenunciante.nombres}}  {{ itemDenunciante.personaDenunciante.apellidoPaterno }}  {{itemDenunciante.personaDenunciante.apellidoMaterno}}</label>
+							</p>
+							<p>
+								<b>Documento : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.personaDenunciante.documento}}</label>
+							</p>
+							<p>
+								<b>Ubigeo :</b>
+							</p>
+							<p style="text-transform: uppercase;font-size: 11px;">
+								{{itemDenunciante.personaDenunciante.nombreDepartamento}} / {{itemDenunciante.personaDenunciante.nombreProvincia}} / {{itemDenunciante.personaDenunciante.nombreDistrito}}
+							</p>
+							<p>
+								<b>Direcci&oacute;n :</b>
+								<label style="font-size: 11px;">{{itemDenunciante.personaDenunciante.direccion}}</label>
+							</p>
+					</div>
+					<div ng-if="itemDenunciante.tipoPersona==2">
+							<p>
+								<b>Raz&oacute;n social : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.entidadDenunciante.razonSocial}}  </label>
+							</p>
+							<p>
+								<b>Documento : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.entidadDenunciante.ruc}}</b></label>
+							<p>
+								<b>Representante legal : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.entidadDenunciante.nomRepresentante}}</label>
+							</p>
+							<p>
+								<b>Cargo : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.entidadDenunciante.nomCargo}}</label>
+							</p>
+							<p>
+								<b>Ubigeo :</b>
+							</p>
+							<p style="text-transform: uppercase;font-size: 11px;">
+								{{itemDenunciante.entidadDenunciante.nombreDepartamento}} / {{itemDenunciante.entidadDenunciante.nombreProvincia}} / {{itemDenunciante.entidadDenunciante.nombreDistrito}}
+							</p>
+							<p>
+								<b>Direcci&oacute;n fiscal : </b>
+								<label style="font-size: 11px;">{{itemDenunciante.entidadDenunciante.direccion}}</label>
+							</p>
+					</div>
+
+				</div>
+
+
+
+				<div class="">
+					<p><b>2- Datos de la denuncia</b></p>
+					<p style="padding-left: 20px;"><b>Hechos denunciados</b></p>
+					<p style="padding-left: 20px;"><b>Problem&aacute;tica</b><br/>
+					<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreProblematica}}</label></p>
+					<p style="padding-left: 20px;"><b>¿Debido a?</b></p>
+					<table style="margin-left: 20px;">
+						<tr ng-if="prmDataFichaDenuncia.nombreDebidoaNivel1 != null">
+							<td style="width: 15px;float: left;">
+								<span class="glyphicon glyphicon-ok" style="font-size: 10px;top: 0px;"></span>
+							</td>
+							<td>
+								<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreDebidoaNivel1}}</label>
+							</td>
+						</tr>
+						<tr ng-if="prmDataFichaDenuncia.nombreDebidoaNivel2 != null">
+							<td style="float: left;">
+								<span class="glyphicon glyphicon-ok" style="font-size: 10px;top: 0px;"></span>
+							</td>
+							<td>
+								<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreDebidoaNivel2}}</label>
+							</td>
+						</tr>
+						<tr ng-if="prmDataFichaDenuncia.nombreDebidoaNivel3 != null">
+							<td style="float: left;">
+								<span class="glyphicon glyphicon-ok" style="font-size: 10px;top: 0px;"></span>
+							</td>
+							<td>
+								<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreDebidoaNivel3}}</label>
+							</td>
+						</tr>
+					</table>
+
+					<p style="padding-left: 20px;margin-top: 5px;"><b>¿D&oacute;nde sucede?</b></p>
+
+					<table style="margin-left: 20px;">
+						<tr ng-if="prmDataFichaDenuncia.nombreZonaSuceso1 != null">
+							<td style="width: 15px;float: left;">
+								<span class="glyphicon glyphicon-ok" style="font-size: 10px;top: 0px;"></span> 
+							</td>
+							<td>
+								<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreZonaSuceso1}}</label>
+							</td>
+						</tr>
+						<tr ng-if="prmDataFichaDenuncia.nombreZonaSuceso2 != null">
+							<td style="float: left;">
+								<span class="glyphicon glyphicon-ok" style="font-size: 10px;top: 0px;"></span> 
+							</td>
+							<td>
+								<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreZonaSuceso2}}</label>
+							</td>
+						</tr>
+						<tr ng-if="prmDataFichaDenuncia.nombreZonaSuceso3 != null">
+							<td style="float: left;">
+								<span class="glyphicon glyphicon-ok" style="font-size: 10px;top: 0px;"></span> 
+							</td>
+							<td>
+								<label style="font-size: 10px;">{{prmDataFichaDenuncia.nombreZonaSuceso3}}</label>
+							</td>
+						</tr>
+					</table>
+
+					<p style="padding-left: 20px;"><b>¿D&oacute;nde ocurre?</b></p>
+
+					<p style="padding-left: 20px;">{{prmDataFichaDenuncia.nombreDepartamento}} - {{prmDataFichaDenuncia.nombreProvincia}} - {{prmDataFichaDenuncia.nombreDistrito}}</p>
+					<p style="padding-left: 20px;" ng-if="prmDataFichaDenuncia.nombreCentroPoblado!=null && prmDataFichaDenuncia.nombreCentroPoblado.length!=0"><b>Centro poblado : </b>{{prmDataFichaDenuncia.nombreCentroPoblado}}</p>
+					<p style="padding-left: 20px;">
+						<b>Direcci&oacute;n : </b>
+						<label style="font-size: 11px;">{{prmDataFichaDenuncia.direccion}}</label>
+					</p>
+					<p style="padding-left: 20px;">
+						<b>Referencia : </b>
+						<label style="font-size: 11px;">{{prmDataFichaDenuncia.referencia}}</label>
+					</p>
+					
+				<p style="padding-left: 20px;">
+					<b>Este : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.coord_x_utm | number : 2}}</label> 
+				</p>
+				<p style="padding-left: 20px;">
+					<b>Norte : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.coord_y_utm | number : 2}}</label> 
+				</p>
+				<p style="padding-left: 20px;">
+					<b>Zona : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.zona}}</label> 
+				</p>	
+				
+				</div>
+			</div>
+			<div class="col-sm-6 pd-vistaPrevia"  style="padding-left: 0px;">
+				<div class="">
+
+				<div class="" ng-if="prmDataFichaDenuncia.tipoResponsable==0 && (
+					prmDataFichaDenuncia.nombreDenunciadoDenuncia== null || prmDataFichaDenuncia.nombreDenunciadoDenuncia.length==0
+				) && (prmDataFichaDenuncia.direccionDenunciadoDenuncia==null || prmDataFichaDenuncia.direccionDenunciadoDenuncia.length==0)">
+				<p><b>3- Datos del denunciado</b></p>
+				<p style="padding-left: 20px;">No se identific&oacute; al denunciado.</p>
+				</div>
+				<div class="" ng-if="prmDataFichaDenuncia.nombreDenunciadoDenuncia!= null && prmDataFichaDenuncia.nombreDenunciadoDenuncia.length!=0 && prmDataFichaDenuncia.direccionDenunciadoDenuncia!=null && prmDataFichaDenuncia.direccionDenunciadoDenuncia.length!=0">
+				<p><b>3- Datos del denunciado</b></p>
+				<p style="padding-left: 20px;">
+					<b>Nombre : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.nombreDenunciadoDenuncia}}</label>
+				</p>
+				<p style="padding-left: 20px;">
+					<b>Direcci&oacute;n : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.direccionDenunciadoDenuncia}}</label> 
+				</p>
+				
+				</div>
+				<div class=""  ng-if="prmDataFichaDenuncia.tipoResponsable!=0 && prmDataFichaDenuncia.departamentoDenunciado!=null">
+				<p><b>3- Datos del denunciado</b></p>
+					<p style="padding-left: 20px;">
+						<b>Nombre : </b>
+						<label style="font-size: 11px;">{{prmDataFichaDenuncia.nombreDenunciado}}</label>
+					</p>
+					<p style="padding-left: 20px;"><b>Documento : </b>
+						<label style="font-size: 11px;">{{prmDataFichaDenuncia.documentoDenunciado}}</label>
+					</p>
+					<p style="padding-left: 20px;"><b>Ubigeo :</b></p>
+					<p style="padding-left: 20px;">
+						<label style="text-transform: uppercase;font-size: 11px;">{{prmDataFichaDenuncia.nombreDepartamentoDenunciado}} / {{prmDataFichaDenuncia.nombreProvinciaDenunciado}} / {{prmDataFichaDenuncia.nombreDistritoDenunciado}}</label> 
+					</p>
+					<p style="padding-left: 20px;">
+						<b>Direcci&oacute;n : </b>
+						<label style="font-size: 11px;">{{prmDataFichaDenuncia.direccionDenunciado}}</label> 
+					</p>
+				</div>
+
+
+				<div class="">
+				   <p><b>4- Medios probatorios</b></p>
+						<p ng-if="prmDataFichaDenuncia.lstArchivoDenuncia.length==0" style="padding-left: 20px;">No se subi&oacute;  medios probatorios</p>
+					<p ng-repeat="itemMedioProbatorio in prmDataFichaDenuncia.lstArchivoDenuncia" style="padding-left: 20px;font-size: 11px;">{{itemMedioProbatorio.tipoArchivo.descripcion}} - {{itemMedioProbatorio.nombreArchivo}}</p>
+				</div>
+
+				<div class="">
+						<p><b>5- Entidades competentes</b></p>
+
+					<p ng-repeat="itemEntidad in prmDataFichaDenuncia.lstEntidadCaso" style="padding-left: 20px;font-size: 11px;">{{itemEntidad.nombreEntidad}}
+					<br/>
+					<span ng-repeat="itemNormaCaso in itemEntidad.lstNormaCaso"><i style="font-size: 11px;">{{itemNormaCaso.contenidoNorma.nombreTipoDispositivo}} {{itemNormaCaso.contenidoNorma.numeroNorma}}, Art&iacute;culo {{itemNormaCaso.contenidoNorma.numeroArticulo}}<span ng-if="itemNormaCaso.contenidoNorma.descripcionArticulo!=null && itemNormaCaso.contenidoNorma.descripcionArticulo.length>1">, {{itemNormaCaso.contenidoNorma.descripcionArticulo}}</span>.</i><br/> </span>
+<!-- 					<span ng-if="itemNormaCaso.contenidoNorma.descripcionArticulo!=null && itemNormaCaso.contenidoNorma.descripcionArticulo.length>1"><i style="font-size: 11px;"> {{itemNormaCaso.contenidoNorma.descripcionArticulo}}</span>.</i><br/> -->
+					</p>
+				
+				<p style="padding-left: 20px;" ng-if="!!prmDataFichaDenuncia.oficinasDesconcentradasNombre">
+					<b>Oficina desconcentrada : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.oficinasDesconcentradasNombre}}</label> 
+				</p>
+				<p style="padding-left: 20px;" ng-if="!!prmDataFichaDenuncia.adminLocalesNombre">
+					<b>Autoridad Local del Agua  : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.adminLocalesNombre}}</label> 
+				</p>
+				<p style="padding-left: 20px;" ng-if="!!prmDataFichaDenuncia.areaConservacionNombre">
+					<b>&#193;rea natural Protegida : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.areaConservacionNombre}}</label> 
+				</p>
+				<p style="padding-left: 20px;" ng-if="!!prmDataFichaDenuncia.zonaAmortiguamientoNombre">
+					<b>Zona de amortiguamiento : </b>
+					<label style="font-size: 11px;">{{prmDataFichaDenuncia.zonaAmortiguamientoNombre}}</label> 
+				</p>
+				</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--
+  	    <div class="row">
+			<fieldset class="well unp-fieldset">
+			<div class="col-md-12" ng-bind-html="renderHtml(urlPRDTemp)"></div>
+		</fieldset>
+			</div>
+-->
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	          <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.regresar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18">
+	                <span class="icon-regresar spac-btn-r"></span> Editar Denuncia
+	            </button>
+	            <button type="button" ng-click="vm.guardar()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18">
+	                <span class="icon-siguiente spac-btn-r"></span> Registrar Denuncia
+	            </button>
+
+
+	        </div>
+  	    </div>
+	</span>
+</div>

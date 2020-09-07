@@ -1,0 +1,447 @@
+<style>
+	.esri-view{
+		position: relative;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+		height: 600px;
+	}
+	.esri-attribution{
+		display: none;
+	}
+	.full-screen .esri-view{
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 32px;
+		height: auto;
+		z-index: 1;
+		background: white;
+	}
+	.full-screen .widget-container{
+		max-height: 50vh;
+	}
+	.map-placeholder{
+		display: block;
+		height: 600px;
+	}
+	.esri-view-root ~ .map-placeholder{
+		display: none;
+	}
+	.map-full-screen-title{
+		display: none;
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 32px;
+		z-index: 1;
+		background: #d5cdcd;
+		padding-left: 15px;
+		align-items: center;
+		justify-content: center;
+	}
+	.map-full-screen-title span{
+		color: #2567d8;
+		font-size: 20px;
+		line-height: 32px;
+		padding: 0;
+	}
+	.full-screen ~ .map-full-screen-title{
+		display: flex;
+	}
+	.coordinates-info{
+		position: absolute;
+		z-index: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		height: 30px;
+		background: rgba(29,133,191,0.5);
+		color: #fff;
+		text-overflow: ellipsis;
+		font-size: 10px;
+		text-shadow: -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 rgba(0,0,0,0.5), 1px 1px 0 rgba(0,0,0,0.5);
+		text-align: center;
+		padding: 2px;
+	}
+	.widgets-wrapper{
+		background-color: white;
+		width: 240px;
+		height: auto;
+		max-height: 300px;
+		position: absolute;
+		top: 57px;
+		bottom: 70px;
+		right: 15px;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	}
+	.widget-container{
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.widget-container .widget-title{
+		background: rgba(213,205,205,0.8);
+		color: rgb(37, 103, 216);
+		display: flex;
+		min-height: 33px;
+		font-size: 14px;
+		font-weight: 400;
+	}
+	.widget-container .widget-title .widget-close{
+		color: rgb(37, 103, 216);
+		font-size: 12px;
+		padding: 9px 10px 0;
+		margin: 0;
+		text-decoration: none;
+	}
+	.widget-container .widget-title .widget-close:hover{
+		color: #ffffff;
+		background-color: #0BC7E0;
+	}
+	.widget-title__text{
+		flex: 1;
+		padding: 7px 0 0 10px;
+		text-decoration: none;
+		min-width: 32px;
+	}
+	.widget-container .widget-body{
+		padding: 1em;
+		flex: 1;
+		overflow-y: auto;
+		overflow-x: auto;
+		width: 100%;
+	}
+
+	.esri-view-width-greater-than-large .esri-basemap-gallery__item {
+		width: 45%;
+	}
+
+	.blink{
+		animation-duration: 0.5s;
+		animation-name: blink;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+
+	@keyframes blink {
+		to {
+			background-color: #276add;
+			color: #ffffff;
+		}
+	}
+
+
+	@media (max-width: 630px) {
+		.widgets-wrapper{
+			bottom: 0;
+			top: 50%;
+			left: 0;
+			right: 0;
+			width: auto;
+			box-shadow: none;
+		}
+	}
+
+</style>
+<div class="col-lg-12 sin_padding">
+	<span class="" ng-form="vm.formDenuncia" name="denunciaRegistroForm" novalidate ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="size-title-pasos-inv"><span>Ubicación de la Denuncia</span></h3>
+			</div>
+		</div>
+		<br/>
+
+		<div class="row">
+			<esri-map-view ng-class="{'full-screen': vm.mapFullScreen}" map="vm.map"
+						   view-options="{padding:{bottom: 14}, extent: {xmin: -9072538, ymin: -2096939, xmax: -7625385, ymax: 5.6649236, spatialReference: 102100}}"
+						   on-load="vm.onMapViewLoaded">
+				<div class="map-placeholder"></div>
+				<div class="coordinates-info">
+				   <b>GCS :</b> {{vm.infoCoordenadas.geograficas}}<br> &nbsp;<b>UTM WGS84 :</b> {{vm.infoCoordenadas.utm}} <b>ZONA : </b>{{vm.infoCoordenadas.zona}}
+				</div>
+				<div class="widgets-wrapper" ng-class="{'hidden': !vm.widgetActivo}">
+					<!--  Formulario de Datos Geograficos -->
+					<div class="widget-container" ng-class="{'hidden': vm.widgetActivo !== 'formulario-datos-geograficos'}">
+						<div class="widget-title">
+							<span class="widget-title__text">
+								<i class="esri-icon esri-icon-collection"></i> Datos Geogr&aacute;ficos
+							</span>
+							<a ng-click="vm.widgetActivo = ''" class="widget-close" role="button" data-toggle="collapse" tabindex="0">
+								<span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="widget-body">
+							<div class="form-group">
+								<label for="departamento" class="important-box">Departamento</label>
+								<select class="form-control input-sm" id="departamento" name="departamento"
+										ng-change="vm.listarProvincia();vm.denuncia.distrito='';vm.denuncia.codigoCentroPoblado = '';vm.denuncia.provincia='';vm.listaDistrito=[];"
+										ng-model="vm.denuncia.departamento">
+											<option value="">
+												Seleccione
+											</option>
+											<option ng-repeat="itemCombo in vm.listaDepartamento"
+													ng-value="itemCombo.codigoDepartamento">
+												{{itemCombo.descripcionDepartamento}}
+											</option>
+								  </select>
+							</div>
+							<div class="form-group">
+							<label for="provincia" class="important-box">Provincia</label>
+							  <select class="form-control input-sm" id="provincia" name="provincia"
+									  ng-change="vm.listarDistrito();vm.denuncia.distrito='';vm.denuncia.codigoCentroPoblado = ''"
+									  ng-model="vm.denuncia.provincia">
+										<option value="">
+											Seleccione
+										</option>
+										<option ng-repeat="itemCombo in vm.listaProvincia"
+												ng-value="itemCombo.codigoProvincia">
+											{{itemCombo.descripcion}}
+										</option>
+							  </select>
+						</div>
+							<div class="form-group">
+								<label for="distrito" class="important-box">Distrito</label>
+								<select class="form-control input-sm" id="distrito" name="distrito"
+										ng-change="vm.listarCentroPoblado();vm.denuncia.codigoCentroPoblado = ''"
+										ng-model="vm.denuncia.distrito">
+											<option value="">
+												Seleccione
+											</option>
+											<option ng-repeat="itemCombo in vm.listaDistrito"
+													ng-value="itemCombo.codigoDistrito">
+												{{itemCombo.descripcionDistrito}}
+											</option>
+								</select>
+							</div>
+							<div class="form-group">
+							<label for="centro_poblado">Centro poblado:</label>
+							<div class="form-group">
+								 <select class="form-control input-sm" id="centro_poblado"
+										 name="codigoCentroPoblado" ng-model="vm.denuncia.codigoCentroPoblado">
+											<option value="">
+												Seleccione
+											</option>
+											<option ng-repeat="itemCombo in vm.listaCentroPoblado"
+													ng-value="itemCombo.codigoCentroPoblado">
+												{{itemCombo.nombreCentroPoblado}}
+											</option>
+								 </select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="direccion">Direcci&oacute;n:</label>
+							<div class="form-group">
+								 <input class="form-control input-sm" maxlength="100" id="direccion" name="direccion"
+										ng-disabled="false" ng-model="vm.denuncia.direccion"
+										type="text"/>
+
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-class="{'has-error':denunciaRegistroForm.referencia.$invalid && denunciaRegistroForm.referencia.$touched}">
+							<label for="referencia" class="important-box">Referencia:</label>
+							<div class="form-group">
+								<input class="form-control input-sm" maxlength="100" id="referencia" name="referencia"
+									   ng-disabled="false" ng-model="vm.denuncia.referencia" ng-required="true"
+									   type="text"/>
+
+							</div>
+							<div class="field-message"
+								 ng-messages="denunciaRegistroForm.referencia.$error"
+								 ng-if='denunciaRegistroForm.referencia.$invalid && denunciaRegistroForm.referencia.$touched'
+								 ng-cloak>
+									<div ng-message="required" class="help-block">Campo obligatorio</div>
+							</div>
+						</div>
+
+						</div>
+					</div>
+					<!--  Buscador de Coordenadas (Localizacion)  -->
+					<div class="widget-container" ng-class="{'hidden': vm.widgetActivo !== 'formulario-buscador-coordenadas'}">
+						<div class="widget-title">
+							<span class="widget-title__text">
+								<i class="esri-icon esri-icon-globe"></i> Localización
+							</span>
+							<a ng-click="vm.widgetActivo = ''" class="widget-close" role="button" data-toggle="collapse" tabindex="0">
+								<span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div id="coordenada-selector" class="widget-body">
+							<div class="form-group">
+								<label for="coordenada-selector-codigo-sistema" class="localizacion-selector">Sistema de Coordenadas</label>
+								<select id="coordenada-selector-codigo-sistema" class="form-control input-sm">
+									<option value="1">Coordenadas Geográficas (GCS)</option>
+									<option value="2">Coordenadas Proyectadas (UTM)</option>
+								</select>
+							</div>
+							<div id="coordenada-selector-zona" class="form-group" style="display: none">
+								<label for="coordenada-selector-codigo-zona" class="localizacion-selector">Zona</label>
+								<select id="coordenada-selector-codigo-zona" class="form-control input-sm">
+									<option value="17">WGS84 Zona 17S</option>
+									<option value="18">WGS84 Zona 18S</option>
+									<option value="19">WGS84 Zona 19S</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="coordenada-input-coord-x">Coordenada X</label>
+								<input id="coordenada-input-coord-x" type="text" class="form-control input-sm">
+							</div>
+							<div class="form-group">
+								<label for="coordenada-input-coord-y">Coordenada Y</label>
+								<input id="coordenada-input-coord-y" type="text" class="form-control input-sm">
+							</div>
+							<div class="form-group">
+								<button id="coordenada-btn-localizar-coord" class="btn btn-primary btn-block">Localizar Coordenadas</button>
+							</div>
+						</div>
+					</div>
+					<!--  Selector de Mapas Base  -->
+					<div class="widget-container" ng-class="{'hidden': vm.widgetActivo !== 'basemap-selector'}">
+						<div class="widget-title">
+							<span class="widget-title__text">
+								<i class="esri-icon esri-icon-basemap"></i> Selector de Mapas Base
+							</span>
+							<a ng-click="vm.widgetActivo = ''" class="widget-close" role="button" data-toggle="collapse" tabindex="0">
+								<span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="widget-body" id="basemap-selector-container"></div>
+					</div>
+					<!--  Lista de Capas  -->
+					<div class="widget-container" ng-class="{'hidden': vm.widgetActivo !== 'layer-list'}">
+						<div class="widget-title">
+							<span class="widget-title__text">
+								<i class="esri-icon esri-icon-layers"></i> Lista de Capas
+							</span>
+							<a ng-click="vm.widgetActivo = ''" class="widget-close" role="button" data-toggle="collapse" tabindex="0">
+								<span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="widget-body" id="layer-list-container"></div>
+					</div>
+					<!--  Leyenda  -->
+					<div class="widget-container" ng-class="{'hidden': vm.widgetActivo !== 'legend'}">
+						<div class="widget-title">
+							<span class="widget-title__text">
+								<i class="esri-icon esri-icon-layer-list"></i> Leyenda
+							</span>
+							<a ng-click="vm.widgetActivo = ''" class="widget-close" role="button" data-toggle="collapse" tabindex="0">
+								<span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="widget-body" id="legend-container"></div>
+					</div>
+				</div>
+			</esri-map-view>
+			<div class="map-full-screen-title">
+				<span class="size-title-pasos-inv">Ubicación de la Denuncia</span>
+			</div>
+			<div class="hidden">
+				<div id="activar-seleccion-punto" title="Indicar ubicación de denuncia" class="esri-widget esri-widget-button" ng-class="{blink: !capasCargadas}" ng-click="vm.seleccionarPuntoDenunciaHabilitado = !vm.seleccionarPuntoDenunciaHabilitado">
+					<span class="esri-icon-map-pin" ng-class="{'esri-icon-plus-circled': vm.seleccionarPuntoDenunciaHabilitado}"></span>
+				</div>
+				<div
+						id="activar-full-screen"
+						title="Ver en Pantalla Completa"
+						class="esri-widget esri-widget-button"
+						ng-click="vm.mapFullScreen = !vm.mapFullScreen">
+					<span class="esri-icon-zoom-out-fixed" ng-class="{'esri-icon-zoom-in-fixed': vm.mapFullScreen}"></span>
+				</div>
+				<div
+						id="legend-widget-toggle"
+						title="Leyenda"
+						class="esri-widget esri-widget-button"
+						ng-click="vm.widgetActivo = vm.widgetActivo === 'legend' ? '' : 'legend'">
+					<span class="esri-icon-layer-list"></span>
+				</div>
+				<div
+						id="basemap-selector-widget-toggle"
+						title="Selector de Mapas Base"
+						class="esri-widget esri-widget-button"
+						ng-click="vm.widgetActivo = vm.widgetActivo === 'basemap-selector' ? '' : 'basemap-selector'">
+					<span class="esri-icon-basemap"></span>
+				</div>
+				<div
+						id="layer-list-widget-toggle"
+						title="Lista de Capas"
+						class="esri-widget esri-widget-button"
+						ng-click="vm.widgetActivo = vm.widgetActivo === 'layer-list' ? '' : 'layer-list'">
+					<span class="esri-icon-layers"></span>
+				</div>
+				<div
+						id="formulario-datos-geograficos-widget-toggle"
+						title="Datos Geográficos"
+						class="esri-widget esri-widget-button"
+						ng-click="vm.widgetActivo = vm.widgetActivo === 'formulario-datos-geograficos' ? '' : 'formulario-datos-geograficos'">
+					<span class="esri-icon-collection"></span>
+				</div>
+				<div
+						id="formulario-buscador-coordenadas-widget-toggle"
+						title="Localización"
+						class="esri-widget esri-widget-button"
+						ng-click="vm.widgetActivo = vm.widgetActivo === 'formulario-buscador-coordenadas' ? '' : 'formulario-buscador-coordenadas'">
+					<span class="esri-icon-globe"></span>
+				</div>
+			</div>
+
+		</div>
+
+<div class="row">
+
+<!-- 	<div class="form-group col-md-12" ng-if="vm.listaZonaSucesonivel1.length>1"> -->
+<!-- 	<label for="sucede" class="important-box">&iquest;D&oacute;nde sucede?</label> -->
+<!-- 		<select2 -->
+<!-- 			id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso1.idDetalleCaso" -->
+<!-- 			ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso1.idDetalleCaso,2);vm.validarCasoRegistrado()" -->
+<!-- 				s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel1" -->
+<!-- 			class="selectCaso"> -->
+<!-- 		</select2> -->
+<!-- 	</div> -->
+<!-- prueba -->
+			<div class="form-group col-md-12" ng-if="vm.listaZonaSucesonivel2.length>1">
+
+
+
+					<select2
+						id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso2.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso2.idDetalleCaso,3);vm.validarCasoRegistrado()"
+						s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel2"
+						class="selectCaso">
+					</select2>
+
+
+
+
+
+			</div>
+		</div>
+
+
+
+<!-- prueba -->
+<br>
+
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	             <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.regresar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18">
+	                <span class="icon-regresar spac-btn-r"></span> Regresar
+	            </button>
+<!-- 	            <button class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18" ng-click="vm.siguiente()" ng-disabled="vm.prmDataCaso.idCaso==0 || capasCargadas!==true " type="button"> -->
+<!--                             <span class="icon-siguiente spac-btn-r"> -->
+<!--                             </span> -->
+<!--                             Siguiente -->
+<!--                         </button> -->
+						<button class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18"
+								ng-click="vm.siguiente()"
+								ng-disabled="capasCargadas!==true"
+								type="button">
+                            <span class="icon-siguiente spac-btn-r">
+                            </span>
+                            Siguiente
+                        </button>
+	        </div>
+  	    </div>
+	</span>
+</div>

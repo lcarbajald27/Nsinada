@@ -1,0 +1,137 @@
+<div class="col-lg-12  sin_padding">
+  <span class="">
+    <!-- box-bg-lef-15 -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="title-slider-nt">
+          <span>Bandeja de Denuncias Asignadas a la EFA u &Oacute;rgano de L&iacute;nea Competente</span>
+        </h3>
+        <span class="nav_bread">
+          <ol class="breadcrumb">
+            <li class="active">Bandeja de Denuncias</li>
+          </ol>
+        </span>
+      </div>
+    </div>
+        <br>
+          <div class="col-md-12 sin_padding">
+              <div>
+                <div class="panel panel-tab-app with-nav-tabs panel-default">
+                    <ul class="nav nav-tabs" >
+                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 1 }"  ng-click="vm.asignadasTabActivo = 1">
+                          <a class="spapp-link">Datos de Denuncia</a>
+                      </li>
+                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 2 }"  ng-click="vm.asignadasTabActivo = 2">
+                          <a class="spapp-link">Cronológico</a>
+                      </li>
+                         <li ng-class="{ 'active' : vm.asignadasTabActivo == 3 }" ng-click="vm.asignadasTabActivo = 3">
+                            <a class="spapp-link">Problemática de la Denuncia</a>
+                         </li>
+                         <li ng-class="{ 'active' : vm.asignadasTabActivo == 4 }" ng-click="vm.asignadasTabActivo = 4">
+                            <a class="spapp-link">Ubigeo</a>
+                         </li>
+                    </ul>
+                <div class="panel-body">
+                    <div class="row" ng-show="vm.asignadasTabActivo == 1" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-datos-denuncia.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 2" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-cronologico.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 3" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-problematica.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 4" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-ubigeo.html'">
+                  </div>
+                   </div>
+                </div>
+              </div>
+          </div>
+         <br>
+    <br>
+    <div class="row">
+      <div class="col-lg-12 text-right">
+        <button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-sm" uib-tooltip="Limpiar Filtros" >
+          <span class="icon-limpiar spac-btn-r"></span> Limpiar
+        </button>
+        <button type="button" id="btnRef_recurso" ng-click="vm.buscar()"   uib-tooltip="Buscar"  class="btn btn-flat btn-primary-inv btn-sm">
+            <span class="icon-buscar spac-btn-r"></span> Buscar
+        </button>
+        <a  uib-tooltip="Exportar a Excel" class="btn btn-sm btn-default" ng-click="vm.exportarListado('#listaProductos')" download="lista_productos.xls" style="font-size: 11px">
+         <span class="fa icon-exportar-excel" style="font-size:16px;color:green;margin-right: 5px"></span>
+        Exportar EXCEL
+        </a>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-2">
+          <label for="cantidadPaginas">Páginas</label>
+          <select id="cantidadPaginas" name="cantidadPaginas" class="form-control input-sm">
+            <option ng-value="itemPag*1">1</option>
+          </select>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+            <thead>
+              <tr>
+                <th class="text-center">C&oacute;digo</th>
+                <th class="text-center">Recepci&oacute;n</th>
+                <th class="text-center">Registro</th>
+                <th class="text-center">Tiempo Transcurrido(Registro) </th>
+                <th class="text-center">Ultima Acción</th>
+                <th class="text-center">Tiempo Transcurrido(Acci&oacute;n) </th>
+                <th class="text-center">Historial</th>
+                <th class="text-center">Acciones</th>
+                <th class="text-center">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr dir-paginate="itemBandeja in vm.listaBandeja | filter : { 'nombre' : vm.prmProducto.nombre} | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+                <td class="text-center">{{itemBandeja.codigo}}</td>
+                <td>{{itemBandeja.recepcion}}</td>
+                <td class="text-center">{{itemBandeja.registro}}</td>
+                <td class="text-center">{{itemBandeja.tiempoTranscurridoRegistro}}</td>
+                <td class="text-center">{{itemBandeja.ultimaAccion}}</td>
+                <td class="text-center">{{itemBandeja.tiempoTranscurridoAccion}}</td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-default btn-sm" uib-tooltip="Historial" ng-click="vm.revisarDenuncia(itemNivel1)">
+                    <span class=" fa fa-history"></span>
+                  </button>
+                </td>
+                <td class="text-center">
+                        <button type="button"
+                        ng-show="[1,2].includes(itemBandeja.flagEstado)"
+                        class="btn btn-default btn-sm"
+                        uib-tooltip="Revisar"
+                        ng-click="vm.revisarDenuncia(itemBandeja)">
+                          <span class="fa fa-eye"></span>
+                        </button>
+                        <button type="button"
+                        class="btn btn-default btn-sm"
+                        ng-show="[5].includes(itemBandeja.flagEstado)"
+                        uib-tooltip="Informar"
+                        ng-click="vm.informarDenuncia(itemBandeja)">
+                          <span class="fa fa-clipboard"></span>
+                        </button>
+                </td>
+                <td class="text-center"
+                ng-class="{'texto-pendiente':itemBandeja.flagEstado==1,
+                          'texto-pendiente-atendido':itemBandeja.flagEstado==2,
+                          'texto-no-atendido':itemBandeja.flagEstado==3,
+                          'texto-atendido-todo':itemBandeja.flagEstado==4 }">{{itemBandeja.estado}}</td>
+              </tr>
+              <tr ng-show="vm.listaBandeja == null || vm.listaBandeja.length==0">
+                <td colspan="6">No se encontraron resultados</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+          <dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>

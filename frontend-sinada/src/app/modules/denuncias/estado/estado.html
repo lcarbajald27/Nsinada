@@ -1,0 +1,259 @@
+<div class="col-lg-12 sin_padding">
+<span class="" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="title-slider-nt"><span>Estados Generales de las Denuncias</span></h3>
+      </div>
+    </div>
+    <br/>
+      <div class="row">
+        <div class="col-md-2">
+          <label for="cantidadPaginas">P&aacute;ginas</label>
+          <select id="cantidadPaginas" name="cantidadPaginas" class="form-control input-sm">
+            <option ng-value="itemPag*1">1</option>
+          </select>
+          </div>
+        </div>
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <div class="table-rpv">
+          <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+            <thead>
+              <tr>
+                <th class="text-center">Estado General</th>
+                <th class="text-center">Entidad</th>
+                <th class="text-center">Documento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="Mostrar_Tabla1" data-id="1" class="opciones" >
+                <td class="text-center" style='color:orange;'>Pendiente</td>
+                <td class="text-center">EFA</td>
+                <td class="text-center">9483433</td>
+              </tr>
+               <tr id="Tabla_Mostrar1">
+                    <td colspan="3">
+                      <div class="table-rpv">
+                        <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                         <thead>
+                          <tr>
+                            <th class="text-center" width="120">Estado</th>
+                            <th class="text-center" width="90">Fecha</th>
+                            <th class="text-center">Descripci&oacute;n</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr >
+                            <td class="text-center">Pendiente</td>
+                            <td class="text-center">20/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 1</td>
+                          </tr>
+                          <tr >
+                            <td class="text-center">Pendiente</td>
+                            <td class="text-center">23/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 2</td>
+                          </tr>
+                          <tr >
+                            <td class="text-center">En Revisi&oacute;n</td>
+                            <td class="text-center">26/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 3</td>
+                          </tr>
+                          <!--
+                          <tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+                            <td colspan="5">No se encontraron resultados</td>
+                          </tr>
+                          -->
+                        </tbody>
+                      </table>
+                    </div>
+                    </td>
+                </tr>
+
+              <tr id="Mostrar_Tabla2" data-id="2" class="opciones" >
+                <td class="text-center"  style='color:orange;'>Pendiente</td>
+                <td class="text-center">Juan Vela Rojas</td>
+                <td class="text-center">70990192</td>
+              </tr>
+               <tr id="Tabla_Mostrar2">
+                    <td colspan="3">
+                      <div class="table-rpv">
+                        <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                         <thead>
+                          <tr>
+                            <th class="text-center" width="120">Estado</th>
+                            <th class="text-center" width="90">Fecha</th>
+                            <th class="text-center">Descripci&oacute;n</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr >
+                            <td class="text-center">En Revisi&oacute;n</td>
+                            <td class="text-center">20/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 1</td>
+                          </tr>
+                          <tr >
+                            <td class="text-center">En Revisi&oacute;n</td>
+                            <td class="text-center">26/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 3</td>
+                          </tr>
+                          <!--
+                          <tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+                            <td colspan="5">No se encontraron resultados</td>
+                          </tr>
+                          -->
+                        </tbody>
+                      </table>
+                    </div>
+                    </td>
+                </tr>
+
+              <tr id="Mostrar_Tabla3" data-id="3" class="opciones" ng-click="vm.confirmar('9209099')" >
+                <td class="text-center"  style='color:green;'>Pendiente</td>
+                <td class="text-center">Juan Vela Rojas</td>
+                <td class="text-center">70990192</td>
+              </tr>
+               <tr id="Tabla_Mostrar3">
+                    <td colspan="3">
+                      <div class="table-rpv">
+                        <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                         <thead>
+                          <tr>
+                            <th class="text-center" width="120">Estado</th>
+                            <th class="text-center" width="90">Fecha</th>
+                            <th class="text-center">Descripci&oacute;n</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr >
+                            <td class="text-center">Atendida</td>
+                            <td class="text-center">26/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 3</td>
+                          </tr>
+                          <tr >
+                            <td class="text-center">Pendiente</td>
+                            <td class="text-center">23/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 2</td>
+                          </tr>
+                          <!--
+                          <tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+                            <td colspan="5">No se encontraron resultados</td>
+                          </tr>
+                          -->
+                        </tbody>
+                      </table>
+                    </div>
+                    </td>
+                </tr>
+
+                <tr id="Mostrar_Tabla4" data-id="4" class="opciones"  >
+                <td class="text-center"  style='color:blue;'>Atendida</td>
+                <td class="text-center">Juan Vela Rojas</td>
+                <td class="text-center">70990192</td>
+              </tr>
+               <tr id="Tabla_Mostrar4">
+                    <td colspan="3">
+                      <div class="table-rpv">
+                        <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                         <thead>
+                          <tr>
+                            <th class="text-center" width="120">Estado</th>
+                            <th class="text-center" width="90">Fecha</th>
+                            <th class="text-center">Descripci&oacute;n</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr >
+                            <td class="text-center">Atendida</td>
+                            <td class="text-center">26/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 3</td>
+                          </tr>
+                          <!--
+                          <tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+                            <td colspan="5">No se encontraron resultados</td>
+                          </tr>
+                          -->
+                        </tbody>
+                      </table>
+                    </div>
+                    </td>
+                </tr>
+
+
+                <tr id="Mostrar_Tabla5" data-id="5" class="opciones"  >
+                <td class="text-center"  style='color:red;'>No Atendida</td>
+                <td class="text-center">Juan Vela Rojas</td>
+                <td class="text-center">70990192</td>
+              </tr>
+               <tr id="Tabla_Mostrar5">
+                    <td colspan="3">
+                      <div class="table-rpv">
+                        <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                         <thead>
+                          <tr>
+                            <th class="text-center" width="120">Estado</th>
+                            <th class="text-center" width="90">Fecha</th>
+                            <th class="text-center">Descripci&oacute;n</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr >
+                            <td class="text-center">No Atendida</td>
+                            <td class="text-center">26/04/2017</td>
+                            <td class="text-center">Descripci&oacute;n 3</td>
+                          </tr>
+                          <!--
+                          <tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+                            <td colspan="5">No se encontraron resultados</td>
+                          </tr>
+                          -->
+                        </tbody>
+                      </table>
+                    </div>
+                    </td>
+                </tr>
+              <!--
+              <tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+                <td colspan="5">No se encontraron resultados</td>
+              </tr>
+              -->
+            </tbody>
+          </table>
+        </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </span>
+</div>
+
+<script type="text/javascript">
+
+function mostrar(id){
+  document.getElementById("table-1").style.display = 'block';
+}
+
+function toggle(tableid){
+  var id = jQuery(tableid).data('id')
+  jQuery('#Tabla_Mostrar'+id).toggle();
+}
+
+jQuery(document).ready(function(){
+   jQuery('#Tabla_Mostrar1').toggle();
+    jQuery('#Tabla_Mostrar2').toggle();
+    jQuery('#Tabla_Mostrar3').toggle();
+    jQuery('#Tabla_Mostrar4').toggle();
+    jQuery('#Tabla_Mostrar5').toggle();
+
+  jQuery('.opciones').on('click', function(){
+    toggle(this)
+  })
+});
+
+
+
+
+
+</script>

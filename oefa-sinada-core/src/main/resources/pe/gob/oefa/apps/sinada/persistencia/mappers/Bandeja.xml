@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_OEFA -->
+<mapper namespace="bandeja">
+	<resultMap id="resultMapBandeja" type="Bandeja">
+		<id 	column="ID_BANDEJA" 			property="idBandeja" />
+		<result column="TIPO_RESPONSABLE" 		property="tipoResponsable" />
+		<result column="ID_RESPONSABLE"			property="idResponsable" />
+		<result column="ESTADO"					property="estado" />
+		<result column="FLAG_ACTIVO"			property="flagActivo" />
+		
+		<result column="ID_EFA"					property="idEFa" />
+		<result column="DIRECCION"				property="direccion" />
+		<result column="SUB_DIRECCION"			property="subDireccion" />
+		<result column="COORDINACION"			property="coordinacion" />
+		
+	
+	</resultMap>
+
+
+
+<select id="listar" resultMap="resultMapBandeja" parameterType="Bandeja">
+		SELECT 
+		   	  ID_BANDEJA,
+		      TIPO_RESPONSABLE,
+		      ID_RESPONSABLE,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM 
+		    SINADA.T_GENM_BANDEJA
+		WHERE
+		    FLAG_ACTIVO = '1'
+	</select>
+	
+	<select id="buscarPorId" resultMap="resultMapBandeja" parameterType="long">
+		SELECT 
+		   	  ID_BANDEJA,
+		      TIPO_RESPONSABLE,
+		      ID_RESPONSABLE,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM 
+		    SINADA.T_GENM_BANDEJA
+		WHERE
+		    FLAG_ACTIVO = '1'
+		 AND 
+		 	ID_BANDEJA = #{idBandeja}
+	</select>
+
+
+<select id="validarBandeja" resultMap="resultMapBandeja" parameterType="CasoEfa">
+		SELECT 
+		   	  ID_BANDEJA,
+		      TIPO_RESPONSABLE,
+		      ID_RESPONSABLE,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM 
+		    SINADA.T_GENM_BANDEJA
+		WHERE
+		    FLAG_ACTIVO = '1'
+    AND
+          TIPO_RESPONSABLE = #{tipoResponsable}
+    AND
+          ID_RESPONSABLE = #{idResponsable}
+	</select>
+
+
+<select id="validarBandejaEfa" resultMap="resultMapBandeja" parameterType="CasoEfa">
+		SELECT 
+		   	  ID_BANDEJA,
+		      TIPO_RESPONSABLE,
+		      ESTADO,
+		      ID_EFA
+		FROM 
+		    SINADA.T_GENM_BANDEJA
+		WHERE
+		    FLAG_ACTIVO = '1'
+    AND
+          TIPO_RESPONSABLE = #{tipoResponsable}
+    AND
+          ID_EFA = #{idEFa}
+	</select>
+	
+	<select id="validarBandejaOefa" resultMap="resultMapBandeja" parameterType="CasoEfa">
+		SELECT 
+		   	  ID_BANDEJA,
+		      TIPO_RESPONSABLE,
+		      ID_RESPONSABLE,
+		      ESTADO,
+		      DIRECCION,
+		      SUB_DIRECCION,
+		      COORDINACION
+		      
+		FROM 
+		    SINADA.T_GENM_BANDEJA
+		WHERE
+		    FLAG_ACTIVO = '1'
+    AND
+          TIPO_RESPONSABLE = #{tipoResponsable}
+    AND
+          DIRECCION = #{direccion}
+    AND    SUB_DIRECCION = #{subDireccion}
+    
+   AND    COORDINACION = #{coordinacion}
+	</select>
+	
+	<insert id="agregar" parameterType="Bandeja" useGeneratedKeys="true">
+		<selectKey keyProperty="idBandeja" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_BANDEJA.NEXTVAL FROM DUAL
+		</selectKey>
+
+	
+  INSERT INTO SINADA.T_GENM_BANDEJA(
+  
+		      ID_BANDEJA,
+		      TIPO_RESPONSABLE,
+		      ID_RESPONSABLE,
+		      ESTADO,
+		      FLAG_ACTIVO,
+		      ID_EFA,
+		      DIRECCION,
+		      SUB_DIRECCION,
+		      COORDINACION
+
+      )VALUES(
+		        #{idBandeja},
+		        #{tipoResponsable},
+		        #{idResponsable},
+		        1,
+		     	'1',
+		     	#{idEFa},
+		     	#{direccion},
+		     	#{subDireccion},
+		     	#{coordinacion}
+      )
+	</insert>
+	<update id="modificar" parameterType="Bandeja">
+		UPDATE SINADA.T_GENM_BANDEJA
+		SET
+		    ESTADO = 	#{estado}
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA = #{idBandeja}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_BANDEJA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA = #{idBandeja}
+	</update>
+
+</mapper>

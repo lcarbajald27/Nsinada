@@ -1,0 +1,67 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">B&uacute;squeda de Productos </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+			<div class="row">
+				<div class="form-group col-md-9">
+					<label>Nombre</label>
+					<input type="text" class="form-control input-sm" ng-model="vm.prmProducto.nombre">
+				</div>
+				<div class="form-group col-md-3 text-right">
+					<label style="height: 10px;display: block;"></label>
+					<button class="btn btn-default btn-primary btn-sm" type="button" ng-click="vm.buscar()"><span class="icon-buscar spac-btn-r"></span>  Buscar</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<label for="cantidadPaginas">P&aacute;ginas</label>
+					<select id="cantidadPaginas" name="cantidadPaginas" ng-model="vm.opcionesPaginacion.itemsPorPag" class="form-control input-sm">
+						<option ng-repeat="itemPag in vm.opcionesPaginacion.cantidades"
+								ng-value="itemPag*1">{{itemPag}}</option>
+					</select>
+		   		</div>
+		    </div>
+	        <div class="row">
+				<div class="col-md-12">
+					<div class="table-rpv">
+					<table class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<!-- <caption>Resultados de búsqueda</caption> -->
+						<thead>
+							<tr>
+								<th style="text-align:center" width="60">&Iacute;tem</th>
+								<th style="text-align:center">Nombre</th>
+								<th style="text-align:center" width="80">Precio</th>
+								<th style="text-align:center" width="80">Stock</th>
+								<th style="text-align:center" width="80">Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-click="vm.seleccionar(itemProducto)" dir-paginate="itemProducto in vm.listaProducto | filter : { 'nombre' : vm.prmProducto.nombre} | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+								<td style="text-align:center">{{itemProducto.idProducto}}</td>
+								<td>{{itemProducto.nombre}}</td>
+								<td style="text-align:center">{{itemProducto.precio}}</td>
+								<td style="text-align:center">{{itemProducto.stock}}</td>
+								<td style="text-align:center">
+								<button type="button" style="padding: 3px 8px" class="btn btn-flat btn-default btn-sm" uib-tooltip="Seleccionar">
+				                	<i class="fa fa-arrow-left" aria-hidden="true"></i>
+				          		</button>
+								</td>
+							</tr>
+							<tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+								<td colspan="6">No se encontraron resultados</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="text-center">
+					<dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+				</div>
+		    </div>
+		</span>
+	</div>
+</div>

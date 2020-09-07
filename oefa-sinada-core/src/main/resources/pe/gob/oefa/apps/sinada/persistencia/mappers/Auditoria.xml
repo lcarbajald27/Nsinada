@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_CONTACTO -->
+<mapper namespace="auditoria">
+	<resultMap id="resultMapAuditoria" type="Auditoria">
+	
+		<id 	column="ID_AUDITORIA" 		property="idAuditoria"/>
+		<result column="ID_TABLA" 			property="idTabla"/>
+		<result column="TIPO_AUDITORIA" 	property="tipoAuditoria"/>
+		<result column="ID_USUARIO"			property="idUsuario"/>
+		<result column="FECHA_HORA" 		property="fechaHora"/>
+		<result column="HOST_IP"			property="hostIp"/>
+        <result column="ID_SESSION"			property="idSession"/>
+       <result column="ID_REGISTRO"			property="idRegistro"/>
+	</resultMap>
+		
+	<insert id="agregar" parameterType="Auditoria" useGeneratedKeys="true">
+	<selectKey keyProperty="idAuditoria" resultType="long" order="BEFORE">
+		SELECT SINADA.SEC_GENM_ID_AUDITORIA.NEXTVAL FROM DUAL
+	</selectKey>
+		
+		INSERT INTO SINADA.T_GENM_AUDITORIA
+		(
+			ID_AUDITORIA,
+			ID_TABLA,
+			TIPO_AUDITORIA,
+			ID_USUARIO,
+			FECHA_HORA,
+			HOST_IP,
+			ID_SESSION,
+			ID_REGISTRO
+		)
+		VALUES
+		(
+			#{idAuditoria},
+			#{idTabla},
+			#{tipoAuditoria},
+			#{idUsuario},
+			(SELECT SYSDATE FROM DUAL),
+			#{hostIp,jdbcType=VARCHAR},
+			#{idSession},
+			#{idRegistro}
+		)
+	</insert>
+
+	
+</mapper>

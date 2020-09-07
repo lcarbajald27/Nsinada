@@ -1,0 +1,142 @@
+<div class="col-lg-12  sin_padding">
+	<span class=""><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Listado de Pedidos</span></h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+					  <li class="active">Pedido</li>
+					  <li>Listado</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+		<label></label>
+		<div class="row">
+			<!-- <div class="form-group col-md-6">
+				<label for="idPedido">Nombres:</label>
+				<div class="form-group">
+					<input type="text" ng-model="vm.prmPedido.idPedido" class="form-control input-sm" name="idPedido" id="numeroDocumento" placeholder="Filtrar por nombre">
+				</div>
+			</div> -->
+		    <div class="form-group col-md-3" ng-class="{'has-error':vm.formEvento.fechaAtencion.$invalid && vm.formEvento.fechaAtencion.$touched}">
+				<label for="FechaInicio" class="important-box">Fecha de Inicio</label>
+				<div class="form-group">
+		           <input type="text"
+	                name="fechaAtencion"
+	                class="form-control input-sm"
+	                ng-init="vm.openDatePickerFechaInicio = false"
+	                ng-model="vm.fechaIniPedido"
+	                uib-datepicker-popup="dd/MM/yyyy"
+	                is-open="vm.openDatePickerFechaInicio"
+	                show-button-bar="false"
+
+	                datepicker-options="vm.dtFechaInicioOptions"
+	                ng-click="vm.openDatePickerFechaInicio = true"
+	                >
+				</div>
+			</div>
+			<div class="form-group col-md-3" ng-class="{'has-error':vm.formEvento.fechaRegistro.$invalid && vm.formEvento.fechaRegistro.$touched}">
+				<label for="FechaTermino" class="important-box">Fecha de T&eacute;rmino</label>
+				<div class="form-group">
+					<input type="text"
+	                name="fechaRegistro"
+	                class="form-control input-sm"
+	                ng-init="vm.openDatePickerFechaTermino = false"
+	                ng-model="vm.fechaTerminoPedido"
+	                uib-datepicker-popup="dd/MM/yyyy"
+	                is-open="vm.openDatePickerFechaTermino"
+	                show-button-bar="false"
+	                  ng-change="vm.validaFechas()"
+	                datepicker-options="vm.dtFechaTerminoOptions"
+	                ng-click="vm.openDatePickerFechaTermino = true"
+
+	                >
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 text-right">
+				<button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </button>
+	            <button type="button" id="btnRef_recurso" ng-click="vm.buscar()" class="btn btn-flat btn-primary btn-sm btn-pd-5">
+	                <span class="icon-buscar spac-btn-r"></span> Buscar
+	            </button>
+	            <a class="btn btn-flat btn-primary btn-sm btn-pd-5" ng-click="vm.nuevo()">
+	                <span class="icon-nuevo spac-btn-r"></span> Nuevo
+	            </a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2">
+				<label for="cantidadPaginas">P&aacute;ginas</label>
+				<select id="cantidadPaginas" name="cantidadPaginas" ng-model="vm.opcionesPaginacion.itemsPorPag" class="form-control input-sm">
+					<option ng-repeat="itemPag in vm.opcionesPaginacion.cantidades"
+							ng-value="itemPag*1">{{itemPag}}</option>
+				</select>
+		   </div>
+		</div>
+        <div class="row">
+			<div class="col-md-12">
+				<div class="table-rpv">
+				<table id="listaPedidos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+					<!-- <caption>Resultados de búsqueda</caption> -->
+					<thead>
+						<tr>
+							<th class="text-center" width="60">&Iacute;tem</th>
+							<th class="text-center">Cliente</th>
+							<th class="text-center" width="150">Fecha de Atenci&oacute;n</th>
+							<th class="text-center" width="100">Total</th>
+							<th class="text-center" width="90">Acci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="itemPedido in vm.listaPedido | filter : vm.filtroRapido | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+							<td class="text-center">{{itemPedido.idPedido}}</td>
+							<td>{{itemPedido.cliente}}</td>
+							<td class="text-center">{{itemPedido.fechaAtencion | date :  "dd/MM/yyyy"}}</td>
+							<td class="text-center">{{itemPedido.total}}</td>
+							<td class="text-center">
+								<button type="button" class="btn btn-default btn-sm" uib-tooltip="Editar" ng-click="vm.editar(itemPedido)">
+                  <span class="icon-editar"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" uib-tooltip="Eliminar" ng-click="vm.confirmarEliminacion(itemPedido)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+							</td>
+						</tr>
+						<tr id="msg1" ng-show="vm.listaPedido == null || vm.listaPedido.length==0">
+							<td colspan="5">No se encontraron resultados</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+<!-- 				<a class="btn" title="Export Table" ng-click="vm.exportarListado('#listaPedidos')" download="lista_productos.xls">
+		    	<i class="fa fa-file-excel-o" style="font-size:20px;color:green;padding-left: 0px;margin-left: -15px;"></i>
+		    </a>
+		      <a   uib-tooltip="Exportar a PDF" class="btn" title="Export Table" >
+			<span class="fa fa-file-pdf-o" style="font-size:20px;color:Red;padding-left: 0px;margin-left: -15px;"></span>
+		      </a> -->
+			</div>
+		</div>
+		<div class="row" ng-show="vm.listaPedido.length > 0">
+			<div class="col-md-12">
+				<a  uib-tooltip="Exportar a Excel" class="btn btn-sm btn-default btn-export-xsl btn-pd-5" ng-click="vm.exportarListado('#listaPedidos')" download="lista_productos.xls" style="font-size: 11px">
+					   <span class="icon-exportar-excel" style="font-size:16px;margin-right: 5px"></span>
+						Exportar EXCEL
+			      </a>
+
+			      <a   uib-tooltip="Exportar a PDF" href="http://localhost:8088/oefa-arq-base-web/rest/pedido/exportarpedido-pdf.pdf" download="lista-pedidos.pdf" class="btn btn-sm btn-default btn-export-pdf btn-pd-5" style="font-size: 11px" >
+						<span class="fa fa-file-pdf-o" style="font-size:14px;color:red;margin-right: 5px"></span>
+						Exportar PDF
+			      </a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="text-center pagination-oefa">
+				<dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+			</div>
+		</div>
+	</span>
+</div>

@@ -1,0 +1,162 @@
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Mantenimiento')">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="col-lg-12  sin_padding" style="margin-top:20px" ng-if="$parent.validarOpcion('Mantenimiento')" >
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Listado de Maestro</span></h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+					  <li class="active">Maestros</li>
+					  <li>Listado</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+
+
+		<div class="row">
+      <div class="form-group col-md-6 col-sm-6" >
+      	<label for="estadoNorma" >Maestros</label>
+      	<div class="form-group">
+      		 <select id="estadoNorma" name="codigoMaestro" ng-disabled="vm.activaRegistroHijo =='1'" ng-change="vm.listarItemMaestros();vm.buscarMaestroPorId()" class="form-control input-sm"  ng-model="vm.dataMaestros.codigoMaestro" >
+                  <option value=""> Seleccione </option>
+                  <option  ng-repeat="item in vm.lstMaestros"
+                      ng-value="item.codigoMaestro">{{item.descripcion}}</option>
+                </select>
+      	</div>
+      </div>
+
+      <div class="col-md-3 col-sm-3" ng-show="vm.activaRegistroHijo =='0'" >
+        <div class="form-group">
+         		<label class="space-al"></label>
+             <button ng-if="$parent.validarOperacion('AGREGAR')" class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-disabled="(vm.dataMaestros.codigoMaestro == '' || vm.activaRegistroHijo =='1') || vm.maestroCabecera.valorGeneral03=='2'" ng-click="vm.agregarItem()"   >
+              <span  class="icon-agregar"></span>
+              Agregar
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-3"  ng-show="vm.activaRegistroHijo =='1'">
+         	<label class="space-al"></label>
+          <div class="form-group">
+            <button class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-disabled="vm.activaRegistroHijo =='0'" ng-click="vm.cancelarRegistroHijo()"   >
+                <span  class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </button>
+          </div>
+      </div>
+		</div>
+
+		<div class="row">
+			  <div class="col-md-12" ng-show="vm.activaRegistroHijo =='1'">
+            <label class="space-al"></label>
+             <div class="form-group">
+					      <button class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-disabled="vm.dataMaestros.codigoMaestro == '' " ng-click="vm.agregarItemHijo()"   >
+		                <span  class="icon-agregar"></span>
+		                AGREGAR REGISTRO -  {{vm.dataRegistrar}}
+		            </button>
+          	</div>
+        </div>
+		</div>
+
+    <div class="row" ng-show="vm.activaRegistroHijo =='0'">
+			<div class="col-md-12">
+				<div class="table-rpv">
+					<table class="table table-hover table-bordered tableSiafx table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<caption>Resultados de b&uacute;squeda</caption>
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">&Iacute;tem</th>
+								<th scope="col" class="text-center">Nombre de tabla</th>
+								<th scope="col" class="text-center" width="140">Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr
+							ng-show="vm.lstMaestrosItem == null || vm.lstMaestrosItem.length == 0">
+							<td style="text-align:left" colspan="3">No se encontraron resultados</td>
+						</tr>
+							<tr  dir-paginate="item in vm.lstMaestrosItem | itemsPerPage: config.itemsPerPage" pagination-id="coutMaestroListado" >
+								<td data-label="&Iacute;tem" class="text-center">{{item.numeroItem}}</td>
+								<td data-label="Nombre de Tabla" class="text-center">{{item.descripcion}}</td>
+								<td data-label="Acci&oacute;n" class="text-center">
+									<button type="button" class="btn btn-default btn-sm" ng-click="vm.agregarRegistroHijo(item)" uib-tooltip="Ver registro hijo" ng-show="item.codigoNivel==1">
+	                                   <span class="icon-agregar"></span>
+	                               	</button>
+
+									<button type="button" class="btn btn-default btn-sm" ng-if="$parent.validarOperacion('MODIFICAR')" uib-tooltip="Editar"  ng-click="vm.agregarItem(item)">
+	                                   <span class="icon-editar"></span>
+	                               	</button>
+		                            <button  type="button" class="btn btn-default btn-sm" ng-disabled="item.valorGeneral03=='3'" uib-tooltip="Eliminar" ng-if="$parent.validarOperacion('ELIMINAR')"  ng-click="vm.confirmarEliminacion(item)">
+		                                <span class="glyphicon glyphicon-trash"></span>
+		                            </button>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<dir-pagination-controls pagination-id="coutMaestroListado" ></dir-pagination-controls>
+			</div>
+		</div>
+
+
+		<div class="row" ng-show="vm.activaRegistroHijo =='1'">
+			<div class="col-md-12">
+				<div class="table-rpv">
+					<table class="table table-hover table-bordered tableSiafx table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<caption>Resultados de b&uacute;squeda</caption>
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">&Iacute;tem</th>
+								<th scope="col" class="text-center">Nombre de tabla</th>
+								<th scope="col" class="text-center">Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-show="vm.listaRegistroHijo == null || vm.listaRegistroHijo.length == 0">
+								<td colspan="3">No se encontraron resultados</td>
+							</tr>
+
+							<tr  dir-paginate="item in vm.listaRegistroHijo | itemsPerPage: config.itemsPerPage" pagination-id="coutMaestroHijoListado" >
+								<td  data-label="Acci&iacute;n" class="text-center">{{item.numeroItem}}</td>
+								<td  data-label="Nombre de Tabla" class="text-center">{{item.descripcion}}</td>
+								<td  data-label="Acci&oacute;n" class="text-center">
+									<button type="button" class="btn btn-default btn-sm" uib-tooltip="Editar"  ng-click="vm.agregarItem(item)">
+	                                   <span class="icon-editar"></span>
+	                               	</button>
+		                            <button  type="button" class="btn btn-default btn-sm" ng-disabled="item.valorGeneral03=='3'" uib-tooltip="Eliminar" ng-click="vm.confirmarEliminacionRegistroHijo(item)">
+		                                <span class="glyphicon glyphicon-trash"></span>
+		                            </button>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<dir-pagination-controls pagination-id="coutMaestroHijoListado" ></dir-pagination-controls>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="text-center">
+				<dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+			</div>
+		</div>
+
+</div>

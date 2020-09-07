@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="detalleCaso">
+	<resultMap id="resultMapDetalleCaso" type="DetalleCaso">
+		<id 	column="ID_DETALLE_CASO" 		property="idDetalleCaso" />
+		<result column="TIPO_CASO" 				property="tipoCaso" />
+		<result column="DESCRIPCION" 			property="descripcion" />
+		<result column="CODIGO_PADRE" 			property="codigoPadre" />
+		<result column="TIPO_NIVEL" 			property="tipoNivel" />
+		<result column="ESTADO" 				property="estado" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+	
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapDetalleCaso" parameterType="DetalleCaso">
+		SELECT
+			  ID_DETALLE_CASO,
+		      TIPO_CASO,
+		      DESCRIPCION,
+		      CODIGO_PADRE,
+		      TIPO_NIVEL,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM
+			  SINADA.T_GEND_DETALLE_CASO
+		WHERE
+			  FLAG_ACTIVO = 1
+		AND 	
+			  TIPO_CASO		= #{tipoCaso}
+		AND 
+			  CODIGO_PADRE 	= #{codigoPadre}
+		AND 
+        	  TIPO_NIVEL = #{tipoNivel}
+	</select>
+	
+	
+	<select id="listarDetalleCasoRegistradosDenuncia" resultMap="resultMapDetalleCaso" parameterType="DetalleCaso">
+					SELECT * FROM (
+			SELECT 
+			
+					    ID_PROBLEMATICA AS ID_DETALLE_CASO,
+					    TIPO_CASO_PROBLEMATICA AS TIPO_CASO,
+					    NOMBRE_PROBLEMATICA AS DESCRIPCION,
+					    CODIGO_PADRE_PROBLEMATICA AS CODIGO_PADRE,
+					    TIPO_NIVEL_PROBLEMATICA AS TIPO_NIVEL,
+					    0 AS ESTADO
+				FROM 
+				    	SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			
+			GROUP BY 
+						ID_PROBLEMATICA,TIPO_CASO_PROBLEMATICA,NOMBRE_PROBLEMATICA,CODIGO_PADRE_PROBLEMATICA,TIPO_NIVEL_PROBLEMATICA
+			    
+			UNION ALL
+			
+			SELECT 
+			
+					    ID_DEBIDOA_1 AS ID_DETALLE_CASO,
+					    TIPO_CASO_DEBIDOA_1 AS TIPO_CASO,
+					    NOMBRE_DEBIDOA_NIVEL1 AS DESCRIPCION,
+					    CODIGO_PADRE_DEBIDOA_1 AS CODIGO_PADRE,
+					    TIPO_NIVEL_DEBIDOA_1 AS TIPO_NIVEL,
+					    0 AS ESTADO
+				FROM 
+				    	SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			GROUP BY 
+						ID_DEBIDOA_1,TIPO_CASO_DEBIDOA_1,NOMBRE_DEBIDOA_NIVEL1,CODIGO_PADRE_DEBIDOA_1,TIPO_NIVEL_DEBIDOA_1
+			    
+			UNION ALL
+			
+			SELECT 
+			
+					    ID_DEBIDOA_2 AS ID_DETALLE_CASO,
+					    TIPO_CASO_DEBIDOA_2 AS TIPO_CASO,
+					    NOMBRE_DEBIDOA_NIVEL2 AS DESCRIPCION,
+					    CODIGO_PADRE_DEBIDOA_2 AS CODIGO_PADRE,
+					    TIPO_NIVEL_DEBIDOA_2 AS TIPO_NIVEL,
+					    0 AS ESTADO
+				FROM 
+					    SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			GROUP BY 
+						ID_DEBIDOA_2,TIPO_CASO_DEBIDOA_2,NOMBRE_DEBIDOA_NIVEL2,CODIGO_PADRE_DEBIDOA_2,TIPO_NIVEL_DEBIDOA_2
+			    
+			UNION ALL
+			
+			SELECT 
+			
+					    ID_DEBIDOA_3 AS ID_DETALLE_CASO,
+					    TIPO_CASO_DEBIDOA_3 AS TIPO_CASO,
+					    NOMBRE_DEBIDOA_NIVEL3 AS DESCRIPCION,
+					    CODIGO_PADRE_DEBIDOA_3 AS CODIGO_PADRE,
+					    TIPO_NIVEL_DEBIDOA_3 AS TIPO_NIVEL,
+					    0 AS ESTADO
+				FROM 
+					    SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			GROUP BY 
+						ID_DEBIDOA_3,TIPO_CASO_DEBIDOA_3,NOMBRE_DEBIDOA_NIVEL3,CODIGO_PADRE_DEBIDOA_3,TIPO_NIVEL_DEBIDOA_3
+			    
+			UNION ALL
+			
+			SELECT 
+			
+					    ID_ZONA_SUCESO_1 AS ID_DETALLE_CASO,
+					    TIPO_CASO_ZONA_SUCESO_1 AS TIPO_CASO,
+					    NOMBRE_ZONA_SUCESO_1 AS DESCRIPCION,
+					    CODIGO_PADRE_ZONA_SUCESO_1 AS CODIGO_PADRE,
+					    TIPO_NIVEL_ZONA_SUCESO_1 AS TIPO_NIVEL,
+					    0 AS ESTADO
+			FROM 
+					    SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			GROUP BY 
+						ID_ZONA_SUCESO_1,TIPO_CASO_ZONA_SUCESO_1,NOMBRE_ZONA_SUCESO_1,CODIGO_PADRE_ZONA_SUCESO_1,TIPO_NIVEL_ZONA_SUCESO_1
+			UNION ALL
+			
+			SELECT 
+			
+					    ID_ZONA_SUCESO_2 AS ID_DETALLE_CASO,
+					    TIPO_CASO_ZONA_SUCESO_2 AS TIPO_CASO,
+					    NOMBRE_ZONA_SUCESO_2 AS DESCRIPCION,
+					    CODIGO_PADRE_ZONA_SUCESO_2 AS CODIGO_PADRE,
+					    TIPO_NIVEL_ZONA_SUCESO_2 AS TIPO_NIVEL,
+					    0 AS ESTADO
+			FROM 
+					    SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			GROUP BY 
+						ID_ZONA_SUCESO_2, TIPO_CASO_ZONA_SUCESO_2, NOMBRE_ZONA_SUCESO_2, CODIGO_PADRE_ZONA_SUCESO_2, TIPO_NIVEL_ZONA_SUCESO_2
+			    
+			UNION ALL
+			
+			SELECT 
+			
+					    ID_ZONA_SUCESO_3 AS ID_DETALLE_CASO,
+					    TIPO_CASO_ZONA_SUCESO_3 AS TIPO_CASO,
+					    NOMBRE_ZONA_SUCESO_3 AS DESCRIPCION,
+					    CODIGO_PADRE_ZONA_SUCESO_3 AS CODIGO_PADRE,
+					    TIPO_NIVEL_ZONA_SUCESO_3 AS TIPO_NIVEL,
+					    0 AS ESTADO
+				FROM 
+					    SINADA.V_CASO WHERE NUMERO_ENTIDADES !=0
+			GROUP BY 
+						ID_ZONA_SUCESO_3,TIPO_CASO_ZONA_SUCESO_3,NOMBRE_ZONA_SUCESO_3,CODIGO_PADRE_ZONA_SUCESO_3,TIPO_NIVEL_ZONA_SUCESO_3
+			)
+			WHERE
+			ID_DETALLE_CASO !=0
+			AND 	
+			  	  TIPO_CASO		= #{tipoCaso}
+			AND 
+				  CODIGO_PADRE 	= #{codigoPadre}
+			AND 
+	        	  TIPO_NIVEL = #{tipoNivel}
+			
+			ORDER BY DESCRIPCION ASC
+	</select>
+	
+	
+
+	<select id="buscarPorId" resultMap="resultMapDetalleCaso"
+		parameterType="long">
+		SELECT
+		
+			  ID_DETALLE_CASO,
+		      TIPO_CASO,
+		      DESCRIPCION,
+		      CODIGO_PADRE,
+		      TIPO_NIVEL,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM
+			  SINADA.T_GEND_DETALLE_CASO
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DETALLE_CASO = #{idDetalleCaso}
+	</select>
+	
+	<select id="buscarPorTipoCasoCodigoPadreNivelAndDescripcion" resultMap="resultMapDetalleCaso" parameterType="DetalleCaso">
+		SELECT
+			  ID_DETALLE_CASO,
+		      TIPO_CASO,
+		      DESCRIPCION,
+		      CODIGO_PADRE,
+		      TIPO_NIVEL,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM
+			  SINADA.T_GEND_DETALLE_CASO
+		WHERE
+			  FLAG_ACTIVO = 1
+		AND 	
+			  TIPO_CASO		= #{tipoCaso}
+		AND 
+			  CODIGO_PADRE 	= #{codigoPadre}
+		AND 
+        	  TIPO_NIVEL = #{tipoNivel}
+       	AND 
+       			DESCRIPCION = #{descripcion,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<insert id="agregar" parameterType="DetalleCaso" useGeneratedKeys="true">
+		<selectKey keyProperty="idDetalleCaso" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_ID_DET_CASO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_DETALLE_CASO
+		(
+			 ID_DETALLE_CASO,
+		      TIPO_CASO,
+		      DESCRIPCION,
+		      CODIGO_PADRE,
+		      TIPO_NIVEL,
+		      ESTADO,
+		      FLAG_ACTIVO
+		)
+		VALUES
+		(
+		#{idDetalleCaso},
+		#{tipoCaso},
+		#{descripcion},
+		#{codigoPadre},
+		#{tipoNivel},
+		1,
+		'1'
+		)
+	</insert>
+	<update id="modificar" parameterType="DetalleCaso">
+		UPDATE SINADA.T_GEND_DETALLE_CASO
+		SET
+
+		      DESCRIPCION	 =#{descripcion}
+		     
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DETALLE_CASO = #{idDetalleCaso}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_DETALLE_CASO
+		SET
+		FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DETALLE_CASO = #{idDetalleCaso}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

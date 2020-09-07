@@ -1,0 +1,80 @@
+<div>
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Derivar denuncia</h4>
+	</div>
+	<div class="modal-body" ng-form name="notificacionDialogForm">
+		<span class="content-box">
+		<div class="row">
+	        <div class="form-group col-md-9">
+				<label for="listaTiposMotivo">Motivo:</label>
+			</div>
+			<div class="form-group col-md-9" >
+					<textarea rows="5" maxlength="250"></textarea>
+			</div>
+		</div>
+       <br>
+	     <div class="row">
+	     <div class="col-md-12">1. Tipo de Destinatario </div>
+		</div>
+		<div class="row">
+
+            <div class="col-md-4">
+            	<label>
+            		<input type="checkbox" ng-model="vm.informeSeguimiento.tipoEntidad" 
+			    	ng-true-value="1" 
+			    	ng-false-value="0" 
+			    	ng-checked="vm.informeSeguimiento.tipoEntidad == 1" />
+			    EFA
+			    </label>
+            </div>
+			<div class="col-md-4">
+            	<label>
+            		<input type="checkbox" ng-model="vm.informeSeguimiento.tipoEntidad" 
+			    	ng-true-value="2" 
+			    	ng-false-value="0" 
+			    	ng-checked="vm.informeSeguimiento.tipoEntidad == 2" />
+			    OEFA
+			    </label>
+            </div>
+		</div>
+		<br>
+		<div class="row" ng-show="vm.informeSeguimiento.tipoEntidad==1">
+		    <div class="form-group col-md-6">
+				<label for="listaTiposAmbito">Tipo de &Aacute;mbito:</label>
+				<select id="listaTiposAmbito" name="listaTiposÁmbito" ng-model="vm.informeSeguimiento.tipoAmbito" class="form-control input-sm">
+					<option ng-value="0">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaTiposAmbito" 
+							ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+				</select>
+			</div>
+		</div>
+     	<div class="row" ng-show="vm.informeSeguimiento.tipoEntidad==2">
+		    <div class="form-group col-md-6">
+				<label for="listaTiposOrgano">Sub categor&iacute;a:</label>
+				<select id="listaTiposOrgano" name="listaTiposOrgano" ng-model="vm.informeSeguimiento.tipoOrgano" class="form-control input-sm">
+					<option ng-value="0">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaTiposOrgano" 
+							ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+				</select>
+			</div>
+		</div>
+			
+		</span>
+	</div>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="closeThisDialog(1)" class="btn btn-flat btn-primary-inv btn-sm">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Derivar
+	            </button> 
+	        </div>
+  	    </div>
+
+
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

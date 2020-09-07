@@ -1,0 +1,52 @@
+<div>
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Sistema de denuncias ambientales </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+
+
+				<div class="form-group">
+			 <span class="help-block">
+          <label>Para realizar una consulta, debe ingresar el c&oacute;digo generado al registrar su denuncia</label>
+        </span>
+			
+										<input type="text" name="codigoDenuncia" id="codigoDenuncia" tabindex="1" class="form-control" placeholder="C&oacute;digo de denuncia" maxlength="13" ng-model="vm.dataDenunciaInvitado.codigoDenuncia">
+
+									</div>
+									<div class="form-group">
+
+										<input type="text" name="password" id="password"  ng-model="vm.dataDenunciaInvitado.codigoAcceso" tabindex="2" maxlength="6" class="form-control" placeholder="C&oacute;digo de acceso ">
+
+									</div>
+									
+
+
+
+
+		 <div class="row">
+			<div class="col-lg-12 text-right">
+
+	            <button type="button" id="btnRef_recurso" ng-click="vm.irConsultaDenunciaInvitado()" ng-disabled="vm.dataDenunciaInvitado.codigoDenuncia.length!=13 || vm.dataDenunciaInvitado.codigoAcceso.length!=6"   uib-tooltip="Buscar Denuncia"  class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18">
+	                <span class="icon-buscar spac-btn-r"></span> Consultar
+	            </button>
+	            <a class="btn btn-flat btn-primary btn-sm btn-pd-5 brx-18" ng-click="vm.cancelar()" uib-tooltip="Salir">
+	                <span class="glyphicon glyphicon-plus-sign spac-btn-r"></span> Salir
+	            </a>
+			</div>
+		</div>
+
+			<div class="row">
+				<div class="text-center">
+					<dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+				</div>
+		    </div>
+		</span>
+	</div>
+</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

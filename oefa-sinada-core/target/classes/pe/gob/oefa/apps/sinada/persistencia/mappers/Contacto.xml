@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="contacto">
+	<resultMap id="resultMapContacto" type="Contacto">
+		<id column="ID_CONTACTO" property="idContacto" />
+		<result column="ID_EFA" property="idEfa" />
+		<result column="TM1_TIPO_CONTACTO" property="tipoContacto" />
+		<result column="DOCUMENTO" property="documento" />
+		<result column="TITULAR" property="titular" />
+		<result column="TM1_TIPO_CARGO" property="tipoCargo" />
+		<result column="TM1_TIPO_PERIODO" property="tipoPeriodo" />
+		<result column="FECHA_REGISTRO" property="fechaRegistro" />
+		<result column="FLAG_ACTIVO" property="flagActivo" />
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapContacto">
+		SELECT
+		ID_CONTACTO,
+		ID_EFA,
+		TM1_TIPO_CONTACTO,
+		DOCUMENTO,
+		TITULAR,
+		TM1_TIPO_CARGO,
+		TM1_TIPO_PERIODO,
+		FECHA_REGISTRO,
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENM_CONTACTO
+		WHERE
+		FLAG_ACTIVO = 1
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapContacto"
+		parameterType="Long">
+		SELECT
+		ID_CONTACTO,
+		ID_EFA,
+		TM1_TIPO_CONTACTO,
+		DOCUMENTO,
+		TITULAR,
+		TM1_TIPO_CARGO,
+		TM1_TIPO_PERIODO,
+		FECHA_REGISTRO,
+		FLAG_ACTIVO
+		FROM
+		SINADA.T_GENM_CONTACTO
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CONTACTO = #{idContacto}
+	</select>
+	<insert id="agregar" parameterType="Contacto" useGeneratedKeys="true">
+		<selectKey keyProperty="idContacto" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_CONTACTO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_CONTACTO
+		(
+		ID_CONTACTO,
+		ID_EFA,
+		TM1_TIPO_CONTACTO,
+		DOCUMENTO,
+		TITULAR,
+		TM1_TIPO_CARGO,
+		TM1_TIPO_PERIODO,
+		FECHA_REGISTRO
+		)
+		VALUES
+		(
+		#{idContacto},
+		#{idEfa},
+		#{tipoContacto},
+		#{documento},
+		#{titular},
+		#{tipoCargo},
+		#{tipoPeriodo},
+		(SELECT SYSDATE FROM DUAL)
+		)
+	</insert>
+	<update id="modificar" parameterType="Contacto">
+		UPDATE SINADA.T_GENM_CONTACTO
+		SET
+		TM1_TIPO_CONTACTO = #{tipoContacto},
+		DOCUMENTO = #{tipoContacto},
+		TITULAR = #{tipoContacto},
+		TM1_TIPO_CARGO = #{tipoContacto},
+		TM1_TIPO_PERIODO = #{tipoContacto}
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CONTACTO = #{idContacto}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_CONTACTO
+		SET
+		FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CONTACTO = #{idContacto}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

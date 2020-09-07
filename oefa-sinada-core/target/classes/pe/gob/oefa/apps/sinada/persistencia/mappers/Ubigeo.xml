@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_UBIGEO -->
+<mapper namespace="ubigeo">
+	<resultMap id="resultMapUbigeo" type="Ubigeo">
+		<id 	column="OBJECTID" 				property="idUbigeo"/>
+		<result column="NOMBDEP"				property="descripcionDepartamento"/>
+		<result column="UBIGEO_DPTO"			property="codigoDepartamento"/>
+		<result column="NOMBPROV"				property="descripcion"/>
+		<result column="UBIGEO_PROV"			property="codigoProvincia"/>
+		<result column="NOMBDIST"				property="descripcionDistrito"/>
+		<result column="UBIGEO_DIST" 			property="codigoDistrito"/>
+		<result column="ESTADO_DEP" 			property="estadoDep"/>
+		<result column="ESTADO_PROV" 			property="estadoProv"/>
+		<result column="ESTADO_DIST" 			property="estadoDist"/>
+	</resultMap>
+	
+	<select id="listarDepartamento" resultMap="resultMapUbigeo" parameterType="Ubigeo">
+		SELECT 
+		    UBIGEO_DPTO, 
+		    NOMBDEP
+		FROM 
+		    SINADA.T_GENM_UBIGEO 
+		WHERE 
+		    ESTADO_DEP = 1
+		GROUP BY NOMBDEP,UBIGEO_DPTO
+		ORDER BY UBIGEO_DPTO
+		
+	</select>
+	
+		<select id="listarProvincia" resultMap="resultMapUbigeo" parameterType="Ubigeo">
+		SELECT 
+        	UBIGEO_DPTO,
+			SUBSTR(UBIGEO_PROV,3,2) AS "UBIGEO_PROV",
+    		NOMBPROV 
+		FROM 
+			SINADA.T_GENM_UBIGEO 
+		WHERE 
+			ESTADO_PROV = 1
+		AND 
+        	UBIGEO_DPTO = #{codigoDepartamento}
+        GROUP BY UBIGEO_PROV,NOMBPROV,UBIGEO_DPTO
+        ORDER BY UBIGEO_PROV 
+
+	</select>
+	
+	
+	
+	<select id="listarDistrito" resultMap="resultMapUbigeo" parameterType="Ubigeo">
+		SELECT 
+	        UBIGEO_DPTO,
+	        SUBSTR(UBIGEO_PROV,3,2) AS "UBIGEO_PROV",
+	        SUBSTR(UBIGEO_DIST,5,2) AS "UBIGEO_DIST",
+	        NOMBDIST 
+		FROM 
+			SINADA.T_GENM_UBIGEO 
+		WHERE 
+			ESTADO_DIST = 1 
+		AND
+	    UBIGEO_DPTO = #{codigoDepartamento} AND SUBSTR(UBIGEO_PROV,3,2) = #{codigoProvincia}
+	    ORDER BY UBIGEO_DIST
+
+	</select>
+	
+	
+	<select id="buscarPorId" resultMap="resultMapUbigeo" parameterType="Long">
+		SELECT
+		ID_UBIGEO,
+		NOMBRE_UBIGEO,
+		CODIGO_UBIGEO,
+		CODIGO_DEPARTAMENTO,
+		FLAG_ACTIVO
+		FROM 
+		SINADA.T_GENM_UBIGEO
+		WHERE
+			FLAG_ACTIVO = 1
+		AND	ID_UBIGEO = #{idUbigeo}
+	</select>
+	<!-- <insert id="agregar" parameterType="Ubigeo" useGeneratedKeys="true">
+		<selectKey keyProperty="idUbigeo" resultType="long" order="BEFORE">
+			SELECT SEC_GENM_ID_PRODUCTO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO SINADA.T_GENM_UBIGEO
+		(
+			ID_UBIGEO,
+			NOMBRE_UBIGEO,
+			CODIGO_UBIGEO,
+			CODIGO_DEPARTAMENTO,
+			FLAG_ACTIVO
+		)
+		VALUES
+		(
+			#{idUbigeo},
+			#{nombreUbigeo},
+			#{codigoUbigeo},
+			#{codigoDepartamento},
+			1
+		)
+	</insert> -->
+
+</mapper>

@@ -1,0 +1,74 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Sistema de denuncias ambientales </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">		
+	    <!-- click en Rechazado -->
+	    <div class="row">
+	      <div class="form-group col-md-6">
+	        <h5><b>Motivo</b></h5>
+	      </div>
+	    </div>
+		
+			<div class="row desing_input">
+
+            <div class="col-md-12 wp-polls-ul">
+            		<input type="radio" ng-model="vm.dataRechazarDenuncia.motivo.codigoRegistro" ng-value="1" name="tpDenuncia"
+			    	id="rbt-001" />
+            		<label for="rbt-001">FUERA DE &Aacute;MBITO DE JURISDICCI&Oacute;N</label>
+            </div>
+			
+			<div class="col-md-12 wp-polls-ul">
+            		<input type="radio" name="tpDenuncia" ng-model="vm.dataRechazarDenuncia.motivo.codigoRegistro" ng-value="2" 
+			    	id="rbt-002" />
+            		<label for="rbt-002">NO ES MATERIA AMBIENTAL</label>
+            </div>
+
+            <div class="col-md-12 wp-polls-ul">
+            	<input type="radio" id="rbt-003" name="tpDenuncia" ng-model="vm.dataRechazarDenuncia.motivo.codigoRegistro" ng-value="3" />
+            	<label for="rbt-003">
+			    DATOS INEXACTOS Y/O INSUFICIENTES
+			    </label>
+            </div>
+		</div>
+
+  <div class="row">
+	      <div class="form-group col-md-6">
+	        <h5><b>Archivo adjunto (100mb)</b></h5>
+	      </div>
+	    </div>
+
+	    <div class="row">
+	
+	      <div class="form-group col-md-6">
+	  
+	        <div class="form-group">
+	          
+
+				 <input type="file" id="fileArchivoMedio" ng-disabled="vm.denuncia.tipoMedio==0" class="btn btn-flat btn-primary btn-sm" file-change="vm.validaDocumento">
+				<div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: 100 MB</div>
+
+	        </div>
+	      </div>
+	    </div>
+	    <div class="row">
+          <div class="form-group col-lg-12 text-right">
+              <button type="button" ng-disabled="vm.dataRechazarDenuncia.motivo.codigoRegistro==0" ng-click="vm.rechazarDenuncia()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5">
+                  <span class="glyphicon glyphicon-ok spac-btn-r"></span> Aceptar
+              </button>
+              <button type="button" ng-click="vm.cancelar()" uib-tooltip="{{btnCerrar.tooltip}}" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+                  <span class="{{btnCerrar.icon}}"></span> {{btnCerrar.valor}}
+              </button> 
+          </div>
+        </div>    		
+		</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

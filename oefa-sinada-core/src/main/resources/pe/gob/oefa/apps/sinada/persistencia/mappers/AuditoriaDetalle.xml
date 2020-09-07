@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_CONTACTO -->
+<mapper namespace="auditoriaDetalle">
+	<resultMap id="resultMapAuditoria" type="AuditoriaDetalle">
+	
+		<id 	column="ID_AUDITORIA_DETALLE" 	property="idAuditoriaDetalle"/>
+		<result column="ID_AUDITORIA" 			property="idAuditoria"/>
+		<result column="ID_CAMPO" 				property="idCampo"/>
+		<result column="VALOR"					property="valor"/>
+	
+       
+	</resultMap>
+		
+	<insert id="agregar" parameterType="AuditoriaDetalle" useGeneratedKeys="true">
+	<selectKey keyProperty="idAuditoriaDetalle" resultType="long" order="BEFORE">
+		SELECT SINADA.SEC_GEND_ID_AUDITORIA_DETALLE.NEXTVAL FROM DUAL
+	</selectKey>
+		
+		INSERT INTO SINADA.T_GEND_AUDITORIA_DETALLE
+		(
+			ID_AUDITORIA_DETALLE,
+			ID_AUDITORIA,
+			ID_CAMPO,
+			VALOR
+		)
+		VALUES
+		(
+			#{idAuditoriaDetalle},
+			#{idAuditoria},
+			#{idCampo},
+			#{valor}
+		)
+	</insert>
+
+	
+</mapper>

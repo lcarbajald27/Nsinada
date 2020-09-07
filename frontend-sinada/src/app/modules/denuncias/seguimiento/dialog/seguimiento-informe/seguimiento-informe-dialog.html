@@ -1,0 +1,133 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Informar Denuncia no Atendida</h4>
+	</div>
+	<div class="modal-body" ng-form name="notificacionDialogForm">
+		<span class="content-box">
+
+			<div class="row desing_input" >
+				<div class="col-md-6">
+					<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label class="">Hoja de Tr&aacute;mite</label>
+								<div class="form-group">
+									<input type="text" ng-model="vm.prmDataNoAtencionDenuncia.hojaTramite" class="form-control" ng-disabled="true">
+								</div>
+							</div>
+							<div class="col-md-6">
+							<br/>
+								<button ng-click="vm.mostrarModalHojaTramite()" class="btn btn-primary btn-sm btn-pd-5 btn-br-in"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="row">
+			    <div class="form-group col-md-6">
+					<label for="listaTiposArchivo">Tipos de Archivo:</label>
+					<select id="listaTiposArchivo" name="listaTiposArchivo" ng-model="vm.dataArchivoInforma.tipoArchivo.codigoRegistro" class="form-control input-sm">
+						<option ng-value="0">Seleccione</option>
+						<option ng-repeat="itemCombo in vm.listaTiposArchivo" 
+								ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+					</select>
+				</div>
+
+				 <div class="form-group col-lg-3 text-right">
+				 	<br/>
+		            <button type="button"  ng-disabled="vm.dataArchivoInforma.tipoArchivo.codigoRegistro==0 || (vm.dataArchivoInforma.tipoArchivo.codigoRegistro==4 && vm.dataArchivoInforma.descripcionArchivo.length<10)" ng-click="vm.agregarArchivoNoAtencion()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in">
+		                <span class="icon-agregar"></span> Agregar Archivo
+		            </button> 
+		        </div>
+
+	  	    </div>
+	  	    <div class="row" ng-show="vm.dataArchivoInforma.tipoArchivo.codigoRegistro==4">
+				<div class="form-group col-md-9" >
+  	    		<label>Debe digitar como m&iacute;nimo 10 caracteres.</label>
+					<textarea rows="5" style="resize: none;" class="form-control input-sm" ng-model="vm.dataArchivoInforma.descripcionArchivo" maxlength="250"></textarea>
+				</div>
+
+
+			</div>
+			<div class="row">
+		        <div class="form-group col-lg-12 text-left">
+		           
+		           	 <input type="file" id="fileArchivoMedio" ng-click="vm.validaArchivos()" class="btn btn-flat btn-primary btn-sm" file-change="vm.validaDocumento">
+					 <div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+		        </div>
+			</div>
+	       	<div class="row">
+	            <div class="form-group col-md-6">
+					<label for="listaTiposMotivo">Motivo:</label>
+					<select id="listaTiposMotivo" name="listaTiposMotivo" ng-model="vm.prmDataNoAtencionDenuncia.motivo.codigoRegistro" class="form-control input-sm">
+						<option ng-value="0">Seleccione</option>
+						<option ng-repeat="itemCombo in vm.listaTiposMotivo" 
+								ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+					</select>
+				</div>
+			</div>
+	     
+			<div class="row" ng-show="vm.prmDataNoAtencionDenuncia.motivo.codigoRegistro==5">
+				<div class="form-group col-md-9" >
+					 <label>Debe digitar como m&iacute;nimo 10 caracteres.</label>
+					<textarea rows="5" ng-model="vm.prmDataNoAtencionDenuncia.descripcionMotivo" style="resize: none;" maxlength="100"></textarea>
+				</div>
+			</div>
+				
+			<div class="row">
+		        <div class="col-md-12">
+		        	<div class="table-rpv">
+				        <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+				            <thead>
+				              <tr>
+				                <th class="text-center">&Iacute;tem</th>
+				                <th class="text-center">Tipo / Descripci&oacute;n </th>
+				                 <th class="text-center">Nombre Archivo</th>
+				                <th class="text-center">Acci&oacute;n</th>
+				               
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr dir-paginate="itemArchivo in vm.prmDataNoAtencionDenuncia.lstArchivoAtencion | itemsPerPage : vm.opcionPaginacionItemArc.itemsPerPage" pagination-id="coutListaItemArchivoSegInf85">
+				                <td class="text-center">{{$index + serialItemArc}}</td>
+				                <td>{{itemArchivo.tipoArchivo.descripcion}} <span ng-if="itemArchivo.tipoArchivo.codigoRegistro==4"> - </span>{{itemArchivo.descripcionArchivo}}</td>
+				         		<td>{{itemArchivo.nombreArchivo}}</td>
+				              
+				                <td class="text-center">
+				                        <button type="button" 
+				                        class="btn btn-default btn-sm btn-pd-5 btn-br-in" 
+				                        uib-tooltip="Eliminar" 
+				                        ng-click="vm.confirmarEliminarArchivoData(obtenerValorIndex($index,serialItemArc),itemArchivo)">
+				                          <span class="glyphicon glyphicon-trash"></span>
+				                        </button>
+				                </td>
+				           
+				              </tr>
+				              <tr ng-show="vm.prmDataNoAtencionDenuncia.lstArchivoAtencion == null || vm.prmDataNoAtencionDenuncia.lstArchivoAtencion==0">
+				                <td colspan="6">No se encontraron resultados</td>
+				              </tr>
+				            </tbody>
+				        </table>
+				          <dir-pagination-controls boundary-links="true" direction-links="true" max-size="8" on-page-change="indexCountItemArc(newPageNumber)" pagination-id="coutListaItemArchivoSegInf85">
+                            </dir-pagination-controls>
+		          	</div>
+		        </div>
+		    </div>
+		    <div class="row">
+			    <div class="form-group col-lg-12 text-right">
+		            <button type="button" ng-disabled="vm.formUsuario.$invalid || vm.prmDataNoAtencionDenuncia.motivo.codigoRegistro==0 || (vm.prmDataNoAtencionDenuncia.motivo.codigoRegistro==5 && vm.prmDataNoAtencionDenuncia.descripcionMotivo.length < 10) " ng-click="vm.registrarNoAtencionDenuncia()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in">
+		                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Enviar
+		            </button> 
+		        </div>
+	  	    </div>
+		</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

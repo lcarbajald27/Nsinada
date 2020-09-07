@@ -1,0 +1,78 @@
+<div class="col-lg-12  sin_padding" novalidate ng-form >
+	<span class="" ng-form="vm.productoForm">
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Registro de Producto</span></h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+						<li class="active">Producto</li>
+						<li>Registro</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-2">
+				<label for="idProducto" class="important-box">C&oacute;digo</label>
+				<div class="form-group">
+					<input ng-model="vm.dataProducto.idProducto" type="text" ng-disabled="true" class="form-control input-sm" name="idProducto" placeholder="Código Generado">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6" ng-class="{'has-error':vm.productoForm.nombre.$invalid && vm.productoForm.nombre.$touched}">
+				<label for="nombre" class="important-box">Nombre</label>
+				<div class="form-group">
+					<input ng-model="vm.dataProducto.nombre" type="text" autocomplete="off" class="form-control input-sm" name="nombre" placeholder="Ingresar nombre" required>
+				</div>
+			</div>
+		</div>
+        <div class="row">
+			<div class="form-group col-md-3" ng-class="{'has-error':vm.productoForm.precio.$invalid && vm.productoForm.precio.$touched}">
+				<label for="precio" class="important-box">Precio</label>
+				<div class="form-group">
+					<input ng-model="vm.dataProducto.precio" type="text" onkeypress="return justNumbers(event);" class="form-control input-sm" name="precio" required>
+				</div>
+			</div>
+
+			<div class="form-group col-md-3" ng-class="{'has-error':vm.productoForm.stock.$invalid && vm.productoForm.stock.$touched}">
+				<label for="stock" class="important-box">Stock</label>
+				<div class="form-group">
+					<input ng-model="vm.dataProducto.stock"  type="text" onkeypress="return justNumbers(event);"  class="form-control input-sm" name="stock" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-disabled="vm.productoForm.$invalid" ng-click="vm.guardar()" uib-tooltip="Registrar Producto"  class="btn btn-flat btn-primary btn-sm btn-pd-5">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Registrar
+	            </button>
+	            <button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5" ng-click="vm.limpiar()" uib-tooltip="Limpiar Formulario" >
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </button>
+	            <button type="button" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5" uib-tooltip="Cancelar Registro" >
+	                <span class="fa fa-arrow-left spac-btn-r"></span> Cancelar
+	            </button>
+	        </div>
+  	    </div>
+
+
+		<div class="row">
+
+			<div class="form-group col-md-12 box-aviso-informativo"  >
+				<label style="color:#919d96;"> Campos obligatorios  (<span>*</span>)
+				</label>
+			</div>
+		</div>
+
+	</span>
+
+<script>
+	function justNumbers(e) {
+		var keynum = window.event ? window.event.keyCode : e.which;
+		if ((keynum == 8) || (keynum == 46) || (keynum == 44))
+			return true;
+		return /\d/.test(String.fromCharCode(keynum));
+	}
+</script>

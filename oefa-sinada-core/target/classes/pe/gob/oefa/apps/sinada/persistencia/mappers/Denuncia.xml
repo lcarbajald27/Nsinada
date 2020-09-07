@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="denuncia">
+	<resultMap id="resultMapDenuncia" type="Denuncia">
+	
+		<id 	column="ID_DENUNCIA" 			property="idDenuncia" />
+		<result column="CODIGO_DENUNCIA" 		property="codigoDenuncia" />
+		<result column="TIPO_DENUNCIA" 			property="tipoDenuncia" />
+		<result column="MEDIO_RECEPCION" 		property="medioRecepcion" />
+		<result column="HOJA_TRAMITE" 			property="hojaTramite" />
+		<result column="RUTA_HOJA_TRAMITE" 		property="rutaHojaTramite" />
+
+		<result column="OFICINASDESCONCENTRADAS" property="oficinasDesconcentradas" />
+		<result column="AREACONSERVACION"		property="areaConservacion" />
+		<result column="ADMINLOCALES"			property="adminLocales" />
+		<result column="ZONAAMORTIGUAMIENTO"			property="zonaAmortiguamiento" />
+		<result column="OFICINASDESCONCENTRADAS_NOMBRE" property="oficinasDesconcentradasNombre" />
+		<result column="AREACONSERVACION_NOMBRE"		property="areaConservacionNombre" />
+		<result column="ADMINLOCALES_NOMBRE"			property="adminLocalesNombre" />
+		<result column="ZONAAMORTIGUAMIENTO_NOMBRE"			property="zonaAmortiguamientoNombre" />
+		<result column="LATITUDE"				property="latitude" />
+		<result column="LONGITUDE"				property="longitude" />
+		<result column="COORD_X_UTM"			property="coord_x_utm" />
+		<result column="COORD_Y_UTM"			property="coord_y_utm" />
+		<result column="ZONA"					property="zona" />
+
+		<result column="DEPARTAMENTO" 			property="departamento" />
+		<result column="PROVINCIA" 				property="provincia" />
+		<result column="DISTRITO" 				property="distrito" />
+		<result column="DIRECCION" 				property="direccion" />
+		<result column="REFERENCIA" 			property="referencia" />
+		<result column="TIPO_RESPONSABLE" 		property="tipo_responsable" />
+		<result column="RESPONSABLE_PROBLEMA" 	property="responsableProblema" />
+		<result column="TIPO_MEDIO" 			property="tipoMedio" />
+		<result column="CODIGOACCESO" 			property="codigoAcceso" />
+		<result column="FECHA_REGISTRO" 		property="fechaRegistro" />
+		<result column="TIEMPO_TRANSCURRIDO" 	property="tiempoTranscurrido" />
+		<result column="ESTADO" 				property="estado" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+		<result column="ID_CASO" 				property="caso.idCaso" />
+		<result column="CENTRO_POBLADO" 		property="codigoCentroPoblado" />
+		<result column="NOMBRE_ESTADO" 			property="nombreEstado" />
+		<result column="VALIDA_ENCUESTA" 		property="validaEncuesta" />
+		<result column="UIID" 					property="uiid" />
+		<result column="RUTA_FICHA" 			property="rutaFicha" />
+		
+		<result column="NOMBRE_DENUNCIADO" 			property="nombreDenunciado" />
+		<result column="DIRECCION_DENUNCIADO" 			property="direccionDenunciado" />
+		<result column="NOMBRE_MEDIO_RECEPCION" 			property="nombreMedioRecepcion" />		
+				
+		
+		
+
+	</resultMap>
+	
+<!-- 	<select id="generarCodigo" resultMap="resultMapDenuncia"> -->
+<!-- 		SELECT -->
+<!-- 			  MAX(ID_DENUNCIA)+1 as ID_DENUNCIA -->
+<!-- 		FROM -->
+<!-- 			  T_COMM_DENUNCIA -->
+<!-- 	</select> -->
+	
+	<select id="listar" resultMap="resultMapDenuncia" parameterType="Denuncia">
+		SELECT
+            ID_DENUNCIA,
+            CODIGO_DENUNCIA,
+            TIPO_DENUNCIA,
+            MEDIO_RECEPCION,
+            HOJA_TRAMITE,
+			OFICINASDESCONCENTRADAS,
+			AREACONSERVACION,
+			ADMINLOCALES,
+			ZONAAMORTIGUAMIENTO,
+			OFICINASDESCONCENTRADAS_NOMBRE,
+			AREACONSERVACION_NOMBRE,
+			ADMINLOCALES_NOMBRE,
+			ZONAAMORTIGUAMIENTO_NOMBRE,
+			LATITUDE,
+			LONGITUDE,
+			COORD_X_UTM,
+			COORD_Y_UTM,
+			ZONA,
+            DEPARTAMENTO,
+            PROVINCIA,
+            DISTRITO,
+            DIRECCION,
+            REFERENCIA,
+            RESPONSABLE_PROBLEMA,
+            TIPO_MEDIO,
+            CODIGOACCESO,
+            FECHA_REGISTRO,
+            ESTADO,
+            FLAG_ACTIVO,
+            TIPO_RESPONSABLE,
+            RUTA_HOJA_TRAMITE,
+            ID_CASO,
+            CENTRO_POBLADO,
+            UIID,
+            RUTA_FICHA,
+            NOMBRE_DENUNCIADO,
+            DIRECCION_DENUNCIADO
+		FROM
+			  SINADA.T_GENM_DENUNCIA
+		WHERE
+			  FLAG_ACTIVO = '1'
+	
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapDenuncia"
+		parameterType="long">
+			SELECT
+			  DEN.ID_DENUNCIA, 
+			  DEN.CODIGO_DENUNCIA,
+	          DEN.TIPO_DENUNCIA, 
+	          DEN.MEDIO_RECEPCION, 
+	          
+	           (SELECT MEDIO_RE.DESCRIPCION FROM SINADA.T_GENL_MAESTRO MEDIO_RE
+				      WHERE MEDIO_RE.FLAG_ACTIVO = '1' AND 
+				      MEDIO_RE.CODIGO_MAESTRO = 'MedioRecepcion' 
+				      AND MEDIO_RE.CODIGO_REGISTRO = DEN.MEDIO_RECEPCION
+				        AND MEDIO_RE.CODIGO_REGISTRO!=0
+				    ) AS NOMBRE_MEDIO_RECEPCION,
+				    
+				    
+	          DEN.HOJA_TRAMITE,
+			  DEN.OFICINASDESCONCENTRADAS,
+			  DEN.AREACONSERVACION,
+			  DEN.ADMINLOCALES,
+			  DEN.ZONAAMORTIGUAMIENTO,
+			  DEN.OFICINASDESCONCENTRADAS_NOMBRE,
+			  DEN.AREACONSERVACION_NOMBRE,
+			  DEN.ADMINLOCALES_NOMBRE,
+			  DEN.ZONAAMORTIGUAMIENTO_NOMBRE,
+			  DEN.LATITUDE,
+			  DEN.LONGITUDE,
+			  DEN.COORD_X_UTM,
+			  DEN.COORD_Y_UTM,
+			  DEN.ZONA,
+	          DEN.DEPARTAMENTO,
+	          DEN.PROVINCIA,
+	          DEN.DISTRITO,
+	          DEN.DIRECCION,
+	          DEN.REFERENCIA,
+	          DEN.TIPO_RESPONSABLE,
+	          DEN.RESPONSABLE_PROBLEMA,
+	          DEN.TIPO_MEDIO,
+	          DEN.CODIGOACCESO,
+	          
+			  TO_CHAR(DEN.FECHA_REGISTRO, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO,
+	        
+	          DEN.RUTA_HOJA_TRAMITE,
+	             TRUNC(SYSDATE - DEN.FECHA_REGISTRO)|| ' Dias' || ' ' ||TRUNC(MOD((SYSDATE - DEN.FECHA_REGISTRO) * 24, 24)) || ' Horas ' ||  TRUNC(MOD((SYSDATE - DEN.FECHA_REGISTRO) * (60 * 24), 60)) ||' '|| 'Minutos '||TRUNC(MOD((SYSDATE - DEN.FECHA_REGISTRO) * (60 * 60 * 24), 60))||' Segundos'
+            AS TIEMPO_TRANSCURRIDO,
+	          DEN.ESTADO,
+	          (SELECT DESCRIPCION FROM SINADA.T_GENL_MAESTRO WHERE FLAG_ACTIVO='1' AND CODIGO_MAESTRO = 'EstadoDenuncia' AND CODIGO_REGISTRO = DEN.ESTADO) AS NOMBRE_ESTADO,
+	          DEN.FLAG_ACTIVO,
+	          DEN.CENTRO_POBLADO,
+	          (SELECT COUNT(*) FROM SINADA.T_GENM_ENCUESTA EN WHERE EN.ESTADO = 1 AND EN.TIPO_ENCUESTA = 2 AND EN.ID_DENUNCIA = DEN.ID_DENUNCIA ) AS VALIDA_ENCUESTA,
+	          DEN.UIID,
+	          DEN.RUTA_FICHA,
+	           NOMBRE_DENUNCIADO,
+            DIRECCION_DENUNCIADO
+		
+		FROM
+				SINADA.T_GENM_DENUNCIA DEN
+		WHERE
+				DEN.FLAG_ACTIVO = '1'
+		AND 
+				DEN.ID_DENUNCIA = #{idDenuncia}
+	</select>
+	
+	<select id="buscarDenunciaInvitado" resultMap="resultMapDenuncia"
+		parameterType="Denuncia">
+		SELECT
+			  DEN.ID_DENUNCIA, 
+			  DEN.CODIGO_DENUNCIA,
+	          DEN.TIPO_DENUNCIA, 
+	          DEN.MEDIO_RECEPCION, 
+	           (SELECT MEDIO_RE.DESCRIPCION FROM SINADA.T_GENL_MAESTRO MEDIO_RE
+				      WHERE MEDIO_RE.FLAG_ACTIVO = '1' AND 
+				      MEDIO_RE.CODIGO_MAESTRO = 'MedioRecepcion' 
+				      AND MEDIO_RE.CODIGO_REGISTRO = DEN.MEDIO_RECEPCION
+				        AND MEDIO_RE.CODIGO_REGISTRO!=0
+				    ) AS NOMBRE_MEDIO_RECEPCION,
+				    
+	          DEN.HOJA_TRAMITE,
+			  DEN.OFICINASDESCONCENTRADAS,
+			  DEN.AREACONSERVACION,
+			  DEN.ADMINLOCALES,
+			  DEN.ZONAAMORTIGUAMIENTO,
+			  DEN.OFICINASDESCONCENTRADAS_NOMBRE,
+			  DEN.AREACONSERVACION_NOMBRE,
+			  DEN.ADMINLOCALES_NOMBRE,
+			  DEN.ZONAAMORTIGUAMIENTO_NOMBRE,
+			  DEN.LATITUDE,
+			  DEN.LONGITUDE,
+			  DEN.COORD_X_UTM,
+			  DEN.COORD_Y_UTM,
+			  DEN.ZONA,
+	          DEN.DEPARTAMENTO,
+	          DEN.PROVINCIA,
+	          DEN.DISTRITO,
+	          DEN.DIRECCION,
+	          DEN.REFERENCIA,
+	          DEN.TIPO_RESPONSABLE,
+	          DEN.RESPONSABLE_PROBLEMA,
+	          DEN.TIPO_MEDIO,
+	          DEN.CODIGOACCESO,
+	          DEN.FECHA_REGISTRO,
+	          DEN.RUTA_HOJA_TRAMITE,
+	             TRUNC(SYSDATE - DEN.FECHA_REGISTRO)|| ' Dias' || ' ' ||TRUNC(MOD((SYSDATE - DEN.FECHA_REGISTRO) * 24, 24)) || ' Horas ' ||  TRUNC(MOD((SYSDATE - DEN.FECHA_REGISTRO) * (60 * 24), 60)) ||' '|| 'Minutos '||TRUNC(MOD((SYSDATE - DEN.FECHA_REGISTRO) * (60 * 60 * 24), 60))||' Segundos'
+            AS TIEMPO_TRANSCURRIDO,
+	          DEN.ESTADO,
+	          (SELECT DESCRIPCION FROM SINADA.T_GENL_MAESTRO WHERE FLAG_ACTIVO='1' AND CODIGO_MAESTRO = 'EstadoDenuncia' AND CODIGO_REGISTRO = DEN.ESTADO) AS NOMBRE_ESTADO,
+	          DEN.FLAG_ACTIVO,
+	          DEN.CENTRO_POBLADO,
+	          (SELECT COUNT(*) FROM SINADA.T_GENM_ENCUESTA EN WHERE EN.ESTADO = 1 AND EN.TIPO_ENCUESTA = 2 AND EN.ID_DENUNCIA = DEN.ID_DENUNCIA ) AS VALIDA_ENCUESTA,
+	          DEN.UIID,
+	          DEN.RUTA_FICHA,
+	          DEN.NOMBRE_DENUNCIADO,
+			  DEN.DIRECCION_DENUNCIADO
+		
+		FROM
+				SINADA.T_GENM_DENUNCIA DEN
+		WHERE
+				DEN.CODIGO_DENUNCIA =  #{codigoDenuncia}
+		AND		
+				DEN.CODIGOACCESO = #{codigoAcceso} 
+		AND 
+				DEN.FLAG_ACTIVO='1'
+	</select>
+	
+	
+		<update id="bloquearTablaParaTransaccion">
+	{
+		call
+			declare
+				begin
+		LOCK TABLE SINADA.T_GENM_DENUNCIA IN EXCLUSIVE MODE;
+		end
+		}
+	</update>
+	
+	<insert id="agregar" parameterType="Denuncia" useGeneratedKeys="true">
+		<selectKey keyProperty="idDenuncia" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_DENUNCIA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_DENUNCIA
+		(
+			  	ID_DENUNCIA,
+				CODIGO_DENUNCIA,
+				TIPO_DENUNCIA,
+				MEDIO_RECEPCION,
+				HOJA_TRAMITE,
+				OFICINASDESCONCENTRADAS,
+				AREACONSERVACION,
+				ADMINLOCALES,
+				ZONAAMORTIGUAMIENTO,
+				OFICINASDESCONCENTRADAS_NOMBRE,
+				AREACONSERVACION_NOMBRE,
+				ADMINLOCALES_NOMBRE,
+				ZONAAMORTIGUAMIENTO_NOMBRE,
+				LATITUDE,
+				LONGITUDE,
+				COORD_X_UTM,
+				COORD_Y_UTM,
+				ZONA,
+				DEPARTAMENTO,
+				PROVINCIA,
+				DISTRITO,
+				DIRECCION,
+				REFERENCIA,
+				TIPO_RESPONSABLE,
+				RESPONSABLE_PROBLEMA,
+				TIPO_MEDIO,
+				CODIGOACCESO,
+				FECHA_REGISTRO,
+				ESTADO,
+				FLAG_ACTIVO,
+				RUTA_HOJA_TRAMITE,
+				ID_CASO,
+				CENTRO_POBLADO,
+				NOMBRE_DENUNCIADO,
+				DIRECCION_DENUNCIADO
+		)
+		VALUES
+		(
+			#{idDenuncia},
+			(SELECT COUNT(*)+1 FROM SINADA.T_GENM_DENUNCIA WHERE EXTRACT(YEAR FROM FECHA_REGISTRO) = EXTRACT(YEAR FROM SYSDATE)),
+			#{tipoDenuncia},
+			#{medioRecepcion},
+			#{hojaTramite,jdbcType=VARCHAR},
+			#{oficinasDesconcentradas},
+			#{areaConservacion},
+			#{adminLocales},
+			#{zonaAmortiguamiento},
+			#{oficinasDesconcentradasNombre},
+			#{areaConservacionNombre},
+			#{adminLocalesNombre},
+			#{zonaAmortiguamientoNombre},
+			#{latitude},
+			#{longitude},
+			#{coord_x_utm},
+			#{coord_y_utm},
+			#{zona},
+			#{departamento},
+			#{provincia},
+			#{distrito},
+			#{direccion,jdbcType=VARCHAR},
+			#{referencia,jdbcType=VARCHAR},
+			#{tipo_responsable},
+			#{responsableProblema},
+			#{tipoMedio},
+			#{codigoAcceso,jdbcType=VARCHAR},
+			(SELECT SYSDATE FROM DUAL),
+			1,
+			'1',
+			#{rutaHojaTramite,jdbcType=VARCHAR},
+			#{caso.idCaso},
+			#{codigoCentroPoblado},
+			#{nombreDenunciado,jdbcType=VARCHAR},
+			#{direccionDenunciado,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="cambiarEstado" parameterType="Denuncia">
+	
+	
+		<if test="estado == 2">
+    	UPDATE SINADA.T_GENM_DENUNCIA
+   		SET
+			ESTADO = #{estado}
+
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_DENUNCIA = #{idDenuncia}
+		AND
+			ESTADO = 1
+  		</if>
+  	
+  	
+  	<if test="estado != 2">
+  	
+		UPDATE SINADA.T_GENM_DENUNCIA
+		SET
+
+
+		ESTADO = #{estado}
+
+		WHERE
+		FLAG_ACTIVO = '1'
+		AND ID_DENUNCIA = #{idDenuncia}
+		
+	</if>
+	</update>
+	
+	
+	
+
+	<update id="generarCodigoDenuncia" parameterType="Denuncia">
+		UPDATE SINADA.T_GENM_DENUNCIA
+		SET
+		CODIGO_DENUNCIA		 = #{codigoDenuncia}
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_DENUNCIA = #{idDenuncia}
+	</update>
+	
+	<update id="subirHojaTramite" parameterType="Denuncia">
+		UPDATE SINADA.T_GENM_DENUNCIA
+		SET
+			HOJA_TRAMITE		 = #{hojaTramite,jdbcType=VARCHAR},
+			RUTA_HOJA_TRAMITE    = #{rutaHojaTramite,jdbcType=VARCHAR}
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_DENUNCIA = #{idDenuncia}
+	</update>
+	
+	<update id="subirFichaDenuncia" parameterType="Denuncia">
+		UPDATE SINADA.T_GENM_DENUNCIA
+		SET
+		
+			UIID   		  = #{uiid,jdbcType=VARCHAR},
+			RUTA_FICHA    = #{rutaFicha,jdbcType=VARCHAR}
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_DENUNCIA = #{idDenuncia}
+	</update>
+	
+	
+	
+	
+
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_DENUNCIA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_DENUNCIA = #{idDenuncia}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

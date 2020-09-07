@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="usuario">
+	<resultMap id="resultMapUsuario" type="Usuario">
+		<id 	column="ID_USUARIO" 			property="idUsuario" />
+		<result column="TIPO_PERSONA" 			property="tipoPersona" />
+		<result column="ID_PERSONA" 			property="idPersona" />
+		<result column="NOMBRE_USUARIO" 		property="nombreUsuario" />
+
+		<result column="ESTADO" 				property="estado" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+
+	<result column="NOMBRE_PERSONA" 			property="nombrePersona" />
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapUsuario" parameterType="Usuario">
+
+	SELECT 
+			ID_USUARIO,
+			TIPO_PERSONA,
+			ID_PERSONA,
+			NOMBRE_USUARIO,
+			NOMBRE_PERSONA
+ FROM( 
+		SELECT
+				USU.ID_USUARIO,
+				USU.TIPO_PERSONA,
+				USU.ID_PERSONA,
+				USU.NOMBRE_USUARIO,
+         CASE WHEN   USU.TIPO_PERSONA = 1 then 
+               (SELECT PER.PRIMER_NOMBRE ||' '||NVL(PER.SEGUNDO_NOMBRE,' ')||''||PER.APELLIDO_PATERNO||' '||PER.APELLIDO_MATERNO  FROM SINADA.T_GENT_PERSONA PER  WHERE PER.ID_PERSONA =  USU.ID_PERSONA)
+        WHEN   USU.TIPO_PERSONA = 2 then
+               (SELECT ENT.RAZON_SOCIAL FROM SINADA.T_GENT_ENTIDAD ENT WHERE ENT.FLAG_ACTIVO = '1' AND ENT.ID_ENTIDAD = USU.ID_PERSONA)
+        END   AS NOMBRE_PERSONA
+    
+        
+
+		FROM
+				SINADA.T_GENM_USUARIO USU
+		WHERE
+				USU.FLAG_ACTIVO = 1 
+    AND
+        ID_USUARIO IN (SELECT ID_USUARIO FROM SINADA.T_GEND_PERFIL_USUARIO WHERE ESTADO = 1 AND ID_PERFIL = #{idPerfil} )
+    
+		<if  test="flagFiltroUsuario==1">
+			AND
+         		USU.ID_USUARIO NOT IN (SELECT BAN.ID_RESPONSABLE FROM SINADA.T_GEND_BANDEJA_DETALLE BANDET INNER JOIN SINADA.T_GENM_BANDEJA BAN ON BANDET.ID_BANDEJA = BAN.ID_BANDEJA AND BAN.FLAG_ACTIVO='1' WHERE BANDET.FLAG_ACTIVO = '1' AND BANDET.TIPO_BANDEJA = 4 AND BANDET.ID_DENUNCIA = #{idDenuncia})
+
+		</if>
+		<if  test="flagFiltroUsuario==2">
+			AND
+         				USU.ID_USUARIO  IN (SELECT BAN.ID_RESPONSABLE FROM SINADA.T_GEND_BANDEJA_DETALLE BANDET INNER JOIN SINADA.T_GENM_BANDEJA BAN ON BANDET.ID_BANDEJA = BAN.ID_BANDEJA AND BAN.FLAG_ACTIVO='1' WHERE BANDET.FLAG_ACTIVO = '1' AND BANDET.TIPO_BANDEJA = 4 AND BANDET.ID_DENUNCIA = #{idDenuncia})
+
+		</if>
+		)
+			WHERE 
+			
+			UPPER(NOMBRE_PERSONA) LIKE '%'||UPPER(#{nombrePersona,jdbcType=VARCHAR})||'%'
+		    
+	</select>
+
+
+	<select id="listarUsuariosSinada" resultMap="resultMapUsuario" parameterType="Usuario">
+		SELECT
+				USU.ID_USUARIO,
+				USU.TIPO_PERSONA,
+				USU.ID_PERSONA,
+				USU.NOMBRE_USUARIO,
+         CASE WHEN   USU.TIPO_PERSONA = 1 then 
+               (SELECT PER.PRIMER_NOMBRE ||' '||NVL(PER.SEGUNDO_NOMBRE,' ')||''||PER.APELLIDO_PATERNO||' '||PER.APELLIDO_MATERNO  FROM SINADA.T_GENT_PERSONA PER  WHERE PER.ID_PERSONA =  USU.ID_PERSONA)
+        WHEN   USU.TIPO_PERSONA = 2 then
+               (SELECT ENT.RAZON_SOCIAL FROM SINADA.T_GENT_ENTIDAD ENT WHERE ENT.FLAG_ACTIVO = '1' AND ENT.ID_ENTIDAD = USU.ID_PERSONA)
+        END   AS NOMBRE_PERSONA
+		FROM
+				SINADA.T_GENM_USUARIO USU
+		WHERE
+				USU.FLAG_ACTIVO = 1 
+	AND
+		USU.TIPO_PERSONA = 1
+    AND
+        ID_USUARIO IN (SELECT ID_USUARIO FROM SINADA.T_GEND_PERFIL_USUARIO WHERE ESTADO = 1 AND ID_PERFIL = #{idPerfil} )
+	AND
+		ID_USUARIO NOT IN (	SELECT ID_PERSONA FROM SINADA.T_GENM_PERSONA_OEFA WHERE FLAG_ACTIVO='1')
+<!-- 	  	ID_USUARIO NOT IN (	SELECT ID_PERSONA FROM SINADA.T_GENM_PERSONA_OEFA WHERE FLAG_ACTIVO='1' AND CODIGO_DIRECCION =#{personaOefa.direccion.codigoRegistro} AND CODIGO_SUB_DIRECCION = #{personaOefa.subDireccion.codigoRegistro}) -->
+		    
+	</select>
+	
+	
+	<select id="buscarPorId" resultMap="resultMapUsuario"
+		parameterType="long">
+		SELECT
+				ID_USUARIO,
+				TIPO_PERSONA,
+				ID_PERSONA,
+				NOMBRE_USUARIO,
+
+				ESTADO
+
+		FROM
+				SINADA.T_GENM_USUARIO
+		WHERE
+				FLAG_ACTIVO = 1
+		AND 
+				ID_USUARIO = #{idUsuario}
+	</select>
+	
+	<select id="loginUsuario" resultMap="resultMapUsuario"
+		parameterType="Usuario">
+		SELECT
+				ID_USUARIO,
+				TIPO_PERSONA,
+				ID_PERSONA,
+				NOMBRE_USUARIO,
+
+				ESTADO
+
+		FROM
+				SINADA.T_GENM_USUARIO
+		WHERE
+				FLAG_ACTIVO = 1
+<!-- 		AND  -->
+<!-- 				NOMBRE_USUARIO = #{nombreUsuario} -->
+<!-- 		AND -->
+<!-- 				CLAVE		   = #{clave} -->
+	</select>
+	
+	<insert id="agregar" parameterType="Usuario" >
+<!-- 		<selectKey keyProperty="idUsuario" resultType="long" order="BEFORE"> -->
+<!-- 			SELECT SEC_GENM_ID_USUARIO.NEXTVAL FROM DUAL -->
+<!-- 		</selectKey> -->
+
+		INSERT INTO SINADA.T_GENM_USUARIO
+		(
+				ID_USUARIO,
+				TIPO_PERSONA,
+				ID_PERSONA,
+				NOMBRE_USUARIO,
+<!-- 				CLAVE, -->
+<!-- 				ID_PERFIL, -->
+				ESTADO,
+				FLAG_ACTIVO
+		)
+		VALUES
+		(
+				#{idUsuario},
+				#{tipoPersona},
+				#{idPersona},
+				#{nombreUsuario},
+<!-- 				#{clave}, -->
+<!-- 				#{perfil.idPerfil}, -->
+				1,
+				'1'
+		)
+	</insert>
+	<update id="modificar" parameterType="Usuario">
+		UPDATE SINADA.T_GENM_USUARIO
+		SET
+
+				
+				TIPO_PERSONA	= #{tipoPersona},
+				ID_PERSONA		= #{idPersona},
+				NOMBRE_USUARIO	= #{nombreUsuario},
+<!-- 				CLAVE			= #{clave}, -->
+<!-- 				ID_PERFIL		= #{perfil.idPerfil}, -->
+				ESTADO 			= #{estado}
+
+		WHERE
+				FLAG_ACTIVO = 1
+		AND 
+				ID_USUARIO = #{idUsuario}
+	</update>
+	
+<!-- 	<update id="cambioClave" parameterType="Usuario"> -->
+<!-- 		UPDATE SINADA.T_GENM_USUARIO -->
+<!-- 		SET -->
+
+			
+<!-- 				CLAVE			= #{clave} -->
+				
+
+<!-- 		WHERE -->
+<!-- 				FLAG_ACTIVO = 1 -->
+<!-- 		AND  -->
+<!-- 				ID_USUARIO = #{idUsuario} -->
+<!-- 	</update> -->
+	
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_USUARIO
+		SET
+				FLAG_ACTIVO = 0
+		WHERE
+				FLAG_ACTIVO = 1
+		AND ID_USUARIO = #{idUsuario}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

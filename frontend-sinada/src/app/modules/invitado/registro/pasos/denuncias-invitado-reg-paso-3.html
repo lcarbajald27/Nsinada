@@ -1,0 +1,233 @@
+<div class="col-lg-12 sin_padding" >
+	<span class="" ng-form="vm.formDenuncia" name="denunciaRegistroForm" novalidate ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="size-title-pasos-inv"><span>&iquest;Qu&eacute;?</span></h3>
+			</div>
+		</div>
+		<br/>
+
+		<div class="row">
+			<div class="col-md-12 form-group"><b>Seleccione los datos solicitados</b></div>
+		</div>
+
+<!--- ********************************************************  Casos ********************************************* -->
+
+	<div class="row">
+			<div class="form-group col-md-12" >
+					<label for="problematica" class="important-box">Problem&aacute;tica:</label> 
+
+						<select2 id="problematica" name="problematica" 
+						ng-model="vm.prmDataCaso.problematica.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.problematica.idDetalleCaso,1,false)"
+						ng-required="true"
+						class="selectCaso"
+						 s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaProblematica">
+							
+
+						</select2>
+
+			</div>
+				
+
+		</div>
+<!-- 		<div class="row"> -->
+<!-- 			<div class="form-group col-md-12 col-xm-12" > -->
+<!-- 				<label for="problematica" class="important-box">Problem&aacute;tica:</label> -->
+<!--         <select -->
+<!--           id="problematica" name="problematica" -->
+<!--           ng-model="vm.prmDataCaso.problematica.idDetalleCaso" -->
+<!--           ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.problematica.idDetalleCaso,1)" -->
+<!--           class="form-control input-sm" ng-required="true"> -->
+<!--           <option ng-value="0">Seleccione</option> -->
+<!--           <option -->
+<!--             ng-repeat="itemCombo in vm.listaProblematica | orderBy: 'idDetalleCaso'" -->
+<!--             ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}} -->
+<!--           </option> -->
+<!--         </select> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+	<div class="row">
+			
+
+			<div class="form-group col-md-12" ng-if="vm.listaDebidoANivel1.length>1">
+					<label for="debidoA" class="important-box">¿Debido a?</label>
+					
+						
+						<select2 id="debidoA" name="debidoA"
+						ng-model="vm.prmDataCaso.debidoA1.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA1.idDetalleCaso,2,false)"
+						ng-required="true"
+						 class="selectCaso"
+						 s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaDebidoANivel1">
+							
+
+						</select2>
+
+
+			</div>
+
+			<div class="form-group col-md-12" ng-if="vm.listaDebidoANivel2.length>1">
+				
+						<select2 id="debidoA" name="debidoA" 
+								ng-model="vm.prmDataCaso.debidoA2.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA2.idDetalleCaso,3,false)"
+							class="selectCaso"
+							s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaDebidoANivel2">
+							
+
+						</select2>
+				
+
+					
+				</div>
+
+
+		</div> 
+
+<!-- 	<div class="row"> -->
+
+<!-- 			<div class="form-group col-md-12" ng-if="vm.listaDebidoANivel1.length!=0"> -->
+
+<!-- 						<label for="debidoA" class="important-box">Debido a?</label> <select id="debidoA" -->
+<!-- 							name="debidoA" ng-model="vm.prmDataCaso.debidoA1.idDetalleCaso" -->
+<!-- 							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA1.idDetalleCaso,2)"  class="form-control input-sm"> -->
+<!-- 							<option ng-value="0">Seleccione</option> -->
+<!-- 							<option -->
+<!-- 								ng-repeat="itemCombo in vm.listaDebidoANivel1 | orderBy: 'idDetalleCaso'" -->
+<!-- 								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option> -->
+<!-- 						</select> -->
+
+
+
+<!-- 				</div> -->
+
+
+
+<!-- 			<div class="form-group col-md-12" ng-if="vm.listaDebidoANivel2.length!=0"> -->
+
+<!-- 						<select id="debidoA" -->
+<!-- 							name="debidoA" ng-model="vm.prmDataCaso.debidoA2.idDetalleCaso" -->
+<!-- 							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA2.idDetalleCaso,3)"  class="form-control input-sm"> -->
+<!-- 							<option ng-value="0">Seleccione</option> -->
+<!-- 							<option -->
+<!-- 								ng-repeat="itemCombo in vm.listaDebidoANivel2 | orderBy: 'idDetalleCaso'" -->
+<!-- 								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option> -->
+<!-- 						</select> -->
+
+
+
+<!-- 				</div> -->
+
+
+
+
+
+
+<!-- 		</div> -->
+
+
+	<div class="row" ng-if="vm.listaDebidoANivel3.length>1">
+	
+			<div class="form-group col-md-12">
+				
+						 <select2 id="debidoA" 
+							name="debidoA" ng-model="vm.prmDataCaso.debidoA3.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.debidoA3.idDetalleCaso,1,false)"
+							class="selectCaso"
+							s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaDebidoANivel3">
+						
+						</select2>
+				
+				</div>
+
+
+		</div>	
+
+<!-- 	<div class="row" ng-if="vm.listaDebidoANivel3.length!=0"> -->
+
+<!-- 			<div class="form-group col-md-12"> -->
+
+<!-- 						 <select id="debidoA" -->
+<!-- 							name="debidoA" ng-model="vm.prmDataCaso.debidoA3.idDetalleCaso" -->
+<!-- 							ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.debidoA3.idDetalleCaso,1)" -->
+<!-- 							class="form-control input-sm"> -->
+<!-- 							<option ng-value="0">Seleccione</option> -->
+<!-- 							<option -->
+<!-- 								ng-repeat="itemCombo in vm.listaDebidoANivel3 | orderBy: 'idDetalleCaso'" -->
+<!-- 								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option> -->
+<!-- 						</select> -->
+
+<!-- 				</div> -->
+
+
+<!-- 		</div> -->
+
+
+<div class="row">
+
+	<div class="form-group col-md-12" ng-if="vm.listaZonaSucesonivel1.length>1">
+	<label for="sucede" class="important-box">&iquest;D&oacute;nde sucede?</label>
+		<select2
+			id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso1.idDetalleCaso"
+			ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso1.idDetalleCaso,2);vm.validarCasoRegistrado()"
+				s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel1"
+			class="selectCaso">
+		</select2>
+	</div>
+<!-- prueba -->
+			<div class="form-group col-md-12" ng-if="vm.listaZonaSucesonivel2.length>1">
+
+
+			
+					<select2
+						id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso2.idDetalleCaso"
+						ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso2.idDetalleCaso,3);vm.validarCasoRegistrado()"
+						s2-options="val.idDetalleCaso as val.descripcion for val in vm.listaZonaSucesonivel2"
+						class="selectCaso">
+					</select2>
+			
+
+			
+
+
+			</div>
+		</div>
+
+
+
+
+<!--  *********************************************************************************************************** -->
+
+
+
+
+		<div class="row" ng-show="vm.prmDataCaso.problematica.idDetalleCaso==0">
+		<div class="form-group col-md-12">
+				<i>&iquest;No encuentras la problem&aacute;tica de tu denuncia ambiental?</i>
+			</div>
+			<div class="form-group col-md-12">
+				<a class="spapp-link" ng-click="vm.mostrarNotificacionProblematicaDialog()">Hacer clic aqu&iacute;</a>
+			</div>
+		</div>
+
+<!-- 		<div class="row" ng-show="vm.prmDataCaso.problematica.idDetalleCaso==0"> -->
+<!-- 			<div class="form-group col-md-6"> -->
+<!-- 				<a class="spapp-link" ng-click="vm.mostrarNotificacionProblematicaDialog()">Otros</a> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.regresar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18">
+	                <span class="icon-regresar spac-btn-r"></span> Regresar
+	            </button>
+	           <button type="button" ng-click="vm.siguiente()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18"
+	            ng-disabled="vm.listaZonaSucesonivel1.length==0 ">
+	                <span class="icon-siguiente spac-btn-r"></span> Siguiente
+	            </button>
+	        </div>
+  	    </div>
+	</span>
+</div>

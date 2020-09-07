@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_CONTACTO -->
+<mapper namespace="archivoAtencion">
+	<resultMap id="resultMapArchivoAtencion" type="ArchivoAtencion">
+	
+		<id 	column="ID_ARCHIVO_ATENCION" 	property="idArchivoAtencion" />
+		<result column="ID_ATENCION_DENUNCIA" 	property="idAtencionDenuncia" />
+		<result column="NOMBRE_ARCHIVO" 		property="nombreArchivo" />
+		<result column="RUTA_ARCHIVO"			property="rutaArchivo" />
+		<result column="MIME_TYPE_ARCHIVO" 		property="mimeTypeArchivo" />
+		<result column="ESTADO" 				property="estado.codigoRegistro" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+		<result column="TIPO_ARCHIVO" 			property="tipoArchivo.codigoRegistro" />
+		<result column="NOMBRE_TIPO_ARCHIVO" 	property="tipoArchivo.descripcion" />
+		<result column="TIPO_TABLA" 			property="tipoTabla" />
+		<result column="DESCRIPCION_ARCHIVO" 	property="descripcionArchivo" />
+		<result column="UIID" 					property="uiid" />
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapArchivoAtencion" parameterType="ArchivoAtencion">
+		SELECT 
+        ARA.ID_ARCHIVO_ATENCION,
+				ARA.ID_ATENCION_DENUNCIA,
+				ARA.NOMBRE_ARCHIVO,
+				ARA.RUTA_ARCHIVO,
+				ARA.MIME_TYPE_ARCHIVO,
+				ARA.ESTADO,
+				ARA.FLAG_ACTIVO,
+				ARA.TIPO_ARCHIVO,
+        		TA.DESCRIPCION AS NOMBRE_TIPO_ARCHIVO,
+				ARA.TIPO_TABLA,
+				ARA.DESCRIPCION_ARCHIVO,
+				ARA.UIID
+		FROM 
+		      	SINADA.T_GEND_ARCHIVO_ATENCION ARA LEFT JOIN
+            SINADA.T_GENL_MAESTRO TA ON
+            TA.CODIGO_MAESTRO = 'TipoArchivoAdjuntoEspecialistaSinada' AND
+            TA.CODIGO_REGISTRO = ARA.TIPO_ARCHIVO AND
+            TA.FLAG_ACTIVO = '1' AND 
+            ARA.TIPO_ARCHIVO != 0 
+            
+		WHERE 
+		      ARA.FLAG_ACTIVO = '1'
+		AND
+			  ARA.ID_ATENCION_DENUNCIA = #{idAtencionDenuncia}
+		AND	
+				ARA.TIPO_TABLA = #{tipoTabla}
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapArchivoAtencion"
+		parameterType="long">
+			SELECT 
+		        ID_ARCHIVO_ATENCION,
+				ID_ATENCION_DENUNCIA,
+				NOMBRE_ARCHIVO,
+				RUTA_ARCHIVO,
+				MIME_TYPE_ARCHIVO,
+				ESTADO,
+				FLAG_ACTIVO,
+				TIPO_ARCHIVO,
+				TIPO_TABLA,
+				DESCRIPCION_ARCHIVO,
+				UIID
+		FROM 
+		      	SINADA.T_GEND_ARCHIVO_ATENCION
+		WHERE 
+		      	FLAG_ACTIVO = '1'
+		AND
+			  ID_ARCHIVO_ATENCION = #{idArchivoAtencion}
+				    
+		    
+	</select>
+	<insert id="agregar" parameterType="ArchivoAtencion" useGeneratedKeys="true">
+		<selectKey keyProperty="idArchivoAtencion" resultType="long" order="BEFORE">
+			SELECT SINADA.T_GEND_ID_ARCHIVO_ATENCION.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_ARCHIVO_ATENCION
+		(
+			   ID_ARCHIVO_ATENCION,
+				ID_ATENCION_DENUNCIA,
+				NOMBRE_ARCHIVO,
+				RUTA_ARCHIVO,
+				MIME_TYPE_ARCHIVO,
+				ESTADO,
+				FLAG_ACTIVO,
+				TIPO_ARCHIVO,
+				TIPO_TABLA,
+				DESCRIPCION_ARCHIVO,
+				UIID
+		)
+		VALUES
+		(
+				#{idArchivoAtencion},
+				#{idAtencionDenuncia},
+				#{nombreArchivo,jdbcType=VARCHAR},
+				#{rutaArchivo,jdbcType=VARCHAR},
+				#{mimeTypeArchivo,jdbcType=VARCHAR},
+				1,
+				'1',
+				#{tipoArchivo.codigoRegistro},
+				#{tipoTabla},
+				#{descripcionArchivo,jdbcType=VARCHAR},
+				#{uiid,jdbcType=VARCHAR}
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="ArchivoDenuncia"> -->
+<!-- 		UPDATE T_GENM_ARTICULO -->
+<!-- 		SET -->
+
+
+<!-- 		DESCRIPCION = #{descripcion}, -->
+<!-- 		DETALLE = #{detalle}, -->
+<!-- 		FECHA_VIGENCIA = #{fechaVigencia}, -->
+<!-- 		FECHA_MODIFICACION = #{fechaModificacion}, -->
+<!-- 		FECHA_DEROGACION = #{fechaDerogacion}, -->
+<!-- 		TM1_ESTADO = #{estado} -->
+
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_ARTICULO = #{idArticulo} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_ARCHIVO_ATENCION
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_ARCHIVO_ATENCION = #{idArchivoAtencion}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

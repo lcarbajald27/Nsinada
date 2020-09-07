@@ -1,0 +1,71 @@
+<div class="col-lg-12  sin_padding" novalidate ng-form >
+	<span class="" ng-form="vm.productoForm">
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Luego de analizar la denuncia  {{vm.dataDenunciaRevision.codigoDenuncia}}, deber&aacute; indicar lo siguiente:</span></h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+						<li class="active">Bandeja de Denuncias</li>
+						<li>Revisar la Denuncia</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-click="vm.aceptarDenuncia()" uib-tooltip="Aceptar denuncia" ng-disabled="vm.dataDenunciaRevision.estadoBandejaDetalle!=1 && vm.dataDenunciaRevision.estadoBandejaDetalle!=2" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span>Aceptar denuncia
+	            </button>
+	            <button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5" ng-click="vm.mostrarModalRechazar('item')" uib-tooltip="Rechazar denuncia" ng-disabled="vm.dataDenunciaRevision.estadoBandejaDetalle!=1 && vm.dataDenunciaRevision.estadoBandejaDetalle!=2"  >
+	                <span class="glyphicon glyphicon-close spac-btn-r"></span>Rechazar denuncia
+	            </button>
+	        </div>
+  	    </div>
+
+
+      <br>
+          <div class="col-md-12 sin_padding">
+              <div>
+                <div class="panel panel-tab-app with-nav-tabs panel-default">
+                    <ul class="nav nav-tabs" >
+                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 1 }"  ng-click="vm.asignadasTabActivo = 1">
+                          <a class="spapp-link">Ficha de denuncia ambiental </a>
+                      </li>
+                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 2 }"  ng-click="vm.asignadasTabActivo = 2">
+                          <a class="spapp-link">Informaci&oacute;n adjunta</a>
+                      </li>
+                    </ul>
+                <div class="panel-body">
+                    <div class="row" ng-show="vm.asignadasTabActivo == 1" ng-include="'app/modules/bandeja/asignadas/asignadas-detalle/fichas/filtro-ficha-denuncia-ambiental.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 2" ng-include="'app/modules/bandeja/asignadas/asignadas-detalle/fichas/filtro-informacion-adjunta.html'">
+                  </div>
+                   </div>
+                </div>
+              </div>
+          </div>
+         <br>
+
+
+
+	</span>
+
+	  <div class="row">
+      <div class="col-lg-12 text-right">
+        <button type="button" ng-click="vm.regresarBandeja()" class="btn btn-flat btn-default btn-primary btn-sm" uib-tooltip=" {{btnRegresar.tooltip}}" >
+            <span class=" {{btnRegresar.icon}}"></span>  {{btnRegresar.valor}}
+        </button>
+
+
+
+      </div>
+    </div>
+
+<script>
+	function justNumbers(e) {
+		var keynum = window.event ? window.event.keyCode : e.which;
+		if ((keynum == 8) || (keynum == 46) || (keynum == 44))
+			return true;
+		return /\d/.test(String.fromCharCode(keynum));
+	}
+</script>

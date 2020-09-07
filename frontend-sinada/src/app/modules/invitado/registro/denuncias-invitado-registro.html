@@ -1,0 +1,124 @@
+
+
+<nav id="nav-top-web" class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="https://www.oefa.gob.pe/" target="_blank">
+            <img srcset="assets/images/oefa-logo-header.svg" src="assets/images/oefa-logo-header.svg" alt="logo-oefa" class="img-responsive logo-oefa-inicio">
+          </a>
+          <a class="navbar-brand" href="#" >
+            <img src="assets/images/logo_sinada.svg" srcset="assets/images/logo_sinada.svg" alt="logo-sinada" class="img-responsive logo-sinada-inicio">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse" ng-if="false">
+            <ul class="nav navbar-nav pull-right" style="margin:0px">
+                <li id="login-link" class="">
+                  <!--<a href="javascript:void(0)" ng-click="vm.iraLogin()">Iniciar Sesión</a>-->
+                  <a href="javascript:void(0)" class="spapp-link" ui-sref="invitado.nuevo-usuario">Deseo registrarme</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<section class="seccion-sinada_denuncia-view" style="">
+  <div class="container" style="padding: 50px;background: white;border-radius: 5px;">
+    <a href="#" uib-tooltip="Salir" class="close close-pasos">×</a>
+    <div class="row">
+      <div class=" col-md-4">
+        <h2 class="size-title" ng-if="pasoActivo==1" style="margin-top: 0">Caracter&iacute;ticas</h2>
+        <p ng-if="pasoActivo=='1'" class="font-text text-justify">Puedes registrar tu denuncia ambiental bajo cualquiera de las siguientes modalidades.<br><br><b>An&oacute;nima: </b>  No es necesario brindar tus datos personales. Toma nota del c&oacute;digo de la denuncia y el c&oacute;digo de acceso al finalizar para que puedas hacerle seguimiento. </p>
+        <br ng-if="pasoActivo=='1'">
+        <p ng-if="pasoActivo==1" class="font-text text-justify"><b>Con reserva de identidad: </b> Tus datos personales no se visualizar&aacute;n en la ficha de la denuncia, pero te llegar&aacute; un correo indicando los datos de la denuncia y su estado. </p>
+        <br ng-if="pasoActivo=='1'">
+        <p ng-if="pasoActivo==1" class="font-text text-justify"><b>Sin reserva de identidad: </b> Tus datos se visualizar&aacute;n en la ficha de denuncia y te llegar&aacute; un correo indicando los datos de la denuncia y su estado. </p>
+
+
+
+        <h2 ng-if="pasoActivo==2" class="size-title" style="margin-top: 0">Tipo persona</h2>
+        <p ng-if="pasoActivo==2" class="font-text text-justify">Puedes registrar tu denuncia ambiental bajo dos tipos de personer&iacute;a.<br/><br/><b>Persona natural:</b> Ingresa tu n&uacute;mero de documento de identidad y pulsa el bot&oacute;n <b>&#34;Buscar&#34;</b> para actualizar tu ubigeo y direcci&oacute;n fiscal. Luego ingresa correo electr&oacute;nico y tel&eacute;fono de contacto para avanzar al siguiente paso. </p>
+        <br ng-if="pasoActivo==2">
+        <p ng-if="pasoActivo==2" class="font-text text-justify"><b>Persona jur&iacute;dica:</b> Ingresa el n&uacute;mero de documento y pulsa el bot&oacute;n <b>"Buscar"</b> para actualizar los datos de la lista. Ingresa un correo electr&oacute;nico y tel&eacute;fono para avanzar al siguiente paso. </p>
+        <br ng-if="pasoActivo==2">
+        <p ng-if="pasoActivo==2" class="font-text text-justify">*En ambas opciones se puede agregar uno o m&aacute;s denunciantes para ello pulsar el bot&oacute;n <b>"Nueva consulta"</b>. </p>
+
+
+
+        <h2 ng-if="pasoActivo==3" class="size-title" style="margin-top: 0">Casos</h2>
+        <p ng-if="pasoActivo==3" class="font-text text-justify">Elige el tipo de problem&aacute;tica que quieres denunciar. Si no se encuentra en la lista, pulsa la opci&oacute;n <b>&#34;Hacer clic aqu&iacute;&#34;</b> y precisa el caso que quieres denunciar. </p>
+
+
+
+
+        <h2 ng-if="pasoActivo==4" class="size-title" style="margin-top: 0">¿Donde sucede?</h2>
+        <p ng-if="pasoActivo==4" class="font-text text-justify">Ingresa aquellos datos que nos permitan identificar d&oacute;nde sucede el caso de contaminaci&oacute;n ambiental que deseas denunciar.  </p>
+
+
+
+
+        <h2 ng-if="pasoActivo==5" class="size-title" style="margin-top: 0">Denunciado</h2>
+        <p ng-if="pasoActivo==5"  class="font-text text-justify">En caso hayas identificado al responsable del hecho que deseas denunciar, elige el tipo de persona del presunto responsable e ingresa el n&uacute;mero de documento correspondiente. Selecciona la opci&oacute;n <b>&#34;Buscar&#34;</b> y el sistema cargar&aacute; los datos.  </p>
+        <br ng-if="pasoActivo==5">
+       
+
+
+        <h2 ng-if="pasoActivo==6"  class="size-title" style="margin-top: 0">Medios probatorios</h2>
+        <p ng-if="pasoActivo==6" class="font-text text-justify">Si cuentas con medios probatorios, puedes ingresar uno o m&aacute;s de acuerdo al tipo de archivo. En caso elijas la opci&oacute;n <b>&#34;Otros&#34;</b>, es necesario especificar qu&eacute; tipo de medio probatorio est&aacute;s presentando. </p>
+        <br ng-if="pasoActivo==6">
+        <p ng-if="pasoActivo==6" class="font-text text-justify">No es obligatorio tener medios probatorios para avanzar al siguiente paso. </p>
+
+
+
+        <h2 ng-if="pasoActivo==7" class="size-title" style="margin-top: 0">Ficha previa</h2>
+        <p ng-if="pasoActivo==7" class="font-text text-justify">En la ficha se pueden visualizar todos los datos ingresados. Si estos son correctos, elige la opci&oacute;n <b>&#34;Registrar denuncia&#34;</b>. Si no est&aacute;s de acuerdo con los datos ingresados, pulsa el bot&oacute;n <b>&#34;Editar denuncia&#34;</b> para corregir. </p>
+
+        <h2 ng-if="pasoActivo==8" class="size-title" style="margin-top: 0">Ficha de la denuncia</h2>
+        <p ng-if="pasoActivo==8" class="font-text text-justify">La ficha contiene los datos ingresados, el c&oacute;digo de denuncia y acceso para que puedas realizar el seguimiento de tu denuncia. Te pedimos llenar una breve encuesta para conocer tu opini&oacute;n sobre el Sinada y mejorar nuestra atenci&oacute;n. Hacer clic en <b>&#34;Finalizar&#34;</b>. </p>
+        <br>
+        <br>
+        <br>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12">
+              <span id="lst-paso-paso" class="nav_bread">
+                  <ol class="breadcrumb">
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(1)" ng-class="{ 'active' : ValidaPaso1 == 1 }"><span class="label label-success">1</span> <i class="ico-sinada icon-doc"></i></li>
+
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(2)" ng-class="{ 'active' : ValidaPaso2 == 1 }"><span class="label label-success">2</span> <span class="icon-users ico-sinada"></span></li>
+
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(3)" ng-class="{ 'active' : ValidaPaso4 == 1 }"><span class="label label-success">3</span> <span class="icon-pointer ico-sinada"></span></li>
+
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(4)" ng-class="{ 'active' : ValidaPaso3 == 1 }"><span class="label label-success">4</span> <span class="icon-info ico-sinada"></span></li>
+
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(5)" ng-class="{ 'active' : ValidaPaso5 == 1 }"><span class="label label-success">5</span> <span class="icon-shield ico-sinada"></span></li>
+
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(6)" ng-class="{ 'active' : ValidaPaso6 == 1 }"><span class="label label-success">6</span> <span class="icon-cloud-upload ico-sinada"></span></li>
+
+                    <li style="outline:none;" ng-click="vm.cambiarPaso(7)" ng-class="{ 'active' : ValidaPaso7 == 1 }"><span class="label label-success">7</span> <span class="icon-eyeglasses ico-sinada"></span></li>
+
+                  <li style="outline:none;" ng-click="vm.cambiarPaso(8)" ng-class="{ 'active' : ValidaPaso8  == 1 }"><span class="label label-success">8</span> <span class="icon-like ico-sinada"></span></li>
+                  </ol>
+                </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <div class="form-group" ui-view>
+                </div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div>
+</section>
+
+<span ng-if="$parent.cargandoInformacion>0" class="overlay-block">
+  <div class="contenedor_load">
+    <img ng-src="assets/images/gif/gears-red.gif" alt="">
+    <p>Procesando...</p>
+  </div>
+</span>

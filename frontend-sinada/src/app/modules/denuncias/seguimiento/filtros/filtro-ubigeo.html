@@ -1,0 +1,35 @@
+
+         	<div class="form-group col-md-4 col-sm-4" >
+				<label for="departamento">Departamento:</label>
+				<div class="form-group">
+					<select id="departamento" name="departamento"  ng-model="vm.dataBandejaEntidad.departamento" ng-change="vm.listarProvincia();vm.dataBandejaEntidad.provincia = '';vm.dataBandejaEntidad.distrito = '';vm.listaDistrito = [];" class="form-control input-sm">
+					<option selected value="">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaDepartamento"
+							ng-value="itemCombo.codigoDepartamento">{{itemCombo.descripcionDepartamento}}</option>
+				</select>
+				</div>
+			</div>
+
+
+			<div class="form-group col-md-4 col-sm-4" >
+				<label for="provincia">Provincia:</label>
+				<div class="form-group">
+					<select id="provincia" name="provincia" ng-model="vm.dataBandejaEntidad.provincia"  ng-change="vm.listarDistrito();vm.dataBandejaEntidad.distrito = '';" class="form-control input-sm">
+					<option value="">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaProvincia"
+							ng-value="itemCombo.codigoProvincia">{{itemCombo.descripcion}}</option>
+				</select>
+				</div>
+			</div>
+
+
+			<div class="form-group col-md-4 col-sm-4" >
+				<label for="distrito">Distrito:</label>
+				<div class="form-group">
+						<select id="distrito" name="distrito"  ng-model="vm.dataBandejaEntidad.distrito"  class="form-control input-sm">
+					<option value="">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaDistrito"
+							ng-value="itemCombo.codigoDistrito">{{itemCombo.descripcionDistrito}}</option>
+				</select>
+				</div>
+			</div>

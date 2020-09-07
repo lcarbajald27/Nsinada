@@ -1,0 +1,116 @@
+<div class="col-lg-12 sin_padding" novalidate ng-form="formpaso1" >
+	<span class="" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12 form-group">
+				<h3 class="title-normal"><span>Caracter&iacute;sticas de la denuncia</span></h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 form-group"><b>1. Tipo de denuncia</b></div>
+		</div>
+
+		<div class="row desing_input">
+
+            <div class="col-md-4 wp-polls-ul">
+            		<input type="radio" ng-model="vm.denuncia.tipoDenuncia" ng-value="1" name="tpDenuncia"
+			    	id="rbt-001" />
+            		<label for="rbt-001">An&oacute;nima</label>
+            </div>
+
+			<div class="col-md-4 wp-polls-ul">
+            		<input type="radio" name="tpDenuncia" ng-model="vm.denuncia.tipoDenuncia" ng-value="2"
+			    	id="rbt-002" />
+            		<label for="rbt-002">Con reserva de identidad </label>
+            </div>
+
+            <div class="col-md-4 wp-polls-ul">
+            	<input type="radio" id="rbt-003" name="tpDenuncia" ng-model="vm.denuncia.tipoDenuncia" ng-value="3" />
+            	<label for="rbt-003">
+			    Sin reserva de identidad
+			    </label>
+            </div>
+		</div>
+        <br>
+        <br>
+        <div ng-if="vm.validarPerfil(vm.idPerfilEspecialista) == 1" >
+			<div class="row">
+				<div class="col-md-12 form-group"><b>2. Medio de recepci&oacute;n</b></div>
+			</div>
+			<div class="row desing_input">
+		        <div class="col-md-4 wp-polls-ul">
+	            	<input type="radio" name="tpReccepcion" id="rbtpFisca"  ng-model="vm.denuncia.medioRecepcion"  ng-value="1" />
+	            	<label for="rbtpFisca">F&iacute;sica</label>
+	            </div>
+				<div class="col-md-4 wp-polls-ul" >
+	            	<input type="radio" name="tpReccepcion" id="rbtpPresencial" ng-model="vm.denuncia.medioRecepcion" ng-click="vm.archivoHojaTrami=null" ng-value="2" />
+	            	<label for="rbtpPresencial">Presencial</label>
+	            </div>
+			    <div class="col-md-4 wp-polls-ul">
+	            	<input type="radio" name="tpReccepcion" id="rbtpTelef" ng-model="vm.denuncia.medioRecepcion" ng-click="vm.archivoHojaTrami=null"  ng-value="3"/>
+	            	<label for="rbtpTelef">Telef&oacute;nica</label>
+	            </div>
+			</div>
+
+			<div class="row desing_input">
+				<div class="col-md-4 wp-polls-ul">
+					<input type="radio" name="tpReccepcion" id="rbTpCorreo" ng-model="vm.denuncia.medioRecepcion" ng-click="vm.archivoHojaTrami=null" ng-value="4" />
+					<label for="rbTpCorreo"> Correo electr&oacute;nico</label>
+				</div>
+			</div>
+
+			<div class="row desing_input" ng-show="vm.denuncia.medioRecepcion==1">
+				<div class="col-md-6">
+					<div class="row">
+							<div class="form-group col-md-6 col-sm-6">
+								<label class="">Hoja de tr&aacute;mite</label>
+								<div class="form-group">
+									<input type="text" ng-model="vm.denuncia.hojaTramite" class="form-control" ng-disabled="true">
+								</div>
+							</div>
+							<div class="col-md-6">
+							<br/>
+								<button ng-click="vm.mostrarModalHojaTramite()" class="btn btn-primary brx-18"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+ 	            <button type="button" ng-click="vm.salir()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 brx-18">
+	                <span class="icon-salir spac-btn-r"></span> Salir
+	            </button>
+	            <!--<a href="#/invitado/inicio" class="btn btn-flat btn-default btn-sm">
+	            	<span class="fa fa-arrow-left spac-btn-r"></span> Salir
+	            </a>-->
+				<!--<button type="button" class="btn btn-flat btn-success btn-sm" ng-disabled="vm.denuncia.tipoDenuncia==0 || vm.denuncia.medioRecepcion ==0 || vm.archivoHojaTrami==''" ng-click="vm.cambiarPaso(2) ">
+	                <span class="fa fa-arrow-right spac-btn-r"></span> Siguiente
+	            </button>-->
+	            <!--<button type="button" class="btn btn-flat btn-success btn-sm" ng-disabled="vm.denuncia.tipoDenuncia==0 " ng-click="vm.cambiarPaso(2)">
+	                <span class="fa fa-arrow-right spac-btn-r"></span> Siguiente
+	            </button>-->
+	              <button ng-if="vm.validarPerfil(vm.idPerfilEspecialista) == 0" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18" ng-click="vm.denuncia.tipoDenuncia ==1 ? vm.cambiarPaso(4):vm.cambiarPaso(2)" ng-disabled="vm.denuncia.tipoDenuncia==0 " type="button">
+                            <span class="icon-siguiente spac-btn-r">
+                            </span>
+                            Siguiente
+                        </button>
+
+                        <button ng-if="vm.validarPerfil(vm.idPerfilEspecialista) == 1" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 brx-18" ng-click="vm.denuncia.tipoDenuncia ==1 ? vm.cambiarPaso(4):vm.cambiarPaso(2)" ng-disabled="vm.denuncia.tipoDenuncia==0 || vm.denuncia.medioRecepcion==0 || (vm.denuncia.medioRecepcion==1 && vm.denuncia.hojaTramite=='')" type="button">
+                            <span class="icon-siguiente spac-btn-r">
+                            </span>
+                            Siguiente
+                        </button>
+	        </div>
+  	    </div>
+  	     <div class="row">
+                    <div class="col-lg-12 text-left" id="campoObligatorio" ng-if="false">
+                        <p class="font-text text-justify">
+                            <span class="important-box">
+                            </span>
+                            Campo obligatorio.
+                        </p>
+                    </div>
+                </div>
+	</span>
+</div>

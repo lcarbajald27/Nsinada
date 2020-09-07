@@ -1,0 +1,385 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Sistema de Denuncias Ambientales. </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box" id="informarAccion" ng-if="vm.dataInformeObservacion.tipoInforme.codigoRegistro==1"> 		
+        <div class="row">
+          	<div class="form-group col-md-12">
+			<fieldset class="well unp-fieldset">
+			    	
+					    	<legend class="unp-legend">Tipo de Acci&oacute;n</legend>
+
+
+
+			    <div class="row">
+						
+						 <div class="form-group col-md-4">
+						<label for="descripcion">Tipo Acci&oacute;n:</label>
+						<select id="descripcion" name="descripcion" ng-change="vm.limpiarSelect()" ng-model="vm.dataInformarAccion.tipoAccion.codigoRegistro" ng-change="vm.cambiarTipoArchivo()" class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option ng-repeat="itemCombo in vm.listaTipoAccion"  ng-show="itemCombo.valorGeneral04!='1'"
+									ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+
+					 <div class="form-group col-md-4" ng-show="vm.dataInformarAccion.tipoAccion.codigoRegistro==1 || vm.dataInformarAccion.tipoAccion.codigoRegistro==2 ">
+						<label for="descripcion">Tipo Supervisi&oacute;n:</label>
+						<select id="descripcion" name="descripcion" ng-model="vm.dataInformarAccion.tipoSupervicion.codigoRegistro" ng-change="vm.cambiarTipoArchivo()" class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option ng-repeat="itemCombo in vm.listaTipoSupervicion"
+									ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+			    </div>
+
+
+			     <div class="row"  ng-show="vm.dataInformarAccion.tipoSupervicion.codigoRegistro!=0">
+						
+								<div class="form-group col-md-4" ng-class="{'has-error':vm.formEvento.fechaAtencion.$invalid && vm.formEvento.fechaAtencion.$touched}">
+									<label for="FechaInicio" class="important-box">Fecha de Inicio</label>
+									<div class="form-group">
+							           <input type="text"
+						                name="fechaAtencion"
+						                class="form-control input-sm"
+						                ng-init="vm.openDatePickerFechaInicio = false"
+						                ng-model="vm.fechaInicio"
+						                uib-datepicker-popup="dd/MM/yyyy"
+						                is-open="vm.openDatePickerFechaInicio"
+						                show-button-bar="false"
+
+						                datepicker-options="vm.dtFechaInicioOptions"
+						                ng-click="vm.openDatePickerFechaInicio = true"
+						                >
+									</div>
+								</div>
+
+
+								<div class="form-group col-md-4" ng-class="{'has-error':vm.formEvento.fechaAtencion.$invalid && vm.formEvento.fechaAtencion.$touched}">
+									<label for="FechaInicio" class="important-box">Fecha  Final</label>
+									<div class="form-group">
+							           <input type="text"
+						                name="fechaAtencion"
+						                class="form-control input-sm"
+						                ng-init="vm.openDatePickerFechaFin = false"
+						                ng-model="vm.fechaFin"
+						                uib-datepicker-popup="dd/MM/yyyy"
+						                is-open="vm.openDatePickerFechaFin"
+						                show-button-bar="false"
+
+						                datepicker-options="vm.dtFechaInicioOptions"
+						                ng-click="vm.openDatePickerFechaFin = true"
+						                >
+									</div>
+								</div>
+
+			    </div>
+
+
+
+						<div class="row">
+							<div class="form-group col-md-8">
+						        <label for="idProducto" >Descripci&oacute;n de la Acci&oacute;n</label>
+						        <div class="form-group" >
+						        	<textarea ng-model="vm.dataInformarAccion.descripcionAccion" ></textarea>
+						        </div>
+				           </div>
+
+
+						</div>
+
+
+						<div class="row">
+
+						 <div class="form-group col-md-5">
+					        <label for="idUsuario" class="important-box ">Archivo Adjunto</label>
+					        <div class="form-group">
+					        	 <input type="file" id="fileArchivoMedio"  class="btn btn-flat btn-primary btn-sm"  ng-click="vm.validaArchivos()"   file-change="vm.validaDocumento">
+					        	 <div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+					        </div>
+					      </div>
+
+
+							<div class="form-group col-md-5">
+						        <br/>
+						    
+						     		    <div class="form-group  text-right">
+								            <button class="btn btn-flat btn-default btn-primary-inv btn-sm" ng-disabled="vm.dataArchivoInforma.descripcionArchivo==''"  ng-click="vm.agregarArchivoInforme()" uib-tooltip="Enviar Formulario" >
+								                <span class="glyphicon glyphicon-plus"></span> Agregar Archivo
+								            </button>
+	      							  </div>
+						       
+				           </div>
+				          
+						</div>
+
+
+					<div class="row">
+
+										      
+							<div class="form-group col-md-6">
+						        <label for="idProducto" >Descripci&oacute;n del Archivo</label>
+						        <div class="form-group" >
+						        	<textarea ng-model="vm.dataArchivoInforma.descripcionArchivo" ></textarea>
+						        </div>
+				           </div>
+				          
+						</div>
+
+
+		<div class="row">
+	        <div class="col-md-12">
+	        	<div class="table-rpv">
+	          <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+	            <thead>
+	              <tr>
+	                <th class="text-center">&Iacute;tem</th>
+	                <th class="text-center">Descripci&oacute;n Archivo</th>
+	                 <th class="text-center">Nombre Archivo</th>
+	                <th class="text-center">Acci&oacute;n</th>
+	               
+	              </tr>
+	            </thead>
+	            <tbody>
+	              	<tr dir-paginate="itemArchivo in vm.dataInformarAccion.lstArchivoInformeAccion | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+		                <td class="text-center">{{$index+1}}</td>
+		                <td>{{itemArchivo.descripcionArchivo}}</td>
+		         		<td>{{itemArchivo.nombreArchivo}}</td>
+		                <td class="text-center">
+		                        <button type="button" 
+		                          ng-if="itemBandeja.estadoBandejaDetalle!=10"
+		                        class="btn btn-default  btn-sm" 
+		                        uib-tooltip="Revisar" 
+		                        ng-click="vm.eliminarArchivo($index)">
+		                          <span class="glyphicon glyphicon-trash"></span>
+		                        </button>
+		            	</td>
+	               	</tr>
+	              <tr ng-show="vm.dataInformarAccion.lstArchivoInformeAccion == null || vm.dataInformarAccion.lstArchivoInformeAccion.length==0">
+	                	<td colspan="6">No se encontraron resultados</td>
+	              </tr>
+	            </tbody>
+	          </table>
+	      </div>
+	        </div>
+      	</div>
+		<br>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button class="btn btn-flat btn-default btn-primary btn-sm" ng-disabled="(vm.dataInformarAccion.tipoAccion.codigoRegistro==1 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro==0 ) || (vm.dataInformarAccion.tipoAccion.codigoRegistro==2 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro==0 )  || (vm.dataInformarAccion.tipoAccion.codigoRegistro!=0 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro!=0 && vm.fechaInicio=='') || (vm.dataInformarAccion.tipoAccion.codigoRegistro!=0 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro!=0 && vm.fechaFin=='') || (vm.dataInformarAccion.tipoAccion.codigoRegistro==0 || vm.dataInformarAccion.descripcionAccion=='') "  ng-click="vm.registrarAccion()" uib-tooltip="Enviar Formulario" >
+	                <span class="glyphicon glyphicon-share"></span> Informar Acci&oacute;n
+	            </button>
+	        </div>
+  	    </div>
+
+  	<div class="row">
+		<div id="campoObligatorio" class="col-lg-12 text-left" ng-if="true">
+  	    	<p class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</p>
+  	    </div>
+	</div>
+
+			</fieldset>
+      	</div>    
+  	</div>    
+
+		
+		</span>
+
+
+		<span class="content-box"  id="informarAtencion" ng-if="vm.dataInformeObservacion.tipoInforme.codigoRegistro==2">		
+	   			
+			   			 <div class="row">
+		          	<div class="form-group col-md-12">
+					<fieldset class="well unp-fieldset">
+					    	<legend class="unp-legend">Tipo de Atenci&oacute;n</legend>
+
+					   	<div class="row">
+								
+								 <div class="form-group col-md-4">
+								<label for="descripcion">Tipo Acci&oacute;n:</label>
+								<select id="descripcion" name="descripcion" ng-change="vm.limpiarSelect()" ng-model="vm.dataInformarAccion.tipoAccion.codigoRegistro" ng-change="vm.cambiarTipoArchivo()" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+									<option ng-repeat="itemCombo in vm.listaTipoAccion"  ng-show="itemCombo.valorGeneral04!='2'"
+											ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+								</select>
+							</div>
+
+
+							 <div class="form-group col-md-4" ng-show="vm.dataInformarAccion.tipoAccion.codigoRegistro==1 || vm.dataInformarAccion.tipoAccion.codigoRegistro==2 ">
+								<label for="descripcion">Tipo Supervisi&oacute;n:</label>
+								<select id="descripcion" name="descripcion" ng-model="vm.dataInformarAccion.tipoSupervicion.codigoRegistro" ng-change="vm.cambiarTipoArchivo()" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+									<option ng-repeat="itemCombo in vm.listaTipoSupervicion"
+											ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+								</select>
+							</div>
+
+					    </div>
+					
+					  <div class="row"  ng-show="vm.dataInformarAccion.tipoSupervicion.codigoRegistro!=0">
+								
+										<div class="form-group col-md-4" ng-class="{'has-error':vm.formEvento.fechaAtencion.$invalid && vm.formEvento.fechaAtencion.$touched}">
+											<label for="FechaInicio" class="important-box">Fecha de Inicio</label>
+											<div class="form-group">
+									           <input type="text"
+								                name="fechaAtencion"
+								                class="form-control input-sm"
+								                ng-init="vm.openDatePickerFechaInicio = false"
+								                ng-model="vm.fechaInicio"
+								                uib-datepicker-popup="dd/MM/yyyy"
+								                is-open="vm.openDatePickerFechaInicio"
+								                show-button-bar="false"
+
+								                datepicker-options="vm.dtFechaInicioOptions"
+								                ng-click="vm.openDatePickerFechaInicio = true"
+								                >
+											</div>
+										</div>
+
+
+										<div class="form-group col-md-4" ng-class="{'has-error':vm.formEvento.fechaAtencion.$invalid && vm.formEvento.fechaAtencion.$touched}">
+											<label for="FechaInicio" class="important-box">Fecha Final</label>
+											<div class="form-group">
+									           <input type="text"
+								                name="fechaAtencion"
+								                class="form-control input-sm"
+								                ng-init="vm.openDatePickerFechaFin = false"
+								                ng-model="vm.fechaFin"
+								                uib-datepicker-popup="dd/MM/yyyy"
+								                is-open="vm.openDatePickerFechaFin"
+								                show-button-bar="false"
+
+								                datepicker-options="vm.dtFechaInicioOptions"
+								                ng-click="vm.openDatePickerFechaFin = true"
+								                >
+											</div>
+										</div>
+		       
+
+					    </div>
+
+								<div class="row">
+									<div class="form-group col-md-8">
+								        <label for="idProducto" >Descripci&oacute;n de la Acci&oacute;n</label>
+								        <div class="form-group" >
+								        	<textarea ng-model="vm.dataInformarAccion.descripcionAccion" ></textarea>
+								        </div>
+						           </div>
+
+								</div>
+
+
+								<div class="row">
+
+								 <div class="form-group col-md-5">
+							        <label for="idUsuario" class="important-box ">Archivo Adjunto</label>
+							        <div class="form-group">
+							        	 <input type="file" id="fileArchivoMedio"  class="btn btn-flat btn-primary btn-sm"  ng-click="vm.validaArchivos()"   file-change="vm.validaDocumento">
+							        	 <div class="help-block">Archivos permitidos: {{vm.extension}} <br> Tama&ntilde;o m&aacute;ximo: {{vm.tamanioArchivo}} MB</div>
+							        </div>
+							      </div>
+
+
+									<div class="form-group col-md-5">
+								        <br/>
+								     	
+								     		    <div class="form-group  text-right">
+										            <button class="btn btn-flat btn-default btn-sm" ng-disabled="vm.dataArchivoInforma.descripcionArchivo==''"  ng-click="vm.agregarArchivoInforme()" uib-tooltip="Enviar Formulario" >
+										                <span class="icon-agregar"></span> Agregar Archivo
+										            </button>
+			      							  </div>
+								    
+						           </div>
+						          
+								</div>
+
+
+							<div class="row">
+
+												      
+									<div class="form-group col-md-6">
+								        <label for="idProducto" >Descripci&oacute;n del Archivo</label>
+								        <div class="form-group" >
+								        	<textarea ng-model="vm.dataArchivoInforma.descripcionArchivo" ></textarea>
+								        </div>
+						           </div>
+						          
+								</div>
+
+
+								 <div class="row">
+		        <div class="col-md-12">
+		        	<div class="table-rpv">
+		          <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+		            <thead>
+		              <tr>
+		                <th class="text-center">&Iacute;tem</th>
+		                <th class="text-center">Descripci&oacute;n Archivo</th>
+		                 <th class="text-center">Nombre Archivo</th>
+		                <th class="text-center">Acci&oacute;n</th>
+		               
+		              </tr>
+		            </thead>
+		            <tbody>
+		              <tr dir-paginate="itemArchivo in vm.dataInformarAccion.lstArchivoInformeAccion | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+		                <td class="text-center">{{$index+1}}</td>
+		                <td>{{itemArchivo.descripcionArchivo}}</td>
+		         		<td>{{itemArchivo.nombreArchivo}}</td>
+		              
+		                <td class="text-center">
+		                        <button type="button" 
+		                          ng-if="itemBandeja.estadoBandejaDetalle!=10"
+		                        class="btn btn-default btn-sm" 
+		                        uib-tooltip="Revisar" 
+		                        ng-click="vm.eliminarArchivo($index)">
+		                          <span class="glyphicon glyphicon-trash"></span>
+		                        </button>
+
+
+		                </td>
+		           
+		              </tr>
+		              <tr ng-show="vm.dataInformarAccion.lstArchivoInformeAccion == null || vm.dataInformarAccion.lstArchivoInformeAccion.length==0">
+		                <td colspan="6">No se encontraron resultados</td>
+		              </tr>
+		            </tbody>
+		          </table>
+		      </div>
+		        </div>
+		      </div>
+						<br>
+
+							<div class="row">
+			        <div class="form-group col-lg-12 text-right">
+			            <button class="btn btn-flat btn-default btn-primary btn-sm" ng-disabled="(vm.dataInformarAccion.tipoAccion.codigoRegistro==1 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro==0 ) || (vm.dataInformarAccion.tipoAccion.codigoRegistro==2 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro==0 )  || (vm.dataInformarAccion.tipoAccion.codigoRegistro!=0 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro!=0 && vm.fechaInicio=='') || (vm.dataInformarAccion.tipoAccion.codigoRegistro!=0 && vm.dataInformarAccion.tipoSupervicion.codigoRegistro!=0 && vm.fechaFin=='') || (vm.dataInformarAccion.tipoAccion.codigoRegistro==0 || vm.dataInformarAccion.descripcionAccion=='') "  ng-click="vm.registrarAtencion()" uib-tooltip="Enviar Formulario" >
+			                <span class="glyphicon glyphicon-share"></span> Informar Atenci&oacute;n
+			            </button>
+			        </div>
+		  	    </div>
+						<br>
+					</fieldset>
+		      	</div>    
+		  	</div>    
+
+
+
+
+	<div class="row">
+		<div id="campoObligatorio" class="col-lg-12 text-left" ng-if="true">
+  	    	<p class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</p>
+  	    </div>
+	</div>
+		
+		</span>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

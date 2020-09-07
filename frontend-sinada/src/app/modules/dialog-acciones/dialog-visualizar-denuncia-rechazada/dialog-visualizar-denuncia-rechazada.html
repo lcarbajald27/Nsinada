@@ -1,0 +1,97 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf"> Denuncia no aceptada </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+	    <!-- click en Rechazado -->
+	    <div class="row">
+	      <div class="form-group col-md-6">
+	        <h5><b>Motivo</b></h5>
+
+	      </div>
+	    </div>
+		<div class="row desing_input">
+            <div class="col-md-12 wp-polls-ul">
+            		<input type="radio" ng-model="vm.dataDenunciaRechazada.motivo.codigoRegistro" ng-disabled="true" ng-value="1" name="tpDenuncia"
+			    	id="rbt-001" />
+            		<label for="rbt-001">FUERA DE &Aacute;MBITO DE JURISDICCI&Oacute;N</label>
+            </div>
+
+			<div class="col-md-12 wp-polls-ul">
+            		<input type="radio" name="tpDenuncia" ng-model="vm.dataDenunciaRechazada.motivo.codigoRegistro" ng-disabled="true" ng-value="2"
+			    	id="rbt-002" />
+            		<label for="rbt-002">NO ES MATERIA AMBIENTAL</label>
+            </div>
+
+            <div class="col-md-12 wp-polls-ul">
+            	<input type="radio" id="rbt-003" name="tpDenuncia" ng-disabled="true" ng-model="vm.dataDenunciaRechazada.motivo.codigoRegistro" ng-value="3" />
+            	<label for="rbt-003">
+			    DATOS INEXACTOS Y/O INSUFICIENTES
+			    </label>
+            </div>
+		</div>
+
+  	<div class="row">
+        <div class="col-md-12">
+          <br>
+          <br>
+          <div class="alert alert-info" role="alert">
+            <strong>Nota:</strong> Archivo adjunto (100mb)
+          </div>
+        </div>
+    </div>
+
+	    <div class="row">
+    		<div class="col-md-12">
+				<div class="table-rpv">
+    				 <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+					    <thead>
+					      <tr>
+					        <th>&Iacute;tem</th>
+					        <th>Nombre archivo</th>
+					        <th>Descargar</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr dir-paginate="item in vm.listaArchivos | itemsPerPage: config.itemsPerPage" pagination-id="coutListaArchivos9ss">
+
+					        <td>{{$index+1}}</td>
+					        <td>{{item.nombreArchivo}}</td>
+					        <td style="text-align: center;">
+
+								<a class="btn btn-flat btn-sm" href="{{vm.rutaBase}}archivo-adjunto/descargar-archivo-atencion/{{item.idArchivoAtencion}}" download="{{item.nombreArchivo}}" target="_blank">
+				                <span  class="icon-descargar"></span>
+				            </a>
+
+
+					        </td>
+					      </tr>
+
+					    </tbody>
+					  </table>
+					  <dir-pagination-controls pagination-id="coutListaArchivos9ss" ></dir-pagination-controls>
+				</div>
+    		</div>
+	    </div>
+
+
+	    <div class="row">
+          <div class="form-group col-lg-12 text-right">
+              <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in">
+                  <span class="glyphicon glyphicon-ok spac-btn-r"></span> Aceptar
+              </button>
+
+          </div>
+        </div>
+
+		</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_NORMA_CASO -->
+<mapper namespace="normaCaso">
+	<resultMap id="resultMapNormaCaso" type="NormaCaso">
+		<id 	column="ID_NORMA_CASO"				property="idNormaCaso" />
+		<result column="ID_CASO_EFA"				property="idCasoEfa" />
+		<result column="ID_NORMA" 					property="contenidoNorma.idNorma" />
+		<result column="ID_CONTENIDO_NORMA" 		property="contenidoNorma.idContenidoNorma" />
+		<result column="NUMERO_NORMA" 					property="contenidoNorma.numeroNorma" />
+		<result column="DESCRIPCION_NORMA" 					property="contenidoNorma.descripcionNorma" />
+		
+		<result column="ID_ARTICULO" 				property="contenidoNorma.idArticulo" />
+		<result column="NUMERO_ARTICULO" 				property="contenidoNorma.numeroArticulo" />
+		<result column="DESCRIPCION_ARTICULO" 				property="contenidoNorma.descripcionArticulo" />
+		<result column="FLAG_ACTIVO" 				property="flagActivo" />
+		<result column="TIPO_NORMA_CASO" 				property="tipoNormaCaso.codigoRegistro" />
+		<result column="ID_CASO_OEFA" 				property="idCasoOefa" />
+		<result column="TM1_TIPO_DISPOSITIVO" 				property="contenidoNorma.tipoDispositivo" />
+		<result column="NOMBRE_TIPO_DISPOSITIVO" 				property="contenidoNorma.nombreTipoDispositivo" />
+	
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapNormaCaso" parameterType="NormaCaso">
+		SELECT
+			  NORCA.ID_NORMA_CASO,
+        NORCA.TIPO_NORMA_CASO,
+		      NORCA.ID_CASO_EFA,
+          NORCA.ID_CASO_OEFA,
+		      CONTNORMA.ID_NORMA,
+		      NOR.TM1_TIPO_DISPOSITIVO,
+         	  (SELECT DESCRIPCION FROM SINADA.T_GENL_MAESTRO WHERE CODIGO_MAESTRO = 'TipoDispositivo' AND FLAG_ACTIVO='1' AND CODIGO_REGISTRO!=0 AND CODIGO_REGISTRO=NOR.TM1_TIPO_DISPOSITIVO) AS NOMBRE_TIPO_DISPOSITIVO,
+		      NORCA.ID_CONTENIDO_NORMA,
+		      NORCA.FLAG_ACTIVO,
+          	  NOR.NUMERO_NORMA,
+          	  NVL(NOR.DESCRIPCION,' ') AS DESCRIPCION_NORMA ,
+          	  CONTNORMA.ID_ARTICULO,
+          	  NVL(CONTNORMA.NUMERO_ARTICULO,' ') AS NUMERO_ARTICULO,
+          	  NVL(CONTNORMA.DESCRIPCION_ARTICULO,' ') AS DESCRIPCION_ARTICULO
+      
+		FROM
+			  SINADA.T_GENM_NORMA_CASO   NORCA
+    INNER JOIN 
+        SINADA.V_CONTENIDO_NORMA CONTNORMA 
+    ON
+        CONTNORMA.ID_CONT_NORMA = NORCA.ID_CONTENIDO_NORMA 
+ AND
+          CONTNORMA.TM1_ESTADO = 1
+          
+  INNER JOIN 
+        SINADA.T_GENM_NORMA NOR ON
+        CONTNORMA.ID_NORMA = NOR.ID_NORMA
+    AND
+        NOR.FLAG_ACTIVO = '1'
+        
+  WHERE 
+      NORCA.FLAG_ACTIVO = '1'
+      
+AND
+      (
+              (#{tipoNormaCaso.codigoRegistro}=0)
+           OR
+              (
+                  #{tipoNormaCaso.codigoRegistro}=1 AND
+                   NORCA.TIPO_NORMA_CASO =#{tipoNormaCaso.codigoRegistro} AND
+                   NORCA.ID_CASO_OEFA = #{idCasoOefa}
+           
+              )
+              OR
+              (
+                  #{tipoNormaCaso.codigoRegistro}=2 AND
+                   NORCA.TIPO_NORMA_CASO = #{tipoNormaCaso.codigoRegistro} AND
+                   NORCA.ID_CASO_EFA = #{idCasoEfa}
+           
+              )
+              
+           
+      ) 
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapNormaCaso"
+		parameterType="long">
+		SELECT
+			 ID_NORMA_CASO,
+		      ID_CASO_EFA,
+		      ID_NORMA,
+		      ID_CONTENIDO_NORMA,
+		      FLAG_ACTIVO
+		FROM
+			  SINADA.T_GENM_NORMA_CASO
+		WHERE
+				FLAG_ACTIVO = 1
+		AND	
+				ID_NORMA_CASO = #{idNormaCaso}
+	</select>
+	<insert id="agregar" parameterType="NormaCaso" useGeneratedKeys="true">
+		<selectKey keyProperty="idNormaCaso" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_NORMA_CASO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_NORMA_CASO
+		(
+			 ID_NORMA_CASO,
+		      ID_CASO_EFA,
+		      TIPO_NORMA_CASO,
+		      ID_CONTENIDO_NORMA,
+		      FLAG_ACTIVO,
+		      ID_CASO_OEFA
+		)
+		VALUES
+		(
+			#{idNormaCaso},
+			#{idCasoEfa},
+			#{tipoNormaCaso.codigoRegistro},
+			#{contenidoNorma.idContenidoNorma},
+			'1',
+			#{idCasoOefa}
+		)
+	</insert>
+	<update id="modificar" parameterType="NormaCaso">
+		UPDATE SINADA.T_GENM_NORMA_CASO
+		SET
+			ID_CASO_EFA = #{idCasoEfa}
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_NORMA_CASO = #{idNormaCaso}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_NORMA_CASO
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND ID_NORMA_CASO = #{idNormaCaso}
+	</update>
+
+</mapper>

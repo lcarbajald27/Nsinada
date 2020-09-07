@@ -1,0 +1,81 @@
+  <div class="col-md-12 sin_padding" style="margin-top: 20px">
+      <div class="row" novalidate ng-form >
+      	<div class="col-lg-12" ng-form="vm.productoForm">
+      				<h3 class="title-slider-nt"><span>Historial Acciones  {{vm.dataDenunciaBandeja.codigoDenuncia}}</span></h3>
+      				<span class="nav_bread">
+      					<ol class="breadcrumb">
+      						<li class="active">Bandeja de Denuncias</li>
+      						<li>Historial Denuncia</li>
+      					</ol>
+      				</span>
+        </div>
+      </div>
+		<div class="row">
+        <div class="col-md-12">
+          <div class="table-rpv form-group">
+            <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                  <thead>
+                    <tr>
+                      <th class="text-center">&Iacute;tem</th>
+
+                      <th class="text-center">Descripci&oacute;n Acci&oacute;n</th>
+                      <th class="text-center"><!--Motivo / Acci&oacute;n--> Acci&oacute;n </th>
+
+                      <th class="text-center"><!--Tipo Acci&oacute;n--> Tipo Supervisi&oacute;n</th>
+                      <th class="text-center">Fecha de Registro</th>
+
+                      <th class="text-center">Acciones</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Tabla Informe Accion -->
+                     <tr dir-paginate="item in vm.listaAccionesRegistradas | itemsPerPage: config.itemsPerPage" pagination-id="coutListaAccionesRegistradas5ss" >
+                      <td class="text-center">{{item.numeroItem}}</td>
+                      <td >{{item.nombreTipoAtencionAccion}}</td>
+                      <td class="text-center">{{item.nombreTipoAccion}}</td>
+                      <td class="text-center">{{item.nombreTipoSupervicion}}</td>
+                      <td class="text-center">{{item.fechaRegistro}}</td>
+
+                      <td class="text-center" >
+
+               <button type="button" ng-if="item.tipoTablaAccion==2" ng-click="vm.mostrarModalVisualizarAccion(item)"  uib-tooltip="Ver Datos de la Acci&oacute;n" class="btn btn-flat btn-default btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+               </button>
+
+                  <button type="button" ng-click="vm.mostrarModalVisualizarDenunciaRechazada(item)" ng-if="item.tipoTablaAccion==1" uib-tooltip="Ver Datos Denuncia Rechazada" class="btn btn-flat btn-default btn-sm">
+                  <span class="glyphicon glyphicon-eye-open"></span>
+                  </button>
+
+                      </td>
+                    </tr>
+
+
+                    <tr ng-show="vm.listaAccionesRegistradas == null || vm.listaAccionesRegistradas.length==0">
+                      <td colspan="7">No se encontraron resultados</td>
+                    </tr>
+                  </tbody>
+                </table>
+          <dir-pagination-controls pagination-id="coutListaAccionesRegistradas5ss" ></dir-pagination-controls>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 text-right">
+        <button type="button" ng-click="vm.regresarBandeja()" class="btn btn-flat btn-default btn-primary btn-sm btn-br-in" uib-tooltip="{{btnRegresar.tooltip}}" >
+            <span class="{{btnRegresar.icon}}"></span> {{btnRegresar.valor}}
+        </button>
+      </div>
+    </div>
+
+</div>
+<script>
+	function justNumbers(e) {
+		var keynum = window.event ? window.event.keyCode : e.which;
+		if ((keynum == 8) || (keynum == 46) || (keynum == 44))
+			return true;
+		return /\d/.test(String.fromCharCode(keynum));
+	}
+</script>

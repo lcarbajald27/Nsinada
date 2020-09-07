@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="evaluacionRechazo">
+	<resultMap id="resultMapEvaluacionRechazo" type="EvaluacionRechazo">
+	
+		<id 	column="ID_EVALUACION_RECHAZO" 			property="idEvaluacionRechazo" />
+		<result column="TIPO_EVALUACION_RECHAZO" 		property="tipoEvaluacionRechazo.codigoRegistro" />
+		<result column="NOMBRE_TIPO_EVALUACION" 		property="tipoEvaluacionRechazo.descripcion" />
+		<result column="ID_ATENCION_DENUNCIA" 			property="atencionDenuncia.idAtencionDenuncia" />
+		<result column="MOTIVO_DESCRIPCION" 			property="motivoDescripcion" />
+		<result column="MOTIVO" 						property="motivo.codigoRegistro" />
+		<result column="NOMBRE_MOTIVO" 					property="motivo.descripcion" />
+		<result column="ESTADO" 						property="estado.codigoRegistro" />
+		<result column="FLAG_ACTIVO" 					property="flagActivo" />
+	
+	
+	</resultMap>
+	
+<!-- 	<select id="generarCodigo" resultMap="resultMapEvaluacionRechazo"> -->
+<!-- 		SELECT -->
+<!-- 			  MAX(ID_DENUNCIA)+1 as ID_DENUNCIA -->
+<!-- 		FROM -->
+<!-- 			  T_COMM_DENUNCIA -->
+<!-- 	</select> -->
+	
+	<select id="listar" resultMap="resultMapEvaluacionRechazo" parameterType="EvaluacionRechazo">
+			SELECT 
+			      	EVARE.ID_EVALUACION_RECHAZO,
+			      	EVARE.TIPO_EVALUACION_RECHAZO,
+            		TIPOEVA.DESCRIPCION AS NOMBRE_TIPO_EVALUACION,
+			     	EVARE.ID_ATENCION_DENUNCIA,
+			      	EVARE.MOTIVO_DESCRIPCION,
+			      	EVARE.MOTIVO,
+            		MOT.DESCRIPCION AS NOMBRE_MOTIVO,
+			      	EVARE.ESTADO,
+			      	EVARE.FLAG_ACTIVO
+			FROM 
+			      	SINADA.T_GENM_EVALUACION_RECHAZO EVARE INNER JOIN 
+		            SINADA.T_GENL_MAESTRO TIPOEVA ON 
+		            TIPOEVA.CODIGO_MAESTRO = 'TipoEvaluacionRechazoDenuncia' AND
+		            TIPOEVA.CODIGO_REGISTRO = EVARE.TIPO_EVALUACION_RECHAZO AND
+		            TIPOEVA.CODIGO_REGISTRO!=0 
+  LEFT JOIN 
+		            SINADA.T_GENL_MAESTRO MOT ON 
+		            MOT.CODIGO_MAESTRO = 'MotivoArchivarEvaluacionRechazoDenuncia' AND
+		            MOT.CODIGO_REGISTRO = EVARE.MOTIVO AND
+		            MOT.CODIGO_REGISTRO!=0 AND
+		            EVARE.TIPO_EVALUACION_RECHAZO = 3
+            
+			WHERE
+			      	EVARE.FLAG_ACTIVO ='1'
+			AND
+				  ID_ATENCION_DENUNCIA #{atencionDenuncia.idAtencionDenuncia}
+	
+
+
+	</select>
+	
+		<select id="buscarXidAtencion" resultMap="resultMapEvaluacionRechazo" parameterType="EvaluacionRechazo">
+			SELECT 
+			      	EVARE.ID_EVALUACION_RECHAZO,
+			      	EVARE.TIPO_EVALUACION_RECHAZO,
+            		TIPOEVA.DESCRIPCION AS NOMBRE_TIPO_EVALUACION,
+			     	EVARE.ID_ATENCION_DENUNCIA,
+			      	EVARE.MOTIVO_DESCRIPCION,
+			      	EVARE.MOTIVO,
+            		MOT.DESCRIPCION AS NOMBRE_MOTIVO,
+			      	EVARE.ESTADO,
+			      	EVARE.FLAG_ACTIVO
+			FROM 
+			      	SINADA.T_GENM_EVALUACION_RECHAZO EVARE INNER JOIN 
+		            SINADA.T_GENL_MAESTRO TIPOEVA ON 
+		            TIPOEVA.CODIGO_MAESTRO = 'TipoEvaluacionRechazoDenuncia' AND
+		            TIPOEVA.CODIGO_REGISTRO = EVARE.TIPO_EVALUACION_RECHAZO AND
+		            TIPOEVA.CODIGO_REGISTRO!=0 
+  LEFT JOIN 
+		            SINADA.T_GENL_MAESTRO MOT ON 
+		            MOT.CODIGO_MAESTRO = 'MotivoArchivarEvaluacionRechazoDenuncia' AND
+		            MOT.CODIGO_REGISTRO = EVARE.MOTIVO AND
+		            MOT.CODIGO_REGISTRO!=0 AND
+		            EVARE.TIPO_EVALUACION_RECHAZO = 3
+            
+			WHERE
+			      	EVARE.FLAG_ACTIVO ='1'
+			AND
+				  EVARE.ID_ATENCION_DENUNCIA = #{atencionDenuncia.idAtencionDenuncia}
+	
+
+
+	</select>
+	
+
+	<select id="buscarPorId" resultMap="resultMapEvaluacionRechazo"
+		parameterType="long">
+		SELECT 
+			      	EVARE.ID_EVALUACION_RECHAZO,
+			      	EVARE.TIPO_EVALUACION_RECHAZO,
+            		TIPOEVA.DESCRIPCION AS NOMBRE_TIPO_EVALUACION,
+			     	EVARE.ID_ATENCION_DENUNCIA,
+			      	EVARE.MOTIVO_DESCRIPCION,
+			      	EVARE.MOTIVO,
+            		MOT.DESCRIPCION AS NOMBRE_MOTIVO,
+			      	EVARE.ESTADO,
+			      	EVARE.FLAG_ACTIVO
+			FROM 
+			      	SINADA.T_GENM_EVALUACION_RECHAZO EVARE INNER JOIN 
+		            SINADA.T_GENL_MAESTRO TIPOEVA ON 
+		            TIPOEVA.CODIGO_MAESTRO = 'TipoEvaluacionRechazoDenuncia' AND
+		            TIPOEVA.CODIGO_REGISTRO = EVARE.TIPO_EVALUACION_RECHAZO AND
+		            TIPOEVA.CODIGO_REGISTRO!=0 
+  LEFT JOIN 
+		            SINADA.T_GENL_MAESTRO MOT ON 
+		            MOT.CODIGO_MAESTRO = 'MotivoArchivarEvaluacionRechazoDenuncia' AND
+		            MOT.CODIGO_REGISTRO = EVARE.MOTIVO AND
+		            MOT.CODIGO_REGISTRO!=0 AND
+		            EVARE.TIPO_EVALUACION_RECHAZO = 3
+            
+			WHERE
+			      	EVARE.FLAG_ACTIVO ='1'
+			AND
+					ID_EVALUACION_RECHAZO = #{idEvaluacion}
+			
+	</select>
+	
+
+	
+	<insert id="agregar" parameterType="EvaluacionRechazo" useGeneratedKeys="true">
+		<selectKey keyProperty="idEvaluacionRechazo" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_EVALUACION_RECHAZO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_EVALUACION_RECHAZO
+		(
+			  	 ID_EVALUACION_RECHAZO,
+			      TIPO_EVALUACION_RECHAZO,
+			      ID_ATENCION_DENUNCIA,
+			      MOTIVO_DESCRIPCION,
+			      MOTIVO,
+			      ESTADO,
+			      FLAG_ACTIVO
+		)
+		VALUES
+		(
+				#{idEvaluacionRechazo},
+				#{tipoEvaluacionRechazo.codigoRegistro},
+				#{atencionDenuncia.idAtencionDenuncia},
+				#{motivoDescripcion,jdbcType=VARCHAR},
+				#{motivo.codigoRegistro},
+				1,
+				'1'
+			
+		)
+	</insert>
+
+	<update id="modificar" parameterType="EvaluacionRechazo">
+		UPDATE SINADA.T_GENM_EVALUACION_RECHAZO
+		SET
+					ESTADO		 = #{estado.codigoRegistro}
+		WHERE
+					FLAG_ACTIVO = 1
+		AND 
+					ID_EVALUACION_RECHAZO = #{idEvaluacionRechazo}
+	</update>
+	
+
+
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_EVALUACION_RECHAZO
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_EVALUACION_RECHAZO = #{idEvaluacionRechazo}
+	</update>
+
+
+</mapper>

@@ -1,0 +1,119 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf"><span ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro==1">Denuncia reiterada</span><span ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro==2">Denuncia derivada</span><span ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro==3">Denuncia archivada</span></h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+	    <!-- click en Rechazado -->
+
+	<div class="row desing_input">
+
+
+            <div class="col-md-12">
+				<div class="table-rpv">
+	    		 <table id="listaBandeja" style="border: hidden" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+
+						    <tbody>
+						      <tr >
+
+						        <td style="border: hidden"><b>Motivo</b></td>
+						        <td ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro==1 || vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro == 2 " colspan="6" style="border: hidden">{{vm.dataEvaluacionRechazo.motivoDescripcion}}</td>
+						          <td ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro==3 " colspan="6" style="border: hidden">{{vm.dataEvaluacionRechazo.motivo.descripcion}}</td>
+
+
+						      </tr>
+
+
+						    </tbody>
+			     </table>
+			    </div>
+
+	    	</div>
+
+		</div>
+
+
+			   <div class="row" ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro !=2">
+
+	    		<div class="col-md-12">
+					<div class="table-rpv">
+	    				 <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						    <thead>
+						      <tr>
+						        <th>&Iacute;tem</th>
+						        <th ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro !=3">Tipo archivo</th>
+						        <th>Nombre archivo</th>
+						         <th ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro !=3">Descripci&oacute;n</th>
+						        <th>Descargar</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr dir-paginate="item in vm.listaArchivos | itemsPerPage: config.itemsPerPage" pagination-id="coutListaArchivosacde">
+
+						        <td>{{$index+1}}</td>
+						        <td ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro !=3" >{{item.tipoArchivo.descripcion}}</td>
+						        <td>{{item.nombreArchivo}}</td>
+						        <td ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro !=3">{{item.descripcionArchivo}}</td>
+						        <td style="text-align: center;">
+
+									<a class="btn btn-flat btn-sm" href="{{vm.rutaBase}}archivo-adjunto/descargar-archivo-atencion/{{item.idArchivoAtencion}}" download="{{item.nombreArchivo}}" target="_blank">
+					                <span  class="icon-descargar"></span>
+					            </a>
+
+
+						        </td>
+						      </tr>
+
+						    </tbody>
+						  </table>
+						  <dir-pagination-controls pagination-id="coutListaArchivosacde" ></dir-pagination-controls>
+					</div>
+	    		</div>
+	    </div>
+	   <div class="row" ng-if="vm.dataEvaluacionRechazo.tipoEvaluacionRechazo.codigoRegistro ==2">
+
+	    		<div class="col-md-12">
+					<div class="table-rpv">
+	    				 <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						    <thead>
+						      <tr>
+						        <th>&Iacute;tem</th>
+						        <th>Nombre entidad</th>
+
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr dir-paginate="itemDerivacion in vm.dataEvaluacionRechazo.lstDerivacionDenuncia | itemsPerPage: config.itemsPerPage" pagination-id="cout2">
+
+						        <td>{{$index+1}}</td>
+
+						        <td>{{itemDerivacion.nombreEntidad}}</td>
+
+
+						      </tr>
+
+						    </tbody>
+						  </table>
+						  <dir-pagination-controls pagination-id="cout2" ></dir-pagination-controls>
+					</div>
+	    		</div>
+	    </div>
+	    <div class="row">
+          <div class="form-group col-lg-12 text-right">
+              <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in">
+                  <span class="glyphicon glyphicon-ok spac-btn-r"></span> Aceptar
+              </button>
+
+          </div>
+        </div>
+
+		</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

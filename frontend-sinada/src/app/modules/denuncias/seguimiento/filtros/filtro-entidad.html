@@ -1,0 +1,11 @@
+        <div class="row">
+        	<div class="form-group col-md-4 col-sm-6">
+		            <label for="entidad" >Nombre de la entidad</label>
+		          <select id="entidad" name="entidad" ng-model="vm.dataBandejaEntidad.tipoEntidadAtencion" class="form-control input-sm">
+		            <option ng-value="0"> Seleccionar </option>
+		            <option  ng-repeat="itemCombo in vm.listaTipoEntidadAtencionDenuncia" ng-value="itemCombo.codigoRegistro"> {{itemCombo.descripcion}} </option>
+		            
+		          </select>
+		         <!-- <input ng-model="vm.dataBandejaEntidad.nombreEntidad" type="text" maxlength="" class="form-control input-sm" name="nombreEntidad" placeholder="Ingresar Nombre de la Entidad" >-->
+		      </div>
+        </div>

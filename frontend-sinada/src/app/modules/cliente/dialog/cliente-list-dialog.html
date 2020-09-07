@@ -1,0 +1,73 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">B&uacute;squeda de Clientes </h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+			<div class="row">
+				<div class="form-group col-md-3">
+					<label>Nro RUC</label>
+					<input type="text" class="form-control input-sm" ng-model="vm.prmCliente.ruc">
+				</div>
+				<div class="form-group col-md-6">
+					<label>Raz&oacute;n Social</label>
+					<input type="text" class="form-control input-sm" ng-model="vm.prmCliente.razonSocial">
+
+				</div>
+				<div class="form-group col-md-2 text-right">
+					<label style="height: 10px;display: block;"></label>
+					<button class="btn btn-default btn-sm" type="button" ng-click="vm.buscar()"><span class="glyphicon glyphicon-search spac-btn-r"></span> Buscar</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<label for="cantidadPaginas">P&aacute;ginas</label>
+					<select id="cantidadPaginas" name="cantidadPaginas" ng-model="vm.opcionesPaginacion.itemsPorPag" class="form-control input-sm">
+						<option ng-repeat="itemPag in vm.opcionesPaginacion.cantidades"
+								ng-value="itemPag*1">{{itemPag}}</option>
+					</select>
+		   		</div>
+		    </div>
+	        <div class="row">
+				<div class="col-md-12">
+					<div class="table-rpv">
+					<table class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<!-- <caption>Resultados de búsqueda</caption> -->
+						<thead>
+							<tr>
+								<th style="text-align:center" width="60">&Iacute;tem</th>
+								<th style="text-align:center" width="80">RUC</th>
+								<th style="text-align:center">Raz&oacute;n Social</th>
+								<th style="text-align:center" width="250">Direcci&oacute;n</th>
+								<th style="text-align:center" width="80">Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-click="vm.seleccionar(itemCliente)"
+							dir-paginate="itemCliente in vm.listaCliente | filter : { 'razonSocial' : vm.prmCliente.razonSocial, 'ruc' : vm.prmCliente.ruc } | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+								<td>{{itemCliente.idCliente}}</td>
+								<td>{{itemCliente.ruc}}</td>
+								<td>{{itemCliente.razonSocial}}</td>
+								<td>{{itemCliente.direccion}}</td>
+								<td style="text-align:center">
+								<button type="button" style="padding: 3px 8px" class="btn btn-flat btn-default btn-sm" uib-tooltip="Seleccionar">
+				                	<i class="fa fa-arrow-left" aria-hidden="true"></i>
+				          		</button>
+								</td>
+							</tr>
+							<tr ng-show="vm.listaCliente == null || vm.listaCliente.length==0">
+								<td colspan="6">No se encontraron resultados</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="text-center">
+					<dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+				</div>
+		    </div>
+		</span>
+	</div>
+</div>

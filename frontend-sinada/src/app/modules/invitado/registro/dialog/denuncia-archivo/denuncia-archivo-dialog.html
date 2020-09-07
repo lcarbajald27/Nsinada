@@ -1,0 +1,146 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Documento denuncia</h4>
+	</div>
+	<div class="modal-body" ng-form name="notificacionDialogForm">
+		<span class="content-box">
+		
+  	    	<fieldset class="well unp-fieldset">
+				<div ng-bind-html="renderHtml(urlPDFFichaDenuncia)"></div>
+			</fieldset>
+		
+<!--
+		 <div class="col-lg-12 borde-vistaPrevia">
+	<div class="col-sm-12" id="fichaDenunciaHTML">
+		<div class="row">
+
+	      <div class="col-sm-12 cabecera_vistaPrevia"> 
+	      	<img src="assets/images/oefa-logo-header.png" alt="" class="img-responsive" style="width: 200px;padding-right: 10px;display: inline-table;">                   
+	      <img src="assets/images/logo_sinada.png" alt="" class="img-responsive" style="width:250px;padding-left:2em;padding-top: 20px;border-left: 2px solid #b6b7b7;display: inline-table;">   
+	      </div>
+
+
+		</div>
+		<div class="row sub-cabecera-vistaPrevia">
+			<div class="col-sm-6 col-xs-12">
+				<p>Código de denuncia <b>{{prmDataFichaDenuncia.codigoDenuncia}}</b></p>
+				<p>Código de acceso <b>{{prmDataFichaDenuncia.codigoacceso}}</b></p>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p><b>Características de la denuncia</b></p>
+				<p>Tipo de denuncia <b>{{prmDataFichaDenuncia.nombreTipoDenuncia}}</b></p>
+				<p>Medio de recepción <b>{{prmDataFichaDenuncia.nombreMedioRecepcion}}</b></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 pd-vistaPrevia">
+				<div class="row"  ng-if="prmDataFichaDenuncia.tipoDenuncia!=3">
+				<p><b>1- Datos del denunciante</b></p>
+				<p>{{prmDataFichaDenuncia.nombreTipoDenuncia}}</p>	
+				</div>
+				<div class="row"  ng-if="prmDataFichaDenuncia.tipoDenuncia==3" ng-repeat="itemDenunciante in prmDataFichaDenuncia.lstDenunciante">
+								<p><b>1- Datos del denunciante</b></p>
+								<p><b>Denunciante Nª {{$index+1}}  </b></p>
+					<div ng-if="itemDenunciante.tipoPersona==1">
+					
+							
+							<p>Nombres <b>{{itemDenunciante.personaDenunciante.nombres}}  </b></p>
+							<p>Documento <b>{{itemDenunciante.personaDenunciante.documento}}  </b></p>
+							<p>Apellido paterno <b>{{itemDenunciante.personaDenunciante.apellidoPaterno}}</b></p>
+							<p>Apellido materno <b>{{itemDenunciante.personaDenunciante.apellidoMaterno}}</b></p>
+							<p>Dirección <b>{{itemDenunciante.personaDenunciante.direccion}}</b></p>
+							</div>
+					<div ng-if="itemDenunciante.tipoPersona==2">
+							<p>Razon Social <b>{{itemDenunciante.entidadDenunciante.razonSocial}}  </b></p>
+							<p>Documento <b>{{itemDenunciante.entidadDenunciante.ruc}}</b></p>
+							<p>Representante Legal <b>{{itemDenunciante.entidadDenunciante.nomRepresentante}}</b></p>
+						<p>Cargo Representante Legal <b>{{itemDenunciante.entidadDenunciante.nomCargo}}</b></p>	
+							<p>Dirección <b>{{itemDenunciante.entidadDenunciante.direccion}}</b></p>
+					</div>		
+				</div>
+				<div class="row">
+					<p><b>2- Datos de la denuncia</b></p>
+					<p><b>Hechos denunciados:</b></p>
+					<p>Problemática <br/>
+					<b>{{prmDataFichaDenuncia.nombreProblematica}}</b></p>
+
+
+					<p>Debido a? 
+					<br/><b>{{prmDataFichaDenuncia.nombreDebidoaNivel1}}</b></p>
+
+					<p><b>{{prmDataFichaDenuncia.nombreDebidoaNivel2}}</b></p>
+					<p><b>{{prmDataFichaDenuncia.nombreDebidoaNivel3}}</b></p>
+
+					<p>Donde Sucede?
+					<br/> <b>{{prmDataFichaDenuncia.nombreZonaSuceso1}}</b></p>
+					<p><b>{{prmDataFichaDenuncia.nombreZonaSuceso2}}</b></p>
+					<p><b>{{prmDataFichaDenuncia.nombreZonaSuceso3}}</b></p>
+					<p><b>Donde ocurren</b></p>
+					<p>{{prmDataFichaDenuncia.nombreDepartamento}} - {{prmDataFichaDenuncia.nombreProvincia}} - {{prmDataFichaDenuncia.nombreDistrito}}</p>
+					<p>{{prmDataFichaDenuncia.direccion}}</p>
+					<p>{{prmDataFichaDenuncia.referencia}}</p>
+				</div>
+			</div>
+			<div class="col-sm-6 pd-vistaPrevia">
+				<div class="row">
+			
+					
+				<div class="row" ng-if="prmDataFichaDenuncia.tipoResponsable==0">
+				<p><b>3- Datos del denunciado</b></p>
+				<p>No se identifico al denunciado.</p>
+						
+				</div>	
+				<div class="row"  ng-if="prmDataFichaDenuncia.tipoResponsable!=0">
+				<p><b>3- Datos del denunciado</b></p>
+					<p>Nombre : <b>{{prmDataFichaDenuncia.nombreDenunciado}}</b> </p>
+					<p>Documento : <b>{{prmDataFichaDenuncia.documentoDenunciado}}</b> </p>
+					<p>Departamento : <b>{{prmDataFichaDenuncia.nombreDepartamentoDenunciado}}</b> </p>
+					<p>Provincia : <b>{{prmDataFichaDenuncia.nombreProvinciaDenunciado}}</b> </p>
+					<p>Distrito : <b>{{prmDataFichaDenuncia.nombreDistritoDenunciado}}</b> </p>
+					<p>Direcci&oacute;n : <b>{{prmDataFichaDenuncia.direccionDenunciado}}</b> </p>
+
+				</div>
+			
+				<div class="row">
+				   <p><b>4- Medios probatorios</b></p>
+						<p ng-if="prmDataFichaDenuncia.lstArchivoDenuncia.length==0">No se subieron medios probatorios</p>
+					<p ng-repeat="itemMedioProbatorio in prmDataFichaDenuncia.lstArchivoDenuncia">{{itemMedioProbatorio.tipoArchivo.descripcion}} - {{itemMedioProbatorio.nombreArchivo}}</p>
+				</div>
+					
+				<div class="row">
+						<p><b>5- Entidades competentes</b></p>
+
+					<p ng-repeat="itemEntidad in prmDataFichaDenuncia.lstEntidadCaso">{{itemEntidad.nombreEntidad}}
+					<br/>
+					<span ng-repeat="itemNormaCaso in itemEntidad.lstNormaCaso"><b>{{itemNormaCaso.contenidoNorma.nombreTipoDispositivo}} {{itemNormaCaso.contenidoNorma.numeroNorma}}, Articulo {{itemNormaCaso.contenidoNorma.numeroArticulo}}, {{itemNormaCaso.contenidoNorma.descripcionArticulo}}</b> </span>
+
+					</p>
+
+
+				</div>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+-->
+		</span>
+	</div>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-click="vm.cancelar(1)" class="btn btn-flat btn-primary-inv btn-sm">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Cerrar
+	            </button> 
+	        </div>
+  	    </div>
+
+
+</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

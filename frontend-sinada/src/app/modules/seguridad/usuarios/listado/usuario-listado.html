@@ -1,0 +1,127 @@
+<div class="col-lg-12  sin_padding" 	novalidate ng-form >
+	<span class="" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Listado Usuarios</span></h3>
+			</div>
+		</div>
+		<br/>
+		<fieldset class="well unp-fieldset">
+
+		<div class="row">
+
+
+			<div class="form-group col-md-3">
+				<label for="numeroDocumento" >Nombre:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.numeroDocumento" type="text"  class="form-control input-sm" name="numeroDocumento" >
+				</div>
+			</div>
+
+				<div class="form-group col-md-3">
+				<label for="numeroDocumento" >N&uacute;mero Documento:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.numeroDocumento" type="text"  class="form-control input-sm" name="numeroDocumento">
+				</div>
+			</div>
+
+				<div class="form-group col-md-3">
+				<label for="numeroDocumento" >Perfil:</label>
+				<div class="form-group">
+					<select class="form-control input-sm" name="singleSelect" id="singleSelect"
+						ng-model="data.singleSelect">
+						<option value="">--Seleccione--</option>
+
+						<option value="{{data.option1}}">Administrador</option>
+
+						<option value="option-2">EFA</option>
+						<option value="option-2">Sinada</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label for="numeroDocumento" >Situaci&oacute;n:</label>
+				<div class="form-group">
+					<select class="form-control input-sm" name="singleSelect" id="singleSelect"
+						ng-model="data.singleSelect">
+						<option value="">--Seleccione--</option>
+
+						<option value="{{data.option1}}">Activo</option>
+
+						<option value="option-2">Inactivo</option>
+
+					</select>
+				</div>
+			</div>
+
+
+		</div>
+
+
+
+
+
+		  <div class="row">
+			<div class="col-lg-12 text-right">
+				<button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5" uib-tooltip="Limpiar Filtros" >
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </button>
+	            <button type="button" id="btnRef_recurso" ng-click="vm.buscar()"   uib-tooltip="Buscar Usuario"  class="btn btn-flat btn-primary btn-sm btn-pd-5">
+	                <span class="icon-buscar spac-btn-r"></span> Buscar
+	            </button>
+	            <a class="btn btn-flat btn-primary btn-sm btn-pd-5" ng-click="vm.nuevo()" uib-tooltip="Nuevo Usuario">
+	                <span class="icon-nuevo spac-btn-r"></span> Nuevo
+	            </a>
+			</div>
+		</div>
+
+
+	   <div class="row">
+
+				<div class="col-md-12">
+					<div class="table-rpv">
+					<table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<thead>
+							<tr>
+								<th class="text-center">C&oacute;digo</th>
+								<th class="text-center">Nombre</th>
+								<th class="text-center">Perfil</th>
+								<th class="text-center">Situaci&oacute;n</th>
+								<th class="text-center" width="90">Acci&oacute;n</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+
+
+
+
+							<tr dir-paginate="usuario in vm.listaUsuarios | filter : { 'nombre' : vm.prmProducto.nombre} | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+								<td class="text-center">{{usuario.idUsuario}}</td>
+								<td>{{usuario.nombre}}</td>
+								<td class="text-center">{{usuario.perfil}}</td>
+								<td class="text-center">{{usuario.situacion}}</td>
+								<td class="text-center">
+
+						            <button type="button" class="btn btn-default btn-sm" uib-tooltip="Editar" ng-click="vm.irRegistroUsuario()">
+	                                 <span class="icon-editar"></span>
+	                               	</button>
+						            <button type="button" class="btn btn-default btn-sm" uib-tooltip="Eliminar" ng-click="vm.confirmarEliminacion(itemProducto)">
+	                                <span class="glyphicon glyphicon-trash"></span>
+	                            </button>
+								</td>
+							</tr>
+						<!--	<tr ng-show="vm.listaProducto == null || vm.listaProducto.length==0">
+								<td colspan="5">No se encontraron resultados</td>
+							</tr>-->
+						</tbody>
+					</table>
+				</div>
+				</div>
+			</div>
+		</fieldset>
+
+	</span>
+</div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_OEFA -->
+<mapper namespace="denunciaEstado">
+	<resultMap id="resultMapDenunciaEstado" 	type="DenunciaEstado">
+		<id 	column="ID_DENUNCIA" 				property="idDenuncia" />
+		<result column="TOTAL_ATENCIONES" 			property="totalAtenciones" />
+		<result column="DENUNCIAS_ATENDIDAS"		property="denunciasAtendidas" />
+		<result column="DENUNCIAS_ARCHIVADAS"		property="denunciasArchivadas" />
+		<result column="DENUNCIAS_NO_ATENDIDA"		property="denunciasNoAtendidas" />
+		<result column="DENUNCIAS_PENDIENTES"		property="denunciasPendientes" />
+					
+	</resultMap>
+
+
+	
+<select id="buscarPorId" resultMap="resultMapDenunciaEstado" parameterType="long">
+		SELECT 
+
+		    ID_DENUNCIA,
+			TOTAL_ATENCIONES,
+			DENUNCIAS_ATENDIDAS,
+			DENUNCIAS_ARCHIVADAS,
+			DENUNCIAS_NO_ATENDIDA,
+			DENUNCIAS_PENDIENTES
+		FROM 
+		    SINADA.V_DENUNCIA_ESTADO
+		WHERE
+		    ID_DENUNCIA = #{idDenuncia}
+	</select>
+
+
+
+</mapper>

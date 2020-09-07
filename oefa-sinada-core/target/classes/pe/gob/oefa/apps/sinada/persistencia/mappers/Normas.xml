@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_NORMA -->
+<mapper namespace="normas">
+	<resultMap id="resultMapNormas" type="Normas">
+		<id 	column="ID_NORMA" 				property="idNorma"/>
+		<result column="NUMERO_NORMA" 			property="numeroNorma"/>
+		<result column="DESCRIPCION"			property="descripcion"/>
+		<result column="TM1_TIPO_DISPOSITIVO" 	property="tipoDispositivo"/>
+		<result column="FECHA_VIGENCIA"			property="fechaVigencia"/>
+        <result column="FECHA_MODIFICACION"		property="fechaModificacion"/>
+        <result column="FECHA_DEROGACION"		property="fechaDerogacion"/>
+        <result column="TM1_SECTOR"				property="sector"/>
+		<result column="TM1_SUBSECTOR" 			property="subSector"/>
+		<result column="TM1_ACTIVIDAD" 			property="actividad"/>
+		<result column="ENTIDAD_EMISORA" 		property="entidadEmisora"/>
+		<result column="TM1_ESTADO" 			property="estado"/>
+		<result column="FLAG_ACTIVO" 			property="flagActivo"/>
+		<result column="AMBITO_DISPOSITIVO" 	property="ambitoDispositivo"/>
+		<result column="NOMBRETIPODISPOSITTIVO" property="nombreTipoDispositivo"/>
+		<result column="NOMBRE_ESTADO_NORMA" 	property="nombreEstado"/>
+	
+		
+		
+	</resultMap>
+	
+	<select id="listar" resultMap="resultMapNormas" parameterType="Normas">
+
+		
+		SELECT
+			ID_NORMA,
+			NUMERO_NORMA,
+			DESCRIPCION,
+			TM1_TIPO_DISPOSITIVO,
+			FECHA_VIGENCIA,
+			FECHA_MODIFICACION,
+			FECHA_DEROGACION,
+			TM1_SECTOR,
+			TM1_SUBSECTOR,
+			TM1_ACTIVIDAD,
+			ENTIDAD_EMISORA,
+			TM1_ESTADO,
+			FLAG_ACTIVO,
+			AMBITO_DISPOSITIVO,
+			NOMBRETIPODISPOSITTIVO,
+			NOMBRE_ESTADO_NORMA
+		FROM 
+			SINADA.V_NORMA
+		WHERE
+			TM1_ESTADO =1 AND
+			(#{tipoDispositivo}=0 OR #{tipoDispositivo} = NULL OR TM1_TIPO_DISPOSITIVO=#{tipoDispositivo})
+		AND 
+			(UPPER(DESCRIPCION) LIKE '%'||UPPER(#{descripcion})||'%')
+    AND 
+      	(UPPER(NUMERO_NORMA) LIKE '%'||UPPER(#{numeroNorma})||'%')
+
+			
+	</select>
+	
+	
+	
+	<select id="buscarPorId" resultMap="resultMapNormas" parameterType="String">
+		SELECT
+			ID_NORMA,
+			NUMERO_NORMA,
+			DESCRIPCION,
+			TM1_TIPO_DISPOSITIVO,
+			FECHA_VIGENCIA,
+			FECHA_MODIFICACION,
+			FECHA_DEROGACION,
+			TM1_SECTOR,
+			TM1_SUBSECTOR,
+			TM1_ACTIVIDAD,
+			ENTIDAD_EMISORA,
+			TM1_ESTADO,
+			FLAG_ACTIVO,
+			AMBITO_DISPOSITIVO,
+			NOMBRETIPODISPOSITTIVO,
+			NOMBRE_ESTADO_NORMA
+		FROM 
+			SINADA.V_NORMA
+		WHERE
+			
+			NUMERO_NORMA = #{numeroNorma}
+	</select>
+
+	<select id="buscarPorIdEntidad" resultMap="resultMapNormas" parameterType="Normas">
+		SELECT
+			ID_NORMA,
+			NUMERO_NORMA,
+			DESCRIPCION,
+			TM1_TIPO_DISPOSITIVO,
+			FECHA_VIGENCIA,
+			FECHA_MODIFICACION,
+			FECHA_DEROGACION,
+			TM1_SECTOR,
+			TM1_SUBSECTOR,
+			TM1_ACTIVIDAD,
+			ENTIDAD_EMISORA,
+			TM1_ESTADO,
+			FLAG_ACTIVO,
+			AMBITO_DISPOSITIVO,
+			NOMBRETIPODISPOSITTIVO,
+			NOMBRE_ESTADO_NORMA
+		FROM 
+			SINADA.V_NORMA
+		WHERE
+			
+			ENTIDAD_EMISORA = #{entidadEmisora}
+	</select>
+		
+		
+	
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String">
+		SELECT
+		ID_CONTACTO,
+		ID_EFA,
+		TM1_TIPO_CONTACTO,
+		DOCUMENTO,
+		FLAG_ACTIVO
+		FROM 
+		T_GENM_CONTACTO
+		WHERE
+			FLAG_ACTIVO = 1
+		AND	TM1_TIPO_CONTACTO = #{ruc}
+	</select> -->
+	
+</mapper>

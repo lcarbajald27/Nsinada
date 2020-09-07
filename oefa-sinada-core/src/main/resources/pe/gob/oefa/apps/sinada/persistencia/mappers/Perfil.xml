@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="perfil">
+	<resultMap id="resultMapPerfil" type="Perfil">
+		<id 	column="ID_PERFIL"		        property="idPerfil" />
+		<result column="NOMBRE_PERFIL" 	 		property="nombrePerfil" />
+		<result column="ESTADO" 		 		property="estado" />
+		<result column="FLAG_ACTIVO" 		    property="flagActivo" />
+
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapPerfil" parameterType="Perfil">
+		SELECT
+			  ID_PERFIL,
+		      NOMBRE_PERFIL,
+		      ESTADO
+
+		FROM
+				SINADA.T_GENM_PERFIL
+		WHERE
+				FLAG_ACTIVO = 1
+		
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapPerfil"
+		parameterType="long">
+			SELECT
+			  ID_PERFIL,
+		      NOMBRE_PERFIL,
+		      ESTADO
+
+		FROM
+				SINADA.T_GENM_PERFIL
+		WHERE
+				FLAG_ACTIVO = 1
+		AND
+				 ID_PERFIL = #{idPerfil}
+	</select>
+	<insert id="agregar" parameterType="Perfil" useGeneratedKeys="true">
+		<selectKey keyProperty="idPerfil" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_PERFIL.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_PERFIL
+		(
+			  ID_PERFIL,
+		      NOMBRE_PERFIL,
+		      ESTADO,
+		      FLAG_ACTIVO
+		)
+		VALUES
+		(
+		#{idPerfil},
+		#{nombrePerfil},
+		1,
+		1
+		)
+	</insert>
+	<update id="modificar" parameterType="Perfil">
+		UPDATE SINADA.T_GENM_PERFIL
+		SET
+
+ 			  
+		      NOMBRE_PERFIL = #{nombrePerfil}
+		    
+
+		WHERE
+				FLAG_ACTIVO = 1
+		AND 
+				ID_PERFIL = #{idPerfil}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_PERFIL
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND ID_PERFIL = #{idPerfil}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

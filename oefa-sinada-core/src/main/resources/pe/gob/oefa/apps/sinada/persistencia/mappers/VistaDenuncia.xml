@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.SINADA.T_GENM_CONTACTO -->
+<mapper namespace="vistaDenuncia">
+	<resultMap id="resultMapVistaDenuncia" type="VistaDenuncia">
+	
+	
+		<id 	column="ID_DENUNCIA" 				property="idDenuncia" />
+		<result column="CODIGO_DENUNCIA" 			property="codigoDenuncia" />
+		<result column="TIPO_DENUNCIA" 				property="tipoDenuncia" />
+		<result column="NOMBRE_TIPO_DENUNCIA" 		property="nombreTipoDenuncia" />
+		<result column="MEDIO_RECEPCION" 			property="medioRecepcion" />
+		<result column="NOMBRE_MEDIO_RECEPCION" 	property="nombreMedioRecepcion" />
+		
+		<result column="HOJA_TRAMITE" 				property="hojaTramite" />
+		<result column="DEPARTAMENTO" 				property="departamento" />
+		<result column="NOMBRE_DEPARTAMENTO" 		property="nombreDepartamento" />
+		<result column="PROVINCIA" 					property="provincia" />
+		<result column="NOMBRE_PROVINCIA" 			property="nombreProvincia" />
+		<result column="DISTRITO" 					property="distrito" />
+		<result column="NOMBRE_DISTRITO" 			property="nombreDistrito" />
+		<result column="CENTRO_POBLADO" 			property="centroPoblado" />
+		<result column="NOMBRE_CENTRO_POBLADO" 		property="nombreCentroPoblado" />
+		<result column="DIRECCION" 					property="direccion" />
+		<result column="REFERENCIA" 				property="referencia" />
+		<result column="TIPO_RESPONSABLE" 			property="tipoResponsable" />
+		<result column="NOMBRE_TIPO_RESPONSABLE" 	property="nombreTipoResponsable" />
+		<result column="RESPONSABLE_PROBLEMA" 		property="responsableProblema" />
+		<result column="NOMBRE_DENUNCIADO" 			property="nombreDenunciado" />
+		<result column="DOCUMENTO_DENUNCIADO" 		property="documentoDenunciado" />
+		<result column="DEPARTAMENTO_DENUNCIADO" 	property="departamentoDenunciado" />
+		
+		<result column="NOMBRE_DENUNCIADO_DENUNCIA" 	property="nombreDenunciadoDenuncia" />
+		<result column="DIRECCION_DENUNCIADO_DENUNCIA" 	property="direccionDenunciadoDenuncia" />
+		
+		<result column="PROVINCIA_DENUNCIADO" 		property="provinciaDenunciado" />
+		<result column="DISTRITO_DENUNCIADO" 		property="distritoDenunciado" />
+		<result column="DIRECCION_DENUNCIADO" 		property="direccionDenunciado" />
+		<result column="REFERENCIA_DENUNCIADO" 		property="referenciaDenunciado" />
+		<result column="NOMBRE_CARGO_DENUNCIADO" 	property="nombreCargoDenunciado" />
+		<result column="NOMBRE_REPRE_DENUNCIADO" 	property="nombreRepreDenunciado" />
+		
+		<result column="NOMBRE_DEPARTAMENTO_DENUNCIADO" 	property="nombreDepartamentoDenunciado" />
+		<result column="NOMBRE_PROVINCIA_DENUNCIADO" 		property="nombreProvinciaDenunciado" />
+		<result column="NOMBRE_DISTRITO_DENUNCIADO" 		property="nombreDistritoDenunciado" />
+		
+		<result column="TIPO_MEDIO" 				property="tipoMedio" />
+		<result column="NOMBRE_TIPO_MEDIO_ARCHIVO" 	property="nombreTipoMedioArchivo" />
+		<result column="CODIGOACCESO" 				property="codigoacceso" />
+		<result column="FECHA_REGISTRO" 			property="fechaRegistro" />
+		<result column="ESTADO" 					property="estado" />
+		
+		<result column="RUTA_HOJA_TRAMITE" 			property="rutaHojaTramite" />
+		<result column="ID_CASO" 					property="idCaso" />
+		<result column="NUMERO_CASO" 				property="numeroCaso" />
+		<result column="ID_PROBLEMATICA" 			property="idProblematica" />
+		<result column="NOMBRE_PROBLEMATICA" 		property="nombreProblematica" />
+		<result column="ID_DEBIDOA_1" 				property="idDebidoa1" />
+		<result column="NOMBRE_DEBIDOA_NIVEL1" 		property="nombreDebidoaNivel1" />
+		<result column="ID_DEBIDOA_2" 				property="idDebidoa2" />
+		<result column="NOMBRE_DEBIDOA_NIVEL2" 		property="nombreDebidoaNivel2" />
+		<result column="ID_DEBIDOA_3" 				property="idDebidoa3" />
+		<result column="NOMBRE_DEBIDOA_NIVEL3" 		property="nombreDebidoaNivel3" />
+		<result column="ID_ZONA_SUCESO_1" 			property="idZonaSuceso1" />
+		<result column="NOMBRE_ZONA_SUCESO_1" 		property="nombreZonaSuceso1" />
+		
+		<result column="ID_ZONA_SUCESO_2" 			property="idZonaSuceso2" />
+		<result column="NOMBRE_ZONA_SUCESO_2" 		property="nombreZonaSuceso2" />
+		<result column="ID_ZONA_SUCESO_3" 			property="idZonaSuceso3" />
+		<result column="NOMBRE_ZONA_SUCESO_3" 		property="nombreZonaSuceso3" />
+
+		<result column="OFICINASDESCONCENTRADAS" property="oficinasDesconcentradas" />
+		<result column="AREACONSERVACION"		property="areaConservacion" />
+		<result column="ADMINLOCALES"			property="adminLocales" />
+		<result column="ZONAAMORTIGUAMIENTO"			property="zonaAmortiguamiento" />
+		<result column="OFICINASDESCONCENTRADAS_NOMBRE" property="oficinasDesconcentradasNombre" />
+		<result column="AREACONSERVACION_NOMBRE"		property="areaConservacionNombre" />
+		<result column="ADMINLOCALES_NOMBRE"			property="adminLocalesNombre" />
+		<result column="ZONAAMORTIGUAMIENTO_NOMBRE"			property="zonaAmortiguamientoNombre" />
+		<result column="LATITUDE"				property="latitude" />
+		<result column="LONGITUDE"				property="longitude" />
+		<result column="COORD_X_UTM"			property="coord_x_utm" />
+		<result column="COORD_Y_UTM"			property="coord_y_utm" />
+		<result column="ZONA"					property="zona" />
+	</resultMap>
+	
+
+	
+	<select id="buscarFichaDenunciaPorId" resultMap="resultMapVistaDenuncia" parameterType="VistaDenuncia">
+	SELECT 
+
+		      ID_DENUNCIA,
+		      CODIGO_DENUNCIA,
+		      TIPO_DENUNCIA,
+		      NOMBRE_TIPO_DENUNCIA,
+		      MEDIO_RECEPCION,
+		      NOMBRE_MEDIO_RECEPCION,
+		      HOJA_TRAMITE,
+		      DEPARTAMENTO,
+		      NOMBRE_DEPARTAMENTO,
+		      PROVINCIA,
+		      NOMBRE_PROVINCIA,
+		      DISTRITO,
+		      NOMBRE_DISTRITO,
+		      CENTRO_POBLADO,
+		      NOMBRE_CENTRO_POBLADO,
+		      DIRECCION,
+		      REFERENCIA,
+		      TIPO_RESPONSABLE,
+		      NOMBRE_TIPO_RESPONSABLE,
+		      RESPONSABLE_PROBLEMA,
+		      NOMBRE_DENUNCIADO,
+		      DOCUMENTO_DENUNCIADO,
+		      DEPARTAMENTO_DENUNCIADO,
+		      PROVINCIA_DENUNCIADO,
+		      DISTRITO_DENUNCIADO,
+		      DIRECCION_DENUNCIADO,
+		      REFERENCIA_DENUNCIADO,
+		      NOMBRE_CARGO_DENUNCIADO,
+		      NOMBRE_REPRE_DENUNCIADO,
+		      NOMBRE_DEPARTAMENTO_DENUNCIADO,
+			  NOMBRE_PROVINCIA_DENUNCIADO,
+			  NOMBRE_DISTRITO_DENUNCIADO,
+			  NOMBRE_DENUNCIADO_DENUNCIA,
+			  DIRECCION_DENUNCIADO_DENUNCIA,
+
+		      TIPO_MEDIO,
+		      NOMBRE_TIPO_MEDIO_ARCHIVO,
+		      CODIGOACCESO,
+		      FECHA_REGISTRO,
+		      ESTADO,
+		      FLAG_ACTIVO,
+		      RUTA_HOJA_TRAMITE,
+		      ID_CASO,
+		      NUMERO_CASO,
+		      ID_PROBLEMATICA,
+		      NOMBRE_PROBLEMATICA,
+		      ID_DEBIDOA_1,
+		      NOMBRE_DEBIDOA_NIVEL1,
+		      ID_DEBIDOA_2,
+		      NOMBRE_DEBIDOA_NIVEL2,
+		      ID_DEBIDOA_3,
+		      NOMBRE_DEBIDOA_NIVEL3,
+		      ID_ZONA_SUCESO_1,
+		      NOMBRE_ZONA_SUCESO_1,
+		      ID_ZONA_SUCESO_2,
+		      NOMBRE_ZONA_SUCESO_2,
+		      ID_ZONA_SUCESO_3,
+		      NOMBRE_ZONA_SUCESO_3,
+
+			  OFICINASDESCONCENTRADAS,
+			  AREACONSERVACION,
+			  ADMINLOCALES,
+			  ZONAAMORTIGUAMIENTO,
+			  OFICINASDESCONCENTRADAS_NOMBRE,
+			  AREACONSERVACION_NOMBRE,
+			  ADMINLOCALES_NOMBRE,
+			  ZONAAMORTIGUAMIENTO_NOMBRE,
+			  LATITUDE,
+			  LONGITUDE,
+			  COORD_X_UTM,
+			  COORD_Y_UTM,
+			  ZONA
+
+		FROM 
+		        SINADA.V_DENUNCIA
+		WHERE
+		      ID_DENUNCIA = #{idDenuncia}
+
+
+	</select>
+
+
+
+	
+	<select id="generarVisualizacionPreliminarFichaDenuncia" resultMap="resultMapVistaDenuncia" parameterType="VistaDenuncia">
+		SELECT 
+
+				    0 AS ID_DENUNCIA,
+				    'DEN-XXXX-'|| EXTRACT(YEAR FROM sysdate)  AS CODIGO_DENUNCIA,
+				    #{tipoDenuncia} AS TIPO_DENUNCIA,
+				    
+				    (SELECT TIPO_DEN.DESCRIPCION FROM SINADA.T_GENL_MAESTRO TIPO_DEN
+				      WHERE TIPO_DEN.FLAG_ACTIVO = '1' AND 
+				      TIPO_DEN.CODIGO_MAESTRO = 'TipoDenunciaSinada' 
+				      AND TIPO_DEN.CODIGO_REGISTRO =  #{tipoDenuncia}
+				        AND TIPO_DEN.CODIGO_REGISTRO!=0
+				    ) AS NOMBRE_TIPO_DENUNCIA,
+				   
+				    #{medioRecepcion} AS MEDIO_RECEPCION,
+				    #{hojaTramite} AS HOJA_TRAMITE,
+				   (SELECT MEDIO_RE.DESCRIPCION FROM SINADA.T_GENL_MAESTRO MEDIO_RE
+				      WHERE MEDIO_RE.FLAG_ACTIVO = '1' AND 
+				      MEDIO_RE.CODIGO_MAESTRO = 'MedioRecepcion' 
+				      AND MEDIO_RE.CODIGO_REGISTRO = #{medioRecepcion}
+				        AND MEDIO_RE.CODIGO_REGISTRO!=0
+				    ) AS NOMBRE_MEDIO_RECEPCION,
+				    
+				    #{departamento,jdbcType=VARCHAR} AS DEPARTAMENTO,
+ 				    (SELECT UBDEP.NOMBDEP FROM SINADA.T_GENM_UBIGEO UBDEP WHERE UBDEP.UBIGEO_DIST= #{departamento,jdbcType=VARCHAR}||#{provincia,jdbcType=VARCHAR}||#{distrito,jdbcType=VARCHAR}) AS NOMBRE_DEPARTAMENTO, 
+<!--				 (SELECT UBDEP.NOMBDEP FROM SINADA.T_GENM_UBIGEO UBDEP WHERE UBDEP.UBIGEO_DIST= #{provincia,jdbcType=VARCHAR}||#{distrito,jdbcType=VARCHAR}) AS NOMBRE_DEPARTAMENTO,-->
+				    #{provincia,jdbcType=VARCHAR} AS PROVINCIA,
+ 				    (SELECT UBPROV.NOMBPROV FROM SINADA.T_GENM_UBIGEO UBPROV WHERE UBIGEO_DIST= #{departamento,jdbcType=VARCHAR}||#{provincia,jdbcType=VARCHAR}||#{distrito,jdbcType=VARCHAR}) AS NOMBRE_PROVINCIA, 
+<!--				       (SELECT UBPROV.NOMBPROV FROM SINADA.T_GENM_UBIGEO UBPROV WHERE UBIGEO_DIST= #{provincia,jdbcType=VARCHAR}||#{distrito,jdbcType=VARCHAR}) AS NOMBRE_PROVINCIA,-->
+				    #{distrito,jdbcType=VARCHAR} AS DISTRITO,
+ 				    (SELECT UBDIST.NOMBDIST FROM SINADA.T_GENM_UBIGEO UBDIST WHERE UBIGEO_DIST= #{departamento,jdbcType=VARCHAR}||#{provincia,jdbcType=VARCHAR}||#{distrito,jdbcType=VARCHAR}) AS NOMBRE_DISTRITO, 
+<!--				     (SELECT UBDIST.NOMBDIST FROM SINADA.T_GENM_UBIGEO UBDIST WHERE UBIGEO_DIST= #{provincia,jdbcType=VARCHAR}||#{distrito,jdbcType=VARCHAR}) AS NOMBRE_DISTRITO,-->
+				    
+				    #{centroPoblado,jdbcType=VARCHAR} AS CENTRO_POBLADO,
+				    (SELECT NOMBCCPP AS NOMBRE_CENTRO_POBLADO	FROM  SINADA.T_GENM_CENTRO_POBLADO WHERE IDCCPP_15 = #{centroPoblado,jdbcType=VARCHAR}) AS NOMBRE_CENTRO_POBLADO,
+				      
+				    #{direccion,jdbcType=VARCHAR} AS DIRECCION,
+				    #{referencia,jdbcType=VARCHAR} AS REFERENCIA,
+				    
+				    #{latitude,jdbcType=FLOAT} AS LATITUDE,
+            		#{longitude,jdbcType=FLOAT} AS LONGITUDE,
+             		#{longitude,jdbcType=FLOAT} AS LONGITUDE,
+             		#{zona} AS ZONA, 
+               		#{coord_x_utm,jdbcType=FLOAT} AS COORD_X_UTM,
+               		#{coord_y_utm, jdbcType=FLOAT} AS COORD_Y_UTM,
+               		
+               		#{oficinasDesconcentradas,jdbcType=VARCHAR} AS OFICINASDESCONCENTRADAS,
+					#{adminLocales,jdbcType=VARCHAR} AS ADMINLOCALES, 
+					#{areaConservacion,jdbcType=VARCHAR} AS AREACONSERVACION,
+					#{zonaAmortiguamiento,jdbcType=VARCHAR} AS ZONAAMORTIGUAMIENTO,
+               		#{oficinasDesconcentradasNombre,jdbcType=VARCHAR} AS OFICINASDESCONCENTRADAS_NOMBRE,
+             		#{adminLocalesNombre,jdbcType=VARCHAR} AS ADMINLOCALES_NOMBRE, 
+               		#{areaConservacionNombre,jdbcType=VARCHAR} AS AREACONSERVACION_NOMBRE,
+               		#{zonaAmortiguamientoNombre,jdbcType=VARCHAR} AS ZONAAMORTIGUAMIENTO_NOMBRE,
+               		
+				    
+				    #{tipoResponsable} AS TIPO_RESPONSABLE,
+				    (SELECT TIPPERDE.DESCRIPCION FROM SINADA.T_GENL_MAESTRO TIPPERDE
+				      WHERE TIPPERDE.FLAG_ACTIVO = '1' AND 
+				      TIPPERDE.CODIGO_MAESTRO = 'TipoPersonaDenuncia' 
+				      AND TIPPERDE.CODIGO_REGISTRO =  #{tipoResponsable}
+				      AND TIPPERDE.CODIGO_REGISTRO!=0
+				    ) AS NOMBRE_TIPO_RESPONSABLE,
+				    
+				     #{responsableProblema} AS RESPONSABLE_PROBLEMA,
+				    
+				 
+				    DENUNCIADO.NOMBRE_COMPLETO AS NOMBRE_DENUNCIADO,
+				    DENUNCIADO.DOCUMENTO AS DOCUMENTO_DENUNCIADO ,
+				    DENUNCIADO.DEPARTAMENTO AS DEPARTAMENTO_DENUNCIADO,
+				    DENUNCIADO.PROVINCIA AS PROVINCIA_DENUNCIADO,
+				    DENUNCIADO.DISTRITO AS DISTRITO_DENUNCIADO,
+				    DENUNCIADO.DIRECCION AS DIRECCION_DENUNCIADO,
+				    DENUNCIADO.REFERENCIA AS REFERENCIA_DENUNCIADO,
+
+				    
+				    
+				    
+				    DENUNCIADO.NOMBRE_CARGO AS NOMBRE_CARGO_DENUNCIADO,
+				    DENUNCIADO.NOMBRE_REPRESENTANTE AS NOMBRE_REPRE_DENUNCIADO,
+				     DENUNCIADO.NOMBRE_DEPARTAMENTO AS NOMBRE_DEPARTAMENTO_DENUNCIADO ,
+				    DENUNCIADO.NOMBRE_PROVINCIA AS NOMBRE_PROVINCIA_DENUNCIADO,
+				    DENUNCIADO.NOMBRE_DISTRITO AS NOMBRE_DISTRITO_DENUNCIADO,
+					#{nombreDenunciadoDenuncia,jdbcType=VARCHAR} AS NOMBRE_DENUNCIADO_DENUNCIA,
+			  		#{direccionDenunciadoDenuncia,jdbcType=VARCHAR} AS DIRECCION_DENUNCIADO_DENUNCIA,
+				    
+				     #{tipoMedio} AS TIPO_MEDIO,
+				    (SELECT TIPME.DESCRIPCION FROM SINADA.T_GENL_MAESTRO TIPME
+				      WHERE TIPME.FLAG_ACTIVO = '1' AND 
+				      TIPME.CODIGO_MAESTRO = 'TipoArchivoDenuncia' 
+				      AND TIPME.CODIGO_REGISTRO = #{tipoMedio}
+				      AND TIPME.CODIGO_REGISTRO!=0
+				    ) AS NOMBRE_TIPO_MEDIO_ARCHIVO,
+				    
+				    
+				    
+				    
+				    'XXXXXXXX' AS CODIGOACCESO,
+				    SYSDATE,
+				    0 AS ESTADO,
+				 
+				   
+				    '' AS RUTA_HOJA_TRAMITE,
+				     #{idCaso} AS ID_CASO,
+				    
+				    
+				     CASO.NUMERO_CASO,
+				     CASO.ID_PROBLEMATICA,
+				     CASO.NOMBRE_PROBLEMATICA,
+				     CASO.ID_DEBIDOA_1,
+				     CASO.NOMBRE_DEBIDOA_NIVEL1,
+				     CASO.ID_DEBIDOA_2,
+				     CASO.NOMBRE_DEBIDOA_NIVEL2,
+				     CASO.ID_DEBIDOA_3,
+				     CASO.NOMBRE_DEBIDOA_NIVEL3,
+				     CASO.ID_ZONA_SUCESO_1,
+				     CASO.NOMBRE_ZONA_SUCESO_1,
+				     CASO.ID_ZONA_SUCESO_2,
+				     CASO.NOMBRE_ZONA_SUCESO_2,
+				     CASO.ID_ZONA_SUCESO_3,
+				     CASO.NOMBRE_ZONA_SUCESO_3
+				  
+
+			FROM
+			    SINADA.V_CASO CASO  
+			    LEFT JOIN SINADA.V_DENUNCIADOS DENUNCIADO ON
+			    DENUNCIADO.RESPONSABLE_PROBLEMA = #{responsableProblema}
+			    
+			            
+			WHERE 
+					CASO.ID_CASO =  #{idCaso}
+			AND
+			  		ROWNUM = 1
+
+
+
+	</select>
+
+	
+
+</mapper>

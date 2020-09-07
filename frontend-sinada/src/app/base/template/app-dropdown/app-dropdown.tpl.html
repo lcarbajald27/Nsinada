@@ -1,0 +1,13 @@
+<!-- <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button-template-url">
+  <li role="menuitem"><a href="#">Action in Template</a></li>
+  <li role="menuitem"><a href="#">Another action in Template</a></li>
+  <li role="menuitem"><a href="#">Something else here</a></li>
+  <li class="divider"></li>
+  <li role="menuitem"><a href="#">Separated link in Template</a></li>
+</ul>
+ -->
+<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button-template-url">
+	<li ng-repeat="itemOption in vm.dropdownOptions">
+	  <a href ng-click="vm.clickItemDropdown()">{{itemOption}}</a>
+	</li>
+</ul>

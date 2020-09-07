@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_OEFA -->
+<mapper namespace="sessionSistema">
+	<resultMap id="resultMapSessionSistema" 	type="SessionSistema">
+		<id 	column="ID_SESSION" 	property="idSession" />
+		<result column="REF" 			property="ref" />
+		<result column="ESTADO" 		property="estado" />
+		
+	</resultMap>
+
+	
+
+	
+<select id="buscarPorId" resultMap="resultMapSessionSistema" parameterType="long">
+		SELECT 
+
+		    ID_SESSION,
+		    REF,
+		    ESTADO
+		    
+		FROM 
+		    SINADA.T_GENM_SESSION
+		WHERE
+		    ID_SESSION = #{idSession} AND
+		    ESTADO = 1
+	</select>
+
+	<insert id="agregar" parameterType="SessionSistema" useGeneratedKeys="true">
+		<selectKey keyProperty="idSession" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_SESSION.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_SESSION(
+		
+		        ID_SESSION,
+			    REF,
+			    ESTADO
+		)VALUES(
+		      #{idSession},
+		      #{ref,jdbcType=VARCHAR},
+		      1
+		  
+		)
+	</insert>
+	
+	
+	<update id="eliminar" parameterType="SessionSistema">
+			UPDATE SINADA.T_GENM_SESSION
+		SET
+			ESTADO = 0
+		WHERE
+			ESTADO = 1
+		AND 
+			ID_SESSION = #{idSession}
+	</update>
+
+
+</mapper>

@@ -1,0 +1,211 @@
+
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Asignacion')">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="col-lg-12 col-md-12  sin_padding" ng-if="$parent.validarOpcion('Asignacion')">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="title-slider-nt">
+          <span>Bandeja de Asignaci&oacute;n de Denuncias</span>
+        </h3>
+        <span class="nav_bread">
+          <ol class="breadcrumb">
+            <li class="active">Bandeja de Denuncias</li>
+          </ol>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-tab-app with-nav-tabs panel-default">
+              <ul class="nav nav-tabs" >
+                <li ng-class="{ 'active' : vm.itemTabActivo == 1 }"  ng-click="vm.itemTabActivo = 1">
+                    <a class="spapp-link">Datos de denuncia</a>
+                </li>
+                <li ng-class="{ 'active' : vm.itemTabActivo == 2 }"  ng-click="vm.itemTabActivo = 2">
+                    <a class="spapp-link">Cronol&oacute;gico</a>
+                </li>
+                <!--
+                   <li ng-class="{ 'active' : vm.itemTabActivo == 3 }" ng-click="vm.itemTabActivo = 3">
+                      <a class="spapp-link">Entidad</a>
+                   </li>
+                   -->
+                   <li ng-class="{ 'active' : vm.itemTabActivo == 4 }" ng-click="vm.itemTabActivo = 4">
+                      <a class="spapp-link">Problem&aacute;tica de la denuncia</a>
+                   </li>
+
+                   <li ng-class="{ 'active' : vm.itemTabActivo == 5 }" ng-click="vm.itemTabActivo = 5">
+                      <a class="spapp-link">Ubigeo</a>
+                   </li>
+              </ul>
+
+              <div class="panel-body">
+                <div class="row" ng-show="vm.itemTabActivo == 1" ng-include="'app/modules/bandeja/asignacion/filtros/filtro-datos-denuncia.html'">
+                </div>
+                <div class="row" ng-show="vm.itemTabActivo == 2" ng-include="'app/modules/bandeja/asignacion/filtros/filtro-cronologico.html'">
+                </div>
+                <!--
+                <div class="row" ng-show="vm.itemTabActivo == 3" ng-include="'app/modules/bandeja/asignacion/filtros/filtro-entidad.html'">
+                </div>-->
+                <div class="row btn-nivelado" ng-show="vm.itemTabActivo == 4" ng-include="'app/modules/bandeja/asignacion/filtros/filtro-problematica.html'">
+                </div>
+
+                <div class="row" ng-show="vm.itemTabActivo == 5" ng-include="'app/modules/bandeja/asignacion/filtros/filtro-ubigeo.html'">
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+     <div class="col-lg-12 text-right">
+        <button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" uib-tooltip="Limpiar filtros" >
+            <span class="icon-limpiar spac-btn-r"></span> Limpiar
+        </button>
+        <button type="button" id="btnRef_recurso" ng-click="vm.enviardata()"   uib-tooltip="Buscar"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+            <span class="icon-buscar spac-btn-r"></span> Buscar
+        </button>
+        <a class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-click="vm.irARegistroDenuncia()" uib-tooltip="Registrar nueva denuncia">
+            <span class="icon-nuevo spac-btn-r"></span> Nuevo
+        </a>
+        <a  uib-tooltip="Exportar a excel" ng-show="vm.listaDenuncias!= null && vm.listaDenuncias.length>0" class="btn btn-sm btn-default btn-export-xsl btn-pd-5 btn-br-in" ng-click="vm.listarBandejaOrganoCompententeCompletoExcelData()" download="denuncia.xls" style="font-size: 11px">
+         <span class="fa icon-exportar-excel" style="font-size:16px;margin-right: 5px"></span>
+        Exportar EXCEL
+        </a>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h5><b>Niveles</b></h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-10 col-sm-8 col-xs-8">
+        <h5><b>Primer Nivel</b></h5>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-4">
+        <div class="form-group">
+          <label for="cantidadPaginas">P&aacute;ginas</label>
+           <select id="cantidadPaginas" ng-model="configData.itemsPerPage" name="cantidadPaginas" class="form-control input-sm">
+                <option ng-value="item.numero" ng-repeat="item in lstNumeroPagina">{{item.numero}}</option>
+              </select>
+        </div>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-rpv">
+            <table id="listaDenuncias" class="table table-hover table-bordered table-striped table-app" cellspacing="0" bgcolor="#d0c9c9">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">C&oacute;digo</th>
+                  <th scope="col" class="text-center">Recepci&oacute;n</th>
+                  <th scope="col" class="text-center">Registro</th>
+                  <th scope="col" class="text-center">Tiempo transcurrido</th>
+                  <th scope="col" class="text-center" width="85">Ficha de denuncia</th>
+                  <th scope="col" class="text-center" width="85">Historial</th>
+                  <th scope="col" class="text-center" width="90">Asignar</th>
+                  <th scope="col" class="text-center"> Estado denuncia general </th>
+                  <th scope="col" class="text-center"> Estado asignaci&oacute;n  </th>
+                </tr>
+              </thead>
+              <tbody ng-show="vm.listaDenuncias == null || vm.listaDenuncias.length == 0">
+                <tr>
+                  <td colspan="8" style="text-align: left;">No se encontraron resultados</td>
+                </tr>
+              </tbody>
+              <tbody dir-paginate="itemDenuncia in vm.listaDenuncias | itemsPerPage: configData.itemsPerPage" pagination-id="coutAsignacion"
+                >
+                <tr>
+                  <td data-label="C&oacute;digo" scope="row" class="text-center">{{itemDenuncia.codigoDenuncia}}</td>
+                  <td data-label="Recepci&oacute;n" >{{itemDenuncia.nombreMedioRecepcion}}</td>
+                  <td data-label="Registro" >{{itemDenuncia.fechaRegistroDenuncia}}</td>
+                  <td data-label="Tiempo Transcurrido" >{{itemDenuncia.tiempoTranscurrido}}</td>
+                  <td data-label="Ficha de Denuncia"  class="text-center">
+                        <button type="button" class="btn btn-default btn-sm" uib-tooltip="Ficha de denuncia" ng-click="vm.verFichaDenuncia(itemDenuncia)">
+                         <span class="icon-ficha"></span>
+                      </button>
+                  </td>
+                  <td data-label="Historial" class="text-center">
+                      <button type="button" class="btn btn-default btn-sm" uib-tooltip="Ver historial" ng-click="vm.verHistorialCoordinador(itemDenuncia)">
+                         <span class="glyphicon glyphicon-time"></span>
+                      </button>
+                  </td>
+
+                  <!--
+                  <td class="text-center">
+                      <button type="button" class="btn btn-default btn-sm" uib-tooltip="Historial" ng-click="vm.editarProducto(itemDenuncia)">
+                         <span class=" fa fa-history"></span>
+                      </button>
+                  </td> -->
+                    <td data-label="Asignar" class="text-center">
+
+                       <button type="button" class="btn btn-default btn-sm" uib-tooltip="Asignar especialista" ng-click="vm.mostrarModalAsignarDenuncia(itemDenuncia)">
+                         <span class="glyphicon glyphicon-expand"></span>
+                      </button>
+
+                       <button type="button" class="btn btn-default btn-sm" uib-tooltip="Ver segundo nivel"  ng-click="itemDenuncia.seleccionado = !itemDenuncia.seleccionado;vm.listarEntidadesCasoDenuncia(itemDenuncia,itemDenuncia.idBandejaDetalle)">
+                         <span class="icon-agregar"></span>
+                      </button>
+
+                    </td>
+                  <td>{{itemDenuncia.nombreEstadoDenuncia}}</td>
+                  <td data-label="Estado" class="text-center">
+                    <span ng-if="itemDenuncia.validaEspecialista==0">Pendiente</span><span ng-if="itemDenuncia.validaEspecialista!=0">Asignado</span>
+                  </td>
+                </tr>
+                <tr ng-show="itemDenuncia.seleccionado">
+                  <td colspan="9">
+                    <div class="table-rpv">
+                    <table class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+                            <thead>
+                                <tr>
+                                  <th scope="col" class="text-center">Entidad</th>
+                                  <th scope="col" class="text-center">Tipo asignaci&oacute;n</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr dir-paginate="itemEntidad in itemDenuncia.lstEntidadDenuncia | itemsPerPage: configData.itemsPerPage" pagination-id="cout2">
+                                <td data-label="Entidad">{{itemEntidad.nombreEntidad}}</td>
+                                 <td data-label="Tipo Asignacion">{{itemEntidad.nombreTipoAsignacion}}</td>
+                              </tr>
+                              <tr ng-show="itemDenuncia.lstEntidadDenuncia == null || itemDenuncia.lstEntidadDenuncia.length==0">
+                                <td colspan="6">No se encontraron resultados</td>
+                              </tr>
+                            </tbody>
+                    </table>
+                    <dir-pagination-controls pagination-id="cout2" ></dir-pagination-controls>
+                  </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <br>
+          <dir-pagination-controls pagination-id="coutAsignacion" ></dir-pagination-controls>
+        </div>
+      </div>
+
+     <div class="row">
+        <div class="text-center">
+            <dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+        </div>
+     </div>
+</div>

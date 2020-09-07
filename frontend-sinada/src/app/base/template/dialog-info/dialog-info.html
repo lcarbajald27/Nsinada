@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h4 class="modal-title title-msg-conf">
+        {{ vm.titulo }}
+    </h4>
+</div>
+<div class="modal-body">
+    <p class="modal-message" align="justify">
+        {{ vm.mensaje }}
+    </p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" ng-click="closeThisDialog(0)">
+        Salir
+    </button>
+</div>
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+    });
+</script>

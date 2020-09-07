@@ -1,0 +1,1484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="bandejaDenuncia">
+	<resultMap id="resultMapBandejaDenuncia" type="BandejaDenuncia">
+		<id 	column="ID_BANDEJA_DETALLE" 				property="idBandejaDetalle" />
+		
+		<result column="TIPO_ENTIDAD_ATENCION" 				property="tipoEntidadAtencion" />
+		<result column="NOMBRE_TIPO_ENTIDAD_ATENCION" 		property="nombreTipoEntidadAtencion" />
+		
+		<result column="ID_BANDEJA" 						property="idBandeja" />
+		<result column="TIPO_RESPONSABLE_BANDEJA" 			property="tipoResponsableBandeja" />
+		<result column="ID_RESPONSABLE_BANDEJA" 			property="idResponsableBandeja" />
+		
+		<result column="ID_EFA" 							property="idEfa" />
+		<result column="DIRECCION_SUPERVICION" 				property="direccionSupervicion" />
+		<result column="SUB_DIRECCION" 						property="subDireccion" />
+		<result column="COORDINACION" 						property="coordinacion" />
+				
+		<result column="ESTADO_BANDEJA" 					property="estadoBandeja" />
+	
+		
+		<result column="TIPO_BANDEJA" 						property="tipoBandeja" />
+		<result column="ID_DENUNCIA" 						property="idDenuncia" />
+		<result column="ESTADO_BANDEJA_DETALLE" 			property="estadoBandejaDetalle" />
+		<result column="NOM_EST_BANDEJA_DET" 				property="nombreEstadoBandejaDetalle" />
+		<result column="TIPO_ASIGNACION" 					property="tipoAsignacion" />
+		<result column="NOMBRE_TIPO_ASIGNACION" 			property="nombreTipoAsignacion" />
+		<result column="CODIGO_DENUNCIA" 					property="codigoDenuncia" />
+		<result column="TIPO_DENUNCIA" 						property="tipoDenuncia" />
+		<result column="NOMBRE_TIPO_DENUNCIA" 				property="nombreTipoDenuncia" />
+		<result column="MEDIO_RECEPCION" 					property="medioRecepcion" />
+		<result column="NOMBRE_MEDIO_RECEPCION" 			property="nombreMedioRecepcion" />
+		<result column="ID_CASO" 							property="idCaso" />
+		
+		
+		
+		<result column="NUMERO_CASO" 							property="numeroCaso" />
+		<result column="ID_PROBLEMATICA" 						property="idProblematica" />
+	    <result column="NOMBRE_PROBLEMATICA" 					property="nombreProblematica" />
+		<result column="ID_DEBIDOA_1" 							property="idDebidoA1" />
+		<result column="NOMBRE_DEBIDOA_NIVEL1" 					property="nombreDebidoA1" />
+	    <result column="ID_DEBIDOA_2" 							property="idDebidoA2" />
+	    <result column="NOMBRE_DEBIDOA_NIVEL2" 					property="nombreDebidoA2" />
+		<result column="ID_DEBIDOA_3" 							property="idDebidoA3" />
+	    <result column="NOMBRE_DEBIDOA_NIVEL3" 					property="nombreDebidoA3" />
+	    <result column="ID_ZONA_SUCESO_1" 						property="idZonaSuceso1" />
+		<result column="NOMBRE_ZONA_SUCESO_1" 					property="nombreZonaSuceso1" />
+	    <result column="ID_ZONA_SUCESO_2" 						property="idZonaSuceso2" />
+	    <result column="NOMBRE_ZONA_SUCESO_2" 					property="nombreZonaSuceso2" />
+	    <result column="ID_ZONA_SUCESO_3" 						property="idZonaSuceso3" />
+	    <result column="NOMBRE_ZONA_SUCESO_3" 					property="nombreZonaSuceso3" />
+	    <result column="NUMERO_DENUNCIANTES" 					property="numeroDenunciantes" />
+	    <result column="NOMBRE_DENUNCIANTE" 					property="nombreDenunciante" />
+	    
+	    
+	    
+		
+		<result column="DEPARTAMENTO" 						property="departamento" />
+		<result column="NOMBRE_DEPARTAMENTO" 				property="nombreDepartamento" />
+		<result column="PROVINCIA" 							property="provincia" />
+		<result column="NOMBRE_PROVINCIA" 					property="nombreProvincia" />
+		<result column="DISTRITO" 							property="distrito" />
+		<result column="NOMBRE_DISTRITO" 					property="nombreDistrito" />
+		
+		<result column="CENTRO_POBLADO" 					property="centroPoblado" />
+		<result column="NOMBRE_CENTRO_POBLADO" 				property="nombreCentroPoblado" />
+		
+		<result column="DIRECCION" 							property="direccion" />
+		<result column="REFERENCIA" 						property="referencia" />
+		<result column="TIPO_RESPONSABLE" 					property="tipoResponsable" />
+		<result column="NOMBRE_TIPO_RESPONSABLE" 			property="nombreTipoResponsable" />
+		<result column="RESPONSABLE_PROBLEMA" 				property="responsableProblema" />
+		
+		
+		
+		
+		<result column="NOMBRE_DENUNCIADO" 					property="nombreDenunciado" />
+		<result column="DOCUMENTO_DENUNCIADO" 				property="documentoDenunciado" />
+		<result column="DEPARTAMENTO_DENUNCIADO" 			property="departamentoDenunciado" />
+		<result column="PROVINCIA_DENUNCIADO" 				property="provinciaDenunciado" />
+		<result column="DISTRITO_DENUNCIADO" 				property="distritoDenunciado" />
+		<result column="DIRECCION_DENUNCIADO" 				property="direccionDenunciado" />
+		<result column="REFERENCIA_DENUNCIADO" 				property="referenciaDenunciado" />
+		
+		<result column="NOMBRE_DEPARTAMENTO_DENUNCIADO" 	property="nombreDepartamentoDenunciado" />
+		<result column="NOMBRE_PROVINCIA_DENUNCIADO" 		property="nombreProvinciaDenunciado" />
+		<result column="NOMBRE_DISTRITO_DENUNCIADO" 		property="nombreDistritoDenunciado" />
+		
+		<result column="NOMBRE_DENUNCIADO_DENUNCIA" 		property="nombreDenunciadoDenuncia" />
+		<result column="DIRECCION_DENUNCIADO_DENUNCIA" 		property="direccionDenunciadoDenuncia" />
+		
+		
+		
+		
+		<result column="CODIGOACCESO" 						property="codigoAcceso" />
+		<result column="FECHA_REGISTRO_DENUNCIA" 			property="fechaRegistroDenuncia" />
+		<result column="ESTADO_DENUNCIA" 					property="estadoDenuncia" />
+		<result column="NOMBRE_ESTADO_DENUNCIA" 			property="nombreEstadoDenuncia" />
+		<result column="TIEMPO_TRANSCURRIDO" 				property="tiempoTranscurrido" />
+		
+		<result column="FECHA_ULTIMA_ACCION" 				property="fechaUltimaAccion" />
+		<result column="TIEMPO_ULTIMA_ACCION" 				property="tiempoUltimaAccion" />
+		
+		<result column="TOTAL_ATENCIONES" 					property="totalAcciones" />
+		<result column="DENUNCIAS_ATENDIDAS" 				property="denunciasAtendidas" />
+		<result column="DENUNCIAS_ARCHIVADAS" 				property="denunciasArchivadas" />
+		<result column="DENUNCIAS_NO_ATENDIDA" 				property="denunciasNoAtendida" />
+		<result column="DENUNCIAS_PENDIENTES" 				property="denunciasPendientes" />
+		
+		<result column="FECHA_PLAZO_ATENCION" 				property="fechaPlazoAtencion" />
+<!-- 		<result column="NOMBRE_ESTADO_DENUNCIA" 			property="nombreEstadoDenuncia" /> -->
+<!-- 		<result column="FECHA_REGISTRO_DENUNCIA" 		    property="fechaRegistroDenuncia" /> -->
+		
+		<!-- <result column="NOMBRE_MEDIO_RECEPCION" 	property="nombreMedioRecepcion" /> -->
+		<!-- <result column="FECHA_REGISTRO" 			property="fechaRegistro" /> -->
+<!-- 		<result column="ESTADO_DENUNCIA" 			property="estadoDenuncia" /> -->
+		
+<!-- 		<result column="ESTADO_DESCRIPCION" 		property="estadoDescripcion" /> -->
+<!-- 		<result column="RECEPCION_DESCRIPCION" 		property="recepcionDescripcion" /> -->
+<!-- 		<result column="TIEMPO_TRANSCURRIDO" 		property="tiempoTranscurrido" /> -->
+			<result column="ESPECIALISTA_ASIGNADO" 		property="nombreEspecialistaSinada" />
+			<result column="VALIDA_ENCUESTA" 			property="validaEncuestaDenunciante" />
+			<result column="VALIDA_ESPECIALISTA" 		property="validaEspecialista" />
+			<result column="NOMBRE_ENTIDAD_COMPETENTE" 		property="nombreEntidadCompentente" />
+
+			<result column="FECHA_INICIO_ATENCION" 		property="fechaInicioAtencion" />
+			<result column="DIAS_HABILES_PLAZO" 		property="diasHabilesPlazo" />
+			
+			<result column="FECHA_REGISTRO_DEN_ORG" 		property="fechaRegistroDenunciaAsignadaOrgano" />
+			<result column="DIAS_HAB_TRANS_DEN_ASIG" 		property="diasHabilesTranscurridosDenunciaAsignada" />
+
+
+	<!-- DATOS PARA FILTOS -->
+	
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapBandejaDenuncia" parameterType="BandejaDenuncia">
+		SELECT
+			    BAN_DEN_DEN.ID_BANDEJA_DETALLE,
+				BAN_DEN_DEN.ID_BANDEJA,
+				BAN_DEN_DEN.TIPO_RESPONSABLE_BANDEJA,
+				BAN_DEN_DEN.ID_RESPONSABLE_BANDEJA,
+				BAN_DEN_DEN.ESTADO_BANDEJA,
+				BAN_DEN_DEN.TIPO_BANDEJA,
+				BAN_DEN_DEN.ID_DENUNCIA,
+				BAN_DEN_DEN.ESTADO_BANDEJA_DETALLE,
+				BAN_DEN_DEN.NOM_EST_BANDEJA_DET,
+				BAN_DEN_DEN.TIPO_ASIGNACION,
+				BAN_DEN_DEN.NOMBRE_TIPO_ASIGNACION,
+				BAN_DEN_DEN.CODIGO_DENUNCIA,
+				BAN_DEN_DEN.TIPO_DENUNCIA,
+				BAN_DEN_DEN.NOMBRE_TIPO_DENUNCIA,
+				BAN_DEN_DEN.MEDIO_RECEPCION,
+				BAN_DEN_DEN.NOMBRE_MEDIO_RECEPCION,
+				BAN_DEN_DEN.ID_CASO,
+				BAN_DEN_DEN.NUMERO_CASO,
+				BAN_DEN_DEN.ID_PROBLEMATICA,
+				BAN_DEN_DEN.NOMBRE_PROBLEMATICA,
+				BAN_DEN_DEN.ID_DEBIDOA_1,
+				BAN_DEN_DEN.NOMBRE_DEBIDOA_NIVEL1,
+				BAN_DEN_DEN.ID_DEBIDOA_2,
+				BAN_DEN_DEN.NOMBRE_DEBIDOA_NIVEL2,
+				BAN_DEN_DEN.ID_DEBIDOA_3,
+				BAN_DEN_DEN.NOMBRE_DEBIDOA_NIVEL3,
+				BAN_DEN_DEN.ID_ZONA_SUCESO_1,
+				BAN_DEN_DEN.NOMBRE_ZONA_SUCESO_1,
+				BAN_DEN_DEN.ID_ZONA_SUCESO_2,
+				BAN_DEN_DEN.NOMBRE_ZONA_SUCESO_2,
+				BAN_DEN_DEN.ID_ZONA_SUCESO_3,
+				BAN_DEN_DEN.NOMBRE_ZONA_SUCESO_3,
+				BAN_DEN_DEN.NUMERO_DENUNCIANTES,
+				BAN_DEN_DEN.NOMBRE_DENUNCIANTE,
+				BAN_DEN_DEN.DEPARTAMENTO,
+				BAN_DEN_DEN.NOMBRE_DEPARTAMENTO,
+				BAN_DEN_DEN.PROVINCIA,
+				BAN_DEN_DEN.NOMBRE_PROVINCIA,
+				BAN_DEN_DEN.DISTRITO,
+				BAN_DEN_DEN.NOMBRE_DISTRITO,
+				BAN_DEN_DEN.CENTRO_POBLADO,
+				BAN_DEN_DEN.NOMBRE_CENTRO_POBLADO,
+				BAN_DEN_DEN.DIRECCION,
+				BAN_DEN_DEN.REFERENCIA,
+				BAN_DEN_DEN.TIPO_RESPONSABLE,
+				BAN_DEN_DEN.NOMBRE_TIPO_RESPONSABLE,
+				BAN_DEN_DEN.RESPONSABLE_PROBLEMA,
+				BAN_DEN_DEN.NOMBRE_DENUNCIADO,
+				BAN_DEN_DEN.DOCUMENTO_DENUNCIADO,
+				BAN_DEN_DEN.DEPARTAMENTO_DENUNCIADO,
+				BAN_DEN_DEN.PROVINCIA_DENUNCIADO,
+				BAN_DEN_DEN.DISTRITO_DENUNCIADO,
+				BAN_DEN_DEN.DIRECCION_DENUNCIADO,
+				BAN_DEN_DEN.REFERENCIA_DENUNCIADO,
+				BAN_DEN_DEN.NOMBRE_CARGO_DENUNCIADO,
+				BAN_DEN_DEN.NOMBRE_REPRE_DENUNCIADO,
+				BAN_DEN_DEN.NOMBRE_DEPARTAMENTO_DENUNCIADO,
+				BAN_DEN_DEN.NOMBRE_PROVINCIA_DENUNCIADO,
+				BAN_DEN_DEN.NOMBRE_DISTRITO_DENUNCIADO,
+				BAN_DEN_DEN.NOMBRE_DENUNCIADO_DENUNCIA,
+				BAN_DEN_DEN.DIRECCION_DENUNCIADO_DENUNCIA,
+				
+				BAN_DEN_DEN.CODIGOACCESO,
+				TO_CHAR(BAN_DEN_DEN.FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+				BAN_DEN_DEN.ESTADO_DENUNCIA,
+				BAN_DEN_DEN.NOMBRE_ESTADO_DENUNCIA,
+				BAN_DEN_DEN.TIEMPO_TRANSCURRIDO,
+				TO_CHAR(BAN_DEN_DEN.FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+				
+				
+				 CASE 
+           			WHEN BAN_DEN_DEN.FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					BAN_DEN_DEN.TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+              					
+				
+				
+				BAN_DEN_DEN.TOTAL_ATENCIONES,
+				BAN_DEN_DEN.DENUNCIAS_ATENDIDAS,
+				BAN_DEN_DEN.DENUNCIAS_ARCHIVADAS,
+				BAN_DEN_DEN.DENUNCIAS_NO_ATENDIDA,
+				BAN_DEN_DEN.DENUNCIAS_PENDIENTES,
+				  (SELECT COUNT(1) FROM SINADA.T_GENM_ENCUESTA EN WHERE EN.ESTADO = 1  AND EN.ID_BANDEJA_DETALLE = BAN_DEN_DEN.ID_BANDEJA_DETALLE   ) AS VALIDA_ENCUESTA
+		FROM
+			  SINADA.V_BANDEJA_DENUNCIA BAN_DEN_DEN
+	    WHERE 
+				BAN_DEN_DEN.ID_BANDEJA=#{idBandeja} AND 
+				BAN_DEN_DEN.TIPO_BANDEJA = 1 AND 
+				UPPER(BAN_DEN_DEN.CODIGO_DENUNCIA)  LIKE '%'||UPPER(#{codigoDenuncia})||'%' AND
+				(
+					(#{estadoDenuncia}=0)
+					OR
+					(BAN_DEN_DEN.ESTADO_DENUNCIA = #{estadoDenuncia} )
+					
+				)
+			<if test="nombreDenunciado != '' and nombreDenunciado!=null" > 
+					AND
+					BAN_DEN_DEN.RESPONSABLE_PROBLEMA IN (SELECT RESPONSABLE_PROBLEMA FROM SINADA.V_DENUNCIADOS WHERE UPPER(NOMBRE_COMPLETO) LIKE '%'||UPPER(#{nombreDenunciado})||'%')
+				</if>
+<!--   			<if test="nombreDenunciante != '' and nombreDenunciante!=null" >  -->
+<!-- 				AND -->
+<!-- 				ID_DENUNCIA IN (SELECT ID_DENUNCIA FROM SINADA.V_DENUNCIANTE_DETALLE WHERE UPPER(NOMBRE_COMPLETO) LIKE '%'||UPPER(#{nombreDenunciante})||'%') -->
+<!-- 			</if> -->
+			
+		
+			
+			
+			ORDER BY BAN_DEN_DEN.ID_DENUNCIA	DESC	
+			<!--  
+			<if test="year != '' and year !=null" >
+					AND
+					to_char(FECHA_REGISTRO_DENUNCIA,'YYYY') = #{year}
+			</if>
+			<if test="month != '' and month !=null" >
+					AND
+					to_char(FECHA_REGISTRO_DENUNCIA,'MM') = #{month}
+			</if>-->		
+			
+<!-- 		<if test="codigoDenuncia != '' and codigoDenuncia!=null" > -->
+<!-- 			AND  -->
+<!-- 				CODIGO_DENUNCIA = #{codigoDenuncia,jdbcType=VARCHAR} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="departamento != '0' and codigoDenuncia!=null" > -->
+<!-- 			AND	 -->
+<!-- 				DEPARTAMENTO = #{departamento} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="provincia != '0' and provincia!=null" > -->
+<!-- 			AND	 -->
+<!-- 				PROVINCIA = #{provincia} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="distrito != '0' and distrito!=null" > -->
+<!-- 			AND	 -->
+<!-- 				DISTRITO = #{distrito} -->
+<!-- 		</if>		 -->
+		
+		
+		
+		
+	</select>
+	
+		
+	<select id="listarBandejaOrganoCompententeCompleto" resultMap="resultMapBandejaDenuncia" parameterType="BandejaDenuncia">
+		
+		SELECT 
+		
+		        ORG_COM.ID_BANDEJA_DETALLE,
+            ORG_COM.ID_BANDEJA,
+            ORG_COM.TIPO_RESPONSABLE_BANDEJA,
+            ORG_COM.ID_EFA,
+            ORG_COM.DIRECCION_SUPERVICION,
+            ORG_COM.SUB_DIRECCION,
+            ORG_COM.COORDINACION,
+            (SELECT ENT_DEN.NOMBRE_ENTIDAD FROM SINADA.V_ENTIDAD_DENUNCIA ENT_DEN WHERE  ENT_DEN.ID_BANDEJA_DETALLE = ORG_COM.ID_BANDEJA_DETALLE	) AS NOMBRE_ENTIDAD_COMPETENTE,
+            ORG_COM.ESTADO_BANDEJA,
+            ORG_COM.TIPO_BANDEJA,
+            ORG_COM.ID_DENUNCIA,
+            ORG_COM.ESTADO_BANDEJA_DETALLE,
+            ORG_COM.NOM_EST_BANDEJA_DET,
+            ORG_COM.TIPO_ASIGNACION,
+            ORG_COM.NOMBRE_TIPO_ASIGNACION,
+            ORG_COM.CODIGO_DENUNCIA,
+            ORG_COM.TIPO_DENUNCIA,
+            ORG_COM.NOMBRE_TIPO_DENUNCIA,
+            ORG_COM.MEDIO_RECEPCION,
+            ORG_COM.NOMBRE_MEDIO_RECEPCION,
+            ORG_COM.ID_CASO,
+            ORG_COM.NUMERO_CASO,
+            ORG_COM.ID_PROBLEMATICA,
+            ORG_COM.NOMBRE_PROBLEMATICA,
+            ORG_COM.ID_DEBIDOA_1,
+            ORG_COM.NOMBRE_DEBIDOA_NIVEL1,
+            ORG_COM.ID_DEBIDOA_2,
+            ORG_COM.NOMBRE_DEBIDOA_NIVEL2,
+            ORG_COM.ID_DEBIDOA_3,
+            ORG_COM.NOMBRE_DEBIDOA_NIVEL3,
+            ORG_COM.ID_ZONA_SUCESO_1,
+            ORG_COM.NOMBRE_ZONA_SUCESO_1,
+            ORG_COM.ID_ZONA_SUCESO_2,
+            ORG_COM.NOMBRE_ZONA_SUCESO_2,
+            ORG_COM.ID_ZONA_SUCESO_3,
+            ORG_COM.NOMBRE_ZONA_SUCESO_3,
+            ORG_COM.NUMERO_DENUNCIANTES,
+            ORG_COM.NOMBRE_DENUNCIANTE,
+            ORG_COM.DEPARTAMENTO,
+            ORG_COM.NOMBRE_DEPARTAMENTO,
+            ORG_COM.PROVINCIA,
+            ORG_COM.NOMBRE_PROVINCIA,
+            ORG_COM.DISTRITO,
+            ORG_COM.NOMBRE_DISTRITO,
+            ORG_COM.CENTRO_POBLADO,
+			ORG_COM.NOMBRE_CENTRO_POBLADO,
+            ORG_COM.DIRECCION,
+            ORG_COM.REFERENCIA,
+            ORG_COM.TIPO_RESPONSABLE,
+            ORG_COM.NOMBRE_TIPO_RESPONSABLE,
+            ORG_COM.RESPONSABLE_PROBLEMA,
+            
+            
+            ORG_COM.NOMBRE_DENUNCIADO,
+			ORG_COM.DOCUMENTO_DENUNCIADO,
+			ORG_COM.DEPARTAMENTO_DENUNCIADO,
+			ORG_COM.PROVINCIA_DENUNCIADO,
+			ORG_COM.DISTRITO_DENUNCIADO,
+			ORG_COM.DIRECCION_DENUNCIADO,
+			ORG_COM.REFERENCIA_DENUNCIADO,
+			ORG_COM.NOMBRE_CARGO_DENUNCIADO,
+			ORG_COM.NOMBRE_REPRE_DENUNCIADO,
+			ORG_COM.NOMBRE_DEPARTAMENTO_DENUNCIADO,
+			ORG_COM.NOMBRE_PROVINCIA_DENUNCIADO,
+			ORG_COM.NOMBRE_DISTRITO_DENUNCIADO,
+			ORG_COM.NOMBRE_DENUNCIADO_DENUNCIA,
+			ORG_COM.DIRECCION_DENUNCIADO_DENUNCIA,
+            
+            
+            ORG_COM.CODIGOACCESO,
+            TO_CHAR(ORG_COM.FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+            ORG_COM.ESTADO_DENUNCIA,
+            ORG_COM.NOMBRE_ESTADO_DENUNCIA,
+            ORG_COM.TIEMPO_TRANSCURRIDO,
+            
+			TO_CHAR(ORG_COM.FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+            
+            CASE 
+           			WHEN ORG_COM.FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					ORG_COM.TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+              	
+              	
+      
+            ORG_COM.FECHA_PLAZO_ATENCION
+		
+		FROM  SINADA.V_BANDEJA_ORGANO_COMPETENTE ORG_COM
+		
+		ORDER BY ORG_COM.ID_DENUNCIA	DESC	
+
+	
+	</select>
+	
+	
+	
+	<select id="listarBandejaOrganoCompentente" resultMap="resultMapBandejaDenuncia" parameterType="BandejaDenuncia">
+		
+		SELECT 
+		
+		        ID_BANDEJA_DETALLE,
+            ID_BANDEJA,
+            TIPO_RESPONSABLE_BANDEJA,
+            ID_EFA,
+            DIRECCION_SUPERVICION,
+            SUB_DIRECCION,
+            COORDINACION,
+            ESTADO_BANDEJA,
+            TIPO_BANDEJA,
+            ID_DENUNCIA,
+            ESTADO_BANDEJA_DETALLE,
+            NOM_EST_BANDEJA_DET,
+            TIPO_ASIGNACION,
+            NOMBRE_TIPO_ASIGNACION,
+            CODIGO_DENUNCIA,
+            TIPO_DENUNCIA,
+            NOMBRE_TIPO_DENUNCIA,
+            MEDIO_RECEPCION,
+            NOMBRE_MEDIO_RECEPCION,
+            ID_CASO,
+            NUMERO_CASO,
+            ID_PROBLEMATICA,
+            NOMBRE_PROBLEMATICA,
+            ID_DEBIDOA_1,
+            NOMBRE_DEBIDOA_NIVEL1,
+            ID_DEBIDOA_2,
+            NOMBRE_DEBIDOA_NIVEL2,
+            ID_DEBIDOA_3,
+            NOMBRE_DEBIDOA_NIVEL3,
+            ID_ZONA_SUCESO_1,
+            NOMBRE_ZONA_SUCESO_1,
+            ID_ZONA_SUCESO_2,
+            NOMBRE_ZONA_SUCESO_2,
+            ID_ZONA_SUCESO_3,
+            NOMBRE_ZONA_SUCESO_3,
+            NUMERO_DENUNCIANTES,
+            NOMBRE_DENUNCIANTE,
+            DEPARTAMENTO,
+            NOMBRE_DEPARTAMENTO,
+            PROVINCIA,
+            NOMBRE_PROVINCIA,
+            DISTRITO,
+            NOMBRE_DISTRITO,
+            CENTRO_POBLADO,
+			NOMBRE_CENTRO_POBLADO,
+            DIRECCION,
+            REFERENCIA,
+            TIPO_RESPONSABLE,
+            NOMBRE_TIPO_RESPONSABLE,
+            RESPONSABLE_PROBLEMA,
+            
+            NOMBRE_DENUNCIADO,
+			DOCUMENTO_DENUNCIADO,
+			DEPARTAMENTO_DENUNCIADO,
+			PROVINCIA_DENUNCIADO,
+			DISTRITO_DENUNCIADO,
+			DIRECCION_DENUNCIADO,
+			REFERENCIA_DENUNCIADO,
+			NOMBRE_CARGO_DENUNCIADO,
+			NOMBRE_REPRE_DENUNCIADO,
+			NOMBRE_DEPARTAMENTO_DENUNCIADO,
+			NOMBRE_PROVINCIA_DENUNCIADO,
+			NOMBRE_DISTRITO_DENUNCIADO,
+			NOMBRE_DENUNCIADO_DENUNCIA,
+			DIRECCION_DENUNCIADO_DENUNCIA,
+			
+			
+            CODIGOACCESO,
+            TO_CHAR(FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+            ESTADO_DENUNCIA,
+            NOMBRE_ESTADO_DENUNCIA,
+            TIEMPO_TRANSCURRIDO,
+            TO_CHAR(FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+            
+
+   				CASE 
+           			WHEN FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+              	
+              	
+              	
+
+            FECHA_PLAZO_ATENCION
+		
+		FROM  SINADA.V_BANDEJA_ORGANO_COMPETENTE
+		WHERE 
+				ID_BANDEJA=#{idBandeja} AND 
+				TIPO_BANDEJA = 3 AND 
+				UPPER(CODIGO_DENUNCIA)  LIKE '%'||UPPER(#{codigoDenuncia})||'%' AND
+				(
+					(#{estadoBandejaDetalle}=0)
+					OR
+					(ESTADO_BANDEJA_DETALLE = #{estadoBandejaDetalle} )
+					
+				)
+				<if test="nombreDenunciante != '' and nombreDenunciante!=null" > 
+					AND
+					ID_DENUNCIA IN (SELECT ID_DENUNCIA FROM SINADA.V_DENUNCIANTE_DETALLE WHERE UPPER(NOMBRE_COMPLETO) LIKE '%'||UPPER(#{nombreDenunciante})||'%')
+				</if>
+				<if test="nombreDenunciado != '' and nombreDenunciado!=null" > 
+					AND
+					RESPONSABLE_PROBLEMA IN (SELECT RESPONSABLE_PROBLEMA FROM SINADA.V_DENUNCIADOS WHERE UPPER(NOMBRE_COMPLETO) LIKE '%'||UPPER(#{nombreDenunciado})||'%')
+				</if>
+			<if test="fechaRegistroDenunciaInicio != '' and fechaRegistroDenunciaInicio !=null" >
+				<if test="fechaRegistroDenunciaFin != '' and fechaRegistroDenunciaFin !=null" >
+					AND
+					FECHA_REGISTRO_DENUNCIA BETWEEN TO_DATE(#{fechaRegistroDenunciaInicio},'DD/MM/YY') AND TO_DATE(#{fechaRegistroDenunciaFin},'DD/MM/YY')
+				</if>
+			</if>
+			
+			<if test="fechaTiempoTranscurrido != '' and fechaTiempoTranscurrido !=null" >
+					AND
+					FECHA_REGISTRO_DENUNCIA > TO_DATE(#{fechaTiempoTranscurrido},'DD/MM/YY')
+			</if>
+			
+			<if test="fechaTiempoTranscurridoUltimaAccion != '' and fechaTiempoTranscurridoUltimaAccion !=null" >
+					AND
+					FECHA_ULTIMA_ACCION > TO_DATE(#{fechaTiempoTranscurridoUltimaAccion},'DD/MM/YY')
+			</if>
+			AND
+			(
+				(#{year}=0)
+				OR
+				(to_char(FECHA_REGISTRO_DENUNCIA,'YYYY') = #{year} )	
+			)
+			AND
+			(
+				(#{month}=0)
+				OR
+				(to_char(FECHA_REGISTRO_DENUNCIA,'MM') = #{month} )	
+			)
+			AND
+				ID_CASO IN (SELECT ID_CASO FROM SINADA.T_GENM_CASO WHERE  (
+														               #{problematica.idDetalleCaso} = 0 
+														           OR
+														              ID_PROBLEMATICA = #{problematica.idDetalleCaso}
+														         
+														       )
+													         AND
+													         (
+													              #{debidoA1.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_1 = #{debidoA1.idDetalleCaso}
+													         ) 
+													          AND
+													         (
+													              #{debidoA2.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_2 = #{debidoA2.idDetalleCaso}
+													         
+													         ) 
+													          AND
+													         (
+													              #{debidoA3.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_3 = #{debidoA3.idDetalleCaso}
+													         
+													         ) 
+													          AND
+													         (
+													              #{zonasuceso1.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_1 = #{zonasuceso1.idDetalleCaso}
+													         
+													         ) 
+													         
+													            AND
+													         (
+													              #{zonasuceso2.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_2 = #{zonasuceso2.idDetalleCaso}
+													         
+													         ) 
+													         
+													            AND
+													         (
+													              #{zonasuceso3.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_3 = #{zonasuceso3.idDetalleCaso}
+													         
+													         ) 
+							)
+			<if test="departamento != '' and departamento !=null" >
+			
+			AND
+			(
+				(DEPARTAMENTO = #{departamento} )	
+			)
+			</if>
+			<if test="provincia != '' and provincia !=null" >
+			AND
+			(
+				
+				(PROVINCIA = #{provincia} )	
+			)
+			</if>
+			<if test="distrito != '' and distrito !=null" >
+			AND
+			(
+				(DISTRITO = #{distrito} )	
+			)
+			</if>
+		
+		ORDER BY ID_DENUNCIA	DESC	
+<!-- 	<if test="codigoDenuncia != '' and  codigoDenuncia!=null" > -->
+<!-- 			AND  -->
+<!-- 				CODIGO_DENUNCIA LIKE #{codigoDenuncia,jdbcType=VARCHAR} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="departamento != '0' and codigoDenuncia!=null" > -->
+<!-- 			AND	 -->
+<!-- 				DEPARTAMENTO = #{departamento} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="provincia != '0' and provincia!=null" > -->
+<!-- 			AND	 -->
+<!-- 				PROVINCIA = #{provincia} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="distrito != '0' and distrito!=null" > -->
+<!-- 			AND	 -->
+<!-- 				DISTRITO = #{distrito} -->
+<!-- 		</if>	 -->
+	
+	</select>
+	
+	
+	
+		<select id="listarBandejaAsignacionDeDenuncias" resultMap="resultMapBandejaDenuncia" parameterType="BandejaDenuncia">
+		SELECT
+        
+				DENB.ID_BANDEJA_DETALLE,
+		        DENB.ID_BANDEJA,
+		        DENB.TIPO_RESPONSABLE_BANDEJA,
+		        DENB.ID_RESPONSABLE_BANDEJA,
+		        DENB.ESTADO_BANDEJA,
+		        DENB.TIPO_BANDEJA,
+		        DENB.ID_DENUNCIA,
+		        DENB.ESTADO_BANDEJA_DETALLE,
+		        DENB.NOM_EST_BANDEJA_DET,
+		        DENB.TIPO_ASIGNACION,
+		        DENB.NOMBRE_TIPO_ASIGNACION,
+		        DENB.CODIGO_DENUNCIA,
+		        DENB.TIPO_DENUNCIA,
+		        DENB.NOMBRE_TIPO_DENUNCIA,
+		        DENB.MEDIO_RECEPCION,
+		        DENB.NOMBRE_MEDIO_RECEPCION,
+		        DENB.ID_CASO,
+		        DENB.NUMERO_CASO,
+		        DENB.ID_PROBLEMATICA,
+		        DENB.NOMBRE_PROBLEMATICA,
+		        DENB.ID_DEBIDOA_1,
+		        DENB.NOMBRE_DEBIDOA_NIVEL1,
+		        DENB.ID_DEBIDOA_2,
+		        DENB.NOMBRE_DEBIDOA_NIVEL2,
+		        DENB.ID_DEBIDOA_3,
+		        DENB.NOMBRE_DEBIDOA_NIVEL3,
+		        DENB.ID_ZONA_SUCESO_1,
+		        DENB.NOMBRE_ZONA_SUCESO_1,
+		        DENB.ID_ZONA_SUCESO_2,
+		        DENB.NOMBRE_ZONA_SUCESO_2,
+		        DENB.ID_ZONA_SUCESO_3,
+		        DENB.NOMBRE_ZONA_SUCESO_3,
+		        DENB.NUMERO_DENUNCIANTES,
+		        DENB.NOMBRE_DENUNCIANTE,
+		        DENB.DEPARTAMENTO,
+		        DENB.NOMBRE_DEPARTAMENTO,
+		        DENB.PROVINCIA,
+		        DENB.NOMBRE_PROVINCIA,
+		        DENB.CENTRO_POBLADO,
+				DENB.NOMBRE_CENTRO_POBLADO,
+		        DENB.DISTRITO,
+		        DENB.NOMBRE_DISTRITO,
+		        DENB.DIRECCION,
+		        DENB.REFERENCIA,
+		        DENB.TIPO_RESPONSABLE,
+		        DENB.NOMBRE_TIPO_RESPONSABLE,
+		        DENB.RESPONSABLE_PROBLEMA,
+		        
+		           DENB.NOMBRE_DENUNCIADO,
+					DENB.DOCUMENTO_DENUNCIADO,
+					DENB.DEPARTAMENTO_DENUNCIADO,
+					DENB.PROVINCIA_DENUNCIADO,
+					DENB.DISTRITO_DENUNCIADO,
+					DENB.DIRECCION_DENUNCIADO,
+					DENB.REFERENCIA_DENUNCIADO,
+					DENB.NOMBRE_CARGO_DENUNCIADO,
+					DENB.NOMBRE_REPRE_DENUNCIADO,
+					DENB.NOMBRE_DEPARTAMENTO_DENUNCIADO,
+					DENB.NOMBRE_PROVINCIA_DENUNCIADO,
+					DENB.NOMBRE_DISTRITO_DENUNCIADO,
+					DENB.NOMBRE_DENUNCIADO_DENUNCIA,
+					DENB.DIRECCION_DENUNCIADO_DENUNCIA,
+			
+		        DENB.CODIGOACCESO,
+		        TO_CHAR(DENB.FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+		        DENB.ESTADO_DENUNCIA,
+		        DENB.NOMBRE_ESTADO_DENUNCIA,
+		        DENB.TIEMPO_TRANSCURRIDO,
+		        TO_CHAR(DENB.FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+		        
+		          CASE 
+           			WHEN DENB.FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					DENB.TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+		        
+		        
+		        DENB.TOTAL_ATENCIONES,
+		        DENB.DENUNCIAS_ATENDIDAS,
+		        DENB.DENUNCIAS_ARCHIVADAS,
+		        DENB.DENUNCIAS_NO_ATENDIDA,
+		        DENB.DENUNCIAS_PENDIENTES,
+				(SELECT COUNT(*) FROM SINADA.T_GEND_BANDEJA_DETALLE BAND WHERE BAND.FLAG_ACTIVO = '1' AND BAND.TIPO_BANDEJA = 4 AND BAND.ID_DENUNCIA = DENB.ID_DENUNCIA) AS VALIDA_ESPECIALISTA
+		FROM
+			  	SINADA.V_BANDEJA_DENUNCIA DENB
+		WHERE 
+<!-- 				DENB.ID_BANDEJA=#{idBandeja} AND  -->
+				DENB.TIPO_BANDEJA = 2 AND
+				UPPER(DENB.CODIGO_DENUNCIA)  LIKE '%'||UPPER(#{codigoDenuncia})||'%'AND
+				(
+					(#{estadoDenuncia}=0)
+					OR
+					(DENB.ESTADO_DENUNCIA = #{estadoDenuncia} )
+					
+				)
+			<if test="fechaRegistroDenunciaInicio != '' and fechaRegistroDenunciaInicio !=null" >
+			<if test="fechaRegistroDenunciaFin != '' and fechaRegistroDenunciaFin !=null" >
+					AND
+					DENB.FECHA_REGISTRO_DENUNCIA BETWEEN TO_DATE(#{fechaRegistroDenunciaInicio},'DD/MM/YY') AND TO_DATE(#{fechaRegistroDenunciaFin},'DD/MM/YY')
+				</if>
+			</if>
+			
+			<if test="fechaTiempoTranscurrido != '' and fechaTiempoTranscurrido !=null" >
+					AND
+					DENB.FECHA_REGISTRO_DENUNCIA > TO_DATE(#{fechaTiempoTranscurrido},'DD/MM/YY')
+			</if>
+			
+			<if test="fechaTiempoTranscurridoUltimaAccion != '' and fechaTiempoTranscurridoUltimaAccion !=null" >
+					AND
+					DENB.FECHA_ULTIMA_ACCION > TO_DATE(#{fechaTiempoTranscurridoUltimaAccion},'DD/MM/YY')
+			</if>
+			AND
+			(
+				(#{year}=0)
+				OR
+				(to_char(DENB.FECHA_REGISTRO_DENUNCIA,'YYYY') = #{year} )	
+			)
+			AND
+			(
+				(#{month}=0)
+				OR
+				(to_char(DENB.FECHA_REGISTRO_DENUNCIA,'MM') = #{month} )	
+			)
+			AND
+				DENB.ID_CASO IN (SELECT ID_CASO FROM SINADA.T_GENM_CASO WHERE  (
+														               #{problematica.idDetalleCaso} = 0 
+														           OR
+														              ID_PROBLEMATICA = #{problematica.idDetalleCaso}
+														         
+														       )
+													         AND
+													         (
+													              #{debidoA1.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_1 = #{debidoA1.idDetalleCaso}
+													         ) 
+													          AND
+													         (
+													              #{debidoA2.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_2 = #{debidoA2.idDetalleCaso}
+													         
+													         ) 
+													          AND
+													         (
+													              #{debidoA3.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_3 = #{debidoA3.idDetalleCaso}
+													         
+													         ) 
+													          AND
+													         (
+													              #{zonasuceso1.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_1 = #{zonasuceso1.idDetalleCaso}
+													         
+													         ) 
+													         
+													            AND
+													         (
+													              #{zonasuceso2.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_2 = #{zonasuceso2.idDetalleCaso}
+													         
+													         ) 
+													         
+													            AND
+													         (
+													              #{zonasuceso3.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_3 = #{zonasuceso3.idDetalleCaso}
+													         
+													         ) 
+							)
+			<if test="direccion != '' and direccion !=null" >
+					AND
+					UPPER(DENB.DIRECCION) LIKE '%'||UPPER(#{direccion})||'%'
+			</if>
+				<if test="departamento != '' and departamento !=null" >
+			
+			AND
+			(
+				(DEPARTAMENTO = #{departamento} )	
+			)
+			</if>
+			<if test="provincia != '' and provincia !=null" >
+			AND
+			(
+				
+				(PROVINCIA = #{provincia} )	
+			)
+			</if>
+			<if test="distrito != '' and distrito !=null" >
+			AND
+			(
+				(DISTRITO = #{distrito} )	
+			)
+			</if>
+			
+
+			
+			ORDER BY DENB.ID_BANDEJA_DETALLE	DESC	
+
+	
+	</select>
+	
+		<select id="listarBandejaEspecialistaSinada" resultMap="resultMapBandejaDenuncia" parameterType="BandejaDenuncia">
+	SELECT
+	
+		TIPO_ENTIDAD_ATENCION,
+		NOMBRE_TIPO_ENTIDAD_ATENCION,
+		
+			  ID_BANDEJA_DETALLE,
+        ID_BANDEJA,
+        TIPO_RESPONSABLE_BANDEJA,
+        ID_RESPONSABLE_BANDEJA,
+				(SELECT PRIMER_NOMBRE||' '||NVL(SEGUNDO_NOMBRE,'') ||' '|| APELLIDO_PATERNO||' '||APELLIDO_MATERNO FROM SINADA.T_GENT_PERSONA WHERE ID_PERSONA = ID_RESPONSABLE_BANDEJA ) AS ESPECIALISTA_ASIGNADO,
+				ESTADO_BANDEJA,
+        TIPO_BANDEJA,
+        ID_DENUNCIA,
+        ESTADO_BANDEJA_DETALLE,
+        NOM_EST_BANDEJA_DET,
+        TIPO_ASIGNACION,
+        NOMBRE_TIPO_ASIGNACION,
+        CODIGO_DENUNCIA,
+        TIPO_DENUNCIA,
+        NOMBRE_TIPO_DENUNCIA,
+        MEDIO_RECEPCION,
+        NOMBRE_MEDIO_RECEPCION,
+        ID_CASO,
+        NUMERO_CASO,
+        ID_PROBLEMATICA,
+        NOMBRE_PROBLEMATICA,
+        ID_DEBIDOA_1,
+        NOMBRE_DEBIDOA_NIVEL1,
+        ID_DEBIDOA_2,
+        NOMBRE_DEBIDOA_NIVEL2,
+        ID_DEBIDOA_3,
+        NOMBRE_DEBIDOA_NIVEL3,
+        ID_ZONA_SUCESO_1,
+        NOMBRE_ZONA_SUCESO_1,
+        ID_ZONA_SUCESO_2,
+        NOMBRE_ZONA_SUCESO_2,
+        ID_ZONA_SUCESO_3,
+        NOMBRE_ZONA_SUCESO_3,
+        NUMERO_DENUNCIANTES,
+        NOMBRE_DENUNCIANTE,
+        DEPARTAMENTO,
+        NOMBRE_DEPARTAMENTO,
+        PROVINCIA,
+        NOMBRE_PROVINCIA,
+        DISTRITO,
+        NOMBRE_DISTRITO,
+        CENTRO_POBLADO,
+		NOMBRE_CENTRO_POBLADO,
+        DIRECCION,
+        REFERENCIA,
+        TIPO_RESPONSABLE,
+        NOMBRE_TIPO_RESPONSABLE,
+        RESPONSABLE_PROBLEMA,
+        
+        
+            NOMBRE_DENUNCIADO,
+			DOCUMENTO_DENUNCIADO,
+			DEPARTAMENTO_DENUNCIADO,
+			PROVINCIA_DENUNCIADO,
+			DISTRITO_DENUNCIADO,
+			DIRECCION_DENUNCIADO,
+			REFERENCIA_DENUNCIADO,
+			NOMBRE_CARGO_DENUNCIADO,
+			NOMBRE_REPRE_DENUNCIADO,
+			NOMBRE_DEPARTAMENTO_DENUNCIADO,
+			NOMBRE_PROVINCIA_DENUNCIADO,
+			NOMBRE_DISTRITO_DENUNCIADO,
+			NOMBRE_DENUNCIADO_DENUNCIA,
+			DIRECCION_DENUNCIADO_DENUNCIA,
+					
+					
+        CODIGOACCESO,
+        TO_CHAR(FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+        ESTADO_DENUNCIA,
+        NOMBRE_ESTADO_DENUNCIA,
+        TIEMPO_TRANSCURRIDO,
+        TO_CHAR(FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+        
+
+		   CASE 
+           			WHEN FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+              	
+
+        TOTAL_ATENCIONES,
+        DENUNCIAS_ATENDIDAS,
+        DENUNCIAS_ARCHIVADAS,
+        DENUNCIAS_NO_ATENDIDA,
+        DENUNCIAS_PENDIENTES
+		FROM
+			  	SINADA.V_BANDEJA_DENUNCIA
+		WHERE 
+			<if test="tipoValidacionEspecialista != 2">
+       			ID_BANDEJA=#{idBandeja} AND 
+    		</if>
+    				  
+				
+				TIPO_BANDEJA = 4 AND 
+				UPPER(CODIGO_DENUNCIA)  LIKE '%'||UPPER(#{codigoDenuncia})||'%' AND
+				(
+					(#{estadoBandejaDetalle}=0)
+					OR
+					(ESTADO_DENUNCIA = #{estadoBandejaDetalle} )
+					
+				)
+				<if test="idResponsableBandeja!=0 and idResponsableBandeja!=null">
+				AND
+					ID_RESPONSABLE_BANDEJA  = #{idResponsableBandeja}
+				
+				</if>
+				<if test="nombreDenunciante != '' and nombreDenunciante!=null" > 
+					AND
+					ID_DENUNCIA IN (SELECT ID_DENUNCIA FROM SINADA.V_DENUNCIANTE_DETALLE WHERE UPPER(NOMBRE_COMPLETO LIKE) '%'||UPPER(#{nombreDenunciante})||'%')
+				</if>
+				<if test="nombreDenunciado != '' and nombreDenunciado!=null" > 
+					AND
+					RESPONSABLE_PROBLEMA IN (SELECT RESPONSABLE_PROBLEMA FROM SINADA.V_DENUNCIADOS WHERE UPPER(NOMBRE_COMPLETO) LIKE '%'||UPPER(#{nombreDenunciado})||'%')
+				</if>
+			<if test="fechaRegistroDenunciaInicio != '' and fechaRegistroDenunciaInicio !=null" >
+				<if test="fechaRegistroDenunciaFin != '' and fechaRegistroDenunciaFin !=null" >
+					AND
+					FECHA_REGISTRO_DENUNCIA BETWEEN TO_DATE(#{fechaRegistroDenunciaInicio},'DD/MM/YY') AND TO_DATE(#{fechaRegistroDenunciaFin},'DD/MM/YY')
+				</if>
+			</if>
+			
+			<if test="fechaTiempoTranscurrido != '' and fechaTiempoTranscurrido !=null" >
+					AND
+					FECHA_REGISTRO_DENUNCIA > TO_DATE(#{fechaTiempoTranscurrido},'DD/MM/YY')
+			</if>
+			
+			<if test="fechaTiempoTranscurridoUltimaAccion != '' and fechaTiempoTranscurridoUltimaAccion !=null" >
+					AND
+					FECHA_ULTIMA_ACCION > TO_DATE(#{fechaTiempoTranscurridoUltimaAccion},'DD/MM/YY')
+			</if>
+			AND
+			(
+				(#{year}=0)
+				OR
+				(to_char(FECHA_REGISTRO_DENUNCIA,'YYYY') = #{year} )	
+			)
+			AND
+			(
+				(#{month}=0)
+				OR
+				(to_char(FECHA_REGISTRO_DENUNCIA,'MM') = #{month} )	
+			)
+			AND
+				ID_CASO IN (SELECT ID_CASO FROM SINADA.T_GENM_CASO WHERE  (
+														               #{problematica.idDetalleCaso} = 0 
+														           OR
+														              ID_PROBLEMATICA = #{problematica.idDetalleCaso}
+														         
+														       )
+													         AND
+													         (
+													              #{debidoA1.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_1 = #{debidoA1.idDetalleCaso}
+													         ) 
+													          AND
+													         (
+													              #{debidoA2.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_2 = #{debidoA2.idDetalleCaso}
+													         
+													         ) 
+													          AND
+													         (
+													              #{debidoA3.idDetalleCaso} = 0 
+													           OR
+													              ID_DEBIDOA_3 = #{debidoA3.idDetalleCaso}
+													         
+													         ) 
+													          AND
+													         (
+													              #{zonasuceso1.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_1 = #{zonasuceso1.idDetalleCaso}
+													         
+													         ) 
+													         
+													            AND
+													         (
+													              #{zonasuceso2.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_2 = #{zonasuceso2.idDetalleCaso}
+													         
+													         ) 
+													         
+													            AND
+													         (
+													              #{zonasuceso3.idDetalleCaso} = 0 
+													           OR
+													              ID_ZONA_SUCESO_3 = #{zonasuceso3.idDetalleCaso}
+													         
+													         ) 
+							)
+		<if test="departamento != '' and departamento !=null" >
+			
+			AND
+			(
+				(DEPARTAMENTO = #{departamento} )	
+			)
+			</if>
+			<if test="provincia != '' and provincia !=null" >
+			AND
+			(
+				
+				(PROVINCIA = #{provincia} )	
+			)
+			</if>
+			<if test="distrito != '' and distrito !=null" >
+			AND
+			(
+				(DISTRITO = #{distrito} )	
+			)
+			</if>
+			<if test="nombreEntidad != '' and nombreEntidad" > 
+					AND
+					RESPONSABLE_PROBLEMA IN (SELECT ID_ENTIDAD FROM SINADA.T_GENT_ENTIDAD WHERE UPPER(RAZON_SOCIAL) LIKE '%'||UPPER(#{nombreEntidad})||'%')
+				</if>
+			
+			<if test="tipoEntidadAtencion!=0">
+			AND
+					TIPO_ENTIDAD_ATENCION = #{tipoEntidadAtencion}
+			</if>
+				ORDER BY ID_DENUNCIA	DESC
+				
+<!-- 	<if test="codigoDenuncia != '' and codigoDenuncia!=null" > -->
+<!-- 			AND  -->
+<!-- 				CODIGO_DENUNCIA = #{codigoDenuncia,jdbcType=VARCHAR} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="departamento != '0' and codigoDenuncia!=null" > -->
+<!-- 			AND	 -->
+<!-- 				DEPARTAMENTO = #{departamento} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="provincia != '0' and provincia!=null" > -->
+<!-- 			AND	 -->
+<!-- 				PROVINCIA = #{provincia} -->
+<!-- 		</if>	 -->
+		
+<!-- 		<if test="distrito != '0' and distrito!=null" > -->
+<!-- 			AND	 -->
+<!-- 				DISTRITO = #{distrito} -->
+<!-- 		</if>	 -->
+
+
+	
+	</select>
+	
+	
+
+	<select id="buscarPorId" resultMap="resultMapBandejaDenuncia"
+		parameterType="long">
+			SELECT
+			  ID_BANDEJA_DETALLE,
+		        ID_BANDEJA,
+		        TIPO_RESPONSABLE_BANDEJA,
+		        ID_RESPONSABLE_BANDEJA,
+		        ESTADO_BANDEJA,
+		        TIPO_BANDEJA,
+		        ID_DENUNCIA,
+		        ESTADO_BANDEJA_DETALLE,
+		        NOM_EST_BANDEJA_DET,
+		        TIPO_ASIGNACION,
+		        NOMBRE_TIPO_ASIGNACION,
+		        CODIGO_DENUNCIA,
+		        TIPO_DENUNCIA,
+		        NOMBRE_TIPO_DENUNCIA,
+		        MEDIO_RECEPCION,
+		        NOMBRE_MEDIO_RECEPCION,
+		        ID_CASO,
+		        NUMERO_CASO,
+		        ID_PROBLEMATICA,
+		        NOMBRE_PROBLEMATICA,
+		        ID_DEBIDOA_1,
+		        NOMBRE_DEBIDOA_NIVEL1,
+		        ID_DEBIDOA_2,
+		        NOMBRE_DEBIDOA_NIVEL2,
+		        ID_DEBIDOA_3,
+		        NOMBRE_DEBIDOA_NIVEL3,
+		        ID_ZONA_SUCESO_1,
+		        NOMBRE_ZONA_SUCESO_1,
+		        ID_ZONA_SUCESO_2,
+		        NOMBRE_ZONA_SUCESO_2,
+		        ID_ZONA_SUCESO_3,
+		        NOMBRE_ZONA_SUCESO_3,
+		        NUMERO_DENUNCIANTES,
+		        NOMBRE_DENUNCIANTE,
+		        DEPARTAMENTO,
+		        NOMBRE_DEPARTAMENTO,
+		        PROVINCIA,
+		        NOMBRE_PROVINCIA,
+		        DISTRITO,
+		        NOMBRE_DISTRITO,
+		        DIRECCION,
+		        REFERENCIA,
+		        TIPO_RESPONSABLE,
+		        NOMBRE_TIPO_RESPONSABLE,
+		        RESPONSABLE_PROBLEMA,
+		        CODIGOACCESO,
+		        TO_CHAR(FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+		        ESTADO_DENUNCIA,
+		        NOMBRE_ESTADO_DENUNCIA,
+		        TIEMPO_TRANSCURRIDO,
+		        
+		        TO_CHAR(FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+		        
+		         CASE 
+           			WHEN FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+		        
+		        
+		        
+		        
+		        TOTAL_ATENCIONES,
+		        DENUNCIAS_ATENDIDAS,
+		        DENUNCIAS_ARCHIVADAS,
+		        DENUNCIAS_NO_ATENDIDA,
+		        DENUNCIAS_PENDIENTES
+		FROM
+			  	SINADA.V_BANDEJA_DENUNCIA
+			  
+		WHERE 
+				ID_BANDEJA=#{idBandeja}
+				
+			
+				
+	
+	</select>
+	
+	
+	
+	<select id="buscarPorIdBandejaDetalle" resultMap="resultMapBandejaDenuncia"
+		parameterType="long">
+			SELECT
+				  ID_BANDEJA_DETALLE,
+			      ID_BANDEJA,
+			      TIPO_RESPONSABLE_BANDEJA,
+			      ID_RESPONSABLE_BANDEJA,
+			      ESTADO_BANDEJA,
+			      TIPO_BANDEJA,
+			      ID_DENUNCIA,
+			      ESTADO_BANDEJA_DETALLE,
+			      NOM_EST_BANDEJA_DET,
+			      TIPO_ASIGNACION,
+			      NOMBRE_TIPO_ASIGNACION,
+			      CODIGO_DENUNCIA,
+			      TIPO_DENUNCIA,
+			      NOMBRE_TIPO_DENUNCIA,
+			      MEDIO_RECEPCION,
+			      NOMBRE_MEDIO_RECEPCION,
+			      ID_CASO,
+			      NUMERO_CASO,
+			      ID_PROBLEMATICA,
+			      NOMBRE_PROBLEMATICA,
+			      ID_DEBIDOA_1,
+			      NOMBRE_DEBIDOA_NIVEL1,
+			      ID_DEBIDOA_2,
+			      NOMBRE_DEBIDOA_NIVEL2,
+			      ID_DEBIDOA_3,
+			      NOMBRE_DEBIDOA_NIVEL3,
+			      ID_ZONA_SUCESO_1,
+			      NOMBRE_ZONA_SUCESO_1,
+			      ID_ZONA_SUCESO_2,
+			      NOMBRE_ZONA_SUCESO_2,
+			      ID_ZONA_SUCESO_3,
+			      NOMBRE_ZONA_SUCESO_3,
+			      NUMERO_DENUNCIANTES,
+			      NOMBRE_DENUNCIANTE,
+			      DEPARTAMENTO,
+			      NOMBRE_DEPARTAMENTO,
+			      PROVINCIA,
+			      NOMBRE_PROVINCIA,
+			      DISTRITO,
+			      NOMBRE_DISTRITO,
+			      DIRECCION,
+			      REFERENCIA,
+			      TIPO_RESPONSABLE,
+			      NOMBRE_TIPO_RESPONSABLE,
+			      RESPONSABLE_PROBLEMA,
+			      CODIGOACCESO,
+			      TO_CHAR(FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+			      ESTADO_DENUNCIA,
+			      NOMBRE_ESTADO_DENUNCIA,
+			      TIEMPO_TRANSCURRIDO,
+			      
+			      TO_CHAR(FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+			      
+			         CASE 
+           			WHEN FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					TIEMPO_ULTIMA_ACCION
+              			END
+              		AS TIEMPO_ULTIMA_ACCION,
+              	
+              	
+			      TOTAL_ATENCIONES,
+			      DENUNCIAS_ATENDIDAS,
+			      DENUNCIAS_ARCHIVADAS,
+			      DENUNCIAS_NO_ATENDIDA,
+			      DENUNCIAS_PENDIENTES
+		FROM
+			  	SINADA.V_BANDEJA_DENUNCIA
+			  
+		WHERE 
+				ID_BANDEJA_DETALLE=#{idBandejaDetalle}
+				
+					ORDER BY ID_DENUNCIA	DESC
+				
+	
+	</select>
+	
+
+
+
+
+
+	<select id="buscarBandejaDeDenunciasEntidadPorEstado" resultMap="resultMapBandejaDenuncia"
+		parameterType="BandejaDenuncia">
+			
+
+		SELECT 
+		        ID_BANDEJA_DETALLE,
+		        ID_BANDEJA,
+		        TIPO_RESPONSABLE_BANDEJA,
+		        ID_EFA,
+		        DIRECCION_SUPERVICION,
+		        SUB_DIRECCION,
+		        COORDINACION,
+		        ESTADO_BANDEJA,
+		        TIPO_BANDEJA,
+		        ID_DENUNCIA,
+		        ESTADO_BANDEJA_DETALLE,
+		        NOM_EST_BANDEJA_DET,
+		        TIPO_ASIGNACION,
+		        NOMBRE_TIPO_ASIGNACION,
+		        CODIGO_DENUNCIA,
+		        
+		   
+		 
+		        TO_CHAR(FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+		        ESTADO_DENUNCIA,
+		        NOMBRE_ESTADO_DENUNCIA,
+		        TIEMPO_TRANSCURRIDO,
+		        
+		        TO_CHAR(FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+		        
+		        TIEMPO_ULTIMA_ACCION,
+		        FECHA_INICIO_ATENCION,
+		        FECHA_PLAZO_ATENCION,
+		        DIAS_HABILES_PLAZO,
+		        FECHA_REGISTRO_DEN_ORG,
+		        DIAS_HAB_TRANS_DEN_ASIG
+
+
+
+		FROM 
+				SINADA.V_BANDEJA_ORGANO_COMPETENTE 
+		
+		WHERE
+				 TIPO_ASIGNACION != 2 
+		AND 
+				 ESTADO_BANDEJA_DETALLE = #{estadoBandejaDetalle}
+				
+			
+				
+	
+	</select>
+	
+	<select id="buscarDenunciaOefaPorIdDenunciaDireccionSupSubDireccion" resultMap="resultMapBandejaDenuncia"
+		parameterType="BandejaDenuncia">
+			
+
+		SELECT 
+		        ID_BANDEJA_DETALLE,
+		        ID_BANDEJA,
+		        TIPO_RESPONSABLE_BANDEJA,
+		        ID_EFA,
+		        DIRECCION_SUPERVICION,
+		        SUB_DIRECCION,
+		        COORDINACION,
+		        ESTADO_BANDEJA,
+		        TIPO_BANDEJA,
+		        ID_DENUNCIA,
+		        ESTADO_BANDEJA_DETALLE,
+		        NOM_EST_BANDEJA_DET,
+		        TIPO_ASIGNACION,
+		        NOMBRE_TIPO_ASIGNACION,
+		        CODIGO_DENUNCIA,
+		        
+		   
+		 
+		        TO_CHAR(FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+		        ESTADO_DENUNCIA,
+		        NOMBRE_ESTADO_DENUNCIA,
+		        TIEMPO_TRANSCURRIDO,
+		        
+		        TO_CHAR(FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+		        
+		        TIEMPO_ULTIMA_ACCION,
+		        FECHA_INICIO_ATENCION,
+		        FECHA_PLAZO_ATENCION,
+		        DIAS_HABILES_PLAZO,
+		        FECHA_REGISTRO_DEN_ORG,
+		        DIAS_HAB_TRANS_DEN_ASIG
+
+
+
+		FROM 
+				SINADA.V_BANDEJA_ORGANO_COMPETENTE 
+		
+		WHERE
+				TIPO_BANDEJA=3 
+		AND 
+				TIPO_RESPONSABLE_BANDEJA=3 
+		AND 
+				ID_DENUNCIA=#{idDenuncia} 
+		AND 
+				DIRECCION_SUPERVICION = #{direccionSupervicion}
+		AND 
+				SUB_DIRECCION=#{subDireccion}
+				
+			
+				
+	
+	</select>
+	
+	
+	
+	
+		<select id="listarBandejaEntidadBasicoCompleto" resultMap="resultMapBandejaDenuncia" parameterType="BandejaDenuncia">
+		
+		SELECT 
+		
+		        ORG_COM.ID_BANDEJA_DETALLE,
+            ORG_COM.ID_BANDEJA,
+            ORG_COM.TIPO_RESPONSABLE_BANDEJA,
+            ORG_COM.ID_EFA,
+            ORG_COM.DIRECCION_SUPERVICION,
+            ORG_COM.SUB_DIRECCION,
+            ORG_COM.COORDINACION,
+            (SELECT ENT_DEN.NOMBRE_ENTIDAD FROM SINADA.V_ENTIDAD_DENUNCIA ENT_DEN WHERE  ENT_DEN.ID_BANDEJA_DETALLE = ORG_COM.ID_BANDEJA_DETALLE	) AS NOMBRE_ENTIDAD_COMPETENTE,
+            ORG_COM.ESTADO_BANDEJA,
+            ORG_COM.TIPO_BANDEJA,
+            ORG_COM.ID_DENUNCIA,
+            ORG_COM.ESTADO_BANDEJA_DETALLE,
+            ORG_COM.NOM_EST_BANDEJA_DET,
+            ORG_COM.TIPO_ASIGNACION,
+            ORG_COM.NOMBRE_TIPO_ASIGNACION,
+            ORG_COM.CODIGO_DENUNCIA,
+            ORG_COM.TIPO_DENUNCIA,
+            ORG_COM.NOMBRE_TIPO_DENUNCIA,
+            ORG_COM.MEDIO_RECEPCION,
+            ORG_COM.NOMBRE_MEDIO_RECEPCION,
+            ORG_COM.ID_CASO,
+            ORG_COM.NUMERO_CASO,
+            ORG_COM.ID_PROBLEMATICA,
+            ORG_COM.NOMBRE_PROBLEMATICA,
+            ORG_COM.ID_DEBIDOA_1,
+            ORG_COM.NOMBRE_DEBIDOA_NIVEL1,
+            ORG_COM.ID_DEBIDOA_2,
+            ORG_COM.NOMBRE_DEBIDOA_NIVEL2,
+            ORG_COM.ID_DEBIDOA_3,
+            ORG_COM.NOMBRE_DEBIDOA_NIVEL3,
+            ORG_COM.ID_ZONA_SUCESO_1,
+            ORG_COM.NOMBRE_ZONA_SUCESO_1,
+            ORG_COM.ID_ZONA_SUCESO_2,
+            ORG_COM.NOMBRE_ZONA_SUCESO_2,
+            ORG_COM.ID_ZONA_SUCESO_3,
+            ORG_COM.NOMBRE_ZONA_SUCESO_3,
+            ORG_COM.NUMERO_DENUNCIANTES,
+            ORG_COM.NOMBRE_DENUNCIANTE,
+            ORG_COM.DEPARTAMENTO,
+            ORG_COM.NOMBRE_DEPARTAMENTO,
+            ORG_COM.PROVINCIA,
+            ORG_COM.NOMBRE_PROVINCIA,
+            ORG_COM.DISTRITO,
+            ORG_COM.NOMBRE_DISTRITO,
+            ORG_COM.CENTRO_POBLADO,
+			ORG_COM.NOMBRE_CENTRO_POBLADO,
+            ORG_COM.DIRECCION,
+            ORG_COM.REFERENCIA,
+            ORG_COM.TIPO_RESPONSABLE,
+            ORG_COM.NOMBRE_TIPO_RESPONSABLE,
+            ORG_COM.RESPONSABLE_PROBLEMA,
+            
+            
+            ORG_COM.NOMBRE_DENUNCIADO,
+			ORG_COM.DOCUMENTO_DENUNCIADO,
+			ORG_COM.DEPARTAMENTO_DENUNCIADO,
+			ORG_COM.PROVINCIA_DENUNCIADO,
+			ORG_COM.DISTRITO_DENUNCIADO,
+			ORG_COM.DIRECCION_DENUNCIADO,
+			ORG_COM.REFERENCIA_DENUNCIADO,
+			ORG_COM.NOMBRE_CARGO_DENUNCIADO,
+			ORG_COM.NOMBRE_REPRE_DENUNCIADO,
+			ORG_COM.NOMBRE_DEPARTAMENTO_DENUNCIADO,
+			ORG_COM.NOMBRE_PROVINCIA_DENUNCIADO,
+			ORG_COM.NOMBRE_DISTRITO_DENUNCIADO,
+			ORG_COM.NOMBRE_DENUNCIADO_DENUNCIA,
+			ORG_COM.DIRECCION_DENUNCIADO_DENUNCIA,
+            
+            
+            ORG_COM.CODIGOACCESO,
+            TO_CHAR(ORG_COM.FECHA_REGISTRO_DENUNCIA, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO_DENUNCIA,
+            ORG_COM.ESTADO_DENUNCIA,
+            ORG_COM.NOMBRE_ESTADO_DENUNCIA,
+            ORG_COM.TIEMPO_TRANSCURRIDO,
+            
+			TO_CHAR(ORG_COM.FECHA_ULTIMA_ACCION, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_ULTIMA_ACCION,
+            
+            CASE 
+           			WHEN ORG_COM.FECHA_ULTIMA_ACCION IS NULL THEN
+            					' '
+            			ELSE 
+              					ORG_COM.TIEMPO_ULTIMA_ACCION
+              			END
+              	AS TIEMPO_ULTIMA_ACCION,
+              	
+              	
+      
+            ORG_COM.FECHA_PLAZO_ATENCION
+		
+		FROM  SINADA.V_BANDEJA_ENTIDAD_BASICO ORG_COM
+		
+		ORDER BY ORG_COM.ID_DENUNCIA	DESC	
+
+	
+	</select>
+	
+
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_PERSONA_TEMP -->
+<mapper namespace="entidad">
+	<resultMap id="resultMapEntidad" type="Entidad">
+		<id 	column="ID_ENTIDAD" 			property="idEntidad"/>
+        <result column="RAZON_SOCIAL" 			property="razonSocial"/>
+        <result column="NUMERO_DOCUMENTO" 		property="ruc"/>
+<!--         <result column="CARGO" 					property="cargo"/> -->
+<!--         <result column="REPRESENTANTE_LEGAL" 	property="representanteLegal.idPersona"/> -->
+<!--          <result column="NOMBRE_COMPLETO" 		property="representanteLegal.nombreCompleto"/> -->
+
+		  <result column="DEPARTAMENTO" 		property="departamento"/>
+		   <result column="PROVINCIA" 			property="provincia"/>
+		   <result column="DISTRITO" 			property="distrito"/>
+        <result column="DIRECCION" 				property="direccion"/>
+        <result column="REFERENCIA" 			property="referencia"/>
+        <result column="FLAG_ACTIVO" 			property="flagActivo"/>
+     	 <result column="NOMBRE_CARGO" 			property="nomCargo"/>
+     	  <result column="NOMBRE_REPRESENTANTE" 			property="nomRepresentante"/>
+     	  
+     	  <result column="NOMBRE_DEPARTAMENTO" 			property="nombreDepartamento"/>
+     	  <result column="NOMBRE_PROVINCIA" 			property="nombreProvincia"/>
+     	  <result column="NOMBRE_DISTRITO" 			property="nombreDistrito"/>
+	</resultMap>
+	
+
+	
+		<select id="buscarPorId" resultMap="resultMapEntidad" parameterType="Long">
+		SELECT
+          ENT.ID_ENTIDAD, 
+          ENT.RAZON_SOCIAL, 
+          ENT.NUMERO_DOCUMENTO, 
+          ENT.DEPARTAMENTO,
+		  ENT.PROVINCIA,
+		  ENT.DISTRITO,
+          ENT.DIRECCION,
+          ENT.REFERENCIA,
+          ENT.FLAG_ACTIVO,
+          ENT.NOMBRE_CARGO,
+		  ENT.NOMBRE_REPRESENTANTE,
+		  (SELECT UBDEP.NOMBDEP FROM SINADA.T_GENM_UBIGEO UBDEP WHERE UBDEP.UBIGEO_DIST= ENT.DEPARTAMENTO||ENT.PROVINCIA||ENT.DISTRITO) AS NOMBRE_DEPARTAMENTO,
+		  (SELECT UBPROV.NOMBPROV FROM SINADA.T_GENM_UBIGEO UBPROV WHERE UBIGEO_DIST= ENT.DEPARTAMENTO||ENT.PROVINCIA||ENT.DISTRITO) AS NOMBRE_PROVINCIA,
+		  (SELECT UBDIST.NOMBDIST FROM SINADA.T_GENM_UBIGEO UBDIST WHERE UBIGEO_DIST= ENT.DEPARTAMENTO||ENT.PROVINCIA||ENT.DISTRITO) AS NOMBRE_DISTRITO
+		FROM 
+          SINADA.T_GENT_ENTIDAD ENT
+		WHERE
+			ID_ENTIDAD = #{idEntidad}
+			<!-- DOCUMENTO = 46935662 -->
+	</select>
+	
+	<insert id="agregar" parameterType="Entidad" >
+		INSERT INTO SINADA.T_GENT_ENTIDAD
+		(
+			   ID_ENTIDAD,
+		       RAZON_SOCIAL,
+		       NUMERO_DOCUMENTO,
+		       DIRECCION,
+		       DEPARTAMENTO,
+			   PROVINCIA,
+			   DISTRITO,
+		       REFERENCIA,
+		       FLAG_ACTIVO,
+		       NOMBRE_CARGO,
+		       NOMBRE_REPRESENTANTE
+		)
+		VALUES
+		(
+			#{idEntidad},
+			#{razonSocial,jdbcType=VARCHAR},
+			#{ruc,jdbcType=VARCHAR},
+			#{direccion,jdbcType=VARCHAR},
+			#{departamento,jdbcType=VARCHAR},
+			#{provincia,jdbcType=VARCHAR},
+			#{distrito,jdbcType=VARCHAR},
+			#{referencia,jdbcType=VARCHAR},
+			'1',
+			#{nomCargo,jdbcType=VARCHAR},
+			#{nomRepresentante,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	
+	<update id="modificar" parameterType="Entidad">
+		UPDATE SINADA.T_GENT_ENTIDAD
+		SET
+			
+ 			  <if test="razonSocial != null">
+ 			  		 RAZON_SOCIAL		= #{razonSocial,jdbcType=VARCHAR},
+ 			  </if>
+ 			  <if test="direccion != null">
+ 			  		DIRECCION		= #{direccion,jdbcType=VARCHAR},
+ 			  </if>
+			   <if test="referencia != null">
+ 			  		REFERENCIA	= #{referencia,jdbcType=VARCHAR},
+ 			  </if>
+ 			
+			  <if test="nomCargo != null">
+ 			  		NOMBRE_CARGO 		= #{nomCargo,jdbcType=VARCHAR},
+ 			  </if> 
+			  <if test="nomRepresentante != null">
+ 			  		NOMBRE_REPRESENTANTE = #{nomRepresentante,jdbcType=VARCHAR},
+ 			  </if> 	
+			  <if test="departamento != null and provincia != null  and distrito != null">
+ 			  		DEPARTAMENTO 		= #{departamento,jdbcType=VARCHAR},
+ 			  		PROVINCIA 			= #{provincia,jdbcType=VARCHAR},
+ 			  		DISTRITO 			= #{distrito,jdbcType=VARCHAR},
+ 			  </if> 	
+			 	FLAG_ACTIVO = '1'
+				
+			
+
+		WHERE
+			
+				ID_ENTIDAD = #{idEntidad}
+	</update>
+	
+	<select id="buscarPorDocumento" resultMap="resultMapEntidad" parameterType="String">
+		SELECT
+          ENT.ID_ENTIDAD, 
+          ENT.RAZON_SOCIAL, 
+          ENT.NUMERO_DOCUMENTO, 
+<!--           ENT.CARGO, -->
+<!--           ENT.REPRESENTANTE_LEGAL, -->
+<!--           PER.PRIMER_NOMBRE ||' '|| PER.SEGUNDO_NOMBRE || ' ' ||PER.APELLIDO_PATERNO || ' ' || PER.APELLIDO_MATERNO AS NOMBRE_COMPLETO , -->
+      	  ENT.DEPARTAMENTO,
+		  ENT.PROVINCIA,
+		  ENT.DISTRITO,
+          ENT.DIRECCION,
+          ENT.REFERENCIA,
+          ENT.FLAG_ACTIVO,
+          ENT.NOMBRE_CARGO,
+		  ENT.NOMBRE_REPRESENTANTE,
+		
+		  (SELECT UBDEP.NOMBDEP FROM SINADA.T_GENM_UBIGEO UBDEP WHERE UBDEP.UBIGEO_DIST= ENT.DEPARTAMENTO||ENT.PROVINCIA||ENT.DISTRITO) AS NOMBRE_DEPARTAMENTO,
+		  (SELECT UBPROV.NOMBPROV FROM SINADA.T_GENM_UBIGEO UBPROV WHERE UBIGEO_DIST= ENT.DEPARTAMENTO||ENT.PROVINCIA||ENT.DISTRITO) AS NOMBRE_PROVINCIA,
+		  (SELECT UBDIST.NOMBDIST FROM SINADA.T_GENM_UBIGEO UBDIST WHERE UBIGEO_DIST= ENT.DEPARTAMENTO||ENT.PROVINCIA||ENT.DISTRITO) AS NOMBRE_DISTRITO
+				    
+		   
+		FROM 
+          SINADA.T_GENT_ENTIDAD ENT
+
+		WHERE
+			ENT.NUMERO_DOCUMENTO = #{ruc}
+			<!-- DOCUMENTO = 46935662 -->
+	</select>
+	<select id="buscarPorRazonSocialSSO" resultMap="resultMapEntidad" parameterType="String">
+	
+	SELECT 
+    	ID_PERSONA,
+    	RAZON_SOCIAL,
+    	SIGLA
+	FROM
+    	T_GEND_PERSONA_JURIDICA
+	WHERE
+        UPPER(RAZON_SOCIAL)   LIKE '%'|| UPPER(razonSocial)||'%'
+	</select>
+</mapper>

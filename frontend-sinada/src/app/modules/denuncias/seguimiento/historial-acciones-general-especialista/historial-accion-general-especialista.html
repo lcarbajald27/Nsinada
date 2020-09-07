@@ -1,0 +1,155 @@
+<div class="col-lg-12 sin_padding" ng-form="" novalidate="">
+    <div class="row" ng-form="vm.productoForm">
+        <div class="col-md-12">
+            <h3 class="title-slider-nt">
+                <span>
+                    Historial Acciones  {{vm.dataDenunciaBandeja.codigoDenuncia}}
+                </span>
+            </h3>
+            <span class="nav_bread">
+                <ol class="breadcrumb">
+                    <li class="active">
+                        Bandeja de Denuncias
+                    </li>
+                    <li>
+                        Historial Denuncia
+                    </li>
+                </ol>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-rpv">
+                <table bgcolor="#d0c9c9" cellspacing="0" class="table table-hover table-bordered table-striped table-app" id="listaBandeja" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">
+                                Ítem
+                            </th>
+                            <th class="text-center" scope="col">
+                                Nombre Entidad
+                            </th>
+                            <th class="text-center" scope="col">
+                                Descripción Acción
+                            </th>
+                            <th class="text-center" scope="col">
+                               <!-- Motivo / Acción-->Acci&oacute;n
+                            </th>
+                            <th class="text-center" scope="col">
+                               <!-- Tipo Acción --> Tipo Supervisi&oacute;n
+                            </th>
+                            <th class="text-center" scope="col">
+                                Fecha de Registro
+                            </th>
+                            <th class="text-center" scope="col">
+                                Estado
+                            </th>
+                            <th class="text-center" scope="col">
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Tabla Informe Accion -->
+                        <tr dir-paginate="item in vm.listaAccionesRegistradas | itemsPerPage: config.itemsPerPage" pagination-id="coutListaAccionesRegistradas8ss">
+                            <td class="text-center" data-label="Ítem" ng-if="item.tipoTablaAccion==2">
+                                {{item.numeroItem}}
+                            </td>
+                            <td class="text-center" data-label="Ítem" ng-if="item.tipoTablaAccion==2">
+                                {{item.nombreEntidad}}
+                            </td>
+                            <td data-label="Descripción Acción" ng-if="item.tipoTablaAccion==2">
+                                {{item.nombreTipoAtencionAccion}}
+                            </td>
+                            <td class="text-center" data-label="Motivo / Acción" ng-if="item.tipoTablaAccion==2">
+                                {{item.nombreTipoAccion}}
+                            </td>
+                            <td class="text-center" data-label="Tipo Acción" ng-if="item.tipoTablaAccion==2">
+                                {{item.nombreTipoSupervicion}}
+                            </td>
+                            <td class="text-center" data-label="Fecha de Registro" ng-if="item.tipoTablaAccion==2">
+                                {{item.fechaRegistro}}
+                            </td>
+                            <td class="text-center" data-label="Estado" ng-if="item.tipoTablaAccion==2">
+                                {{item.nombreEstado}}
+                            </td>
+                            <td class="text-center" data-label="Acciones" ng-if="item.tipoTablaAccion==2">
+                                <button class="btn btn-flat btn-default btn-sm" ng-click="vm.mostrarModalVisualizarAccion(item)" type="button" uib-tooltip="Ver Datos de la Acción">
+                                    <span class="glyphicon glyphicon-eye-open">
+                                    </span>
+                                </button>
+                                <button class="btn btn-flat btn-default btn-sm" ng-click="vm.mostrarModalVisualizarEvaluacionAccion(item)" ng-if="item.estado==2 ||item.estado==4 " type="button" uib-tooltip="ver Datos de la Observación">
+                                    <span class="icon-ficha">
+                                    </span>
+                                </button>
+                                <!-- <button type="button" ng-click="vm.levantarObservacionAtencion(item)" ng-if="item.estado==2" uib-tooltip="Levantar Observacion" class="btn btn-flat btn-primary btn-sm">
+                      <span class="glyphicon glyphicon-exclamation-sign"></span>
+                  </button> -->
+                            </td>
+                            <td class="text-center" data-label="Ítem" ng-if="item.tipoTablaAccion==1">
+                                {{item.numeroItem}}
+                            </td>
+                            <td class="text-center" data-label="Ítem" ng-if="item.tipoTablaAccion==1">
+                                {{item.nombreEntidad}}
+                            </td>
+                            <td data-label="Descripción Acción" ng-if="item.tipoTablaAccion==1">
+                                {{item.nombreTipoAtencionAccion}}
+                            </td>
+                            <td class="text-center" data-label="Motivo / Acción" ng-if="item.tipoTablaAccion==1">
+                                {{item.nombreMotivoAccion}}
+                            </td>
+                            <td class="text-center" data-label="Tipo Acción" ng-if="item.tipoTablaAccion==1">
+                                {{item.nombreTipoSupervicion}}
+                            </td>
+                            <td class="text-center" data-label="Fecha de Registro" ng-if="item.tipoTablaAccion==1">
+                                {{item.fechaRegistro}}
+                            </td>
+                            <td class="text-center" data-label="Estado" ng-if="item.tipoTablaAccion==1">
+                                {{item.nombreEstado}}
+                            </td>
+                            <td class="text-center" data-label="Acciones" ng-if="item.tipoTablaAccion==1">
+                                <button class="btn btn-flat btn-default btn-sm" ng-click="vm.mostrarModalVisualizarDenunciaRechazada(item)" ng-if="item.tipoAtencionAccion==2" type="button" uib-tooltip="Ver Datos Denuncia Rechazada">
+                                    <span class="glyphicon glyphicon-eye-open">
+                                    </span>
+                                </button>
+                                <button class="btn btn-flat btn-default btn-sm" ng-click="vm.mostrarModalVisualizarEvaluacionRechazo(item)" ng-if="item.tipoAtencionAccion==2 && item.estado!=1" type="button" uib-tooltip="Ver Datos de la Evaluación del Rechazo">
+                                    <span class="glyphicon glyphicon-record">
+                                    </span>
+                                </button>
+                                <button class="btn btn-flat btn-default btn-sm" ng-click="vm.mostrarModalVisualizarNoAtencion(item)" ng-if="item.tipoAtencionAccion==4" type="button" uib-tooltip="Ver Datos Denuncia No atendida">
+                                    <span class="glyphicon glyphicon-eye-open">
+                                    </span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr ng-show="vm.listaAccionesRegistradas == null || vm.listaAccionesRegistradas.length==0">
+                            <td colspan="8">
+                                No se encontraron resultados
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <dir-pagination-controls pagination-id="coutListaAccionesRegistradas8ss">
+                    </dir-pagination-controls>
+                </br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-right">
+            <button class="btn btn-flat btn-default btn-primary btn-sm btn-br-in" ng-click="vm.regresarBandeja()" type="button" uib-tooltip="Regresar">
+                  <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    function justNumbers(e) {
+    var keynum = window.event ? window.event.keyCode : e.which;
+    if ((keynum == 8) || (keynum == 46) || (keynum == 44))
+      return true;
+    return /\d/.test(String.fromCharCode(keynum));
+  }
+</script>

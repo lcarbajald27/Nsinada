@@ -1,0 +1,39 @@
+
+
+<div class="row">
+	  
+	    		<div class="col-md-12">
+	    			<div class="table-rpv">
+	    				 <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						    <thead>
+						      <tr>
+						        <th>&Iacute;tem</th>
+						        <th>Tipo archivo</th>
+						        <th>Nombre archivo</th>
+						         <th>Descripci&oacute;n</th>
+						        <th>Descargar</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr dir-paginate="item in vm.listaArchivos | itemsPerPage: config.itemsPerPage" pagination-id="coutListaArchivos2s">
+						       
+						        <td>{{$index+1}}</td>
+						        <td>{{item.nombreTipoArchivo}}</td>
+						        <td>{{item.nombreArchivo}}</td>
+						        <td>{{item.descripcion}}</td>
+						        <td>	
+
+									<a class="btn btn-flat btn-default btn-sm" href="{{vm.rutaBase}}archivo-adjunto/descargar-archivo-Denuncia/{{item.idArchivoDenuncia}}" download="{{item.nombreArchivo}}" target="_blank">
+					                <span  class="icon-descargar"></span> 
+					            </a>
+
+
+						        </td>
+						      </tr>
+						    
+						    </tbody>
+						  </table>
+						  <dir-pagination-controls pagination-id="coutListaArchivos2s" ></dir-pagination-controls>
+					</div>
+	    		</div>
+	    </div>

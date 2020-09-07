@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="derivacionDenuncia">
+	<resultMap id="resultMapDerivacionDenuncia" type="DerivacionDenuncia">
+	
+		<id 	column="ID_DERIVACION_DENUNCIA" property="idDerivacionDenuncia" />
+		<result column="ID_EVALUACION_RECHAZO" 	property="evaluacionRechazo.idEvaluacionRechazo" />
+		<result column="TIPO_DESTINATARIO" 		property="tipoDestinatario.codigoRegistro" />
+		<result column="ID_EFA"					property="efa.idEfa" />
+		<result column="DIRECCION_SUPERVICION"  property="direccionSupervicion.codigoRegistro" />
+		<result column="SUB_DIRECCION" 			property="subDireccion.codigoRegistro" />
+		<result column="NOMBRE_ENTIDAD" 	    property="nombreEntidad" />
+		
+		<result column="ESTADO" 				property="estado.codigoRegistro" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+		<result column="COORDINACION" 			property="coordinacion.codigoRegistro" />
+
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapDerivacionDenuncia" parameterType="DerivacionDenuncia">
+		SELECT 
+		      ID_DERIVACION_DENUNCIA,
+		      ID_EVALUACION_RECHAZO,
+		      TIPO_DESTINATARIO,
+		      ID_EFA,
+		      DIRECCION_SUPERVICION,
+		      SUB_DIRECCION,
+		      COORDINACION,
+		      NOMBRE_ENTIDAD,
+		      ESTADO
+		FROM
+		      SINADA.V_DERIVACION_DENUNCIA
+		WHERE
+			  ID_EVALUACION_RECHAZO = #{evaluacionRechazo.idEvaluacionRechazo}
+	
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapDerivacionDenuncia"
+		parameterType="long">
+			SELECT 
+		        ID_DERIVACION_DENUNCIA,
+		        ID_EVALUACION_RECHAZO,
+		        TIPO_DESTINATARIO,
+		        ID_EFA,
+		        DIRECCION_SUPERVICION,
+		        SUB_DIRECCION,
+		        ESTADO,
+		        FLAG_ACTIVO,
+		        COORDINACION
+		FROM
+		        SINADA.T_GEND_DERIVACION_DENUNCIA
+		WHERE 
+		      	FLAG_ACTIVO = '1'
+		AND
+			  ID_DERIVACION_DENUNCIA = #{idDerivacionDenuncia}
+				    
+		    
+	</select>
+	<insert id="agregar" parameterType="DerivacionDenuncia" useGeneratedKeys="true">
+		<selectKey keyProperty="idDerivacionDenuncia" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_ID_DERIVA_DENUNCIA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GEND_DERIVACION_DENUNCIA
+		(
+			    ID_DERIVACION_DENUNCIA,
+		        ID_EVALUACION_RECHAZO,
+		        TIPO_DESTINATARIO,
+		        ID_EFA,
+		        DIRECCION_SUPERVICION,
+		        SUB_DIRECCION,
+		        ESTADO,
+		        FLAG_ACTIVO,
+		        COORDINACION
+		)
+		VALUES
+		(
+				#{idDerivacionDenuncia},
+				#{evaluacionRechazo.idEvaluacionRechazo},
+				#{tipoDestinatario.codigoRegistro},
+				#{efa.idEfa},
+				#{direccionSupervicion.codigoRegistro},
+				#{subDireccion.codigoRegistro},
+				1,
+				'1',
+				#{coordinacion.codigoRegistro}
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="ArchivoDenuncia"> -->
+<!-- 		UPDATE SINADA.T_GENM_ARTICULO -->
+<!-- 		SET -->
+
+
+<!-- 		DESCRIPCION = #{descripcion}, -->
+<!-- 		DETALLE = #{detalle}, -->
+<!-- 		FECHA_VIGENCIA = #{fechaVigencia}, -->
+<!-- 		FECHA_MODIFICACION = #{fechaModificacion}, -->
+<!-- 		FECHA_DEROGACION = #{fechaDerogacion}, -->
+<!-- 		TM1_ESTADO = #{estado} -->
+
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_ARTICULO = #{idArticulo} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_DERIVACION_DENUNCIA
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_DERIVACION_DENUNCIA = #{idDerivacionDenuncia}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

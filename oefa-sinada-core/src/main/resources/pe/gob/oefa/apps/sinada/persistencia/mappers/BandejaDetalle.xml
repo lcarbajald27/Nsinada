@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_OEFA -->
+<mapper namespace="bandejaDetalle">
+	<resultMap id="resultMapBandejaDetalle" type="BandejaDetalle">
+	
+		<id 	column="ID_BANDEJA_DETALLE" property="idBandejaDetalle" />
+		<result column="ID_BANDEJA" 		property="idBandeja" />
+		<result column="TIPO_BANDEJA"		property="tipoBandeja" />
+		<result column="ID_DENUNCIA"		property="idDenuncia" />
+		<result column="TIPO_ASIGNACION"	property="tipoAsignacion" />
+		<result column="ESTADO"				property="estado" />
+		<result column="FLAG_ACTIVO"		property="flagActivo" />
+		<result column="ID_UNIDAD_ORGANICA"		property="idUnidadOrganica" />
+	
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapBandejaDetalle" parameterType="BandejaDetalle">
+		SELECT 
+		   	  ID_BANDEJA_DETALLE,
+		      ID_BANDEJA,
+		      TIPO_BANDEJA,
+		      ID_DENUNCIA,
+			  ID_UNIDAD_ORGANICA,
+		      TIPO_ASIGNACION,
+          	  ESTADO
+		FROM 
+		      SINADA.T_GEND_BANDEJA_DETALLE
+		WHERE
+		      FLAG_ACTIVO = '1'
+    	AND
+          	  ID_BANDEJA = #{idBandeja}
+    	AND
+              TIPO_BANDEJA = #{tipoBandeja}
+	</select>
+	
+		<select id="buscarEspecialistaSinada" resultMap="resultMapBandejaDetalle" parameterType="BandejaDetalle">
+		SELECT 
+			    ID_BANDEJA_DETALLE,
+			    ID_BANDEJA,
+			    TIPO_BANDEJA,
+			    ID_DENUNCIA,
+				ID_UNIDAD_ORGANICA
+			
+			FROM SINADA.T_GEND_BANDEJA_DETALLE 
+			WHERE FLAG_ACTIVO ='1' AND TIPO_BANDEJA=4 AND ID_DENUNCIA = #{idDenuncia}
+	</select>
+	
+	
+	<select id="buscarPorId" resultMap="resultMapBandejaDetalle" parameterType="long">
+		SELECT 
+			  ID_BANDEJA_DETALLE,
+		      ID_BANDEJA,
+		      TIPO_BANDEJA,
+		      ID_DENUNCIA,
+			  ID_UNIDAD_ORGANICA,
+		      TIPO_ASIGNACION,
+          	  ESTADO
+		      
+			
+			FROM 
+				SINADA.T_GEND_BANDEJA_DETALLE 
+			WHERE 
+					FLAG_ACTIVO ='1' 
+			AND 
+					ID_BANDEJA_DETALLE=#{idBandejaDetalle}
+	</select>
+	
+	
+	<select id="buscarDenunciaPorIdDenunciaTipoBandejaIdBandeja" resultMap="resultMapBandejaDetalle" parameterType="BandejaDetalle">
+		SELECT 
+		   	  ID_BANDEJA_DETALLE,
+		      ID_BANDEJA,
+		      TIPO_BANDEJA,
+		      ID_DENUNCIA,
+			  ID_UNIDAD_ORGANICA,
+		      TIPO_ASIGNACION,
+          	  ESTADO
+		FROM 
+		      SINADA.T_GEND_BANDEJA_DETALLE
+    	WHERE 
+		          FLAG_ACTIVO = '1'
+		  AND 
+		        ID_DENUNCIA = #{idDenuncia} 
+		  AND 
+		          TIPO_BANDEJA = #{tipoBandeja} 
+		  AND 
+		        ID_BANDEJA = #{idBandeja} 
+	</select>
+
+	<insert id="agregar" parameterType="BandejaDetalle" useGeneratedKeys="true">
+		<selectKey keyProperty="idBandejaDetalle" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GEND_ID_BANDEJA_DETALLE.NEXTVAL FROM DUAL
+		</selectKey>
+
+	
+  INSERT INTO SINADA.T_GEND_BANDEJA_DETALLE(
+  
+		      ID_BANDEJA_DETALLE,
+		      <if test="idBandeja!=null and idBandeja!=0">
+		        ID_BANDEJA,
+		      </if>
+		    
+		      TIPO_BANDEJA,
+		      ID_DENUNCIA,
+		      TIPO_ASIGNACION,
+			  ID_UNIDAD_ORGANICA,
+          	  ESTADO,
+		      FLAG_ACTIVO,
+		      FECHA_REGISTRO
+
+      )VALUES(
+		        #{idBandejaDetalle},
+		        <if test="idBandeja!=null and idBandeja!=0">
+		       #{idBandeja},
+		      </if>
+		 
+		        #{tipoBandeja},
+		        #{idDenuncia},
+		        #{tipoAsignacion},
+		        #{idUnidadOrganica},
+		        #{estado},
+		     	'1',
+		     	SYSDATE
+		 
+      )
+	</insert>
+	
+<!-- 	Se modifico Probar  -->
+	<update id="modificar" parameterType="BandejaDetalle">
+		<if test="estado == 1">
+  	
+		UPDATE SINADA.T_GEND_BANDEJA_DETALLE
+		SET
+		    ESTADO = 	#{estado},
+		    FECHA_REGISTRO = SYSDATE
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+	
+		
+	</if>
+		<if test="estado == 5">
+  	
+		UPDATE SINADA.T_GEND_BANDEJA_DETALLE
+		SET
+		    ESTADO = 	#{estado},
+		    FECHA_PLAZO_ATENCION = TO_DATE(#{fechaPlazoAtencion,jdbcType=VARCHAR},'DD/MM/YYYY')
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+	
+		
+	</if>
+	
+		<if test="estado == 3">
+  	
+		UPDATE SINADA.T_GEND_BANDEJA_DETALLE
+		SET
+		    ESTADO = 	#{estado},
+		    FECHA_PLAZO_ATENCION = TO_DATE(#{fechaPlazoAtencion,jdbcType=VARCHAR},'DD/MM/YYYY')
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+	
+		
+	</if>
+		<if test="estado == 2">
+  	
+		UPDATE SINADA.T_GEND_BANDEJA_DETALLE
+		SET
+		    ESTADO = 	#{estado}
+<!-- 		    FECHA_PLAZO_ATENCION = TO_DATE(#{fechaPlazoAtencion,jdbcType=VARCHAR},'DD/MM/YYYY') -->
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+		AND
+			ESTADO = 1
+		
+	</if>
+		
+		<if test="estado != 2 and estado != 1 and estado != 5 and estado != 3">
+  	
+			UPDATE SINADA.T_GEND_BANDEJA_DETALLE
+		SET
+		    ESTADO = 	#{estado}
+<!-- 		    FECHA_PLAZO_ATENCION = TO_DATE(#{fechaPlazoAtencion,jdbcType=VARCHAR},'DD/MM/YYYY') -->
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+		
+	</if>	
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GEND_BANDEJA_DETALLE
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+	</update>
+
+</mapper>

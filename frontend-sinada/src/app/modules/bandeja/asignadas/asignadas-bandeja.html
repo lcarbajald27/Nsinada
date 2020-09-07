@@ -1,0 +1,162 @@
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Entidad')">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col-lg-12  sin_padding" ng-if="$parent.validarOpcion('Entidad')">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="title-slider-nt">
+          <span>Bandeja de Denuncias Asignadas a la EFA u &Oacute;rgano de L&iacute;nea Competente</span>
+        </h3>
+        <span class="nav_bread">
+          <ol class="breadcrumb">
+            <li class="active">Bandeja de Denuncias</li>
+          </ol>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+          <div class="col-md-12">
+                <div class="panel panel-tab-app with-nav-tabs panel-default">
+                    <ul class="nav nav-tabs" >
+                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 1 }"  ng-click="vm.asignadasTabActivo = 1">
+                          <a class="spapp-link">Datos de Denuncia</a>
+                      </li>
+                      <li ng-class="{ 'active' : vm.asignadasTabActivo == 2 }"  ng-click="vm.asignadasTabActivo = 2">
+                          <a class="spapp-link">Cronol&oacute;gico</a>
+                      </li>
+                         <li ng-class="{ 'active' : vm.asignadasTabActivo == 3 }" ng-click="vm.asignadasTabActivo = 3">
+                            <a class="spapp-link">Problem&aacute;tica de la Denuncia</a>
+                         </li>
+                         <li ng-class="{ 'active' : vm.asignadasTabActivo == 4 }" ng-click="vm.asignadasTabActivo = 4">
+                            <a class="spapp-link">Ubigeo</a>
+                         </li>
+                    </ul>
+                <div class="panel-body">
+                    <div class="row" ng-show="vm.asignadasTabActivo == 1" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-datos-denuncia.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 2" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-cronologico.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 3" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-problematica.html'">
+                  </div>
+                  <div class="row" ng-show="vm.asignadasTabActivo == 4" ng-include="'app/modules/denuncias/seguimiento/filtros/filtro-ubigeo.html'">
+                  </div>
+                   </div>
+                </div>
+          </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 text-right">
+        <button ng-if="$parent.validarOperacion('LIMPIAR')" type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" uib-tooltip="Limpiar filtros" >
+          <span class="icon-limpiar spac-btn-r"></span> Limpiar
+        </button>
+        <button ng-if="$parent.validarOperacion('BUSCAR')" type="button" id="btnRef_recurso" ng-click="vm.buscar()"   uib-tooltip="Buscar"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+            <span class="icon-buscar spac-btn-r"></span> Buscar
+        </button>
+
+            <a class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-click="vm.irARegistroDenuncia()" uib-tooltip="Nueva denuncia">
+                  <span class="icon-nuevo -btn-r"></span> Registrar denuncia
+              </a>
+<!--          <a  uib-tooltip="Exportar a Excel" ng-show="vm.listaBandeja!= null && vm.listaBandeja.length>0" class="btn btn-sm btn-default" href="{{vm.rutaBase}}bandeja/exportar-excel" download="denuncia.xls" style="font-size: 11px"> -->
+
+         <a  ng-if="$parent.validarOperacion('EXPORTAR EXCEL')" uib-tooltip="Exportar a excel" ng-show="vm.listaBandeja!= null && vm.listaBandeja.length>0" class="btn btn-sm btn-default btn-export-xsl btn-pd-5 btn-br-in" href="{{vm.rutaBase}}bandeja/exportar-excel" download="denuncia.xls" style="font-size: 11px">
+
+               <span class="icon-exportar-excel" style="font-size:16px;margin-right: 5px"></span>
+              Exportar
+          </a>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-2 col-xs-2">
+          <label for="cantidadPaginas">P&aacute;ginas</label>
+          <select id="cantidadPaginas" ng-model="config.itemsPerPage" name="cantidadPaginas" class="form-control input-sm">
+                <option ng-value="item.numero" ng-repeat="item in lstNumeroPagina">{{item.numero}}</option>
+              </select>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-rpv">
+            <table id="listaBandeja" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">C&oacute;digo</th>
+                  <th scope="col" class="text-center">Recepci&oacute;n</th>
+                  <th scope="col" class="text-center">Registro</th>
+                  <th scope="col" class="text-center">Tiempo transcurrido(Registro) </th>
+                  <th scope="col" class="text-center">&Uacute;ltima acci&oacute;n</th>
+                  <th scope="col" class="text-center">Tiempo transcurrido(Acci&oacute;n) </th>
+                  <th scope="col" class="text-center">Historial</th>
+                  <th scope="col" class="text-center">Acciones</th>
+                  <th scope="col" class="text-center">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr   ng-class="{'texto-pendiente':itemBandeja.estadoBandejaDetalle==1 || itemBandeja.estadoBandejaDetalle==2 || itemBandeja.estadoBandejaDetalle==5 || itemBandeja.estadoBandejaDetalle==6 || itemBandeja.estadoBandejaDetalle==3,
+                            
+                            'texto-estado-individual-atentido':itemBandeja.estadoBandejaDetalle==8,
+                            'texto-estado-individual-no-atendida':itemBandeja.estadoBandejaDetalle==9,
+                            'texto-estado-individual-archivado':itemBandeja.estadoBandejaDetalle==4
+                            }" dir-paginate="itemBandeja in vm.listaBandeja | itemsPerPage: config.itemsPerPage" pagination-id="coutListaBandejaAsignadas1s">
+                  <td data-label="C&oacute;digo" class="text-center">{{itemBandeja.codigoDenuncia}}</td>
+                  <td data-label="Recepci&oacute;n">{{itemBandeja.nombreMedioRecepcion}}</td>
+                  <td data-label="Registro" class="text-center">{{itemBandeja.fechaRegistroDenuncia}}</td>
+                  <td data-label="Tiempo Transcurrido(Registro)Registro" class="text-center">{{itemBandeja.tiempoTranscurrido}}</td>
+                  <td data-label="&Uacute;ltima Acci&oacute;n" class="text-center"><span ng-if="itemBandeja.fechaUltimaAccion!=null">{{itemBandeja.fechaUltimaAccion}}</span><span ng-if="itemBandeja.fechaUltimaAccion==null">-</span></td>
+                  <td data-label="Tiempo Transcurrido(Acci&oacute;n)" class="text-center"><span ng-if="itemBandeja.fechaUltimaAccion!=null">{{itemBandeja.tiempoUltimaAccion}}</span><span ng-if="itemBandeja.fechaUltimaAccion==null">No hay acciones realizadas</span></td>
+                  <td data-label="Historial" class="text-center">
+                    <button ng-if="$parent.validarOperacion('VER HISTORIAL')" type="button" class="btn btn-default btn-sm" uib-tooltip="Historial" ng-click="vm.historialDenuncia(itemBandeja)">
+                      <span class="icon-historial"></span>
+                    </button>
+                  </td>
+                  <td data-label="Acciones" class="text-center">
+                          <button ng-if="$parent.validarOperacion('REVISAR')" type="button"
+                            ng-if="itemBandeja.estadoBandejaDetalle!=10"
+                          class="btn btn-default btn-sm"
+                          uib-tooltip="Revisar"
+                          ng-click="vm.revisarDenuncia(itemBandeja)">
+                            <span class="fa fa-eye"></span>
+                          </button>
+
+
+                          <button type="button"
+                          class="btn btn-default btn-sm"
+                         ng-if="$parent.validarOperacion('INFORMAR') && itemBandeja.estadoBandejaDetalle != 1 && itemBandeja.estadoBandejaDetalle!=10 && itemBandeja.estadoBandejaDetalle!=2 && itemBandeja.estadoBandejaDetalle != 3 && itemBandeja.estadoBandejaDetalle != 4 "
+                          ng-disabled="itemBandeja.estadoBandejaDetalle == 8"
+                          uib-tooltip="Informar"
+                          ng-click="vm.informarDenuncia(itemBandeja)">
+                            <span class="fa fa-clipboard"></span>
+                          </button>
+                  </td>
+                  <td data-label="Estado" class="text-center">{{itemBandeja.nombreEstadoBandejaDetalle}}</td>
+                </tr>
+                <tr ng-show="vm.listaBandeja == null || vm.listaBandeja.length==0">
+                  <td colspan="9" style="text-align: left;">No se encontraron resultados</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <dir-pagination-controls pagination-id="coutListaBandejaAsignadas1s" ></dir-pagination-controls>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+          <dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+        </div>
+      </div>
+    </div>
+<!--
+</div>-->

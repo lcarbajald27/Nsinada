@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="descripcionCaso">
+	<resultMap id="resultMapDescripcionCaso" type="DescripcionCaso">
+	
+		<id 	column="ID_DESCRIPCION_CASO" 	property="idDescripcionCaso" />
+		<result column="DESCRIPCION_CASO" 		property="descripcionCaso" />
+		<result column="DOCUMENTO" 				property="documento" />
+		<result column="DIRECCION"				property="direccion" />
+		<result column="NOMBRE_COMPLETO" 		property="nombreCompleto" />
+		<result column="TELEFONO" 				property="telefono" />
+		<result column="CORREO" 				property="correo" />
+		<result column="ESTADO" 				property="estado" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapDescripcionCaso" parameterType="DescripcionCaso">
+		SELECT 
+		      ID_DESCRIPCION_CASO,
+		      DESCRIPCION_CASO,
+		      DOCUMENTO,
+		      DIRECCION,
+		      NOMBRE_COMPLETO,
+		      TELEFONO,
+		      CORREO,
+		      ESTADO,
+		      FLAG_ACTIVO 
+		FROM 
+		      SINADA.T_GENM_DESCRIPCION_CASO
+		WHERE 
+		      FLAG_ACTIVO = '1'
+
+
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapDescripcionCaso"
+		parameterType="long">
+		SELECT 
+		      ID_DESCRIPCION_CASO,
+		      DESCRIPCION_CASO,
+		      DOCUMENTO,
+		      DIRECCION,
+		      NOMBRE_COMPLETO,
+		      TELEFONO,
+		      CORREO,
+		      ESTADO,
+		      FLAG_ACTIVO 
+		FROM 
+		      SINADA.T_GENM_DESCRIPCION_CASO
+		WHERE 
+		      FLAG_ACTIVO = '1'
+				    
+		    
+	</select>
+	<insert id="agregar" parameterType="DescripcionCaso" useGeneratedKeys="true">
+		<selectKey keyProperty="idDescripcionCaso" resultType="long" order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_DESCRIPCION_CASO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_DESCRIPCION_CASO
+		(
+			  ID_DESCRIPCION_CASO,
+		      DESCRIPCION_CASO,
+		      DOCUMENTO,
+		      DIRECCION,
+		      NOMBRE_COMPLETO,
+		      TELEFONO,
+		      CORREO,
+		      ESTADO,
+		      FLAG_ACTIVO 
+		)
+		VALUES
+		(
+				#{idDescripcionCaso},
+				#{descripcionCaso},
+				#{documento},
+				#{direccion},
+				#{nombreCompleto},
+				#{telefono},
+				#{correo},
+				1,
+				'1'
+		)
+	</insert>
+<!-- 	<update id="modificar" parameterType="ArchivoDenuncia"> -->
+<!-- 		UPDATE SINADA.T_GENM_ARTICULO -->
+<!-- 		SET -->
+
+
+<!-- 		DESCRIPCION = #{descripcion}, -->
+<!-- 		DETALLE = #{detalle}, -->
+<!-- 		FECHA_VIGENCIA = #{fechaVigencia}, -->
+<!-- 		FECHA_MODIFICACION = #{fechaModificacion}, -->
+<!-- 		FECHA_DEROGACION = #{fechaDerogacion}, -->
+<!-- 		TM1_ESTADO = #{estado} -->
+
+<!-- 		WHERE -->
+<!-- 		FLAG_ACTIVO = 1 -->
+<!-- 		AND ID_ARTICULO = #{idArticulo} -->
+<!-- 	</update> -->
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_DESCRIPCION_CASO
+		SET
+			FLAG_ACTIVO = 0
+		WHERE
+			FLAG_ACTIVO = '1'
+		AND 
+			ID_DESCRIPCION_CASO = #{idDescripcionCaso}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

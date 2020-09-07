@@ -1,0 +1,183 @@
+<div class="col-lg-12  sin_padding">
+	<span class="" ng-form="vm.formPedido"><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Registro de Pedidos</span></h3>
+				<span class="nav_bread">
+					<ol class="breadcrumb">
+					  <li class="active">Pedido</li>
+					  <li>Registro</li>
+					</ol>
+				</span>
+			</div>
+		</div>
+
+		<div class="row">
+
+					<div class="col-md-2">
+						<label for="idPedido">Nro. Pedido</label>
+						<input type="text" readonly value="{{vm.dataPedido.idPedido | zeroPadding : 8}}" class="form-control codigo-pedido-oefa input-sm " name="idPedido" id="idPedido">
+					</div>
+
+	           		<div class="col-md-3" ng-class="{'has-error':vm.formPedido.fechaAtencion.$invalid && vm.formPedido.fechaAtencion.$touched}">
+						<label for="FechaAtencion" class="important-box">Fecha Atenci&oacute;n:</label>
+						<div class="form-group">
+				           	<input type="text"
+				                name="fechaAtencion"
+				                class="form-control input-sm"
+				                ng-init="vm.openDatePickerFechaAtencion = false"
+				                ng-model="vm.dataPedido.fechaAtencion"
+				                uib-datepicker-popup="dd/MM/yyyy"
+				                is-open="vm.openDatePickerFechaAtencion"
+				                show-button-bar="false"
+				                datepicker-options="vm.dtFechaAtencionOptions"
+				                ng-click="vm.openDatePickerFechaAtencion = true"
+				                required
+				                >
+						</div>
+					</div>
+
+					<div class="col-md-5">
+							<label for="fechaRegistro"  style="opacity: .7"><small>Fecha de Registro</small></label>
+							<input type="text" style="padding: 0; color:#333" readonly value="{{vm.dataPedido.fechaRegistro | date :  'fullDate'}}" class="form-control input-sm transparent-input " name="fechaRegistro" id="fechaRegistro">
+					</div>
+
+		</div>
+
+			<h4 class="title-h">Cliente</h4>
+			<div class="row">
+	           <div class="form-group col-md-3" ng-class="{'has-error':vm.formPedido.cliente_ruc.$invalid && vm.formPedido.cliente_ruc.$touched}">
+					<div class="form-group">
+					<label for="cliente_ruc" class="important-box">RUC:</label>
+						<input ng-model="vm.dataPedido.cliente.ruc"
+						 type="text" class="form-control input-sm" name="cliente_ruc" input-restrict="numero" maxlength="11">
+					</div>
+			    </div>
+			    <div class="form-group col-md-3">
+			     <label></label>
+			      <div class="input-group">
+					<span class="input-group-btn">
+							<button type="button" ng-click="vm.buscarClientePorDocumento()" class="btn btn-flat btn-primary btn-sm"  uib-tooltip="Buscar por RUC">
+				                <span class="fa fa-check"></span>
+				          	</button>
+				          	<button type="button" style="margin-left: 5px;" ng-click="vm.mostrarBusquedaClientes()" class="btn btn-flat btn-primary btn-sm">
+				                <span class="icon-buscar spac-btn-r"></span> Buscar cliente
+				          	</button>
+						</span>
+					</div>
+		         </div>
+          	</div>
+	          <div class="row">
+	          	<div class="form-group col-md-10" ng-class="{'has-error':vm.formPedido.cliente_razonSocial.$invalid && vm.formPedido.cliente_razonSocial.$touched}">
+					<div class="form-group">
+					<label for="cliente_razonSocial" class="important-box">Raz&oacute;n Social:</label>
+						<input ng-model="vm.dataPedido.cliente.razonSocial"
+						 type="text" class="form-control input-sm" name="cliente_razonSocial"  ng-disabled="true">
+					</div>
+			    </div>
+	          </div>
+
+	          <div class="row">
+			    <div class="form-group col-md-10" ng-class="{'has-error':vm.formPedido.cliente_direccion.$invalid && vm.formPedido.cliente_direccion.$touched}">
+					<div class="form-group">
+					<label for="cliente_direccion" class="important-box">Direcci&oacute;n:</label>
+						<input ng-model="vm.dataPedido.cliente.direccion"
+						 type="text" class="form-control input-sm" name="cliente_direccion"  ng-disabled="true">
+					</div>
+			    </div>
+	          </div>
+
+			<h4 class="title-h">Detalle Pedido</h4>
+			<div class="row">
+			   <!-- <div class="form-group col-md-6" ng-class="{'has-error':vm.formPedido.nombre.$invalid && vm.formPedido.nombre.$touched}">
+					<div class="form-group">
+					<label for="nombre" class="important-box">Nombre:</label>
+						<input ng-model="vm.dataPedido.producto.nombre" ng-keyup="vm.buscarProductoPorNombre($event.keyCode)"
+						 type="text" class="form-control input-sm" name="nombre" placeholder="Ingresar nombre">
+					</div>
+			    </div> -->
+			    <div class="form-group col-md-6">
+			     <label></label>
+			      <div class="input-group">
+					<span class="input-group-btn">
+							<button type="button" ng-click="vm.mostrarBusquedaProductos()" class="btn btn-flat btn-primary-inv btn-sm">
+				                <span class="icon-buscar spac-btn-r"></span> Buscar Productos
+				          </button>
+						</span>
+					</div>
+			    </div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" style="text-align:right;">
+					<table class="table table-hover table-bordered tableSiafx table-app" cellspacing="0" width="100%">
+						<!-- <caption>Resultados de búsqueda</caption> -->
+						<thead>
+							<tr>
+								<th class="text-center" width="5%">&Iacute;tem</th>
+								<th class="text-center" width="45%">Nombre</th>
+								<th class="text-center" width="10%">Precio</th>
+								<th class="text-center" width="10%">Cantidad</th>
+								<th class="text-center" width="15%">Sub Total</th>
+								<th class="text-center" width="15%">Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr dir-paginate="itemPedidoItem in vm.dataPedido.detalle | filter : {'flagActivo' : '1'} | itemsPerPage : vm.opcionesPaginacion.itemsPorPag">
+								<td width="5%">{{$index+1}}</td>
+								<td width="45%" style="text-align: left;">{{itemPedidoItem.producto.nombre}}</td>
+								<td width="10%">{{itemPedidoItem.precio}}</td>
+								<td width="10%">
+									<div>
+										<input type="text"
+												name="cantidad_{{itemPedidoItem.idPedidoItem}}"
+												ng-model="itemPedidoItem.cantidad"
+												ng-change="vm.calcularImporteItem(itemPedidoItem)"
+												input-restrict="numero"
+												maxlength="4">
+									</div>
+								</td>
+								<td width="15%">{{itemPedidoItem.importe}}</td>
+								<td width="15%" class="text-center">
+			                        <button type="button" class="btn btn-default btn-sm" uib-tooltip="Eliminar" ng-click="vm.confirmarEliminacionItem(itemPedidoItem)">
+			                            <span class="glyphicon glyphicon-trash"></span>
+			                        </button>
+								</td>
+							</tr>
+							<tr ng-show="vm.dataPedido.detalle == null || vm.dataPedido.detalle.length==0">
+								<td colspan="6" style="text-align: left;">No hay &iacute;tems en el pedido actual.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+			   <div class="form-group col-md-2" ng-class="{'has-error':vm.formPedido.importe.$invalid && vm.formPedido.importe.$touched}">
+					<div class="form-group">
+					<label for="importe">Total:</label>
+						<input ng-model="vm.dataPedido.importe" type="text" class="form-control input-sm" name="importe" ng-disabled="true">
+					</div>
+			    </div>
+			  </div>
+
+
+	        <div class="row">
+				<div class="form-group col-lg-12 text-right">
+		            <button type="button" ng-click="vm.guardar()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5" ng-disabled="vm.formPedido.$invalid">
+		                <span class="glyphicon glyphicon-ok spac-btn-r"></span>Guardar
+		            </button>
+		            <button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+		                <span class="icon-limpiar spac-btn-r"></span>Limpiar
+		            </button>
+		            <button type="button" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+		                <span class="fa fa-arrow-left spac-btn-r"></span> Cancelar
+		            </button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-12 box-aviso-informativo">
+					<label style="color:#919d96;"> Campos obligatorios  (<span>*</span>)
+					</label>
+				</div>
+			</div>
+	</span>
+</div>

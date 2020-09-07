@@ -1,0 +1,144 @@
+<section class="AccesoRestrigido"  ng-if="!$parent.validarOpcion('Contacto') || vmRoot.sessionUsuario.tipoEntidadCompetente==4">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          <img class="img-responsive m-auto" width="180" src="./assets/images/no-acceso.png" alt="">
+          <h2 class="title-acc-rest">Acceso denegado</h2>
+          <p>Usted <b>no</b> tiene el permiso suficiente para acceder al recurso solicitado.</p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="col-lg-12 sin_padding" ng-if="$parent.validarOpcion('Contacto') && vmRoot.sessionUsuario.tipoEntidadCompetente!=4" name="usuarioRegistroForm" novalidate ng-form >
+	<span class="row" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Registro contacto</span></h3>
+				<span class="nav_bread"><ol class="breadcrumb">
+					<li class="active">Usuario</li>
+					<li>Registro contacto</li></ol>
+				</span>
+			</div>
+		</div>
+
+	    <div class="row">
+	      <div class="form-group col-md-12">
+	        <h5><b>Datos de Contacto</b></h5>
+	      </div>
+	    </div>
+
+		<form name="myForm">
+		    <div class="row">
+		      <div class="col-md-3 col-sm-4">
+	             <div class="form-group">
+		          <label for="tipoDatoContacto" class="important-box">Tipo</label>
+		          <select id="tipoDatoContacto" ng-model="vm.dataContactoPersona.tipoContacto" name="tipoDatoContacto" class="form-control input-sm">
+		            <option ng-value="0"> Seleccionar </option>
+		            <option ng-repeat="itemTipoDatoContacto in vm.listaTipoDatoContacto"
+		                ng-value="itemTipoDatoContacto.codigoRegistro">{{itemTipoDatoContacto.descripcion}}
+		            </option>
+		          </select>
+	      		 </div>
+		      </div>
+
+		      <div class="col-md-4 col-sm-5" >
+	             <div class="form-group">
+			        <label for="correo" class="important-box">Contacto</label>
+			        <div class="form-group">
+			        	<div ng-switch on="vm.dataContactoPersona.tipoContacto">
+						    <div ng-switch-when="2">
+						        <input type="email" autocomplete="off" ng-disabled=" vm.dataContactoPersona.tipoContacto==0" ng-model="vm.dataContactoPersona.valor" class="form-control input-sm" name="correo" maxlength="50" placeholder="Ingresar Contacto " required>
+						    </div>
+						    <div ng-switch-when="1">
+						        <input type="text" autocomplete="off" ng-disabled=" vm.dataContactoPersona.tipoContacto==0" input-restrict="numero" ng-model="vm.dataContactoPersona.valor" class="form-control input-sm" name="correo" placeholder="Ingresar Contacto " input-restrict="telefono" minlength="8" maxlength="15" required>
+						    </div>
+						    <div ng-switch-when="4">
+						        <input type="text" autocomplete="off" ng-disabled=" vm.dataContactoPersona.tipoContacto=='0'" ng-model="vm.dataContactoPersona.valor" class="form-control input-sm" name="correo" placeholder="Ingresar Contacto " input-restrict="telefono" minlength="8" maxlength="15" required>
+						    </div>
+						    <div ng-switch-default>
+						        <input type="text" autocomplete="off" ng-disabled=" vm.dataContactoPersona.tipoContacto=='0'" ng-model="vm.dataContactoPersona.valor" class="form-control input-sm" name="correo" placeholder="Ingresar Contacto " required>
+						    </div>
+						</div>
+
+			        </div>
+		      	</div>
+		      </div>
+
+		       <div class="col-md-2 col-sm-3">
+		             <div class="form-group">
+			        	<div ng-switch on="vm.dataContactoPersona.tipoContacto">
+			        		<div ng-switch-when="1">
+				             	<label class="space-al"></label>
+								<button type="button" class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-disabled=" vm.dataContactoPersona.tipoContacto=='0' || !(vm.dataContactoPersona.valor.length>=8)" ng-click="vm.guardarContacto()">
+					                <span class="icon-buscar"></span> Agregar
+					            </button>
+				        	</div>
+				        	<div ng-switch-when="2">
+				             	<label class="space-al"></label>
+								<button type="button" class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-disabled=" vm.dataContactoPersona.tipoContacto=='0' || (vm.dataContactoPersona.valor.length<1)" ng-click="vm.guardarContacto()">
+					                <span class="icon-buscar"></span> Agregar
+					            </button>
+				        	</div>
+				        	<div ng-switch-default>
+				             	<label class="space-al"></label>
+								<button type="button" class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in" ng-disabled=" vm.dataContactoPersona.tipoContacto=='0';" ng-click="vm.guardarContacto()">
+					                <span class="icon-buscar"></span> Agregar
+					            </button>
+				        	</div>
+			        	</div>
+		            </div>
+		        </div>
+		    </div>
+		</form>
+		<div class="row">
+			<div class="col-md-12">
+		   		<div class="table-rpv">
+					 <table class="table table-hover table-bordered tableSiafx table-app">
+					    <thead>
+					      <tr>
+					        <th scope="col">Tipo de Contacto</th>
+					        <th scope="col">Contacto</th>
+					        <th  scope="col">Acci&oacute;n</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr dir-paginate="item in vm.listaContactos | itemsPerPage: config.itemsPerPage" pagination-id="cout">
+
+					        <td scope="row" data-label="Tipo de contacto">{{item.nombreTipoContacto}}</td>
+					        <td data-label="Contacto">{{item.valor}}</td>
+					        <td data-label="Acci&oacute;n">
+							  <!-- <button type="button" class="btn btn-default btn-sm" uib-tooltip="Editar Contacto" ng-click="vm.editarContacto(item)">
+	                                 <span class="icon-editar"></span>
+	                           </button>
+	                       		-->
+						        <button type="button" class="btn btn-default btn-sm" uib-tooltip="Eliminar" ng-disabled="item.estado==2" ng-click="vm.confirmarEliminarContacto(item)">
+	                                <span class="glyphicon glyphicon-trash"></span>
+	                            </button>
+					        </td>
+					      </tr>
+
+					    </tbody>
+					  </table>
+					  <br>
+					<dir-pagination-controls pagination-id="cout" ></dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="campoObligatorio" class="col-lg-12 text-left" ng-if="true"><p class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</p></div>
+		</div>
+	</span>
+	<!--
+	<div class="col-lg-12 text-right">
+	        <button type="button" ng-click="vm.regresar()" class="btn btn-flat btn-default btn-primary btn-sm btn-br-in" uib-tooltip="{{btnRegresar.tooltip}}" >
+	           <span class="{{btnRegresar.icon}}"></span> {{btnRegresar.valor}}
+	 	    </button>
+	      </div>
+	  -->
+</div>
+
+

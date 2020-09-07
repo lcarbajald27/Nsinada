@@ -1,0 +1,18 @@
+<div class="modal-header">
+	<h4 class="modal-title title-msg-conf">{{vm.titulo}}</h4>
+</div>
+<div class="modal-body">
+	<p class="modal-message">{{vm.mensaje}}</p>
+</div>
+<div class="modal-footer text-center">
+<!--
+	<button class="btn btn-primary btn-sm" style="margin-bottom: 0;" ng-click="vm.operacionDenunciado(1)"><i class="	glyphicon glyphicon-search" aria-hidden="true"></i> Buscar</button>
+-->
+	<button class="btn btn-primary btn-sm" ng-click="vm.operacionDenunciado(2)"><i class="	glyphicon glyphicon-plus" aria-hidden="true"></i> Registrar</button>
+</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

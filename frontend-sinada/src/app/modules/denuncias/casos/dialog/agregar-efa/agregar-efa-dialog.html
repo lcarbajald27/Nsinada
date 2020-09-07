@@ -1,0 +1,147 @@
+<div>
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Listado de EFAS</h4>
+	</div>
+	<div class="modal-body" ng-form name="notificacionDialogForm">
+		<span class="content-box">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label>Nombre de la entidad</label>
+				</div>
+				<div class="form-group col-md-12">
+					<input type="text" autocomplete="off" lowercase ng-model="vm.entidadBusqueda.nombre"
+						class="form-control input-sm" maxlength="100" name="nombreEntidad"
+						placeholder="Ingrese el nombre de la entidad" />
+				</div>
+			</div>
+		<div class="row">
+
+			<div class="form-group col-md-6">
+
+				<label class="">&Aacute;mbito:</label>
+				<select name="tipoAsignacion{{itemEFA.idEfa}}"
+									ng-model="vm.entidadBusqueda.tipoNivel" ng-click="vm.entidadBusqueda.tipoGobierno=0" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+										<option ng-value="{{item.codigoRegistro}} | number" ng-repeat="item in vm.listaTipoNivel">{{item.descripcion}}</option>
+								
+
+							
+					</select>
+				</div>
+				
+				<div class="form-group col-md-6">
+					<label>Tipo de gobierno:</label>
+				
+				<select name="tipoAsignacion{{itemEFA.idEfa}}"
+									ng-model="vm.entidadBusqueda.tipoGobierno" ng-disabled="vm.entidadBusqueda.tipoNivel!=3" class="form-control input-sm">
+									<option ng-value="0">Seleccione</option>
+											<option ng-value="{{item.codigoRegistro}}"  ng-repeat="item in vm.listaTipoGobierno">{{item.descripcion}}</option>
+									
+							
+								</select>
+				</div>
+
+
+				
+
+			</div>
+
+			<div class="row">
+			<div class="col-lg-12 text-right">
+					<button type="button" ng-click="vm.listarEfa()" uib-tooltip="Buscar"
+						class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+						<span class="icon-buscar spac-btn-r"></span> Buscar
+					</button>
+				</div>
+				
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="table-rpv">
+					<table id="listaProductos"
+						class="table table-hover table-bordered table-striped table-app"
+						cellspacing="0" width="100%" bgcolor="#d0c9c9">
+						<thead>
+							<tr>
+								<th class="text-center">RUC</th>
+								<th class="text-center">Entidad</th>
+								<th class="text-center">Nivel</th>
+								<th>Asignaci&oacute;n</th>
+								<th class="text-center" width="90">Acci&oacute;n</th>
+
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-show="vm.listaEfas == null || vm.listaEfas.length==0">
+								<td colspan="5">No se encontraron resultados</td>
+							</tr>
+							<tr dir-paginate="itemEfa in vm.listaEfas | itemsPerPage: config.itemsPerPage" pagination-id="coutListaEfas3ss">
+								<td>{{itemEfa.ruc}}</td>
+								<td>{{itemEfa.nombre}}</td>
+								<td>{{itemEfa.nivel}}</td>
+								<td><select name="tipoAsignacion{{itemEFA.idEfa}}"
+									ng-model="itemEfa.idUbigeo" class="form-control input-sm">
+										<option ng-value="0">Seleccione</option>
+										<option ng-repeat="itemCombo in vm.listaTipoAsignacion"
+											ng-value="itemCombo.codigoRegistro | number">{{itemCombo.descripcion}}</option>
+								</select></td>
+								<td class="text-center">
+									<button type="button" class="btn btn-default btn-sm"
+										uib-tooltip="Asignar" ng-disabled="itemEfa.idUbigeo==0 || vm.flagActivoAceptarTodos==1" ng-click="vm.registrar(itemEfa)">
+										<span class="glyphicon glyphicon-plus"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<dir-pagination-controls pagination-id="coutListaEfas3ss" ></dir-pagination-controls>
+				</div>
+				</div>
+			</div>
+
+ <div class="row">
+      <div class="col-lg-12 text-right">
+
+        <button  type="button"  class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" ng-click="vm.flagActivoAceptarTodos=1" ng-if="vm.flagActivoAceptarTodos==0" ng-disabled="vm.listaEfas==null || vm.listaEfas.length==0" uib-tooltip="Asignar todos" >
+                  <span class="glyphicon glyphicon-th"></span> Asignar todos
+              </button>
+              <button   type="button" id="btnRef_recurso"   uib-tooltip="Atenci&oacute;n" ng-click="vm.confirmarAgregarEfa(1)" ng-if="vm.flagActivoAceptarTodos==1" ng-disabled="vm.listaEfas==null || vm.listaEfas.length==0" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in">
+                  <span class="glyphicon glyphicon-th-list"></span> Atenci&oacute;n
+              </button>
+               <button class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in" ng-disabled="vm.listaEfas==null || vm.listaEfas.length==0" ng-if="vm.flagActivoAceptarTodos==1" ng-click="vm.confirmarAgregarEfa(2)"  uib-tooltip="Conocimiento">
+                  <span class="glyphicon glyphicon-th-list"></span> Conocimiento
+              </button>
+				
+
+				<button type="button" ng-click="vm.cancelar()" ng-if="vm.flagActivoAceptarTodos==0"  uib-tooltip="{{btnCerrar.tooltip}}" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in">
+                  <span class="{{btnCerrar.icon}}"></span> {{btnCerrar.valor}}
+              </button>  
+
+               <button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" ng-if="vm.flagActivoAceptarTodos==1" ng-click="vm.flagActivoAceptarTodos=0"  uib-tooltip="Terminar">
+                  <span class="glyphicon glyphicon-remove"></span> Terminar
+              </button>
+<!--
+              <button class="btn btn-flat btn-primary btn-sm" ng-click="vm.irARegistroDenuncia()" uib-tooltip="Nuevo Producto">
+                  <span class="glyphicon glyphicon-plus-sign spac-btn-r"></span> Nuevo
+              </button>
+      -->        
+              
+
+      </div>
+    </div> 	
+		</span>
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

@@ -1,0 +1,227 @@
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="problematica">Problem&aacute;tica:</label>
+						<select
+							id="problematica" name="problematica"
+							ng-model="vm.prmDataCaso.problematica.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.problematica.idDetalleCaso,1)"
+							class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option
+								ng-repeat="itemCombo in vm.listaProblematica | orderBy: 'idDetalleCaso'"
+								ng-value="itemCombo.idDetalleCaso | number">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+					<div class="input-group col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.dataCaso.problematica == 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosProblematicaDialog()">
+								<span class="icon-agregar"></span>
+							</button> -->
+						</div>
+						<div class="form-group" ng-show="vm.dataCaso.problematica != 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosProblematicaDialog()">
+								<span class="icon-editar"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="debidoA">¿Debido a?: (Nivel 1)</label> 
+						<select id="debidoA"
+							name="debidoA" ng-model="vm.prmDataCaso.debidoA1.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA1.idDetalleCaso,2)" class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option
+								ng-repeat="itemCombo in vm.listaDebidoANivel1 | orderBy: 'idDetalleCaso'"
+								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+
+					<div class="input-group col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA1.idDetalleCaso == 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.problematica.idDetalleCaso == 0"
+								ng-click="vm.mostrarCasosDebidoA(1,vm.prmDataCaso.problematica.idDetalleCaso,vm.prmDataCaso.debidoA1.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button> -->
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA1.idDetalleCaso != 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDebidoA(1,vm.prmDataCaso.problematica.idDetalleCaso,vm.prmDataCaso.debidoA1.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-sm-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="debidoA">¿Debido a?: (Nivel 2)</label> <select id="debidoA"
+							name="debidoA" ng-model="vm.prmDataCaso.debidoA2.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(2,vm.prmDataCaso.debidoA2.idDetalleCaso,3)" class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option
+								ng-repeat="itemCombo in vm.listaDebidoANivel2 | orderBy: 'idDetalleCaso'"
+								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+					<div class="input-group col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA2.idDetalleCaso == 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.debidoA1.idDetalleCaso == 0 || vm.listaZonaSucesonivel1.length>0"
+								ng-click="vm.mostrarCasosDebidoA(2,vm.prmDataCaso.debidoA1.idDetalleCaso,vm.prmDataCaso.debidoA2.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button> -->
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA2.idDetalleCaso != 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDebidoA(2,vm.prmDataCaso.debidoA1.idDetalleCaso,vm.prmDataCaso.debidoA2.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="debidoA">¿Debido a?: (Nivel 3)</label> <select id="debidoA"
+							name="debidoA" ng-model="vm.prmDataCaso.debidoA3.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.debidoA3.idDetalleCaso,1)"
+							class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option
+								ng-repeat="itemCombo in vm.listaDebidoANivel3 | orderBy: 'idDetalleCaso'"
+								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+					<div class="input-group col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA3.idDetalleCaso == 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.debidoA2.idDetalleCaso == 0 || vm.listaZonaSucesonivel1.length>0"
+								ng-click="vm.mostrarCasosDebidoA(3,vm.prmDataCaso.debidoA2.idDetalleCaso,vm.prmDataCaso.debidoA3.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button> -->
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.debidoA3.idDetalleCaso != 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDebidoA(3,vm.prmDataCaso.debidoA2.idDetalleCaso,vm.prmDataCaso.debidoA3.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="sucede">¿D&oacute;nde sucede?: (Nivel 1)</label> <select
+							id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso1.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso1.idDetalleCaso,2)"
+
+							class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option
+								ng-repeat="itemCombo in vm.listaZonaSucesonivel1 | orderBy: 'idDetalleCaso'"
+								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+					<div class="input-group col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso1.idDetalleCaso == 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="(vm.prmDataCaso.problematica.idDetalleCaso==0) ||(vm.prmDataCaso.problematica.idDetalleCaso!=0 && vm.prmDataCaso.debidoA1.idDetalleCaso==0) || (vm.prmDataCaso.debidoA1.idDetalleCaso != 0 && vm.listaDebidoANivel2.length>0 && vm.prmDataCaso.debidoA2.idDetalleCaso==0 && vm.prmDataCaso.debidoA3.idDetalleCaso==0) ||  (vm.prmDataCaso.debidoA2.idDetalleCaso != 0 && vm.listaDebidoANivel3.length>0 && vm.prmDataCaso.debidoA3.idDetalleCaso==0) "
+								ng-click="vm.mostrarCasosDondeSucede(1,vm.padreDondeSucede.idDetalleCaso,vm.prmDataCaso.zonasuceso1.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button> -->
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso1.idDetalleCaso != 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDondeSucede(1,vm.padreDondeSucede.idDetalleCaso,vm.prmDataCaso.zonasuceso1.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-sm-6">
+				<div class="row">
+					<div class="form-group col-md-9 col-xs-10">
+						<label for="sucede">¿D&oacute;nde sucede?:  (Nivel 2)</label> <select
+							id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso2.idDetalleCaso"
+							ng-change="vm.listarCasosGenerales(3,vm.prmDataCaso.zonasuceso2.idDetalleCaso,3)"
+
+							class="form-control input-sm">
+							<option ng-value="0">Seleccione</option>
+							<option
+								ng-repeat="itemCombo in vm.listaZonaSucesonivel2 | orderBy: 'idDetalleCaso'"
+								ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option>
+						</select>
+					</div>
+
+
+					<div class="input-group col-md-3 col-xs-2">
+						<label></label>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso2.idDetalleCaso == 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-disabled="vm.prmDataCaso.zonasuceso1.idDetalleCaso==0"
+								ng-click="vm.mostrarCasosDondeSucede(2,vm.prmDataCaso.zonasuceso1.idDetalleCaso,vm.prmDataCaso.zonasuceso2.idDetalleCaso)">
+								<span class="icon-agregar"></span>
+							</button> -->
+						</div>
+						<div class="form-group" ng-show="vm.prmDataCaso.zonasuceso2.idDetalleCaso != 0">
+							<!-- <button class="btn btn-flat btn-primary btn-sm"
+								ng-click="vm.mostrarCasosDondeSucede(2,vm.prmDataCaso.zonasuceso1.idDetalleCaso,vm.prmDataCaso.zonasuceso2.idDetalleCaso)">
+								<span class="icon-editar"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6 col-sm-6">
+		<div class="row">
+			<div class="form-group col-md-9 col-xs-10">
+				<label for="sucede">¿D&oacute;nde sucede?: (Nivel 3)</label> <select
+					id="sucede" name="sucede" ng-model="vm.prmDataCaso.zonasuceso3.idDetalleCaso"
+
+					class="form-control input-sm">
+					<option ng-value="0">Seleccione</option>
+					<option
+						ng-repeat="itemCombo in vm.listaZonaSucesonivel3 | orderBy: 'idDetalleCaso'"
+						ng-value="itemCombo.idDetalleCaso*1">{{itemCombo.descripcion}}</option>
+				</select>
+			</div>	
+		</div>
+	</div>

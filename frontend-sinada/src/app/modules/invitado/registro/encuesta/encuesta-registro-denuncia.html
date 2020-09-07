@@ -1,0 +1,109 @@
+<div id="bg">
+	<img src="assets/images/fondo/imagen-login.jpg" alt="">
+</div>
+
+<div class="">
+
+	<div class="center-block wrapper-invitado form-invitado block-page" style="margin: 10% auto;">
+
+		<span style="position: relative;">
+			<div class="row">
+				<div class="col-md-12" id="lheader" style="height: 80px;
+    border-radius: 5px 5px 0 0;">
+					<h3 class="title-slider-nt title-slider-nt-fixed" style="    top: 30px;">
+						<span>Encuesta de satisfacci&oacute;n</span>
+					</h3>
+					<div>
+						<span id="bg-ad-s"></span>
+					</div>
+
+
+				</div>
+			</div>
+
+			<div class="col-lg-12" novalidate ng-show="!vm.encuestaTerminada" style="background: whitesmoke;">
+
+				<span class="" ng-form="vm.formEncuesta" >
+					<!-- box-bg-lef-15 -->
+					<br/>
+					<br/>
+					<fieldset class="well unp-fieldset margin-encuesta" style="margin-top: -20px;">
+						<legend class="unp-legend"></legend>
+						<div class="row">
+							<div class="col-md-6"></div>
+							<div class="col-md-3 text-center"><b>Puntaje</b></div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-md-12 form-inline">
+								<div class="form-group col-md-6">
+									<label  >1) En general, ¿c&oacute;mo calificar&iacute;a su experiencia con el sistema de registro de denuncias ambientales del OEFA?  </label>
+
+								</div>
+								<div class="form-group col-md-6">
+									<select id="pregunta1" style="width: 240px;" name="pregunta1" ng-model="vm.encuesta.pregunta1.codigoRegistro" class="form-control input-sm">
+										<option ng-value="0">Seleccione</option>
+										<option ng-repeat="itemCombo in vm.listapregunta1  | orderBy:'codigoRegistro'"
+										ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-md-12 form-inline">
+								<div class="form-group col-md-6">
+									<label>2) ¿C&oacute;mo considera el tiempo empleado para el registro de su denuncia ambiental?  </label>
+								</div>
+								<div class="form-group col-md-6">
+									<select id="pregunta2" style="width: 240px;" name="pregunta2" ng-model="vm.encuesta.pregunta2.codigoRegistro" class="form-control input-sm">
+										<option ng-value="0">Seleccione</option>
+										<option ng-repeat="itemCombo in vm.listapregunta2 | orderBy:'codigoRegistro'"
+										ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-md-12 form-inline">
+								<div class="form-group col-md-6">
+									<label >3) ¿C&oacute;mo calificar&iacute;a la experiencia de llenado de datos para el registro de su denuncia ambiental?  </label>
+								</div>
+								<div class="form-group col-md-6">
+									<select id="pregunta3" style="width: 240px;" name="pregunta3" ng-model="vm.encuesta.pregunta3.codigoRegistro" class="form-control input-sm">
+										<option ng-value="0">Seleccione</option>
+										<option ng-repeat="itemCombo in vm.listapregunta3 | orderBy:'codigoRegistro'"
+										ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<br/>
+					</fieldset>
+					<div class="row">
+						<div class="form-group col-lg-12 text-right margin-encuesta-footer">
+							<button class="btn btn-primary-inv btn-sm" ng-click="vm.terminarEncuesta()" ng-disabled="vm.encuesta.pregunta1.codigoRegistro==0 || vm.encuesta.pregunta2.codigoRegistro==0 || vm.encuesta.pregunta3.codigoRegistro==0">
+								<i class="fa fa-check" aria-hidden="true"></i> Enviar</button>
+							</div>
+					</div>
+
+			</div>
+					<div class="col-lg-12" ng-show="vm.encuestaTerminada" style="background: white;border-radius: 0 0 5px 5px;padding: 30px 30px 50px;">
+						<h2>Gracias por su calificaci&oacute;n</h2>
+						<br/>
+						<!--<a ng-click="vm.salir()" class="spapp-link" >Volver al Inicio</a>-->
+						<a ng-click="vm.salir()" class="btn btn-primary" >
+							<span class="icon-salir spac-btn-r"></span> Volver al Inicio</a>
+						
+					</div>
+				</span>
+			</div>
+		</div>
+
+<span ng-if="$parent.cargandoInformacion>0" class="overlay-block">
+  <div class="contenedor_load">
+    <img ng-src="assets/images/gif/gears-red.gif" alt="">
+    <p>Procesando...</p>
+  </div>
+</span>

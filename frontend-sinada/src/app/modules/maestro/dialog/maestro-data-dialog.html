@@ -1,0 +1,82 @@
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Agregar &iacute;tem de maestro:</h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+			<div class="row">
+				<div class="col-lg-12">
+          <div class="form-group">
+  					<label class="important-box">Nombre :</label>
+  					<div class="input-group" style="display:block"
+  						ng-class="{'has-error':maestroDataDialogForm.NombreCorto.$invalid && maestroDataDialogForm.NombreCorto.$touched}">
+  						<input type="text" name="NombreCorto"
+  							class="form-control input-sm" ng-disabled="vm.prmMaestro.codigoMaestro=='FechasNoLaborables' && vm.prmMaestro.idMaestro==0" id="NombreCorto" required
+  							ng-model="vm.prmMaestro.descripcion">
+  					</div>
+          </div>
+				</div>
+			</div>
+			<br>
+			<div class="row" ng-if="vm.prmMaestro.codigoMaestro=='FechasNoLaborables' && vm.prmMaestro.idMaestro==0">
+
+			<div class="form-group col-md-4" ng-class="{'has-error':vm.normasForm.nombre.$invalid && vm.normasForm.nombre.$touched}">
+				<label for="nombre" class="important-box">Fecha no laborable</label>
+				<div class="form-group">
+				           	<input  type="text"
+				                name="fechaAtencion"
+				                class="form-control input-sm"
+				                ng-init="vm.openDatePickerFechaInicio = false"
+				                ng-model="vm.dataFechaNoLaborable"
+				                uib-datepicker-popup="dd/MM/yyyy"
+				                is-open="vm.openDatePickerFechaInicio"
+				                ng-change="vm.obtenerDatosFecha()"
+				                show-button-bar="false"
+				                datepicker-options="vm.option"
+				                ng-click="vm.openDatePickerFechaInicio = true"
+				                required
+
+				                >
+						</div>
+			</div>
+
+		</div>
+
+			<div class="row">
+        <br>
+				<div class="form-group col-lg-12 text-right">
+					<button type="button" ng-if="$parent.validarOperacion('REGISTRAR')" ng-click="vm.guardar()"
+						ng-disabled="vm.prmMaestro.descripcion.length<2"
+						uib-tooltip="{{vm.prmMaestro.idMaestro == 0 ? 'Registrar' : 'Actualizar'}}"
+						class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in">
+						<span class="glyphicon glyphicon-ok spac-btn-r"></span> {{vm.prmMaestro.idMaestro == 0 ? 'Registrar' : 'Actualizar'}}
+					</button>
+					<button class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in"
+						ng-show="vm.dataNormas.idNorma==0" ng-click="vm.limpiar()"
+						uib-tooltip="Limpiar">
+						<span class="icon-limpiar spac-btn-r"></span> Limpiar
+					</button>
+					<button type="button" ng-click="vm.cancelar()"
+						class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in"
+						uib-tooltip="Cerrar">
+						<span class="glyphicon glyphicon-remove"></span> Cerrar
+					</button>
+				</div>
+			</div>
+
+
+
+	<div class="row">
+    <div id="campoObligatorio" class="col-lg-12 text-left" ng-if="true">
+    	<small class="font-text text-justify"><span class="important-box"></span> Campo obligatorio.</small>
+    </div>
+	</div>
+
+		</span>
+	</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

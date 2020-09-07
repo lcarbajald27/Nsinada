@@ -1,0 +1,65 @@
+
+<div id="bg">
+  <img src="assets/images/fondo/amazonas-fondo.jpg" alt="">
+</div>
+
+<div class="container" ng-if="false">
+  <div class="row" style="margin-top: 8%">
+    <div class="col-xs-8 col-md-offset-2">
+      <div id="contenedor-table">
+        <div id="cell-table-login">
+          <div id="fondo-contert-form">
+              <div id="title-bg-ad">
+                <span id="v-01"></span>
+                <span id="txt-dt">Sistemas Nacional de Denuncias Ambientales</span>
+                <span id="v-02"></span>
+              </div>
+              <div id="img-logo-form">
+                <img src="assets/images/oefa-logo-white.png" alt="">
+              </div>
+          </div>
+          <div id="login-box">
+            <form id="vm.loginForm" name="vm.loginForm" class="login-form">
+              <div class="form-group text-center">
+                <img src="assets/images/sinada-big.png" alt="" class="img-responsive center-block" style="margin-bottom: 20px;margin-top: 10px;">
+              </div>
+              <div class="form-group">
+                <label for="usuario" class="control-label">Usuario</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="fa fa-user"></span>
+                  </div>
+                  <input type="text" class="form-control" input-restrict="alfanumerico" maxlength="8" id="usuario" name="usuario" ng-model="vm.usuarioLogin.nombreUsuario"  title="Ingrese nombre de usuario" autocomplete="off" ng-keyup="vm.keyLogin($event.keyCode)">
+                </div>
+                <span class="help-block"></span>
+              </div>
+              <div class="form-group">
+                <label for="clave" class="control-label">Contrase&ntilde;a</label>
+                <div class="input-group">
+                 <div class="input-group-addon">
+                   <span class="fa fa-key"></span>
+                 </div>
+                 <input type="password" class="form-control" id="clave" name="clave"  maxlength="20" ng-model="vm.usuarioLogin.clave" title="Ingrese clave de usuario" ng-keyup="vm.keyLogin($event.keyCode)">
+                </div>
+                <span class="help-block"></span>
+              </div>
+              <div id="loginErrorMsg" class="alert alert-error hide">Usuario o clave incorrecta</div>
+              <div class="form-group" style="padding-top: 5px">
+                <button type="button" class="btn btn-colorx login-button"  ng-click="vm.validarUsuario()" >Iniciar Sesi&oacute;n</button>
+              <!-- ng-disabled="vm.loginForm.$invalid" -->
+              </div>
+              <!-- <span class="link_text"><a ui-sref="recuperrar_clave" title="">¿Olvidaste tu contraseña?</a></span>-->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<span ng-if="$parent.cargandoInformacion>0" class="overlay-block">
+  <div class="contenedor_load">
+    <img ng-src="assets/images/gif/gears-red.gif" alt="">
+    <p>Procesando...</p>
+  </div>
+</span>

@@ -1,0 +1,52 @@
+<!-- SESION CADUCO -->
+<div class="modal-body">
+  <h1 class="text-center title-session-exp">Su sesión está a punto de caducar</h1>
+  <hr>
+  <img src="./assets/images/expired.png"  class="img-responsive icono-expired">
+  <p class="text-center" style="margin-top:25px;margin-bottom: 15px;font-size: 16px;">su sesión expirará en:</p>
+  <p class="main-time">
+    <span id="time-min">01</span> :
+    <span id="time-seg">59</span>
+  </p>
+  <p id="displayReloj"></p>
+  <p class="modal-message text-center text-sesion-exp" id="text-sesion-exp">Por favor, haga clic en <b>"Continuar"</b> para seguir trabajando
+o haz clic en <b>"Cerrar sesión"</b> para finalizar tu sesión ahora</p>
+  <hr>
+  <div class="text-center">
+    <button id="btn-continuar-sesion" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5" style="border-radius: 18px!important" ng-click="confirm(1)"><i class="fa fa-check" aria-hidden="true"></i> Continuar</button>
+    <a id="btn-iniciar-sesion" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5" style="border-radius: 18px!important;display:none" ng-click="confirm(1)"><i class="fa fa-check" aria-hidden="true"></i> Iniciar Sesión</a>
+    <a id="btn-salir-app"  class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5" style="border-radius: 18px!important;display:none" ng-click="closeThisDialog(0)"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Salir</a>
+    <button id="btn-cerrar-sesion"  class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5" style="border-radius: 18px!important" ng-click="closeThisDialog(0)"><i class="icon-cerrar-sesion" aria-hidden="true"></i> Cerrar sesión</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Ejecutar la funcion para inicializar el tiempo de cerrar sessión
+  //countSesion();
+
+      var segundos = 60;
+      function countSesion() {
+        if(segundos==60){
+          document.getElementById('time-min').innerHTML = '01';
+        }else if(segundos>9){
+          document.getElementById('time-seg').innerHTML = segundos;
+        }else{
+          document.getElementById('time-min').innerHTML = '00';
+          document.getElementById('time-seg').innerHTML = '0' + segundos;
+        }
+        if(segundos==0){
+          // aqui manda funcion de cerrar session
+          document.getElementById('btn-continuar-sesion').remove();
+          document.getElementById('btn-cerrar-sesion').remove();
+
+          document.getElementById('btn-iniciar-sesion').style.display = "inline-block";
+          document.getElementById('btn-salir-app').style.display = "inline-block";
+          document.getElementById('text-sesion-exp').innerHTML = 'Su sesión ha expirado debido a inactividad';
+
+        }else{
+          var t = setTimeout(function(){countSesion()},1000);
+        }
+        segundos--;
+      }
+
+</script>

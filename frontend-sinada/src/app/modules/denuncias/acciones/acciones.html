@@ -1,0 +1,60 @@
+<div class="col-lg-12  sin_padding">
+  <span class="">
+    <!-- box-bg-lef-15 -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="title-slider-nt">
+          <span>Acciones de la EFA u &Oacute;rgano de L&iacute;nea Competente</span>
+        </h3>
+        <span class="nav_bread">
+          <ol class="breadcrumb">
+            <li class="active">Acciones</li>
+          </ol>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <h5><b>Revisar la Denuncia</b></h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-5">
+          <label for="idProducto" >Luego de analizar la denuncia (C&oacute;digo de denuncia)</label>
+      </div>
+     <div class="col-lg-7">
+         <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.mostrarModalAceptar('dato')" uib-tooltip="Aceptar Denuncia"  class="btn btn-flat btn-primary-inv btn-sm btn-pd-5">
+                  <span class="glyphicon glyphicon-ok spac-btn-r"></span> Aceptar Denuncia
+        </button>
+
+        <button type="button" id="btnRef_recurso"  ng-click="vm.mostrarModalRechazar()"   uib-tooltip="Rechazar Denuncia"  class="btn btn-flat btn-primary btn-sm btn-pd-5">
+                    <span class="glyphicon glyphicon-search spac-btn-r"></span> Rechazar Denuncia
+        </button>
+
+        <button type="button" id="btnRef_recurso" ng-click="vm.buscar()"   uib-tooltip="Regresar"  class="btn btn-flat btn-primary btn-sm btn-pd-5">
+                    <span class="glyphicon glyphicon-search spac-btn-r"></span> Regresar
+        </button>
+
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="panel panel-tab-mtpe with-nav-tabs panel-default" >
+        <ul class="nav nav-tabs">
+          <li>
+            <a ui-sref="gise.asistencial.solicitud-examen-laboratorio.listado">Ficha de Denuncia Ambiental</a>
+          </li>
+        <li>
+            <a ui-sref="gise.asistencial.solicitud-examen-laboratorio.registro">Informaci&oacute;n Adjunta</a>
+        </li>
+        </ul>
+        <div ui-view>
+        </div>
+      </div>
+    </div>
+
+ </span>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_ARCHIVO -->
+<mapper namespace="formatoCorreo">
+	<resultMap id="resultMapFormatoCorreo" type="FormatoCorreo">
+		<id 	column="ID_FORMATO" property="idFormatoCorreo"/>
+		<result column="TEXTO" 		property="mensaje"/>
+
+	</resultMap>
+	
+	<select id="buscarXid" resultMap="resultMapFormatoCorreo" parameterType="FormatoCorreo">
+		SELECT
+			ID_FORMATO,
+			TEXTO
+		FROM 
+			SINADA.T_GENM_FORMATO_CORREO
+		WHERE
+			ID_FORMATO = #{idFormatoCorreo}
+			
+	</select>
+	
+	
+	
+	
+</mapper>

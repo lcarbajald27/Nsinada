@@ -1,0 +1,168 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">Listados de normativas</h4>
+	</div>
+	<div class="modal-body" ng-form name="notificacionDialogForm">
+		<span class="content-box" >
+			<div class="row" ng-show="vm.flagBusquedaContenido==0">
+				<div class="form-group col-md-12">
+					<label>Nombre de normativa</label>
+				</div>
+				<!-- 
+				<div class="form-group col-md-10">
+					<textarea ng-model="vm.dataNormas.descripcion" style="resize: none;" rows="3" maxlength="100"></textarea>
+				</div>
+				-->
+				<div class="form-group col-md-10">
+				<input type="text" class="form-control input-sm" ng-model="vm.dataNormas.descripcion">
+				</div>
+				<div class="col-lg-2 text-right">
+					 <button type="button" ng-disabled="vm.formUsuario.$invalid" uib-tooltip="Buscar norma" ng-click="vm.listarNormas()" class="btn btn-flat btn-primary btn-sm">
+	                	<span class="icon-buscar"></span> Buscar
+	            	</button>
+				</div>
+				
+				
+			</div>
+
+
+		
+			<div class="row" ng-show="vm.flagBusquedaContenido==0">
+				<div class="form-group col-md-12">
+					<div class="table-rpv">
+			<table class="table table-hover table-bordered tableSiafx table-app" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th>Dispositivo</th>
+								<th>Normativa</th>
+								<th>Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr dir-paginate="itemNormativa in vm.listaNormativas | itemsPerPage: config.itemsPerPage" pagination-id="coutListaNormativas6ss">
+								<td>{{itemNormativa.nombreTipoDispositivo}} N&#176; {{itemNormativa.numeroNorma}}</td>
+								<td>{{itemNormativa.descripcion}}</td>
+								<td>
+<!-- 			                      <button type="button" class="btn btn-default btn-sm" uib-tooltip="Agregar Normativa" ng-model="itemEFA.seleccionado" ng-click="vm.registrarNormaCaso(itemNormativa)" > -->
+<!-- 	                                 <span class="glyphicon glyphicon-plus"></span> -->
+<!-- 	                               	</button> -->
+
+	                               	  <button type="button" class="btn btn-default btn-sm" uib-tooltip="Buscar articulo" ng-model="itemEFA.seleccionado" ng-click="vm.buscarContenido(itemNormativa)" >
+	                                 <span class="icon-buscar"></span>
+	                               	</button>
+								</td>
+							</tr>
+							<tr ng-show="vm.listaNormativas == null || vm.listaNormativas.length==0">
+								<td colspan="6" style="text-align: left;">No hay Normativas seleccionadas.</td>
+							</tr>
+						</tbody>
+					</table>
+					<dir-pagination-controls pagination-id="coutListaNormativas6ss" ></dir-pagination-controls>
+				</div>
+						</div>
+					</div>
+
+
+
+		<div class="row" ng-show="vm.flagBusquedaContenido==1">
+					<div >
+				<div class="form-group col-md-12">
+					<label>Descripci&oacute;n art&iacute;culo</label>
+				</div>
+				<div class="form-group col-md-10">
+					<textarea ng-model="vm.prmFiltroContenidoNorma.descripcionArticulo" style="resize: none;" rows="3" maxlength="200"></textarea>
+				</div>
+				<div class="col-lg-2 text-right">
+					 <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.listarContenidoNorma()" uib-tooltip="Buscar articulo" class="btn btn-flat btn-primary btn-sm">
+	                <span class="icon-buscar"></span> Buscar
+	            </button>
+				</div>
+				
+				
+			</div>
+
+			
+
+				<div class="col-md-12">
+					<div class="form-group table-responsive">
+						<div class="table-rpv">
+					<table  class="table table-hover table-bordered table-striped table-app tabla-config"  bgcolor="#d0c9c9">
+						<thead>
+							<tr>
+								<th class="text-center" >C&oacute;digo</th>
+								<th class="text-center">Norma</th>
+								<th class="text-center td-tabla-00">Nro. art&iacute;culo</th>
+								<th class="text-center td-tabla-01" width="200">Descripci&oacute;n art&iacute;culo</th>
+								<th class="text-center td-tabla-02" >Estado</th>
+								<th class="text-center td-tabla-02" >Acci&oacute;n</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							
+
+
+							<tr dir-paginate="itemNormaContenido in vm.listaContenidoNorma | itemsPerPage: config.itemsPerPage" pagination-id="cout2" ng-show="itemNormaContenido.idContenidoNorma!=vm.contenidoNormaModificar.idContenidoNorma">
+								<td class="text-center">{{itemNormaContenido.idContenidoNorma}}</td>
+								<td>{{itemNormaContenido.numeroNorma}}</td>
+								<td class="text-center">{{itemNormaContenido.numeroArticulo}}</td>
+								<td class="text-center">{{itemNormaContenido.descripcionArticulo}}</td>
+							
+								<td class="text-center">{{itemNormaContenido.nombreEstado}}</td>
+							
+								<td class="text-center">
+									
+										<button type="button" class="btn btn-default  btn-sm" uib-tooltip="Agregar articulo" ng-click="vm.registrarNormaContenidoCaso(itemNormaContenido)">
+	                                 <span class="glyphicon glyphicon-ok-circle"></span>
+	                               	</button>
+					
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<dir-pagination-controls pagination-id="cout2" ></dir-pagination-controls>
+				</div>
+					</div>
+				</div>
+			</div>
+
+
+		<div class="row" ng-show="vm.flagBusquedaContenido==1">
+			
+				<div  class="col-lg-12 text-right">
+					 <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.flagBusquedaContenido=0" uib-tooltip="{{btnRegresar.tooltip}}" class="btn btn-flat btn-primary btn-sm">
+	                <span class="{{btnRegresar.icon}}"></span> {{btnRegresar.valor}}
+	            </button>
+				</div>
+				
+				
+			</div>
+
+				<div class="row" ng-show="vm.flagBusquedaContenido==0">
+			
+				<div class="col-lg-12 text-right">
+					 <button type="button" ng-disabled="vm.formUsuario.$invalid" uib-tooltip="{{btnCerrar.tooltip}}" ng-click="vm.cancelar()" class="btn btn-flat btn-primary btn-sm">
+	                <span class="{{btnCerrar.icon}}"></span> {{btnCerrar.valor}}
+	            </button>
+				</div>
+				
+				
+			</div>
+
+
+		</span>
+	</div>
+
+		
+	
+
+
+</div>
+
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

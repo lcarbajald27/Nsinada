@@ -1,0 +1,222 @@
+<div class="col-lg-12  sin_padding"  name="usuarioRegistroForm" novalidate ng-form >
+	<span class="" ng-form="vm.formUsuario" ><!-- box-bg-lef-15 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="title-slider-nt"><span>Registro</span></h3>
+			</div>
+		</div>
+		<br/>
+		<fieldset class="well unp-fieldset">
+		<legend class="unp-legend">Registro de Usuario</legend>
+		<div class="row">
+            <div class="form-group col-md-6">
+				<label for="tipoPersona">Tipo de Persona:</label>
+				<select id="tipoPersona" name="tipoPersona" ng-model="vm.dataUsuario.tipoPersona" class="form-control input-sm">
+					<option ng-value="0">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaTipoPersona"
+							ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+				</select>
+			</div>
+
+
+
+		</div>
+	     <div class="row">
+            <div class="form-group col-md-6">
+				<label for="tipoDocumento">Tipo de Documento:</label>
+				<select id="tipoDocumento" name="tipoDocumento" ng-model="vm.tipoDocumento" class="form-control input-sm">
+					<option ng-value="0">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaTipoDocumento"
+							ng-value="itemCombo.codigoRegistro*1">{{itemCombo.descripcion}}</option>
+				</select>
+			</div>
+			<div class="form-group col-md-3" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="numeroDocumento" class="important-box">Nro de Documento:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.documento" type="text"  class="form-control input-sm" name="numeroDocumento" placeholder="Ingrese nro de documento" >
+				</div>
+			</div>
+
+			<div class="form-group col-md-3" ng-show="vm.dataUsuario.tipoPersona==2">
+				<label for="numeroDocumento" class="important-box">Nro de Documento:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataEntidad.ruc" type="text"  class="form-control input-sm" ng-keyup="vm.dataUsuario.nombreUsuario=vm.dataEntidad.ruc" name="numeroDocumento" placeholder="Ingrese nro de documento" >
+				</div>
+			</div>
+
+		    <div class="input-group col-md-3"  ng-show="vm.dataUsuario.tipoPersona==1">
+               <label></label>
+               <div class="form-group">
+				<a class="btn btn-flat btn-primary btn-sm" ng-click="vm.buscarPersonaXNumeroDocumento()">
+	                <span class="fa fa-search"></span> Buscar
+	            </a>
+	            </div>
+            </div>
+
+
+             <div class="input-group col-md-3"  ng-show="vm.dataUsuario.tipoPersona==2">
+               <label></label>
+               <div class="form-group">
+				<a class="btn btn-flat btn-primary btn-sm" ng-click="vm.buscarEntidadXNumeroDocumento()">
+	                <span class="icon-buscar"></span> Buscar
+	            </a>
+	            </div>
+            </div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==2">
+				<label for="razonSocial">Raz&oacute;n Social:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataEntidad.razonSocial" type="text" ng-disabled="true" class="form-control input-sm" name="razonSocial" >
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==2">
+				<label for="cargo">Cargo:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataEntidad.cargo" type="text" ng-disabled="true" class="form-control input-sm" name="cargo" >
+				</div>
+			</div>
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==2">
+				<label for="representanteLegal">Representante Legal:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataEntidad.representanteLegal.idPersona" type="text" ng-disabled="true" class="form-control input-sm" name="representanteLegal" >
+				</div>
+			</div>
+		</div>
+
+	     <div class="row">
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="nombres">Nombres:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.nombres" type="text" ng-disabled="true" class="form-control input-sm" name="nombres" >
+				</div>
+			</div>
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="apellidoPaterno">Apellido Paterno:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.apellidoPaterno" type="text" ng-disabled="true" class="form-control input-sm" name="apellidoPaterno" >
+				</div>
+			</div>
+		</div>
+
+	     <div class="row">
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="apellidoMaterno">Apellido Materno:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.apellidoMaterno" type="text" ng-disabled="true" class="form-control input-sm" name="apellidoMaterno" >
+				</div>
+			</div>
+	    </div>
+
+	   <div class="row">
+			<div class="form-group col-md-6 " ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="departamento">Departamento:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.departamento" type="text" ng-disabled="true" class="form-control input-sm" name="departamento" >
+				</div>
+			</div>
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="provincia">Provincia:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.provincia" type="text" ng-disabled="true" class="form-control input-sm" name="provincia" >
+				</div>
+			</div>
+		</div>
+
+	    <div class="row">
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="distrito">Distrito:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.distrito" type="text" ng-disabled="true" class="form-control input-sm" name="distrito" >
+				</div>
+			</div>
+
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==1">
+				<label for="direccion">Direcci&oacute;n:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataPersona.direccion" type="text" ng-disabled="true" class="form-control input-sm" name="direccion" >
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-6" ng-show="vm.dataUsuario.tipoPersona==2">
+				<label for="domicilio">Domicilio Fiscal:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataEntidad.direccion" type="text" ng-disabled="true" class="form-control input-sm" name="domicilio" >
+				</div>
+			</div>
+	   </div>
+
+	   <div class="row">
+			<div class="form-group col-md-8">
+				<label for="telefono">Tel&eacute;fono:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.telefono" type="text" ng-disabled="flase" class="form-control input-sm" name="telefono" placeholder="Agregar Telefono">
+				</div>
+			</div>
+	   </div>
+
+	   <div class="row">
+			<div class="form-group col-md-8">
+				<label for="correo">Correo:</label>
+				<div class="form-group">
+					<input ng-model="vm.dataUsuario.correo" type="text" ng-disabled="false" class="form-control input-sm" name="correo" placeholder="Agregar Correo">
+				</div>
+			</div>
+	   </div>
+
+	   	<fieldset class="well unp-fieldset">
+		<legend class="unp-legend">Seguridad</legend>
+		<div class="row">
+			<div class="form-group col-md-6" ng-class="{'has-error':usuarioRegistroForm.Usuario.$invalid && usuarioRegistroForm.Usuario.$touched}">
+				<label for="Usuario" class="important-box">Usuario</label>
+				<div class="form-group">
+
+
+					<input type="text" class="form-control input-sm"  ng-model="vm.dataUsuario.nombreUsuario" placeholder="Ingresar Usuario" readonly="true" required>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6" ng-class="{'has-error':usuarioRegistroForm.Clave.$invalid && usuarioRegistroForm.Clave.$touched}">
+				<label for="Clave" class="important-box">Clave</label>
+				<div class="form-group">
+					<input type="password" class="form-control input-sm"   maxlength="12" ng-model ="vm.dataUsuario.clave" placeholder="Ingresar Clave" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+				<div class="form-group col-md-6">
+					<label for="tipoPersona">Perfil:</label>
+						<select id="tipoPersona" name="tipoPersona" ng-model="vm.dataUsuario.perfil.idPerfil" class="form-control input-sm">
+					<option ng-value="0">Seleccione</option>
+					<option ng-repeat="itemCombo in vm.listaPerfil"
+							ng-value="itemCombo.idPerfil*1">{{itemCombo.nombrePerfil}}</option>
+				</select>
+				</div>
+		</div>
+
+		</fieldset>
+
+		</fieldset>
+		<div class="row">
+	        <div class="form-group col-lg-12 text-right">
+	            <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.guardar()" class="btn btn-flat btn-primary-inv btn-sm btn-pd-5">
+	                <span class="glyphicon glyphicon-ok spac-btn-r"></span> Registrar
+	            </button>
+	            <a class="btn btn-flat btn-primary btn-sm btn-pd-5" ng-click="vm.limpiar()">
+	                <span class="icon-limpiar spac-btn-r"></span> Limpiar
+	            </a>
+	            <button type="button" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5">
+	                <span class="glyphicon glyphicon- spac-btn-r"></span> Cancelar
+	            </button>
+	        </div>
+  	    </div>
+	</span>
+</div>

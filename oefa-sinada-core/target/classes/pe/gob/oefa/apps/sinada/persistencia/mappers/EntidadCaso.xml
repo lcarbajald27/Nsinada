@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CASO_EFA -->
+<mapper namespace="entidadCaso">
+	<resultMap id="resultMapEntidadCaso" type="EntidadCaso">
+		<id 	column="ID_CASO_ENTIDAD" 			property="idCasoEntidad" />
+		<result column="TIPO_ENTIDAD" 				property="tipoEntidad" />
+		<result column="NOMBRE_TIPO_ENTIDAD" 		property="nombreTipoEntidad" />
+		<result column="ID_ENTIDAD" 				property="idEntidad" />
+		<result column="NOMBRE_ENTIDAD"				property="nombreEntidad" />
+		<result column="TIPO_ASIGNACION"			property="tipoAsignacion" />
+		<result column="NOMBRE_TIPO_ASIGNACION"		property="nombretipoAsignacion" />
+		<result column="ID_CASO"					property="idCaso" />
+
+		
+		
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapEntidadCaso" parameterType="EntidadCaso">
+		SELECT 
+		        ID_CASO_ENTIDAD,
+				TIPO_ENTIDAD,
+				NOMBRE_TIPO_ENTIDAD,
+				ID_ENTIDAD,
+				NOMBRE_ENTIDAD,
+				TIPO_ASIGNACION,
+				NOMBRE_TIPO_ASIGNACION,
+				ID_CASO
+		FROM 
+		        SINADA.V_ENTIDAD_CASO
+		WHERE 
+		        ID_CASO = #{idCaso}
+
+	</select>
+	
+	
+
+</mapper>

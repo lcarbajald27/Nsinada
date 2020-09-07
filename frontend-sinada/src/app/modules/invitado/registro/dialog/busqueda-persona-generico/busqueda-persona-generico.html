@@ -1,0 +1,100 @@
+<div >
+	<div class="modal-header">
+		<h4 class="modal-title title-msg-conf">{{vm.titulo}}</h4>
+	</div>
+	<div class="modal-body" ng-form name="maestroDataDialogForm">
+		<span class="content-box">
+		   		
+		   		<div class="row">
+
+		   		<div class="form-group col-md-12">
+					<input type="text" autocomplete="off" lowercase
+						ng-model="vm.dataPersonaSSO.nombreComercial" class="form-control input-sm"
+						placeholder="Ingrese nombre aqui" />
+					<!-- <textarea ng-model="vm.dataCasos.descripcion"></textarea> -->
+				</div>
+
+
+		   		</div>
+
+	<div class="row">
+				<div class="form-group col-lg-12 text-right">
+					<button type="button" 
+						ng-click="vm.listarPersona()" class="btn btn-flat btn-primary-inv btn-sm">
+						<span class="glyphicon glyphicon-ok spac-btn-r"></span> Buscar
+					</button>
+				
+				</div>
+	</div>
+
+
+
+			  <div class="row" >
+				<div class="form-group col-md-12">
+					<div class="table-rpv">
+						<table id="listaDenuncias" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+				            <thead>
+				              <tr>
+				             
+				                <th class="text-center">Documento</th>
+				                <th class="text-center">Nombre persona</th>
+
+				                <th class="text-center">Acci&oacute;n</th>
+				              </tr>
+				            </thead>
+				            <tbody dir-paginate="item in vm.listaPersonaSSO  | itemsPerPage: config.itemsPerPage" pagination-id="cout2"   >
+				              <tr>
+				               
+				                <td>{{item.documento}}</td>
+				                <td>{{item.nombreComercial}}</td>
+				           
+
+				                <td align="center">
+				                      <button type="button" class="btn btn-default btn-sm" uib-tooltip="Seleccionar" ng-click="vm.obtenerPersona(item)" >
+				                       <span class="glyphicon glyphicon-ok-circle"></span>
+				                    </button>
+				                </td>
+				                  <!--<td class="text-center" width="90">{{itemDenuncia.estado}}</td> -->
+				              </tr>
+
+				            </tbody>
+
+				            <tbody ng-if="vm.listaPersonaSSO==null || vm.listaPersonaSSO.length==0">
+				            	<tr >
+				            		
+				            		<td colspan="3">No se encontraron resultados.</td>
+				            	</tr>
+
+				            </tbody>
+			          	</table>
+			          	<dir-pagination-controls pagination-id="cout2" ></dir-pagination-controls>
+			        </div>
+				</div>
+		    </div>
+
+
+
+
+
+		   <!-- <div class="row">
+	          <div class="form-group col-lg-12 text-right">
+	              <button type="button" ng-disabled="vm.formUsuario.$invalid" ng-click="vm.rechazarDenuncia()" class="btn btn-flat btn-primary-inv btn-sm">
+	                  <span class="glyphicon glyphicon-ok spac-btn-r"></span> Aceptar
+	              </button>
+	              <button type="button" ng-click="vm.cancelar()" class="btn btn-flat btn-default btn-primary btn-sm">
+	                  <span class="glyphicon glyphicon- spac-btn-r"></span> Cancelar
+	              </button>
+	          </div>
+	        </div>
+-->
+
+
+		</span>
+	</div>
+</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('button.ngdialog-close').remove();
+        $('.ngdialog-content').append("<a aria-label='Dismiss' class='ngdialog-close'></a>");
+	});
+</script>

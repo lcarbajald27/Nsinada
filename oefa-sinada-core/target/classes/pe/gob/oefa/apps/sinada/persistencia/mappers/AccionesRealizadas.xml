@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : T_GENM_CONTACTO -->
+<mapper namespace="accionesRealizadas">
+	<resultMap id="resultMapAccionesRealizadas" type="AccionesRealizadas">
+	
+		<id 	column="ID_ACCION" 						property="idAccion" />
+		<result column="NUMERO_ITEM" 				property="numeroItem" />
+		
+		<result column="TIPO_TABLA_ACCION" 				property="tipoTablaAccion" />
+		<result column="NOMBRE_TABLA_ACCION" 			property="nombreTablaAccion" />
+		<result column="ID_BANDEJA_DETALLE"				property="idBandejaDetalle" />
+		<result column="NOMBRE_ENTIDAD"					property="nombreEntidad" />
+		<result column="ID_DENUNCIA" 					property="idDenuncia" />
+		<result column="TIPO_ATENCION_ACCION" 			property="tipoAtencionAccion" />
+		<result column="NOMBRE_TIPO_ATENCION_ACCION" 	property="nombreTipoAtencionAccion" />
+		<result column="MOTIVO_ACCION" 					property="motivoAccion" />
+		<result column="NOMBRE_MOTIVO_ACCION" 			property="nombreMotivoAccion" />
+		<result column="TIPO_ACCION" 					property="tipoAccion" />
+		<result column="NOMBRE_TIPO_ACCION" 			property="nombreTipoAccion" />
+		<result column="TIPO_SUPERVICION" 				property="tipoSupervicion" />
+		<result column="NOMBRE_TIPO_SUPERVICION" 		property="nombreTipoSupervicion" />
+		<result column="FECHA_INICIO" 					property="fechaInicio" />
+		<result column="FECHA_FIN" 						property="fechaFin" />
+		<result column="DESCRIPCION_ACCION" 			property="descripcionAccion" />
+		<result column="NUMERO_ARCHIVOS_ADJUNTOS" 		property="numeroArchivosAdjuntos" />
+		<result column="FECHA_REGISTRO" 				property="fechaRegistro" />
+		<result column="ESTADO" 						property="estado" />
+		<result column="NOMBRE_ESTADO" 					property="nombreEstado" />
+		<result column="HOJA_TRAMITE" 					property="hojaTramite" />
+		<result column="DESCRIPCION_MOTIVO" 			property="descripcionMotivo" />
+		<result column="CODIGO_DENUNCIA" 				property="codigoDenuncia" />
+		<result column="DIAS_HAB_TRANS_ACC" 			property="diasHabilesTranscurridosAccion" />
+		
+		
+		
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapAccionesRealizadas" parameterType="AccionesRealizadas">
+		SELECT 
+				ROWNUM AS NUMERO_ITEM,
+		        TIPO_TABLA_ACCION,
+		        NOMBRE_TABLA_ACCION,
+		        ID_ACCION,
+		        ID_BANDEJA_DETALLE,
+		        NOMBRE_ENTIDAD,
+		        ID_DENUNCIA,
+		        CODIGO_DENUNCIA,
+		        TIPO_ATENCION_ACCION,
+		        NOMBRE_TIPO_ATENCION_ACCION,
+		        MOTIVO_ACCION,
+		        NOMBRE_MOTIVO_ACCION,
+		        TIPO_ACCION,
+		        NOMBRE_TIPO_ACCION,
+		        TIPO_SUPERVICION,
+		        NOMBRE_TIPO_SUPERVICION,
+		        TO_CHAR(FECHA_INICIO, 'dd-MM-YYYY') AS FECHA_INICIO,
+		        TO_CHAR(FECHA_FIN, 'dd-MM-YYYY') AS FECHA_FIN,
+		        DESCRIPCION_ACCION,
+		        NUMERO_ARCHIVOS_ADJUNTOS,
+				TO_CHAR(FECHA_REGISTRO, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO,
+		        ESTADO,
+		        NOMBRE_ESTADO,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO
+		
+		FROM 
+		      	SINADA.V_ACCIONES_REALIZADAS
+		WHERE
+				ID_DENUNCIA = #{idDenuncia}
+
+
+	</select>
+	
+	
+		<select id="buscarPorTipoTablaIdAccion" resultMap="resultMapAccionesRealizadas" parameterType="AccionesRealizadas">
+		SELECT 
+				ROWNUM AS NUMERO_ITEM, 
+		        TIPO_TABLA_ACCION,
+		        NOMBRE_TABLA_ACCION,
+		        ID_ACCION,
+		        ID_BANDEJA_DETALLE,
+		        NOMBRE_ENTIDAD,
+		        ID_DENUNCIA,
+		        CODIGO_DENUNCIA,
+		        TIPO_ATENCION_ACCION,
+		        NOMBRE_TIPO_ATENCION_ACCION,
+		        MOTIVO_ACCION,
+		        NOMBRE_MOTIVO_ACCION,
+		        TIPO_ACCION,
+		        NOMBRE_TIPO_ACCION,
+		        TIPO_SUPERVICION,
+		        NOMBRE_TIPO_SUPERVICION,
+		        FECHA_INICIO,
+		        FECHA_FIN,
+		        DESCRIPCION_ACCION,
+		        NUMERO_ARCHIVOS_ADJUNTOS,
+				TO_CHAR(FECHA_REGISTRO, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO,
+		        ESTADO,
+		        NOMBRE_ESTADO,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO
+		
+		FROM 
+		      	SINADA.V_ACCIONES_REALIZADAS
+		WHERE
+				TIPO_TABLA_ACCION = #{tipoTablaAccion}
+		AND
+				ID_ACCION = #{idAccion}
+
+
+	</select>
+	
+	<select id="listarPorIdBandejaDetalle" resultMap="resultMapAccionesRealizadas" parameterType="AccionesRealizadas">
+		SELECT 
+				ROWNUM AS NUMERO_ITEM, 
+		        TIPO_TABLA_ACCION,
+		        NOMBRE_TABLA_ACCION,
+		        ID_ACCION,
+		        ID_BANDEJA_DETALLE,
+		        NOMBRE_ENTIDAD,
+		        ID_DENUNCIA,
+		        CODIGO_DENUNCIA,
+		        TIPO_ATENCION_ACCION,
+		        NOMBRE_TIPO_ATENCION_ACCION,
+		        MOTIVO_ACCION,
+		        NOMBRE_MOTIVO_ACCION,
+		        TIPO_ACCION,
+		        NOMBRE_TIPO_ACCION,
+		        TIPO_SUPERVICION,
+		        NOMBRE_TIPO_SUPERVICION,
+				TO_CHAR(FECHA_INICIO, 'dd-MM-YYYY') AS FECHA_INICIO,
+				TO_CHAR(FECHA_FIN, 'dd-MM-YYYY') AS FECHA_FIN,
+		        DESCRIPCION_ACCION,
+		        NUMERO_ARCHIVOS_ADJUNTOS,
+		        TO_CHAR(FECHA_REGISTRO, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO,
+		        ESTADO,
+		        NOMBRE_ESTADO,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO
+		
+		FROM 
+		      	SINADA.V_ACCIONES_REALIZADAS
+		WHERE
+				ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+				
+
+
+	</select>
+	
+	
+	
+	<select id="listarAccionesRealizadasPorEstados" resultMap="resultMapAccionesRealizadas" parameterType="AccionesRealizadas">
+		SELECT 
+				ROWNUM AS NUMERO_ITEM, 
+		        TIPO_TABLA_ACCION,
+		        NOMBRE_TABLA_ACCION,
+		        ID_ACCION,
+		        ID_BANDEJA_DETALLE,
+		        NOMBRE_ENTIDAD,
+		        ID_DENUNCIA,
+		        CODIGO_DENUNCIA,
+		        TIPO_ATENCION_ACCION,
+		        NOMBRE_TIPO_ATENCION_ACCION,
+		        MOTIVO_ACCION,
+		        NOMBRE_MOTIVO_ACCION,
+		        TIPO_ACCION,
+		        NOMBRE_TIPO_ACCION,
+		        TIPO_SUPERVICION,
+		        NOMBRE_TIPO_SUPERVICION,
+				TO_CHAR(FECHA_INICIO, 'dd-MM-YYYY') AS FECHA_INICIO,
+				TO_CHAR(FECHA_FIN, 'dd-MM-YYYY') AS FECHA_FIN,
+		        DESCRIPCION_ACCION,
+		        NUMERO_ARCHIVOS_ADJUNTOS,
+		        TO_CHAR(FECHA_REGISTRO, 'dd-MM-YYYY HH24:MI:SS') AS FECHA_REGISTRO,
+		        ESTADO,
+		        NOMBRE_ESTADO,
+		        HOJA_TRAMITE,
+		        DESCRIPCION_MOTIVO,
+		        GETNUMERODIASHABILES(FECHA_REGISTRO) AS DIAS_HAB_TRANS_ACC
+		
+		FROM 
+		      	SINADA.V_ACCIONES_REALIZADAS
+		WHERE
+				ID_BANDEJA_DETALLE = #{idBandejaDetalle}
+		AND
+				TIPO_ATENCION_ACCION = #{tipoAtencionAccion}
+		AND
+				ESTADO = #{estado}
+				
+
+
+	</select>
+
+	
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>

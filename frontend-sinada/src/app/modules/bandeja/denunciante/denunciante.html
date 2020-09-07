@@ -1,0 +1,184 @@
+<section class="AccesoRestrigido" ng-if="!$parent.validarOpcion('Denunciante') && $parent.cargandoInformacion==0">
+  <div class="col-md-12">
+    <div class="base-bg error-bg">
+      <div class="center-block">
+          
+          <img class="img-responsive m-auto" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMjU2cHgiIGhlaWdodD0iMjU2cHgiPgo8cGF0aCBzdHlsZT0iZmlsbDojRTlFQkYyOyIgZD0iTTQyNS44NDcsNDIyLjcwMUgzMC43ODFDMTMuNzgxLDQyMi43MDEsMCw0MDguOTIsMCwzOTEuOTJWNzguMTcxYzAtMTcsMTMuNzgxLTMwLjc4MSwzMC43ODEtMzAuNzgxICBoMzk1LjA2NmMxNywwLDMwLjc4MSwxMy43ODEsMzAuNzgxLDMwLjc4MVYzOTEuOTJDNDU2LjYyOCw0MDguOTE5LDQ0Mi44NDcsNDIyLjcwMSw0MjUuODQ3LDQyMi43MDF6Ii8+CjxwYXRoIHN0eWxlPSJmaWxsOiMwMEFBRjA7IiBkPSJNNDU2LjYyOCwxMjEuNDFWNzguMTcxYzAtMTctMTMuNzgxLTMwLjc4MS0zMC43ODEtMzAuNzgxSDMwLjc4MUMxMy43ODEsNDcuMzksMCw2MS4xNzEsMCw3OC4xNzEgIHY0My4yMzloNDU0LjU0M0M0NTQuNTQzLDEyMS40MSw0NTYuNjI4LDEyMS40MSw0NTYuNjI4LDEyMS40MXoiLz4KPHBhdGggc3R5bGU9ImZpbGw6IzAwNzZDRTsiIGQ9Ik0yODguNzgxLDkzLjAyN0gxNTMuMjUyYy00LjQ3NywwLTguMTA2LTMuNjI5LTguMTA2LTguMTA2czMuNjI5LTguMTA2LDguMTA2LTguMTA2aDEzNS41MjkgIGM0LjQ3NywwLDguMTA2LDMuNjI5LDguMTA2LDguMTA2UzI5My4yNTgsOTMuMDI3LDI4OC43ODEsOTMuMDI3eiIvPgo8Y2lyY2xlIHN0eWxlPSJmaWxsOiM1MzUxNUU7IiBjeD0iNDAuNjU5IiBjeT0iODQuOTIiIHI9IjkuNzM5Ii8+CjxjaXJjbGUgc3R5bGU9ImZpbGw6I0ZGREM2NDsiIGN4PSI3OC4xOSIgY3k9Ijg0LjkyIiByPSI5LjczOSIvPgo8Y2lyY2xlIHN0eWxlPSJmaWxsOiM4NkU1NkU7IiBjeD0iMTEzLjY0IiBjeT0iODQuOTIiIHI9IjkuNzM5Ii8+CjxjaXJjbGUgc3R5bGU9ImZpbGw6IzUzNTE1RTsiIGN4PSI0MTcuMDEiIGN5PSI4NC45MiIgcj0iOS43MzkiLz4KPHBhdGggc3R5bGU9ImZpbGw6I0M3Q0FEMzsiIGQ9Ik0xODIuMjEyLDMzNS4wNmwtMTQuMTc2LTEuNzg3Yy0yLjQ4NS04Ljc4Ni01Ljk4MS0xNy4xNDYtMTAuMzQ2LTI0Ljk1NWw4Ljc4Mi0xMS4yOSAgYzQuNC01LjY1NSwzLjg5OS0xMy43MDItMS4xNjgtMTguNzY4bC0yMi41MjQtMjIuNTI0Yy01LjA2Mi01LjA2Mi0xMy4xLTUuNTY3LTE4Ljc1Ni0xLjE3OGwtMTEuMzE3LDguNzgzICBjLTcuNzY3LTQuMzM5LTE2LjA3OC03LjgyMi0yNC44MTEtMTAuMzAybC0xLjc3NC0xNC4xOTVjLTAuODg4LTcuMTA5LTYuOTMyLTEyLjQ0NS0xNC4wOTctMTIuNDQ1SDQwLjE3MyAgYy03LjE1OSwwLTEzLjIsNS4zMjctMTQuMDk1LDEyLjQzbC0xLjc4NywxNC4xNzZDMTUuNzUxLDI1NS40Miw3LjYyLDI1OC43OTcsMCwyNjIuOTkxdjYxLjI0NiAgYzEyLjYwMy0xNy4yODgsMzIuOTk4LTI4LjUzMSw1Ni4wMjktMjguNTMxYzM4LjI3NywwLDY5LjMwNiwzMS4wMjksNjkuMzA2LDY5LjMwNmMwLDI0LjA2OS0xMi4yNzQsNDUuMjY0LTMwLjg5OCw1Ny42ODloNjQuMDQ2ICBsLTAuNzg0LTEuMDFjNC4zMzktNy43NjcsNy44MjEtMTYuMDc4LDEwLjMwMi0yNC44MTFsMTQuMTk1LTEuNzc0YzcuMTA5LTAuODg4LDEyLjQ0NS02LjkzMiwxMi40NDUtMTQuMDk3di0zMS44NTMgIEMxOTQuNjQyLDM0MS45OTYsMTg5LjMxNSwzMzUuOTU2LDE4Mi4yMTIsMzM1LjA2eiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojQjBCNkMxOyIgZD0iTTk0LjQzNyw0MjIuNzAxaDMwLjY0M2MxMy4xMjQtMTUuOTMyLDIxLjAwNy0zNi4zNDMsMjEuMDA3LTU4LjU5NiAgYzAtNTAuOTM0LTQxLjI5MS05Mi4yMjUtOTIuMjI1LTkyLjIyNWMtMjAuMTEyLDAtMzguNzA1LDYuNDU3LTUzLjg2MiwxNy4zODV2MzQuOTcyYzEyLjYwMy0xNy4yODgsMzIuOTk4LTI4LjUzMSw1Ni4wMjktMjguNTMxICBjMzguMjc3LDAsNjkuMzA2LDMxLjAyOSw2OS4zMDYsNjkuMzA2QzEyNS4zMzUsMzg5LjA4LDExMy4wNjIsNDEwLjI3Niw5NC40MzcsNDIyLjcwMXoiLz4KPHBhdGggc3R5bGU9ImZpbGw6I0RGRTJFQTsiIGQ9Ik0yNDYuODM5LDE1My4xOGMtMjIuMzUzLDAtNDAuNDczLDE4LjEyMS00MC40NzMsNDAuNDc0djIyOS4wNDdoMjE5LjQ4MSAgYzE3LDAsMzAuNzgxLTEzLjc4MSwzMC43ODEtMzAuNzgxVjE1My4xOEgyNDYuODM5eiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRkZEQzY0OyIgZD0iTTQ3Ni45NSw0NjQuNjFIMjYzLjM2NGMtMTkuMzU4LDAtMzUuMDUtMTUuNjkyLTM1LjA1LTM1LjA1VjIxMC41OTQgIGMwLTE5LjM1OCwxNS42OTItMzUuMDUsMzUuMDUtMzUuMDVINDc2Ljk1YzE5LjM1OCwwLDM1LjA1LDE1LjY5MiwzNS4wNSwzNS4wNVY0MjkuNTZDNTEyLDQ0OC45MTgsNDk2LjMwOCw0NjQuNjEsNDc2Ljk1LDQ2NC42MXoiLz4KPHBhdGggc3R5bGU9ImZpbGw6I0ZGQzg1MDsiIGQ9Ik00NzYuOTUsMTc1LjU0NGgtMjAuNTMydjgyLjExN2MwLDg0LjQ1NS02OC40NjQsMTUyLjkxOS0xNTIuOTE5LDE1Mi45MTloLTc1LjE4NXYxOC45NzkgIGMwLDE5LjM1OCwxNS42OTIsMzUuMDUsMzUuMDUsMzUuMDVINDc2Ljk1YzE5LjM1OCwwLDM1LjA1LTE1LjY5MiwzNS4wNS0zNS4wNVYyMTAuNTk0QzUxMiwxOTEuMjM3LDQ5Ni4zMDgsMTc1LjU0NCw0NzYuOTUsMTc1LjU0NHogICIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRkY2QjVDOyIgZD0iTTI5Ni40MTQsMzgyLjk2MmgxMzcuNTEyYzUuNzU2LDAsOS4zODMtNi4xOTcsNi41NjQtMTEuMjE1bC02OS40NTItMTIzLjYzMiAgYy0yLjg5MS01LjE0Ny0xMC4zMTItNS4xMTUtMTMuMTU4LDAuMDU3bC02OC4wNiwxMjMuNjMyQzI4Ny4wNTcsMzc2LjgyLDI5MC42ODcsMzgyLjk2MiwyOTYuNDE0LDM4Mi45NjJ6Ii8+CjxwYXRoIHN0eWxlPSJmaWxsOiNGRjU0NTA7IiBkPSJNNDQwLjQ5LDM3MS43NDZsLTY5LjQ1Mi0xMjMuNjMyYy0yLjg5MS01LjE0Ny0xMC4zMTItNS4xMTUtMTMuMTU5LDAuMDU3bC0zLjQ3OCw2LjMxOGw4LjY1OSwxNS40MTQgIGMyNS4yMzUsNDQuOTItNy4yMjksMTAwLjM5Mi01OC43NTIsMTAwLjM5MmgtMTMuNjU5bC0wLjgzLDEuNTA4Yy0yLjc2Miw1LjAxNywwLjg2OCwxMS4xNTksNi41OTUsMTEuMTU5aDEzNy41MTIgIEM0MzkuNjgyLDM4Mi45NjIsNDQzLjMwOSwzNzYuNzY1LDQ0MC40OSwzNzEuNzQ2eiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTM1Ny41NTcsMzUzLjQyYzAtMi4xNjgsMC43OTUtNC4wMTYsMi4zODUtNS41NDFzMy41NzktMi4yODgsNS45NjUtMi4yODggIGMyLjAxNSwwLDMuNzUyLDAuNzgsNS4yMTYsMi4zMzhjMS40NjEsMS41NiwyLjE5MywzLjM5LDIuMTkzLDUuNDljMCwyLjEwMi0wLjczMiwzLjkzMi0yLjE5Myw1LjQ5ICBjLTEuNDY0LDEuNTYtMy4yMDEsMi4zMzgtNS4yMTYsMi4zMzhjLTIuMzEzLDAtNC4yODItMC43NzgtNS45MDktMi4zMzhDMzU4LjM3MSwzNTcuMzUxLDM1Ny41NTcsMzU1LjUyMSwzNTcuNTU3LDM1My40MnogICBNMzU3Ljg2MywyOTIuNTJjMC0xLjg5NywwLjc0MS0zLjQwNiwyLjIyNy00LjUyNHMzLjM4OS0xLjY3Nyw1LjcwOC0xLjY3N2MyLjAxMSwwLDMuNjgzLDAuNTU5LDUuMDE0LDEuNjc3ICBzMS45OTYsMi42MjcsMS45OTYsNC41MjRjMCw0LjA2Ni0wLjEwMiwxMS4wMTUtMC4zMDUsMjAuODQyYy0wLjIwMyw5LjgyOS0wLjMwNSwxNi43NDItMC4zMDUsMjAuNzQgIGMwLDEuNDIzLTAuNjgyLDIuNTI2LTIuMDQxLDMuMzA0Yy0xLjM2MiwwLjc4LTIuODE1LDEuMTY5LTQuMzU5LDEuMTY5Yy00LjM0MiwwLTYuNTEyLTEuNDktNi41MTItNC40NzQgIGMwLTMuOTk4LTAuMjM4LTEwLjkxMi0wLjcxMi0yMC43NEMzNTguMDk5LDMwMy41MzUsMzU3Ljg2MywyOTYuNTg3LDM1Ny44NjMsMjkyLjUyeiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" width="180" />
+          <h2 class="title-acc-rest">Aviso!!</h2>
+          <p>Esta aplicación es de uso exclusivo para el usuario denunciante, usted no cuenta con el perfil asignado. </p>
+          <img src="./assets/images/oefa_logo-gris.png" alt="" class="img-responsive m-auto">
+        <!-- <a class="btn btn-primary btn-sm" ui-sref="mtp.home">Volver al inicio</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<div class="col-md-12 sin_padding pag-panel" ng-if="$parent.validarOpcion('Denunciante')">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="title-slider-nt">
+          <span>Bandeja para denunciante</span>
+        </h3>
+        <span class="nav_bread">
+          <ol class="breadcrumb">
+            <li class="active">Bandeja de denuncias</li>
+          </ol>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+            <div class="panel panel-tab-app with-nav-tabs panel-default">
+                <ul class="nav nav-tabs" >
+                  <li ng-class="{ 'active' : vm.itemTabActivo == 1 }"  ng-click="vm.itemTabActivo = 1">
+                      <a class="spapp-link">Datos de denuncia</a>
+                  </li>
+<!--                   <li ng-class="{ 'active' : vm.itemTabActivo == 2 }"  ng-click="vm.itemTabActivo = 2"> -->
+<!--                       <a class="spapp-link">Cronológico</a> -->
+<!--                   </li> -->
+                  <!--
+                     <li ng-class="{ 'active' : vm.itemTabActivo == 3 }" ng-click="vm.itemTabActivo = 3">
+                        <a class="spapp-link">Entidad</a>
+                     </li>
+                     -->
+<!--                      <li ng-class="{ 'active' : vm.itemTabActivo == 4 }" ng-click="vm.itemTabActivo = 4"> -->
+<!--                         <a class="spapp-link">Problemática de la Denuncia</a> -->
+<!--                      </li> -->
+
+<!--                      <li ng-class="{ 'active' : vm.itemTabActivo == 5 }" ng-click="vm.itemTabActivo = 5"> -->
+<!--                         <a class="spapp-link">Ubigeo</a> -->
+<!--                      </li> -->
+                </ul>
+              <div class="panel-body">
+                  <div class="row" ng-show="vm.itemTabActivo == 1" ng-include="'app/modules/bandeja/denunciante/filtros/filtro-datos-denuncia.html'">
+                  </div>
+                  <div class="row" ng-show="vm.itemTabActivo == 2" ng-include="'app/modules/bandeja/denunciante/filtros/filtro-cronologico.html'">
+                  </div>
+                  <!--
+                  <div class="row" ng-show="vm.itemTabActivo == 3" ng-include="'app/modules/bandeja/asignacion/filtros/filtro-entidad.html'">
+                  </div>-->
+                  <div class="row" ng-show="vm.itemTabActivo == 4" ng-include="'app/modules/bandeja/denunciante/filtros/filtro-problematica.html'">
+                  </div>
+
+                  <div class="row" ng-show="vm.itemTabActivo == 5" ng-include="'app/modules/bandeja/denunciante/filtros/filtro-ubigeo.html'">
+                  </div>
+               </div>
+            </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 text-right">
+        <button type="button" ng-click="vm.limpiar()" class="btn btn-flat btn-default btn-primary btn-sm btn-pd-5 btn-br-in" uib-tooltip="Limpiar Filtros" >
+                  <span class="icon-limpiar spac-btn-r"></span> Limpiar
+              </button>
+              <button type="button" id="btnRef_recurso" ng-click="vm.buscar()"   uib-tooltip="Buscar"  class="btn btn-flat btn-primary btn-sm btn-pd-5 btn-br-in">
+                  <span class="icon-buscar spac-btn-r"></span> Buscar
+              </button>
+               <a class="btn btn-flat btn-primary-inv btn-sm btn-pd-5 btn-br-in" ng-click="vm.irARegistroDenuncia()" uib-tooltip="Nueva Denuncia">
+                  <span class="icon-nuevo spac-btn-r"></span> Registrar nueva denuncia
+              </a>
+
+<!--               <a uib-tooltip="Exportar a Excel" ng-show="vm.listaDenunciante!= null && vm.listaDenunciante.length>0" class="btn btn-sm btn-default btn-export-xsl" href="{{vm.rutaBase}}bandeja/exportar-excel" download="denuncia.xls" style="font-size: 11px"> -->
+<!--                <span class="icon-exportar-excel" style="font-size:16px;margin-right: 5px"></span> -->
+<!--               Exportar EXCEL -->
+<!--               </a> -->
+
+      </div>
+    </div>
+
+
+      <div class="row">
+        <div class="col-sm-2 col-md-2 col-xs-4 col-lg-1">
+          <div class="form-group">
+            <label for="cantidadPaginas">P&aacute;ginas</label>
+            <select id="cantidadPaginas" ng-model="vm.opcionesPaginacion.itemsPorPag" name="cantidadPaginas" class="form-control input-sm">
+                <option ng-value="item.numero" ng-repeat="item in lstNumeroPagina">{{item.numero}}</option>
+              </select>
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="row">
+        <div class="col-md-2">
+          <label for="cantidadPaginas">Páginas</label>
+          <select id="cantidadPaginas" name="cantidadPaginas" class="form-control input-sm">
+            <option ng-value="itemPag*1">1</option>
+          </select>
+          </div>
+        </div>-->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-rpv">
+            <table id="listaProductos" class="table table-hover table-bordered table-striped table-app" cellspacing="0" width="100%" bgcolor="#d0c9c9">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-center">C&oacute;digo</th>
+                  <th scope="col" class="text-center">Recepci&oacute;n</th>
+                  <th scope="col" class="text-center">Registro</th>
+                  <th scope="col" class="text-center">Tiempo transcurrido</th>
+                  <th scope="col" class="text-center">&Uacute;ltima acci&oacute;n</th>
+                  <th scope="col" class="text-center">Historial</th>
+                  <th scope="col" class="text-center">Ficha</th>
+                  <th scope="col" class="text-center">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-class="{'texto-pendiente':item.estadoDenuncia==1 || item.estadoDenuncia==2 || item.estadoDenuncia==5 || item.estadoDenuncia==6 || item.estadoDenuncia==3 || item.estadoDenuncia==9,
+                            
+                            'texto-estado-individual-atentido':item.estadoDenuncia==8,
+                          
+                            'texto-estado-individual-archivado':item.estadoDenuncia==4
+                            }"  ng-show="vm.listaDenunciante == null || vm.listaDenunciante"
+                	 dir-paginate="item in vm.listaDenunciante | itemsPerPage : vm.opcionesPaginacion.itemsPorPag" >
+                  <td data-label="C&oacute;digo" class="text-center">{{item.codigoDenuncia}}</td>
+                  <td data-label="Recepci&oacute;n" class="text-center">{{item.nombreMedioRecepcion}}</td>
+                  <td data-label="Registro" class="text-center">{{item.fechaRegistroDenuncia}}</td>
+                  <td data-label="Tiempo transcurrido" class="text-center">{{item.tiempoTranscurrido}}</td>
+                  <td data-label="Ultima acci&oacute;n" class="text-center">{{item.fechaUltimaAccion}}</td>
+                  <td data-label="Historial" class="text-center">
+  					       <button type="button" class="btn btn-default btn-sm" uib-tooltip="Historial" ng-click="vm.verHistorialDenunciante(item)">
+                      <span class=" fa fa-history"></span>
+                    </button>
+  				        </td>
+                  <td data-label="Ficha" class="text-center">
+
+                        <button type="button" class="btn btn-default btn-sm" uib-tooltip="Ficha de denuncia" ng-click="vm.verFichaDenuncia(item)">
+                         <span class="icon-ficha"></span>
+                      </button>
+
+                      <button type="button" class="btn btn-default btn-sm" uib-tooltip="Realizar Encuesta" ng-if="item.validaEncuestaDenunciante==0 && (item.estadoDenuncia==8 || item.estadoDenuncia==4)" ng-click="vm.mostrarModalEncuestaRevision(item)">
+                         <span class="glyphicon glyphicon-list-alt"></span>
+                      </button>
+
+
+                  </td>
+
+                  <td data-label="Estado" class="text-center">
+                    <span ng-if="item.estadoDenuncia!=9">{{item.nombreEstadoDenuncia}}</span>
+                    <span ng-if="item.estadoDenuncia==9">Pendiente</span>
+                  </td>
+                </tr>
+                <tr ng-show="vm.listaDenunciante == null || vm.listaDenunciante.length==0">
+                  <td colspan="8" style="text-align: text-left">No se encontraron resultados</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="text-center">
+          <dir-pagination-controls boundary-links="true" ></dir-pagination-controls>
+        </div>
+      </div>
+  </div>

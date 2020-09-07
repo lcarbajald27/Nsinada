@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- Tabla : SINADA.T_GENM_CONTACTO -->
+<mapper namespace="contactoPersona">
+	<resultMap id="resultMapContactoPersona" type="ContactoPersona">
+	
+		<id 	column="ID_CONTACTO_PERSONA" 	property="idContactoPersona" />
+		<result column="TIPO_CONTACTO" 			property="tipoContacto" />
+		<result column="VALOR" 					property="valor" />
+		<result column="TIPO_PERSONA" 			property="tipoPersona" />
+		<result column="ID_PERSONA" 			property="idPersona" />
+		<result column="ESTADO" 				property="estado" />
+		<result column="FLAG_ACTIVO" 			property="flagActivo" />
+		<result column="NOMBRE_TIPO_CONTACTO" 	property="nombreTipoContacto" />
+
+	</resultMap>
+
+	<select id="listar" resultMap="resultMapContactoPersona"
+		parameterType="ContactoPersona">
+		
+	SELECT 
+			      PERCON.ID_CONTACTO_PERSONA,
+			      PERCON.TIPO_CONTACTO,
+			      PERCON.VALOR,
+			      PERCON.TIPO_PERSONA,
+			      PERCON.ID_PERSONA,
+			      PERCON.ESTADO,
+			      PERCON.FLAG_ACTIVO,
+	          	  TCON.DESCRIPCION as NOMBRE_TIPO_CONTACTO
+		FROM
+		      	SINADA.T_GENM_CONTACTO_PERSONA PERCON
+    INNER JOIN 
+    			SINADA.T_GENL_MAESTRO TCON ON 
+    			PERCON.TIPO_CONTACTO =TCON.CODIGO_REGISTRO
+    	AND
+   				TCON.CODIGO_MAESTRO='TipoContactoPersona'
+		WHERE 
+		      	PERCON.TIPO_PERSONA = #{tipoPersona}
+		AND
+		      	PERCON.ID_PERSONA = #{idPersona}
+		AND
+			  	PERCON.FLAG_ACTIVO='1'
+	</select>
+
+	<select id="buscarPorId" resultMap="resultMapContactoPersona"
+		parameterType="long">
+		SELECT 
+		      ID_CONTACTO_PERSONA,
+		      TIPO_CONTACTO,
+		      VALOR,
+		      TIPO_PERSONA,
+		      ID_PERSONA,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM
+		      SINADA.T_GENM_CONTACTO_PERSONA 
+		WHERE 
+		      ID_CONTACTO_PERSONA = #{idContactoPersona}
+	    AND
+			  FLAG_ACTIVO='1'
+		
+	</select>
+	
+		<select id="validarContacto" resultMap="resultMapContactoPersona"
+		parameterType="ContactoPersona">
+		
+		SELECT 
+		      ID_CONTACTO_PERSONA,
+		      TIPO_CONTACTO,
+		      VALOR,
+		      TIPO_PERSONA,
+		      ID_PERSONA,
+		      ESTADO,
+		      FLAG_ACTIVO
+		FROM
+		      SINADA.T_GENM_CONTACTO_PERSONA 
+		WHERE 
+		      UPPER(VALOR) = UPPER(#{valor,jdbcType=VARCHAR})
+	    AND
+			  FLAG_ACTIVO='1'
+		
+	</select>
+	
+	<insert id="agregar" parameterType="ContactoPersona" useGeneratedKeys="true">
+		<selectKey keyProperty="idContactoPersona" resultType="long"
+			order="BEFORE">
+			SELECT SINADA.SEC_GENM_ID_CONTACTO_PERSONA.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO SINADA.T_GENM_CONTACTO_PERSONA
+		(
+			  ID_CONTACTO_PERSONA,
+		      TIPO_CONTACTO,
+		      VALOR,
+		      TIPO_PERSONA,
+		      ID_PERSONA,
+		      ESTADO,
+		      FLAG_ACTIVO
+		)
+		VALUES
+		(
+		#{idContactoPersona},
+		#{tipoContacto},
+		#{valor},
+		#{tipoPersona},
+		#{idPersona},
+		#{estado},
+		'1'
+		)
+	</insert>
+	<update id="modificar" parameterType="ContactoPersona">
+		UPDATE SINADA.T_GENM_CONTACTO_PERSONA
+		SET
+
+			TIPO_CONTACTO = #{tipoContacto},
+			VALOR = #{valor}
+		WHERE
+			FLAG_ACTIVO = 1
+		AND 
+			ID_CONTACTO_PERSONA = #{idContactoPersona}
+	</update>
+	<update id="eliminar" parameterType="long">
+		UPDATE SINADA.T_GENM_CONTACTO_PERSONA
+		SET
+		FLAG_ACTIVO = 0
+		WHERE
+		FLAG_ACTIVO = 1
+		AND ID_CONTACTO_PERSONA = #{idContactoPersona}
+	</update>
+
+	<!-- <select id="buscarPorRuc" resultMap="resultMapContacto" parameterType="String"> 
+		SELECT ID_CONTACTO, ID_EFA, TM1_TIPO_CONTACTO, DOCUMENTO, FLAG_ACTIVO FROM 
+		SINADA.T_GENM_CONTACTO WHERE FLAG_ACTIVO = 1 AND TM1_TIPO_CONTACTO = #{ruc} </select> -->
+
+</mapper>
